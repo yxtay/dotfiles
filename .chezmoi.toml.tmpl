@@ -1,0 +1,10 @@
+{{- $codespaces:= env "CODESPACES" | not | not -}}
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
+[data]
+    name = "yuxuantay"
+    email = "5795122+yxtay@users.noreply.github.com"
+    codespaces = {{ $codespaces }}
+
+[git]
+    autoCommit = true
