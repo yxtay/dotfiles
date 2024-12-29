@@ -1,6 +1,11 @@
 [commit]
   verbose = true
 
+{{- if lookPath "delta" }}
+[core]
+  pager = "delta"
+{{- end }}
+
 [credential "https://gist.github.com"]
   helper = "gh auth git-credential"
 
@@ -38,6 +43,11 @@
 [init]
   defaultbranch = "main"
 
+{{- if lookPath "delta" }}
+[interactive]
+  diffFilter = "delta --color-only"
+{{- end }}
+
 [log]
   date = "human"
 
@@ -72,8 +82,8 @@
 [transfer]
   fsckobjects = true
 
-[url "git@github.com:yxtay"]
-  pushInsteadOf = "https://github.com/yxtay"
+[url "git@github.com:{{ .name }}"]
+  pushInsteadOf = "https://github.com/{{ .name }}"
 
 [user]
 	email = {{ .email | quote }}
