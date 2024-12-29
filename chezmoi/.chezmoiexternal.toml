@@ -1,9 +1,3 @@
-["{{ .zim_home }}"]
-type = "archive"
-url = "https://github.com/zimfw/zimfw/archive/master.tar.gz"
-stripComponents = 1
-refreshPeriod = "168h"
-
 [".config/git/alias"]
 type = "file"
 url = "https://raw.githubusercontent.com/GitAlias/gitalias/refs/heads/main/gitalias.txt"
