@@ -1,0 +1,83 @@
+[commit]
+  verbose = true
+
+[credential "https://gist.github.com"]
+  helper = "gh auth git-credential"
+
+[credential "https://github.com"]
+  helper = "gh auth git-credential"
+
+[delta]
+  dark = true
+  hyperlinks = true
+  line-numbers = true
+  navigate = true
+  side-by-side = true
+  syntax-theme = "Dracula"
+
+[diff]
+  algorithm = "histogram"
+  colorMoved = "default"
+  renames = "copies"
+  submodule = "log"
+
+[fetch]
+  fsckobjects = true
+  prune = true
+  prunetags = true
+
+[filter "lfs"]
+  clean = "git-lfs clean -- %f"
+  process = "git-lfs filter-process"
+  required = true
+  smudge = "git-lfs smudge -- %f"
+
+[help]
+  autocorrect = 20
+
+[init]
+  defaultbranch = "main"
+
+[log]
+  date = "human"
+
+[merge]
+  conflictstyle = "zdiff3"
+
+[pull]
+  rebase = true
+
+[push]
+  autosetupremote = true
+  default = "current"
+  followtags = true
+
+[rebase]
+  autosquash = true
+  autostash = true
+
+[receive]
+  fsckobjects = true
+
+[rerere]
+  autoupdate = true
+  enabled = true
+
+[status]
+  submodulesummary = true
+
+[submodule]
+  recurse = true
+
+[transfer]
+  fsckobjects = true
+
+[url "git@github.com:yxtay"]
+  pushInsteadOf = "https://github.com/yxtay"
+
+[user]
+	email = {{ .email | quote }}
+	name = {{ .name | quote }}
+
+[include]
+  path = "{{ .chezmoi.homeDir }}/.config/git/alias"
