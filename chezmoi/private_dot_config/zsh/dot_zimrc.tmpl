@@ -8,6 +8,8 @@
 # Modules
 #
 
+${ZDOTDIR}/.zshenv
+
 # Sets sane Zsh built-in environment options.
 zmodule environment
 # Provides handy git aliases and functions.
@@ -46,6 +48,7 @@ zmodule completion
 
 {{- if lookPath "fzf" }}
 zmodule Aloxaf/fzf-tab
+zmodule wfxr/forgit
 {{- end }}
 zmodule MichaelAquilina/zsh-you-should-use
 
