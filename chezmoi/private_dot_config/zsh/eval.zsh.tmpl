@@ -1,0 +1,31 @@
+# evals
+source ${ZIM_HOME}/modules/zsh-defer/zsh-defer.plugin.zsh
+source ${ZIM_HOME}/modules/zsh-smartcache/zsh-smartcache.plugin.zsh
+
+{{- if lookPath "brew" }}
+zsh-defer smartcache eval brew shellenv
+{{- end }}
+{{- if lookPath "direnv" }}
+zsh-defer smartcache eval direnv hook zsh
+{{- end }}
+{{- if lookPath "fzf" }}
+zsh-defer smartcache eval fzf --zsh
+{{- end }}
+{{- if lookPath "mcfly" }}
+zsh-defer smartcache eval mcfly init zsh
+{{- end }}
+{{- if lookPath "mcfly-fzf" }}
+zsh-defer smartcache eval mcfly-fzf init zsh
+{{- end }}
+{{- if lookPath "mise" }}
+zsh-defer smartcache eval mise activate zsh
+{{- end }}
+{{- if lookPath "starship" }}
+zsh-defer smartcache eval starship init zsh
+{{- end }}
+{{- if lookPath "thefuck" }}
+zsh-defer smartcache eval thefuck --alias
+{{- end }}
+{{- if lookPath "zoxide" }}
+zsh-defer smartcache eval zoxide init zsh
+{{- end }}
