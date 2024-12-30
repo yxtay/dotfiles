@@ -5,10 +5,30 @@
 #
 
 #
-# Modules
+# Modules that must be initialized first
 #
 
-${ZDOTDIR}/.zshenv
+# environment
+zmodule ${ZDOTDIR} --source env.zsh
+# module configurations
+zmodule ${ZDOTDIR} --source style.zsh
+# simplifies compinit
+zmodule mattmc3/ez-compinit
+
+#
+# Prompt
+#
+
+# Exposes to prompts how long the last command took to execute, used by asciiship.
+zmodule duration-info
+# Exposes git repository status information to prompts, used by asciiship.
+zmodule git-info
+# A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
+zmodule asciiship
+
+#
+# Modules
+#
 
 # Sets sane Zsh built-in environment options.
 zmodule environment
@@ -21,16 +41,15 @@ zmodule termtitle
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility
 
-#
-# Prompt
-#
-
-# Exposes to prompts how long the last command took to execute, used by asciiship.
-zmodule duration-info
-# Exposes git repository status information to prompts, used by asciiship.
-zmodule git-info
-# A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
-zmodule asciiship
+{{ if lookPath "fzf" -}}
+# fzf related
+zmodule Aloxaf/fzf-tab --if-command fzf
+zmodule wfxr/forgit --if-command fzf
+{{ end -}}
+# use aliases
+zmodule MichaelAquilina/zsh-you-should-use
+# benchmark
+zmodule romkatv/zsh-bench --use git
 
 #
 # Completion
@@ -45,12 +64,6 @@ zmodule completion
 #
 # Modules that must be initialized last
 #
-
-{{- if lookPath "fzf" }}
-zmodule Aloxaf/fzf-tab
-zmodule wfxr/forgit
-{{- end }}
-zmodule MichaelAquilina/zsh-you-should-use
 
 # Fish-like syntax highlighting for Zsh.
 # zsh-users/zsh-syntax-highlighting must be sourced after completion
