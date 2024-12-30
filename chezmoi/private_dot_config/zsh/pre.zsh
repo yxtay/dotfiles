@@ -20,20 +20,6 @@ setopt CORRECT
 # --------------------
 
 #
-# git
-#
-
-# Set a custom prefix for the generated aliases. The default prefix is 'G'.
-# zstyle ':zim:git' aliases-prefix 'g'
-
-#
-# input
-#
-
-# Append `../` to your input for each `.` you type after an initial `..`
-# zstyle ':zim:input' double-dot-expand yes
-
-#
 # termtitle
 #
 

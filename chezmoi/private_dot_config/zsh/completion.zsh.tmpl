@@ -1,8 +1,14 @@
 # eval and completion
 source ${ZIM_HOME}/modules/zsh-smartcache/zsh-smartcache.plugin.zsh
 
+{{- if lookPath "brew" }}
+smartcache eval brew shellenv
+{{- end }}
 {{- if lookPath "chezmoi" }}
 smartcache comp chezmoi completion zsh
+{{- end }}
+{{- if lookPath "databricks" }}
+smartcache comp databricks completion zsh
 {{- end }}
 {{- if lookPath "direnv" }}
 smartcache eval direnv hook zsh
@@ -12,6 +18,9 @@ smartcache eval fzf --zsh
 {{- end }}
 {{- if lookPath "gh" }}
 smartcache comp gh completion -s zsh
+{{- end }}
+{{- if lookPath "kubectl" }}
+smartcache comp kubectl completion zsh
 {{- end }}
 {{- if lookPath "mcfly" }}
 smartcache eval mcfly init zsh
