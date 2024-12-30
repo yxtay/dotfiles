@@ -8,11 +8,9 @@
 # Modules that must be initialized first
 #
 
-# environment
-zmodule ${ZDOTDIR} --source env.zsh
-# module configurations
-zmodule ${ZDOTDIR} --source style.zsh
-# simplifies compinit
+# pre init
+zmodule ${ZDOTDIR} --source pre.zsh
+# simplifies compinit order
 zmodule mattmc3/ez-compinit
 
 #
@@ -75,3 +73,5 @@ zmodule zsh-users/zsh-history-substring-search
 # Fish-like autosuggestions for Zsh.
 zmodule zsh-users/zsh-autosuggestions
 # End configuration added by Zim install
+# post init
+zmodule ${ZDOTDIR} --source post.zsh
