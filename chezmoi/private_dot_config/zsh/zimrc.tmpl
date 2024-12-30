@@ -53,8 +53,6 @@ zmodule wfxr/forgit --if-command fzf
 {{- end }}
 # use aliases
 zmodule MichaelAquilina/zsh-you-should-use
-# zsh-defer for evals
-zmodule romkatv/zsh-defer
 # benchmark
 zmodule romkatv/zsh-bench --use git
 
@@ -62,9 +60,6 @@ zmodule romkatv/zsh-bench --use git
 # Completion
 #
 
-# smart eval and completion cache
-zmodule QuarticCat/zsh-smartcache
-zmodule ${ZDOTDIR} --source completion.zsh
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions --fpath src
 # Enables and configures smart and extensive tab completion.
@@ -90,5 +85,8 @@ zmodule zsh-users/zsh-history-substring-search
 # autosuggestions, must be last plugin
 zmodule zsh-users/zsh-autosuggestions
 # End configuration added by Zim install
-# evals
+
+# defer smart eval
+zmodule romkatv/zsh-defer
+zmodule QuarticCat/zsh-smartcache
 zmodule ${ZDOTDIR} --source eval.zsh
