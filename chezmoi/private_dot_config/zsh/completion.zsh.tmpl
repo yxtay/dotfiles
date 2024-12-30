@@ -1,0 +1,42 @@
+# eval and completion
+source ${ZIM_HOME}/modules/zsh-smartcache/zsh-smartcache.plugin.zsh
+
+{{- if lookPath "chezmoi" }}
+smartcache comp chezmoi completion zsh
+{{- end }}
+{{- if lookPath "direnv" }}
+smartcache eval direnv hook zsh
+{{- end }}
+{{- if lookPath "fzf" }}
+smartcache eval fzf --zsh
+{{- end }}
+{{- if lookPath "gh" }}
+smartcache comp gh completion -s zsh
+{{- end }}
+{{- if lookPath "mcfly" }}
+smartcache eval mcfly init zsh
+{{- end }}
+{{- if lookPath "mcfly-fzf" }}
+smartcache eval mcfly-fzf init zsh
+{{- end }}
+{{- if lookPath "mise" }}
+smartcache eval mise activate zsh
+{{- end }}
+{{- if lookPath "poetry" }}
+smartcache comp poetry completions zsh
+{{- end }}
+{{- if lookPath "rustup" }}
+smartcache comp rustup completions zsh
+{{- end }}
+{{- if lookPath "starship" }}
+smartcache eval starship init zsh
+{{- end }}
+{{- if lookPath "thefuck" }}
+smartcache eval thefuck --alias
+{{- end }}
+{{- if lookPath "uv" }}
+smartcache comp uv generate-shell-completion zsh
+{{- end }}
+{{- if lookPath "zoxide" }}
+smartcache eval zoxide init zsh
+{{- end }}
