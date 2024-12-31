@@ -2,6 +2,9 @@
 {{- if lookPath "brew" }}
 smartcache eval brew shellenv
 {{- end }}
+{{- if lookPath "chezmoi" }}
+smartcache comp chezmoi completion zsh
+{{- end }}
 {{- if lookPath "direnv" }}
 smartcache eval direnv hook zsh
 {{- end }}

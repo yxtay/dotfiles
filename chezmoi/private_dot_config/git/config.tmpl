@@ -6,11 +6,15 @@
   pager = "delta"
 {{- end }}
 
+{{- if lookPath "gh" }}
 [credential "https://gist.github.com"]
   helper = "gh auth git-credential"
+{{- end }}
 
+{{- if lookPath "gh" }}
 [credential "https://github.com"]
   helper = "gh auth git-credential"
+{{- end }}
 
 [delta]
   dark = true
