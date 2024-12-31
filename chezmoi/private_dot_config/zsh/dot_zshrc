@@ -39,8 +39,8 @@ source ${ZIM_HOME}/init.zsh
 # Post-init module configuration
 # ------------------------------
 
-source ${ZDOTDIR}/post.zsh
-zsh-defer ${ZDOTDIR}/functions.zsh
-zsh-defer ${ZDOTDIR}/evals.zsh
+zsh-defer source ${ZDOTDIR}/post.zsh
+zsh-defer source ${ZDOTDIR}/functions.zsh
+zsh-defer source ${ZDOTDIR}/evals.zsh
 
 [[ -v ZPROF ]] && zprof
