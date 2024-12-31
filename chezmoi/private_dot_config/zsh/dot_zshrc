@@ -1,3 +1,5 @@
+[[ -v ZPROF ]] && zmodload zsh/zprof
+
 # Start configuration added by Zim install
 #
 # User configuration sourced by interactive shells
@@ -38,3 +40,7 @@ source ${ZIM_HOME}/init.zsh
 # ------------------------------
 
 source ${ZDOTDIR}/post.zsh
+zsh-defer ${ZDOTDIR}/functions.zsh
+zsh-defer ${ZDOTDIR}/evals.zsh
+
+[[ -v ZPROF ]] && zprof
