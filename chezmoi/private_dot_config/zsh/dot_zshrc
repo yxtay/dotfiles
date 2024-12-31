@@ -5,12 +5,7 @@
 # User configuration sourced by interactive shells
 #
 
-# -----------------
-# Zim configuration
-# -----------------
-
-# Use degit instead of git as the default tool to install and update modules.
-zstyle ':zim:zmodule' use 'degit'
+source ${ZDOTDIR}/pre.zsh
 
 # ------------------
 # Initialize modules

@@ -1,6 +1,9 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal",
+  "image": "ubuntu",
   "runArgs": ["--platform=linux/x86_64"],
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils": {}
+  },
   // Configure tool-specific properties.
   "customizations": {
     // Configure properties specific to VS Code.

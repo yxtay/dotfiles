@@ -1,0 +1,6 @@
+# smartcache completions
+source ${ZIM_HOME}/modules/zsh-smartcache/zsh-smartcache.plugin.zsh
+
+{{- if lookPath "chezmoi" }}
+smartcache comp chezmoi completion zsh
+{{- end }}

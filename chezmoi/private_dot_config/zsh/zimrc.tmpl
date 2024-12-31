@@ -8,8 +8,6 @@
 # Modules that must be initialized first
 #
 
-# pre init
-zmodule ${ZDOTDIR} --source pre.zsh
 # simplifies compinit order
 zmodule mattmc3/ez-compinit
 
@@ -55,6 +53,9 @@ zmodule wfxr/forgit --if-command fzf
 zmodule MichaelAquilina/zsh-you-should-use
 # benchmark
 zmodule romkatv/zsh-bench --use git
+# defer smart eval
+zmodule romkatv/zsh-defer
+zmodule yxtay/zsh-smartcache
 
 #
 # Completion
@@ -62,6 +63,7 @@ zmodule romkatv/zsh-bench --use git
 
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions --fpath src
+zmodule ${ZDOTDIR} --source completions.zsh
 # Enables and configures smart and extensive tab completion.
 # completion must be sourced after all modules that add completion definitions.
 zmodule completion
@@ -76,16 +78,11 @@ zmodule zshzoo/compstyle
 zmodule Aloxaf/fzf-tab --if-command fzf
 {{- end }}
 # Fish-like syntax highlighting for Zsh.
-# zsh-users/zsh-syntax-highlighting must be sourced after completion
+# syntax-highlighting must be sourced after completion
 # zmodule zsh-users/zsh-syntax-highlighting
 zmodule zdharma-continuum/fast-syntax-highlighting
-# history search, must be after highlighting
-# zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
+# history-substring-search must be sourced after syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
-# autosuggestions, must be last plugin
+# autosuggestions, must be last for ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 zmodule zsh-users/zsh-autosuggestions
 # End configuration added by Zim install
-
-# defer smart eval
-zmodule romkatv/zsh-defer
-zmodule QuarticCat/zsh-smartcache
