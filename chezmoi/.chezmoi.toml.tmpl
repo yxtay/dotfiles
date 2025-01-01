@@ -1,11 +1,13 @@
-{{- $codespaces:= env "CODESPACES" | not | not -}}
+{{ $ephemeral := or (env "CODESPACES") (env "REMOTE_CONTAINERS") (eq .chezmoi.username "codespaces" "devcontainer" "root" "ubuntu" "vagrant" "vscode") }}
+{{ $headless := not stdinIsATTY }}
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data]
     name = "yxtay"
     email = "5795122+yxtay@users.noreply.github.com"
-    codespaces = {{ $codespaces }}
+    is_ephemeral = {{ $ephemeral }}
+    is_headless = {{ $headless }}
 
 [git]
     autoCommit = true

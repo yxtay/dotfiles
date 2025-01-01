@@ -1,3 +1,4 @@
+{{- if .is_ephemeral }}
 [".config/git/alias"]
   type = "file"
   url = "https://raw.githubusercontent.com/GitAlias/gitalias/refs/heads/main/gitalias.txt"
@@ -7,9 +8,18 @@
   type = "file"
 {{- if eq .chezmoi.os "darwin" }}
   url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/macOS.gitignore"
-{{- else if eq .chezmoi.os "linux" }}
-  url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Linux.gitignore"
 {{- else if eq .chezmoi.os "windows" }}
   url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Windows.gitignore"
+{{- else }}
+  url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Linux.gitignore"
 {{- end }}
   refreshPeriod = "168h"
+{{- end }}
+
+{{- if not (lookPath "fzf") }}
+[".local/bin/fzf"]
+  type = "archive-file"
+  url = {{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf*%s*%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}
+  path = "fzf"
+  refreshPeriod = "168h"
+{{- end }}

@@ -44,10 +44,9 @@ zmodule utility
 zmodule git
 # use aliases
 zmodule MichaelAquilina/zsh-you-should-use
-{{ if lookPath "fzf" -}}
 # fzf related
+zmodule junegunn/fzf-git.sh --source fzf-git.sh --if-command fzf
 zmodule wfxr/forgit --if-command fzf
-{{- end }}
 # benchmark
 zmodule romkatv/zsh-bench --use git
 # defer smart eval
@@ -69,10 +68,8 @@ zmodule zshzoo/compstyle
 # Modules that must be initialized last
 #
 
-{{ if lookPath "fzf" -}}
 # fzf-tab, after completion, before syntax highlighting
 zmodule Aloxaf/fzf-tab --if-command fzf
-{{- end }}
 # Fish-like syntax highlighting for Zsh.
 # syntax-highlighting must be sourced after completion
 # zmodule zsh-users/zsh-syntax-highlighting

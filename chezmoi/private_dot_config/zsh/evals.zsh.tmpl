@@ -1,31 +1,12 @@
 # smartcache evals
-{{- if lookPath "brew" }}
-smartcache eval brew shellenv
-{{- end }}
-{{- if lookPath "chezmoi" }}
-smartcache comp chezmoi completion zsh
-{{- end }}
-{{- if lookPath "direnv" }}
-smartcache eval direnv hook zsh
-{{- end }}
-{{- if lookPath "fzf" }}
-smartcache eval fzf --zsh
-{{- end }}
-{{- if lookPath "mcfly" }}
-smartcache eval mcfly init zsh
-{{- end }}
-{{- if lookPath "mcfly-fzf" }}
-smartcache eval mcfly-fzf init zsh
-{{- end }}
-{{- if lookPath "mise" }}
-smartcache eval mise activate zsh
-{{- end }}
-{{- if lookPath "starship" }}
-smartcache eval starship init zsh
-{{- end }}
-{{- if lookPath "thefuck" }}
-smartcache eval thefuck --alias
-{{- end }}
-{{- if lookPath "zoxide" }}
-smartcache eval zoxide init zsh
-{{- end }}
+
+[[ command -v brew ]] && smartcache eval brew shellenv
+[[ command -v chezmoi ]] && smartcache comp chezmoi completion zsh
+[[ command -v direnv ]] && smartcache eval direnv hook zsh
+[[ command -v fzf ]] && smartcache eval fzf --zsh
+[[ command -v mcfly ]] && smartcache eval mcfly init zsh
+[[ command -v mcfly-fzf ]] && smartcache eval mcfly-fzf init zsh
+[[ command -v mise ]] && smartcache eval mise activate zsh
+[[ command -v starship ]] && smartcache eval starship init zsh
+[[ command -v thefuck ]] && smartcache eval thefuck --alias
+[[ command -v zoxide ]] && smartcache eval zoxide init zsh
