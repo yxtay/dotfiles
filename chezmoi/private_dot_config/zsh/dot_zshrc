@@ -11,7 +11,7 @@ source ${ZDOTDIR}/pre.zsh
 # Initialize modules
 # ------------------
 
-ZIM_HOME=${ZDOTDIR:-${HOME}}/zim
+ZIM_HOME=${XDG_CONFIG_HOME:-${HOME}}/zim
 ZIM_CONFIG_FILE=${ZDOTDIR:-${HOME}}/zimrc
 # Download zimfw plugin manager if missing.
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then

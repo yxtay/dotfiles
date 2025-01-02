@@ -1,7 +1,7 @@
 {{- if .is_ephemeral }}
 [".config/git/alias"]
   type = "file"
-  url = "https://raw.githubusercontent.com/GitAlias/gitalias/refs/heads/main/gitalias.txt"
+  url = "https://github.com/GitAlias/gitalias/raw/main/gitalias.txt"
   refreshPeriod = "168h"
 {{- end }}
 
@@ -9,16 +9,16 @@
 [".config/git/ignore"]
   type = "file"
 {{- if eq .chezmoi.os "darwin" }}
-  url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/macOS.gitignore"
+  url = "https://github.com/github/gitignore/raw/main/Global/macOS.gitignore"
 {{- else if eq .chezmoi.os "windows" }}
-  url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Windows.gitignore"
+  url = "https://github.com/github/gitignore/raw/main/Global/Windows.gitignore"
 {{- else }}
-  url = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Linux.gitignore"
+  url = "https://github.com/github/gitignore/raw/main/Global/Linux.gitignore"
 {{- end }}
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if and .is_ephemeral (not .is_minimal) (lookPath "bat" | not) }}
+{{- if and .is_ephemeral (not .is_minimal) }}
 {{ $url := gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "bat-*-%s-*-%s-gnu.tar.gz" .arch .chezmoi.os) }}
 [".local/bin/bat"]
   type = "archive-file"
@@ -28,7 +28,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if and .is_ephemeral (not .is_minimal) (lookPath "delta" | not) }}
+{{- if and .is_ephemeral (not .is_minimal) }}
 {{ $url := gitHubLatestReleaseAssetURL "dandavison/delta" (printf "delta-*-%s-%s.tar.gz" .arch .os) }}
 [".local/bin/delta"]
   type = "archive-file"
@@ -38,7 +38,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if and .is_ephemeral (not .is_minimal) (lookPath "eza" | not) }}
+{{- if and .is_ephemeral (not .is_minimal) }}
 [".local/bin/eza"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "eza-community/eza" (printf "eza_%s-%s.zip" .arch .os ) }}"
@@ -47,7 +47,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if and .is_ephemeral (not .is_minimal) (lookPath "fd" | not) }}
+{{- if and .is_ephemeral (not .is_minimal) }}
 {{ $url := gitHubLatestReleaseAssetURL "sharkdp/fd" (printf "fd-*-%s-%s.tar.gz" .arch .os ) }}
 [".local/bin/fd"]
   type = "archive-file"
@@ -57,7 +57,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if and .is_ephemeral (lookPath "fzf" | not) }}
+{{- if and .is_ephemeral }}
 [".local/bin/fzf"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch ) }}"
@@ -66,7 +66,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if and .is_ephemeral (not .is_minimal) (lookPath "zoxide" | not) }}
+{{- if and .is_ephemeral (not .is_minimal) }}
 [".local/bin/zoxide"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os ) }}"

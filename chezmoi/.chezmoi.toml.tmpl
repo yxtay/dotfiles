@@ -1,5 +1,5 @@
 {{ $ephemeral := or (env "CODESPACES") (env "REMOTE_CONTAINERS") (eq .chezmoi.username "codespaces" "devcontainer" "root" "ubuntu" "vagrant" "vscode") }}
-{{ $interactive := not stdinIsATTY }}
+{{ $interactive := stdinIsATTY }}
 {{ $minimal := true }}
 
 {{ $arch := "x86_64" }}
