@@ -1,13 +1,31 @@
 {{ $ephemeral := or (env "CODESPACES") (env "REMOTE_CONTAINERS") (eq .chezmoi.username "codespaces" "devcontainer" "root" "ubuntu" "vagrant" "vscode") }}
-{{ $headless := not stdinIsATTY }}
+{{ $interactive := not stdinIsATTY }}
+{{ $minimal := true }}
+
+{{ $arch := "x86_64" }}
+{{ if eq .chezmoi.arch "arm64" }}
+{{ $arch = "aarch64" }}
+{{ else if eq .chezmoi.arch "386" }}
+{{ $arch = "i686" }}
+{{ end }}
+
+{{ $os := "unknown-linux-gnu" }}
+{{ if eq .chezmoi.os "darwin" }}
+{{ $os = "apple-darin" }}
+{{ else if eq .chezmoi.os "windows" }}
+{{ $os = "pc-windows-msvc" }}
+{{ end }}
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data]
     name = "yxtay"
     email = "5795122+yxtay@users.noreply.github.com"
+    arch = "{{ $arch }}"
+    os = "{{ $os }}"
     is_ephemeral = {{ $ephemeral }}
-    is_headless = {{ $headless }}
+    is_interactive = {{ $interactive }}
+    is_minimal = {{ $minimal }}
 
 [git]
     autoCommit = true

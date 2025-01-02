@@ -3,7 +3,9 @@
   type = "file"
   url = "https://raw.githubusercontent.com/GitAlias/gitalias/refs/heads/main/gitalias.txt"
   refreshPeriod = "168h"
+{{- end }}
 
+{{- if .is_ephemeral }}
 [".config/git/ignore"]
   type = "file"
 {{- if eq .chezmoi.os "darwin" }}
@@ -16,10 +18,59 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if not (lookPath "fzf") }}
+{{- if and .is_ephemeral (not .is_minimal) (lookPath "bat" | not) }}
+{{ $url := gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "bat-*-%s-*-%s-gnu.tar.gz" .arch .chezmoi.os) }}
+[".local/bin/bat"]
+  type = "archive-file"
+  url = "{{ $url }}"
+  path = "{{ $url | base | trimSuffix ".tar.gz" }}/bat"
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
+
+{{- if and .is_ephemeral (not .is_minimal) (lookPath "delta" | not) }}
+{{ $url := gitHubLatestReleaseAssetURL "dandavison/delta" (printf "delta-*-%s-%s.tar.gz" .arch .os) }}
+[".local/bin/delta"]
+  type = "archive-file"
+  url = "{{ $url }}"
+  path = "{{ $url | base | trimSuffix ".tar.gz" }}/delta"
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
+
+{{- if and .is_ephemeral (not .is_minimal) (lookPath "eza" | not) }}
+[".local/bin/eza"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "eza-community/eza" (printf "eza_%s-%s.zip" .arch .os ) }}"
+  path = "eza"
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
+
+{{- if and .is_ephemeral (not .is_minimal) (lookPath "fd" | not) }}
+{{ $url := gitHubLatestReleaseAssetURL "sharkdp/fd" (printf "fd-*-%s-%s.tar.gz" .arch .os ) }}
+[".local/bin/fd"]
+  type = "archive-file"
+  url = "{{ $url }}"
+  path = "{{ $url | base | trimSuffix ".tar.gz" }}/fd"
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
+
+{{- if and .is_ephemeral (lookPath "fzf" | not) }}
 [".local/bin/fzf"]
   type = "archive-file"
-  url = {{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf*%s*%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}
+  url = "{{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch ) }}"
   path = "fzf"
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
+
+{{- if and .is_ephemeral (not .is_minimal) (lookPath "zoxide" | not) }}
+[".local/bin/zoxide"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os ) }}"
+  path = "zoxide"
+  executable = true
   refreshPeriod = "168h"
 {{- end }}
