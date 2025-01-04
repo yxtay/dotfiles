@@ -1,5 +1,5 @@
 {
-  "image": "ubuntu",
+  "image": "debian",
   "runArgs": ["--platform=linux/x86_64"],
   "features": {
     "ghcr.io/devcontainers/features/common-utils": {}

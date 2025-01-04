@@ -7,10 +7,10 @@
 #
 
 # Set editor default keymap to emacs (`-e`) or vi (`-v`)
-bindkey -e
+# bindkey -e
 
 # Prompt for spelling correction of commands.
-setopt CORRECT
+# setopt CORRECT
 
 # Customize spelling correction prompt.
 # SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
