@@ -27,8 +27,8 @@ zmodule sorin-ionescu/prezto --root modules/history
 zmodule sorin-ionescu/prezto --root modules/directory
 zmodule sorin-ionescu/prezto --root modules/spectrum
 zmodule sorin-ionescu/prezto --root modules/archive
-zmodule sorin-ionescu/prezto --root modules/docker
-zmodule sorin-ionescu/prezto --root modules/tmux
+zmodule sorin-ionescu/prezto --root modules/docker --if-command docker
+zmodule sorin-ionescu/prezto --root modules/tmux --if-command tmux
 # Sets sane Zsh built-in environment options.
 zmodule environment
 # Applies correct bindkeys for input events.
@@ -39,11 +39,18 @@ zmodule termtitle
 zmodule utility
 # Provides handy git aliases and functions.
 zmodule git
+zmodule magic-enter
+zmodule run-help
 # use aliases
 zmodule MichaelAquilina/zsh-you-should-use
 # fzf related
+zmodule fzf --if-command fzf
 zmodule junegunn/fzf-git.sh --source fzf-git.sh --if-command fzf
 zmodule wfxr/forgit --if-command fzf
+# other command utilities
+zmodule exa --if-command eza
+zmodule k --if-command kubectl
+zmodule homebrew --if-command brew
 # benchmark
 zmodule romkatv/zsh-bench --use git
 # defer smart eval
