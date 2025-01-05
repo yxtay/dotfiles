@@ -36,12 +36,7 @@ zstyle ':prezto:load' pmodule \
   'history' \
   'directory' \
   'spectrum' \
-  'gnu-utility' \
-  'utility' \
-  'archive' \
-  'docker' \
-  'git' \
-  'tmux'
+  'utility'
 
 #
 # Autosuggestions

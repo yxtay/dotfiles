@@ -20,18 +20,25 @@ zmodule romkatv/powerlevel10k
 # Modules
 #
 
-# prezto, uses .zpreztorc
-zmodule sorin-ionescu/prezto
+# prezto
+zmodule sorin-ionescu/prezto --root modules/terminal
+zmodule sorin-ionescu/prezto --root modules/editor
+zmodule sorin-ionescu/prezto --root modules/history
+zmodule sorin-ionescu/prezto --root modules/directory
+zmodule sorin-ionescu/prezto --root modules/spectrum
+zmodule sorin-ionescu/prezto --root modules/archive
+zmodule sorin-ionescu/prezto --root modules/docker
+zmodule sorin-ionescu/prezto --root modules/tmux
 # Sets sane Zsh built-in environment options.
-# zmodule environment
+zmodule environment
 # Applies correct bindkeys for input events.
-# zmodule input
+zmodule input
 # Sets a custom terminal title.
-# zmodule termtitle
+zmodule termtitle
 # Utility aliases and functions. Adds colour to ls, grep and less.
-# zmodule utility
+zmodule utility
 # Provides handy git aliases and functions.
-# zmodule git
+zmodule git
 # use aliases
 zmodule MichaelAquilina/zsh-you-should-use
 # fzf related

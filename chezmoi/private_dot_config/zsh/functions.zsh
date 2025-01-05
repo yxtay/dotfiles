@@ -1,6 +1,6 @@
 # functions
 zsh_prof() {
-  time zsh -il -c exit
+  for i in $(seq 1 10); do time zsh -il -c exit; done
   time ZPROF=1 zsh -il -c exit
 }
 
