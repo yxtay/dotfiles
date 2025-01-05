@@ -1,4 +1,17 @@
+# profiling setup
+
 [[ -v ZPROF ]] && zmodload zsh/zprof
+
+if [[ -v SOURCETRACE ]]; then
+    PS4='%D{%S.%.} %N:%i> '
+    setopt sourcetrace prompt_subst
+fi
+
+if [[ -v XTRACE ]]; then
+    PS4='%D{%S.%.} %N:%i> '
+    exec 3>&2 2>/tmp/zsh_trace.$$
+    setopt xtrace prompt_subst
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -41,11 +54,21 @@ source ${ZIM_HOME}/init.zsh
 # Post-init module configuration
 # ------------------------------
 
-zsh-defer source ${ZDOTDIR}/post.zsh
 zsh-defer source ${ZDOTDIR}/functions.zsh
 zsh-defer source ${ZDOTDIR}/evals.zsh
+zsh-defer source ${ZDOTDIR}/post.zsh
 
 # To customize prompt, run `p10k configure` or edit ${ZDOTDIR}/.p10k.zsh.
 [[ ! -f ${ZDOTDIR}/.p10k.zsh ]] || source ${ZDOTDIR}/.p10k.zsh
+
+# profiling tear down
+
+[[ -v SOURCETRACE ]] && unsetopt sourcetrace
+
+if [[ -v XTRACE ]]; then
+  unsetopt xtrace
+  exec 2>&3 3>&-
+  echo "zsh xtrace: /tmp/zsh_trace.$$"
+fi
 
 [[ -v ZPROF ]] && zprof

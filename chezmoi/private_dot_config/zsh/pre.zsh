@@ -15,6 +15,8 @@
 # Customize spelling correction prompt.
 # SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 
+fpath+=(${XDG_CACHE_HOME}/zsh-smartcache)
+
 # -----------------
 # Zim configuration
 # -----------------
