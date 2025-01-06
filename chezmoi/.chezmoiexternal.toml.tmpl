@@ -26,7 +26,7 @@
 {{- if and .is_ephemeral (not .is_minimal) }}
 [".local/bin/bat"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "bat-*-%s-%s.tar.gz" .arch .os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "bat-*-%s-*-%s-gnu.tar.gz" .arch .chezmoi.os) }}"
   path = "bat"
   stripComponents = 1
   executable = true
@@ -74,7 +74,7 @@
 {{- if and .is_ephemeral (not .is_minimal) }}
 [".local/bin/rg"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "BurntSushi/ripgrep" (printf "ripgrep-*-%s-%s.tar.gz" .arch .os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "BurntSushi/ripgrep" (printf "ripgrep-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
   path = "rg"
   stripComponents = 1
   executable = true
@@ -84,7 +84,7 @@
 {{- if and .is_ephemeral (not .is_minimal) }}
 [".local/bin/zoxide"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-%s.tar.gz" .arch .os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
   path = "zoxide"
   executable = true
   refreshPeriod = "168h"
