@@ -9,7 +9,7 @@
 {{ $arch = "i686" }}
 {{ end }}
 
-{{ $os := "unknown-linux-gnu" }}
+{{ $os := "unknown-linux-musl" }}
 {{ if eq .chezmoi.os "darwin" }}
 {{ $os = "apple-darin" }}
 {{ else if eq .chezmoi.os "windows" }}
