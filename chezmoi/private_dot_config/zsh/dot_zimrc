@@ -8,7 +8,7 @@
 # Prompt
 #
 
-zmodule romkatv/powerlevel10k
+zmodule romkatv/powerlevel10k --if '[[ -z $1 ]]'
 # Exposes to prompts how long the last command took to execute, used by asciiship.
 # zmodule duration-info
 # Exposes git repository status information to prompts, used by asciiship.
@@ -21,65 +21,65 @@ zmodule romkatv/powerlevel10k
 #
 
 # prezto
-zmodule sorin-ionescu/prezto --root modules/terminal --disabled
-zmodule sorin-ionescu/prezto --root modules/editor
-zmodule sorin-ionescu/prezto --root modules/history
-zmodule sorin-ionescu/prezto --root modules/directory
-zmodule sorin-ionescu/prezto --root modules/spectrum --disabled
-zmodule sorin-ionescu/prezto --root modules/archive --disabled
-zmodule sorin-ionescu/prezto --root modules/docker --if-command docker --disabled
-zmodule sorin-ionescu/prezto --root modules/tmux --if-command tmux --disabled
+zmodule sorin-ionescu/prezto --root modules/terminal --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/editor --if '[[ -z $1 ]]'
+zmodule sorin-ionescu/prezto --root modules/history --if '[[ -z $1 ]]'
+zmodule sorin-ionescu/prezto --root modules/directory --if '[[ -z $1 ]]'
+zmodule sorin-ionescu/prezto --root modules/spectrum --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/archive --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/docker --if-command docker --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/tmux --if-command tmux --if '[[ $1 == "defer" ]]'
 # Sets sane Zsh built-in environment options.
-zmodule environment
+zmodule environment --if '[[ -z $1 ]]'
 # Applies correct bindkeys for input events.
-zmodule input --disabled
+zmodule input --if '[[ $1 == "defer" ]]'
 # Sets a custom terminal title.
-zmodule termtitle --disabled
+zmodule termtitle --if '[[ $1 == "defer" ]]'
 # Utility aliases and functions. Adds colour to ls, grep and less.
-zmodule utility --disabled
+zmodule utility --if '[[ $1 == "defer" ]]'
 # Provides handy git aliases and functions.
-zmodule git --disabled
-zmodule magic-enter --disabled
-zmodule run-help --disabled
+zmodule git --if '[[ $1 == "defer" ]]'
+zmodule magic-enter --if '[[ $1 == "defer" ]]'
+zmodule run-help --if '[[ $1 == "defer" ]]'
 # command utilities
-zmodule exa --if-command eza --disabled
-zmodule k --if-command kubectl --disabled
-zmodule homebrew --if-command brew --disabled
+zmodule exa --if-command eza --if '[[ $1 == "defer" ]]'
+zmodule k --if-command kubectl --if '[[ $1 == "defer" ]]'
+zmodule homebrew --if-command brew --if '[[ $1 == "defer" ]]'
 # fzf related
-zmodule junegunn/fzf-git.sh --source fzf-git.sh --if-command fzf --disabled
-zmodule wfxr/forgit --fpath completions --if-command fzf --disabled
+zmodule junegunn/fzf-git.sh --source fzf-git.sh --if-command fzf --if '[[ $1 == "defer" ]]'
+zmodule wfxr/forgit --fpath completions --source forgit.plugin.zsh --if-command fzf --if '[[ $1 == "defer" ]]'
 # use aliases
-zmodule MichaelAquilina/zsh-you-should-use --disabled
+zmodule MichaelAquilina/zsh-you-should-use --if '[[ $1 == "defer" ]]'
 # benchmark
-zmodule romkatv/zsh-bench --use git --disabled
+zmodule romkatv/zsh-bench --fpath . --if '[[ $1 == "defer" ]]'
 # defer smart eval
-zmodule romkatv/zsh-defer
-zmodule QuarticCat/zsh-smartcache --disabled
+zmodule romkatv/zsh-defer --if '[[ -z $1 ]]'
+zmodule QuarticCat/zsh-smartcache --fpath ${XDG_CACHE_HOME}/zsh-smartcache --source zsh-smartcache.plugin.zsh --if '[[ $1 == "defer" ]]'
 
 #
 # Completion
 #
 
 # Additional completion definitions for Zsh.
-zmodule zsh-users/zsh-completions --fpath src
+zmodule zsh-users/zsh-completions --fpath src --if '[[ -z $1 ]]'
 # Enables and configures smart and extensive tab completion.
 # completion must be sourced after all modules that add completion definitions.
-zmodule completion
-zmodule zshzoo/compstyle
+zmodule zshzoo/compstyle --if '[[ $1 == "defer" ]]'
+zmodule completion --if '[[ -z $1 ]]'
 
 #
 # Modules that must be initialized last
 #
 
 # fzf-tab, after completion, before syntax highlighting
-zmodule Aloxaf/fzf-tab --fpath lib --source fzf-tab.plugin.zsh --if-command fzf --disabled
-zmodule Freed-Wu/fzf-tab-source --if-command fzf --disabled
+zmodule Aloxaf/fzf-tab --fpath lib --source fzf-tab.plugin.zsh --if-command fzf --if '[[ $1 == "defer" ]]'
+zmodule Freed-Wu/fzf-tab-source --source fzf-tab-source.plugin.zsh --if-command fzf --if '[[ $1 == "defer" ]]'
 # Fish-like syntax highlighting for Zsh.
 # syntax-highlighting must be sourced after completion
 # zmodule zsh-users/zsh-syntax-highlighting
-zmodule zdharma-continuum/fast-syntax-highlighting --fpath . --source fast-syntax-highlighting.plugin.zsh --disabled
+zmodule zdharma-continuum/fast-syntax-highlighting --fpath . --source fast-syntax-highlighting.plugin.zsh --if '[[ $1 == "defer" ]]'
 # history-substring-search must be sourced after syntax-highlighting
-zmodule zsh-users/zsh-history-substring-search --disabled
+zmodule zsh-users/zsh-history-substring-search --if '[[ $1 == "defer" ]]'
 # autosuggestions, must be last for ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-zmodule zsh-users/zsh-autosuggestions --disabled
+zmodule zsh-users/zsh-autosuggestions --if '[[ $1 == "defer" ]]'
 # End configuration added by Zim install

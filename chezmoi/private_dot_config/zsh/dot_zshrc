@@ -47,16 +47,6 @@ if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} 
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
 
-fpath=(
-    ${ZIM_HOME}/modules/*/functions(N)
-    ${ZIM_HOME}/modules/*/completions(N)
-    ${ZIM_HOME}/modules/prezto/modules/archive/functions(N)
-    ${ZIM_HOME}/modules/fzf-tab/lib(N)
-    ${ZIM_HOME}/modules/fast-syntax-highlighting(N)
-    ${XDG_CACHE_HOME}/zsh-smartcache(N)
-    ${fpath}
-)
-
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
