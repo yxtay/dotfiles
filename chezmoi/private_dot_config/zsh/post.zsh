@@ -1,4 +1,9 @@
 source_files=(
+    ${ZIM_HOME}/modules/utility/init.zsh
+    ${ZIM_HOME}/modules/fzf/init.zsh
+    ${ZIM_HOME}/modules/zsh-you-should-use/zsh-you-should-use.plugin.zsh
+    ${ZIM_HOME}/modules/fzf-git.sh/fzf-git.sh
+    ${ZIM_HOME}/modules/forgit/forgit.plugin.zsh
     ${ZIM_HOME}/modules/fzf-tab-sources/fzf-tab-sources.plugin.zsh
     ${ZDOTDIR}/functions.zsh
     ${ZDOTDIR}/evals.zsh

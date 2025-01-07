@@ -8,6 +8,8 @@ path=(
 )
 
 fpath=(
+    ${ZIM_HOME}/modules/utility/functions
+    ${ZIM_HOME}/modules/forgit/completions
     ${XDG_CACHE_HOME}/zsh-smartcache
     ${fpath}
 )
