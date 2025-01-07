@@ -52,7 +52,7 @@ zmodule exa --if-command eza
 zmodule k --if-command kubectl
 zmodule homebrew --if-command brew
 # benchmark
-zmodule romkatv/zsh-bench --use git
+zmodule romkatv/zsh-bench --use git --disabled
 # defer smart eval
 zmodule romkatv/zsh-defer
 zmodule QuarticCat/zsh-smartcache
@@ -73,12 +73,12 @@ zmodule zshzoo/compstyle
 #
 
 # fzf-tab, after completion, before syntax highlighting
-zmodule Aloxaf/fzf-tab --if-command fzf
-zmodule Freed-Wu/fzf-tab-source --if-command fzf
+zmodule Aloxaf/fzf-tab --fpath lib --source fzf-tab.plugin.zsh --if-command fzf
+zmodule Freed-Wu/fzf-tab-source --if-command fzf --disabled
 # Fish-like syntax highlighting for Zsh.
 # syntax-highlighting must be sourced after completion
 # zmodule zsh-users/zsh-syntax-highlighting
-zmodule zdharma-continuum/fast-syntax-highlighting
+zmodule zdharma-continuum/fast-syntax-highlighting --fpath . --source fast-syntax-highlighting.plugin.zsh
 # history-substring-search must be sourced after syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
 # autosuggestions, must be last for ZSH_AUTOSUGGEST_MANUAL_REBIND=1
