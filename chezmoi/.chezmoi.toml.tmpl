@@ -16,11 +16,12 @@
 {{ $os = "pc-windows-msvc" }}
 {{ end }}
 
-sourceDir = {{ .chezmoi.sourceDir | quote }}
+sourceDir = "{{ .chezmoi.sourceDir }}"
 
 [data]
     name = "yxtay"
     email = "5795122+yxtay@users.noreply.github.com"
+    work_email = "139188417+daip-yxtay@users.noreply.github.com"
     arch = "{{ $arch }}"
     os = "{{ $os }}"
     is_ephemeral = {{ $ephemeral }}

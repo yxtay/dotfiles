@@ -1,0 +1,6 @@
+[url "git@github-work:"]
+  insteadOf = "git@github.com:"
+  pushInsteadOf = "https://github.com/"
+
+[user]
+  email = "{{ .work_email }}"

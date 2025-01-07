@@ -90,8 +90,11 @@
   pushInsteadOf = "https://github.com/{{ .name }}"
 
 [user]
-	email = {{ .email | quote }}
-	name = {{ .name | quote }}
+	email = "{{ .email }}"
+	name = "{{ .name }}"
+
+[includeIf "gitdir:~/work/"]
+  path = "~/.config/git/work_config"
 
 [include]
-  path = "{{ .chezmoi.homeDir }}/.config/git/alias"
+  path = "~/.config/git/alias"
