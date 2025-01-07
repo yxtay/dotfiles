@@ -21,41 +21,40 @@ zmodule romkatv/powerlevel10k
 #
 
 # prezto
-zmodule sorin-ionescu/prezto --root modules/terminal
+zmodule sorin-ionescu/prezto --root modules/terminal --disabled
 zmodule sorin-ionescu/prezto --root modules/editor
 zmodule sorin-ionescu/prezto --root modules/history
 zmodule sorin-ionescu/prezto --root modules/directory
-zmodule sorin-ionescu/prezto --root modules/spectrum
-zmodule sorin-ionescu/prezto --root modules/archive
-zmodule sorin-ionescu/prezto --root modules/docker --if-command docker
-zmodule sorin-ionescu/prezto --root modules/tmux --if-command tmux
+zmodule sorin-ionescu/prezto --root modules/spectrum --disabled
+zmodule sorin-ionescu/prezto --root modules/archive --disabled
+zmodule sorin-ionescu/prezto --root modules/docker --if-command docker --disabled
+zmodule sorin-ionescu/prezto --root modules/tmux --if-command tmux --disabled
 # Sets sane Zsh built-in environment options.
 zmodule environment
 # Applies correct bindkeys for input events.
-zmodule input
+zmodule input --disabled
 # Sets a custom terminal title.
-zmodule termtitle
+zmodule termtitle --disabled
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility --disabled
 # Provides handy git aliases and functions.
-zmodule git
-zmodule magic-enter
-zmodule run-help
-# use aliases
-zmodule MichaelAquilina/zsh-you-should-use --disabled
+zmodule git --disabled
+zmodule magic-enter --disabled
+zmodule run-help --disabled
+# command utilities
+zmodule exa --if-command eza --disabled
+zmodule k --if-command kubectl --disabled
+zmodule homebrew --if-command brew --disabled
 # fzf related
-zmodule fzf --if-command fzf --disabled
 zmodule junegunn/fzf-git.sh --source fzf-git.sh --if-command fzf --disabled
 zmodule wfxr/forgit --fpath completions --if-command fzf --disabled
-# other command utilities
-zmodule exa --if-command eza
-zmodule k --if-command kubectl
-zmodule homebrew --if-command brew
+# use aliases
+zmodule MichaelAquilina/zsh-you-should-use --disabled
 # benchmark
 zmodule romkatv/zsh-bench --use git --disabled
 # defer smart eval
 zmodule romkatv/zsh-defer
-zmodule QuarticCat/zsh-smartcache
+zmodule QuarticCat/zsh-smartcache --disabled
 
 #
 # Completion
@@ -73,14 +72,14 @@ zmodule zshzoo/compstyle
 #
 
 # fzf-tab, after completion, before syntax highlighting
-zmodule Aloxaf/fzf-tab --fpath lib --source fzf-tab.plugin.zsh --if-command fzf
+zmodule Aloxaf/fzf-tab --fpath lib --source fzf-tab.plugin.zsh --if-command fzf --disabled
 zmodule Freed-Wu/fzf-tab-source --if-command fzf --disabled
 # Fish-like syntax highlighting for Zsh.
 # syntax-highlighting must be sourced after completion
 # zmodule zsh-users/zsh-syntax-highlighting
-zmodule zdharma-continuum/fast-syntax-highlighting --fpath . --source fast-syntax-highlighting.plugin.zsh
+zmodule zdharma-continuum/fast-syntax-highlighting --fpath . --source fast-syntax-highlighting.plugin.zsh --disabled
 # history-substring-search must be sourced after syntax-highlighting
-zmodule zsh-users/zsh-history-substring-search
+zmodule zsh-users/zsh-history-substring-search --disabled
 # autosuggestions, must be last for ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-autosuggestions --disabled
 # End configuration added by Zim install

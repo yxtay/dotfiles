@@ -25,14 +25,13 @@ fi
 # User configuration sourced by interactive shells
 #
 
-ZIM_HOME=${XDG_CONFIG_HOME:-${HOME}}/zim
 source ${ZDOTDIR}/pre.zsh
 
 # ------------------
 # Initialize modules
 # ------------------
 
-ZIM_CONFIG_FILE=${ZDOTDIR:-${HOME}}/zimrc
+ZIM_HOME=${XDG_CONFIG_HOME:-${HOME}}/zim
 # Download zimfw plugin manager if missing.
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
   if (( ${+commands[curl]} )); then
@@ -47,6 +46,17 @@ fi
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
+
+fpath=(
+    ${ZIM_HOME}/modules/*/functions(N)
+    ${ZIM_HOME}/modules/*/completions(N)
+    ${ZIM_HOME}/modules/prezto/modules/archive/functions(N)
+    ${ZIM_HOME}/modules/fzf-tab/lib(N)
+    ${ZIM_HOME}/modules/fast-syntax-highlighting(N)
+    ${XDG_CACHE_HOME}/zsh-smartcache(N)
+    ${fpath}
+)
+
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 

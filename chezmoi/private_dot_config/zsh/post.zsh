@@ -1,15 +1,32 @@
 source_files=(
+    ${ZIM_HOME}/modules/prezto/modules/terminal/init.zsh
+    ${ZIM_HOME}/modules/prezto/modules/spectrum/init.zsh
+    ${ZIM_HOME}/modules/prezto/modules/archive/init.zsh
+    ${ZIM_HOME}/modules/prezto/modules/docker/init.zsh
+    ${ZIM_HOME}/modules/prezto/modules/tmux/init.zsh
+    ${ZIM_HOME}/modules/input/init.zsh
+    ${ZIM_HOME}/modules/termtitle/init.zsh
     ${ZIM_HOME}/modules/utility/init.zsh
-    ${ZIM_HOME}/modules/fzf/init.zsh
-    ${ZIM_HOME}/modules/zsh-you-should-use/zsh-you-should-use.plugin.zsh
+    ${ZIM_HOME}/modules/git/init.zsh
+    ${ZIM_HOME}/modules/magic-enter/init.zsh
+    ${ZIM_HOME}/modules/run-help/init.zsh
+    ${ZIM_HOME}/modules/exa/init.zsh
+    ${ZIM_HOME}/modules/k/init.zsh
+    ${ZIM_HOME}/modules/homebrew/init.zsh
     ${ZIM_HOME}/modules/fzf-git.sh/fzf-git.sh
     ${ZIM_HOME}/modules/forgit/forgit.plugin.zsh
+    ${ZIM_HOME}/modules/zsh-you-should-use/zsh-you-should-use.plugin.zsh
+    ${ZIM_HOME}/modules/zsh-smartcache/zsh-smartcache.plugin.zsh
+    ${ZIM_HOME}/modules/fzf-tab/fzf-tab.plugin.zsh
     ${ZIM_HOME}/modules/fzf-tab-sources/fzf-tab-sources.plugin.zsh
+    ${ZIM_HOME}/modules/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+    ${ZIM_HOME}/modules/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
+    ${ZIM_HOME}/modules/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
     ${ZDOTDIR}/functions.zsh
     ${ZDOTDIR}/evals.zsh
 )
 for file in $source_files; do
-    [[ -f $file ]] && source $file;
+    source $file;
 done
 
 # ------------------------------
