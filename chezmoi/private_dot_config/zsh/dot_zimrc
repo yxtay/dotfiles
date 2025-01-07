@@ -27,8 +27,8 @@ zmodule sorin-ionescu/prezto --root modules/history --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/directory --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/spectrum --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/archive --if '[[ $1 == "defer" ]]'
-zmodule sorin-ionescu/prezto --root modules/docker --if-command docker --if '[[ $1 == "defer" ]]'
-zmodule sorin-ionescu/prezto --root modules/tmux --if-command tmux --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/docker --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/tmux --if '[[ $1 == "defer" ]]'
 # Sets sane Zsh built-in environment options.
 zmodule environment --if '[[ -z $1 ]]'
 # Applies correct bindkeys for input events.
@@ -42,18 +42,18 @@ zmodule git --if '[[ $1 == "defer" ]]'
 zmodule magic-enter --if '[[ $1 == "defer" ]]'
 zmodule run-help --if '[[ $1 == "defer" ]]'
 # command utilities
-zmodule exa --if-command eza --if '[[ $1 == "defer" ]]'
-zmodule k --if-command kubectl --if '[[ $1 == "defer" ]]'
-zmodule homebrew --if-command brew --if '[[ $1 == "defer" ]]'
+zmodule exa --if '[[ $1 == "defer" ]]'
+zmodule k --if '[[ $1 == "defer" ]]'
+zmodule homebrew --if '[[ $1 == "defer" ]]'
 # fzf related
-zmodule junegunn/fzf-git.sh --source fzf-git.sh --if-command fzf --if '[[ $1 == "defer" ]]'
-zmodule wfxr/forgit --fpath completions --source forgit.plugin.zsh --if-command fzf --if '[[ $1 == "defer" ]]'
+zmodule junegunn/fzf-git.sh --name fzf-git --if '[[ $1 == "defer" ]]'
+zmodule wfxr/forgit --fpath completions --source forgit.plugin.zsh --if '[[ $1 == "defer" ]]'
 # use aliases
 zmodule MichaelAquilina/zsh-you-should-use --if '[[ $1 == "defer" ]]'
 # benchmark
 zmodule romkatv/zsh-bench --fpath . --if '[[ $1 == "defer" ]]'
 # defer smart eval
-zmodule romkatv/zsh-defer --if '[[ -z $1 ]]'
+zmodule romkatv/zsh-defer --fpath . --autoload zsh-defer --if '[[ -z $1 ]]'
 zmodule QuarticCat/zsh-smartcache --fpath ${XDG_CACHE_HOME}/zsh-smartcache --source zsh-smartcache.plugin.zsh --if '[[ $1 == "defer" ]]'
 
 #
@@ -72,7 +72,7 @@ zmodule completion --if '[[ -z $1 ]]'
 #
 
 # fzf-tab, after completion, before syntax highlighting
-zmodule Aloxaf/fzf-tab --fpath lib --source fzf-tab.plugin.zsh --if-command fzf --if '[[ $1 == "defer" ]]'
+zmodule Aloxaf/fzf-tab --if-command fzf --if '[[ $1 == "defer" ]]'
 zmodule Freed-Wu/fzf-tab-source --source fzf-tab-source.plugin.zsh --if-command fzf --if '[[ $1 == "defer" ]]'
 # Fish-like syntax highlighting for Zsh.
 # syntax-highlighting must be sourced after completion
@@ -83,3 +83,4 @@ zmodule zsh-users/zsh-history-substring-search --if '[[ $1 == "defer" ]]'
 # autosuggestions, must be last for ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 zmodule zsh-users/zsh-autosuggestions --if '[[ $1 == "defer" ]]'
 # End configuration added by Zim install
+zmodule ${ZDOTDIR} --if '[[ $1 == "defer" ]]'

@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+time SOURCETRACE=1 zsh -il -c exit

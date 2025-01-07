@@ -1,7 +1,6 @@
 source ${ZIM_HOME}/init.zsh defer
 
 source_files=(
-    ${ZDOTDIR}/functions.zsh
     ${ZDOTDIR}/evals.zsh
 )
 for file in $source_files; do
