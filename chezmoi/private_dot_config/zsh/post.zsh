@@ -1,3 +1,12 @@
+source_files=(
+    ${ZIM_HOME}/modules/fzf-tab-sources/fzf-tab-sources.plugin.zsh
+    ${ZDOTDIR}/functions.zsh
+    ${ZDOTDIR}/evals.zsh
+)
+for file in $source_files; do
+    [[ -f $file ]] && source $file;
+done
+
 # ------------------------------
 # Post-init module configuration
 # ------------------------------

@@ -54,8 +54,6 @@ source ${ZIM_HOME}/init.zsh
 # Post-init module configuration
 # ------------------------------
 
-zsh-defer source ${ZDOTDIR}/functions.zsh
-zsh-defer source ${ZDOTDIR}/evals.zsh
 zsh-defer source ${ZDOTDIR}/post.zsh
 
 # To customize prompt, run `p10k configure` or edit ${ZDOTDIR}/.p10k.zsh.
