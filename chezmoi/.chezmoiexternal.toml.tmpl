@@ -82,6 +82,24 @@
 {{- end }}
 
 {{- if and .is_ephemeral (not .is_minimal) }}
+[".local/bin/uv"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "astral-sh/uv" (printf "uv-%s-%s.tar.gz" .arch .os) }}"
+  path = "uv"
+  stripComponents = 1
+  executable = true
+  refreshPeriod = "168h"
+
+[".local/bin/uvx"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "astral-sh/uv" (printf "uv-%s-%s.tar.gz" .arch .os) }}"
+  path = "uvx"
+  stripComponents = 1
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
+
+{{- if and .is_ephemeral (not .is_minimal) }}
 [".local/bin/zoxide"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
