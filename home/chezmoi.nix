@@ -7,6 +7,9 @@
   home.packages = [pkgs.chezmoi];
 
   home.activation.chezmoi = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    [[ ! -v DRY_RUN ]] && ${pkgs.chezmoi}/bin/chezmoi apply
+    if [[ ! -v DRY_RUN ]]; then
+      [[ $(${pkgs.chezmoi}/bin/chezmoi state data) == "null" ]] && args="--init --source ${self}"
+      ${pkgs.chezmoi}/bin/chezmoi apply ''${args:-}
+    fi
   '';
 }
