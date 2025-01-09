@@ -184,38 +184,6 @@
         "type": "github"
       }
     },
-    "gitalias": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1726926243,
-        "narHash": "sha256-CdjSugU06nOiRBWx/CrLKlLRUi3OQWAuhe/pV+BgRb8=",
-        "owner": "GitAlias",
-        "repo": "gitalias",
-        "rev": "b56365b13a318b544ecb0df112bbbd12c4e61bce",
-        "type": "github"
-      },
-      "original": {
-        "owner": "GitAlias",
-        "repo": "gitalias",
-        "type": "github"
-      }
-    },
-    "gitignore": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734545709,
-        "narHash": "sha256-Gu6ICfAC0c6/tBSOeIH5b5utseFYrr3f9uKnn8KAWJM=",
-        "owner": "github",
-        "repo": "gitignore",
-        "rev": "6eeebe6f49678aacd8311ce079842c971b3ebe96",
-        "type": "github"
-      },
-      "original": {
-        "owner": "github",
-        "repo": "gitignore",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -424,8 +392,6 @@
         "determinate": "determinate",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
-        "gitalias": "gitalias",
-        "gitignore": "gitignore",
         "home-manager": "home-manager",
         "mac-app-util": "mac-app-util",
         "nix": "nix",
