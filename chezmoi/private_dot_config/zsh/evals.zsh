@@ -4,8 +4,10 @@
 (( $+commands[chezmoi] )) && smartcache comp chezmoi completion zsh
 (( $+commands[codefresh] )) && smartcache comp codefresh completion zsh
 (( $+commands[databricks] )) && smartcache comp databricks completion zsh
+(( $+commands[delta] )) && smartcache comp delta --generate-completion zsh
 (( $+commands[direnv] )) && smartcache eval direnv hook zsh
 (( $+commands[docker] )) && smartcache comp docker completion zsh
+(( $+commands[fd] )) && smartcache comp fd --gen-completions zsh
 (( $+commands[fzf] )) && smartcache eval fzf --zsh
 (( $+commands[helm] )) && smartcache comp helm completion zsh
 (( $+commands[kind] )) && smartcache comp kind completion zsh
