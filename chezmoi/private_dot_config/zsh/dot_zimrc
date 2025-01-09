@@ -51,7 +51,7 @@ zmodule wfxr/forgit --fpath completions --source forgit.plugin.zsh --if '[[ $1 =
 # use aliases
 zmodule MichaelAquilina/zsh-you-should-use --if '[[ $1 == "defer" ]]'
 # benchmark
-zmodule romkatv/zsh-bench --fpath . --if '[[ $1 == "defer" ]]'
+zmodule romkatv/zsh-bench --use git --disabled
 # defer smart eval
 zmodule romkatv/zsh-defer --fpath . --autoload zsh-defer --if '[[ -z $1 ]]'
 zmodule QuarticCat/zsh-smartcache --fpath ${XDG_CACHE_HOME}/zsh-smartcache --source zsh-smartcache.plugin.zsh --if '[[ $1 == "defer" ]]'
