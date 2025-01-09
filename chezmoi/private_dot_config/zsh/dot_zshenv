@@ -4,10 +4,18 @@ sourced_zdotdir_zshenv=1
 home_zshenv=${HOME}/.zshenv
 [[ -f $home_zshenv ]] && source $home_zshenv
 
-skip_global_compinit=1
+typeset -gU path
+
+path=(
+  ${HOME}/.local/{,s}bin(N)
+  ${HOME}/{,s}bin(N)
+  ${path}
+)
 
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_STATE_HOME=${HOME}/.local/state
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
+
+skip_global_compinit=1

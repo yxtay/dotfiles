@@ -72,7 +72,7 @@ zmodule zshzoo/compstyle --if '[[ $1 == "defer" ]]'
 #
 
 # fzf-tab, after completion, before syntax highlighting
-zmodule Aloxaf/fzf-tab --if-command fzf --if '[[ $1 == "defer" ]]'
+zmodule Aloxaf/fzf-tab --fpath lib --source fzf-tab.plugin.zsh --if-command fzf --if '[[ $1 == "defer" ]]'
 zmodule Freed-Wu/fzf-tab-source --source fzf-tab-source.plugin.zsh --if-command fzf --if '[[ $1 == "defer" ]]'
 # Fish-like syntax highlighting for Zsh.
 # syntax-highlighting must be sourced after completion
