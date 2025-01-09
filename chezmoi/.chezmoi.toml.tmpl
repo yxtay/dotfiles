@@ -1,32 +1,41 @@
-{{ $ephemeral := or (env "CODESPACES") (env "REMOTE_CONTAINERS") (eq .chezmoi.username "codespaces" "devcontainer" "root" "ubuntu" "vagrant" "vscode") }}
-{{ $interactive := stdinIsATTY }}
-{{ $minimal := true }}
+{{- $ephemeral := or (env "CODESPACES") (env "REMOTE_CONTAINERS") (eq .chezmoi.username "codespaces" "devcontainer" "root" "ubuntu" "vagrant" "vscode") }}
+{{- $interactive := stdinIsATTY }}
+{{- $minimal := true }}
 
-{{ $arch := "x86_64" }}
-{{ if eq .chezmoi.arch "arm64" }}
-{{ $arch = "aarch64" }}
-{{ else if eq .chezmoi.arch "386" }}
-{{ $arch = "i686" }}
-{{ end }}
+{{- $arch := "x86_64" }}
+{{- if eq .chezmoi.arch "arm64" }}
+{{- $arch = "aarch64" }}
+{{- else if eq .chezmoi.arch "386" }}
+{{- $arch = "i686" }}
+{{- end }}
 
-{{ $os := "unknown-linux-gnu" }}
-{{ if eq .chezmoi.os "darwin" }}
-{{ $os = "apple-darwin" }}
-{{ else if eq .chezmoi.os "windows" }}
-{{ $os = "pc-windows-msvc" }}
-{{ end }}
+{{- $os := "unknown-linux-gnu" }}
+{{- if eq .chezmoi.os "darwin" }}
+{{- $os = "apple-darwin" }}
+{{- else if eq .chezmoi.os "windows" }}
+{{- $os = "pc-windows-msvc" }}
+{{- end }}
 
 sourceDir = "{{ .chezmoi.sourceDir }}"
+{{- if lookPath "bat" }}
+pager = "bat"
+{{- end }}
 
 [data]
-    name = "yxtay"
-    email = "5795122+yxtay@users.noreply.github.com"
-    work_email = "139188417+daip-yxtay@users.noreply.github.com"
-    arch = "{{ $arch }}"
-    os = "{{ $os }}"
-    is_ephemeral = {{ $ephemeral }}
-    is_interactive = {{ $interactive }}
-    is_minimal = {{ $minimal }}
+name = "yxtay"
+email = "5795122+yxtay@users.noreply.github.com"
+work_email = "139188417+daip-yxtay@users.noreply.github.com"
+arch = "{{ $arch }}"
+os = "{{ $os }}"
+is_ephemeral = {{ $ephemeral }}
+is_interactive = {{ $interactive }}
+is_minimal = {{ $minimal }}
+
+[diff]
+{{- if lookPath "delta" }}
+command = "delta"
+pager = "delta"
+{{- end }}
 
 [git]
-    autoCommit = true
+autoCommit = true
