@@ -10,7 +10,6 @@
       mcfly
       mcfly-fzf
       procs
-      # starship
       thefuck
       tlrc
 
@@ -97,7 +96,6 @@
     lazygit.enable = true;
     mise.enable = true;
     # nix-index.enable = true;
-    # starship.enable = true;
     thefuck.enable = true;
     yazi.enable = true;
     zoxide.enable = true;

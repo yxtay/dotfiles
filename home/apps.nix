@@ -20,6 +20,7 @@
     rustup
     terraform
     terragrunt
+    usage
 
     # container
     # docker  # homebrew
