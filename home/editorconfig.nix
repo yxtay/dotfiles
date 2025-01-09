@@ -1,6 +1,6 @@
 {...}: {
   editorconfig = {
-    enable = true;
+    enable = false;
     settings = {
       "*" = {
         charset = "utf-8";

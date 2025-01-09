@@ -2,6 +2,7 @@
   # import sub modules
   imports = [
     ./apps.nix
+    ./chezmoi.nix
     ./editorconfig.nix
     ./fonts.nix
     ./git.nix

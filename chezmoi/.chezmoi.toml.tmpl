@@ -11,7 +11,7 @@
 
 {{ $os := "unknown-linux-gnu" }}
 {{ if eq .chezmoi.os "darwin" }}
-{{ $os = "apple-darin" }}
+{{ $os = "apple-darwin" }}
 {{ else if eq .chezmoi.os "windows" }}
 {{ $os = "pc-windows-msvc" }}
 {{ end }}

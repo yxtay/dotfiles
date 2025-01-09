@@ -4,7 +4,7 @@
     defaultEditor = true;
 
     settings = {
-      theme = "dracula";
+      # theme = "dracula";
     };
 
     languages = {};

@@ -1,8 +1,11 @@
 {
+  pkgs,
   lib,
   config,
   ...
 }: {
+  # home.packages = [pkgs.wezterm];
+
   programs = {
     wezterm = {
       enable = false;
@@ -20,8 +23,8 @@
     };
   };
 
-  xdg.configFile."wezterm/wezterm.lua".text = lib.concatLines [
-    ''local wezterm = require "wezterm"''
-    config.programs.wezterm.extraConfig
-  ];
+  # xdg.configFile."wezterm/wezterm.lua".text = lib.concatLines [
+  #   ''local wezterm = require "wezterm"''
+  #   config.programs.wezterm.extraConfig
+  # ];
 }

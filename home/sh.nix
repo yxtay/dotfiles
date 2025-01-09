@@ -1,4 +1,8 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home = {
     packages = with pkgs; [
       # shell
@@ -6,7 +10,7 @@
       mcfly
       mcfly-fzf
       procs
-      starship
+      # starship
       thefuck
       tlrc
 
@@ -46,7 +50,7 @@
     bat = {
       enable = true;
       config = {
-        theme = "Dracula";
+        # theme = "Dracula";
       };
       extraPackages = with pkgs.bat-extras; [
         batdiff
@@ -64,12 +68,12 @@
       nix-direnv.enable = true;
     };
 
-    fzf = rec {
+    fzf = {
       enable = true;
       changeDirWidgetCommand = "fd --type d --hidden --exclude '.git'";
       changeDirWidgetOptions = ["--preview 'eza --tree --color=always --icons=always {} | head -200'"];
-      defaultCommand = "";
-      defaultOptions = [];
+      # defaultCommand = "";
+      # defaultOptions = [];
       fileWidgetCommand = "fd --hidden --exclude '.git'";
       fileWidgetOptions = ["--preview 'bat --color=always --line-range :500 {}'"];
       tmux.enableShellIntegration = true;
@@ -83,7 +87,7 @@
 
     ripgrep = {
       enable = true;
-      arguments = "--smart-case";
+      # arguments = "--smart-case";
     };
 
     btop.enable = true;
@@ -92,8 +96,8 @@
     jq.enable = true;
     lazygit.enable = true;
     mise.enable = true;
-    nix-index.enable = true;
-    starship.enable = true;
+    # nix-index.enable = true;
+    # starship.enable = true;
     thefuck.enable = true;
     yazi.enable = true;
     zoxide.enable = true;

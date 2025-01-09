@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     # terminals & editors
-    chezmoi
     helix
     micro
     nano
@@ -33,10 +32,11 @@
 
     # python
     cookiecutter
+    # poetry
     pre-commit
     pyright
-    ruff
-    uv
+    # ruff
+    # uv
 
     # work
     awscli

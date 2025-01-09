@@ -23,3 +23,5 @@ for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 # End configuration added by Zim install
+
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)

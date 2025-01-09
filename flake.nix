@@ -46,17 +46,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nix-darwin.follows = "nix-darwin";
     };
-
-    # git repos
-    gitalias = {
-      url = "github:GitAlias/gitalias";
-      flake = false;
-    };
-
-    gitignore = {
-      url = "github:github/gitignore";
-      flake = false;
-    };
   };
 
   outputs = inputs @ {

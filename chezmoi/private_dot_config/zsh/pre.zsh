@@ -1,11 +1,15 @@
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath
 
-path=(    
+path=(
   ${HOME}/.local/{,s}bin(N)
   ${HOME}/{,s}bin(N)
   ${path}
 )
+
+for profile in ${(z)NIX_PROFILES}; do
+  fpath=($profile/share/zsh/site-functions(N) $profile/share/zsh/$ZSH_VERSION/functions(N) $profile/share/zsh/vendor-completions(N) $fpath)
+done
 
 # -----------------
 # Zsh configuration
@@ -82,5 +86,3 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
 # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
-
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
