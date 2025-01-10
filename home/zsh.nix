@@ -20,7 +20,7 @@
     enable = true;
 
     envExtra = ''
-      [[ ! -v sourced_home_zshenv ]] && return
+      [[ -v sourced_home_zshenv ]] && return
       sourced_home_zshenv=1
 
       zdotdir_zshenv=${config.xdg.configHome}/zsh/.zshenv
@@ -28,7 +28,7 @@
     '';
 
     initExtraFirst = ''
-      [[ ! -v sourced_home_zsherc ]] && return
+      [[ -v sourced_home_zsherc ]] && return
       sourced_home_zsherc=1
     '';
 

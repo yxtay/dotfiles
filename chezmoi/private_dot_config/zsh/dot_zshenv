@@ -1,4 +1,4 @@
-[[ ! -v sourced_zdotdir_zshenv ]] && return
+[[ -v sourced_zdotdir_zshenv ]] && return
 sourced_zdotdir_zshenv=1
 
 home_zshenv=${HOME}/.zshenv

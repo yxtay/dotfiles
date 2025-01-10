@@ -3,9 +3,7 @@ source ${ZIM_HOME}/init.zsh defer
 source_files=(
     ${ZDOTDIR}/evals.zsh
 )
-for file in $source_files; do
-    source $file
-done
+for file ($source_files) source $file
 
 # ------------------------------
 # Post-init module configuration
