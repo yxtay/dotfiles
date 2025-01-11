@@ -1,9 +1,10 @@
 {
-  "image": "debian",
+  "image": "mcr.microsoft.com/devcontainers/base",
   "runArgs": ["--platform=linux/x86_64"],
-  "features": {
-    "ghcr.io/devcontainers/features/common-utils": {}
-  },
+  "containerUser": "vscode",
+  "containerEnv": { "HOME": "/home/vscode" },
+  "updateRemoteUserUID": true,
+  "remoteEnv": { "PODMAN_USERRNS": "keep-id" },
   // Configure tool-specific properties.
   "customizations": {
     // Configure properties specific to VS Code.
