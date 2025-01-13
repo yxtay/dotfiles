@@ -1,6 +1,6 @@
 # profiling setup
 
-[[ -v ZPROF ]] && zmodload zsh/zprof
+[[ -v ZPROF ]] && zmodload zsh/zprof || true
 
 if [[ -v SOURCETRACE ]]; then
     PS4='%D{%S.%.} %N:%i> '
@@ -61,7 +61,7 @@ zsh-defer source ${ZDOTDIR}/post.zsh
 
 # profiling tear down
 
-[[ -v SOURCETRACE ]] && unsetopt sourcetrace
+[[ -v SOURCETRACE ]] && unsetopt sourcetrace || true
 
 if [[ -v XTRACE ]]; then
   unsetopt xtrace
@@ -69,4 +69,4 @@ if [[ -v XTRACE ]]; then
   echo "zsh xtrace: /tmp/zsh_trace.$$"
 fi
 
-[[ -v ZPROF ]] && zprof
+[[ -v ZPROF ]] && zprof || true

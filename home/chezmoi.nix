@@ -12,7 +12,7 @@
       source_path=$("$chezmoi" source-path)
 
       args="apply"
-      [[ $source_path == */.local/share/chezmoi || $source_path == /nix/store/* ]] && args+=" --init --source ${self}"
+      [[ $source_path == */.local/share/chezmoi || $source_path == /nix/store/* ]] && args+=" --init --source ${self}" || true
       "$chezmoi" $args
     fi
   '';

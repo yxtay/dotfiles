@@ -1,8 +1,8 @@
-[[ -v sourced_zdotdir_zshenv ]] && return
+[[ -v sourced_zdotdir_zshenv ]] && return || true
 sourced_zdotdir_zshenv=1
 
 home_zshenv=${HOME}/.zshenv
-[[ -f ${home_zshenv} ]] && source ${home_zshenv}
+[[ -f ${home_zshenv} ]] && source ${home_zshenv} || true
 
 typeset -gU path
 

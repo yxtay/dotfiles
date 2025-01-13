@@ -26,7 +26,6 @@ typeset -A evals=(
    direnv "direnv hook zsh"
    fzf "fzf --zsh"
    mcfly "mcfly init zsh"
-   mcfly-fzf "mcfly-fzf init zsh"
    mise "mise activate zsh"
    starship "starship init zsh"
    thefuck "thefuck --alias"
@@ -35,8 +34,10 @@ typeset -A evals=(
 
 # delete smartcache files older than 30 days
 find ${XDG_CACHE_HOME}/zsh-smartcache/ -type f -mtime +30 -delete
-for name cmd ("${(@kv)comps}") (( $+commands[${name}] )) && smartcache comp ${(z)cmd}
-for name cmd ("${(@kv)evals}") (( $+commands[${name}] )) && smartcache eval ${(z)cmd}
+for name cmd ("${(@kv)comps}") (( $+commands[${name}] )) && smartcache comp ${(z)cmd} || true
+for name cmd ("${(@kv)evals}") (( $+commands[${name}] )) && smartcache eval ${(z)cmd} || true
 
 # brew shellenv changes depending whether it has been evaluated previously
-(( $+commands[brew] )) && eval $(brew shellenv)
+(( $+commands[brew] )) && eval $(brew shellenv) || true
+# mcfly-fzf must be after mcfly
+(( $+commands[mcfly-fzf] )) && smartcache eval mcfly-fzf init zsh || true

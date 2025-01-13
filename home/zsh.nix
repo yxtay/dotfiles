@@ -20,15 +20,15 @@
     enable = true;
 
     envExtra = ''
-      [[ -v sourced_home_zshenv ]] && return
+      [[ -v sourced_home_zshenv ]] && return || true
       sourced_home_zshenv=1
 
       zdotdir_zshenv=${config.xdg.configHome}/zsh/.zshenv
-      [[ -f $zdotdir_zshenv ]] && source $zdotdir_zshenv
+      [[ -f $zdotdir_zshenv ]] && source $zdotdir_zshenv || true
     '';
 
     initExtraFirst = ''
-      [[ -v sourced_home_zsherc ]] && return
+      [[ -v sourced_home_zsherc ]] && return || true
       sourced_home_zsherc=1
     '';
 
@@ -97,7 +97,7 @@
     #   bindkey "^[[A" history-substring-search-up
     #   bindkey "^[[B" history-substring-search-down
 
-    #   (( $+commands[brew] )) && eval "$(brew shellenv)"
+    #   (( $+commands[brew] )) && eval "$(brew shellenv)" || true
     # '';
     # shellAliases = config.home.shellAliases;
 
