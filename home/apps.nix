@@ -23,12 +23,12 @@
     usage
 
     # container
-    # docker  # homebrew
-    # docker-builx  # homebrew
-    # docker-compose  # homebrew
-    # docker-credential-helper  # homebrew
+    docker
+    docker-buildx
+    docker-compose
+    docker-credential-helpers
     # kubectl  # homebrew
-    # kubernetes-helm  # homebrew
+    kubernetes-helm
     # podman  # homebrew
 
     # python

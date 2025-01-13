@@ -73,15 +73,15 @@
     };
 
     brews = [
-      "docker"
-      "docker-buildx"
-      "docker-completion"
-      "docker-compose"
-      "docker-credential-helper"
-      "helm"
+      # "docker"
+      # "docker-buildx"
+      # "docker-completion"
+      # "docker-compose"
+      # "docker-credential-helper"
       "kind" # podman-desktop
       "kubectl" # podman-desktop
       "podman" # podman-desktop
+      "podman-compose"
     ];
 
     casks = [

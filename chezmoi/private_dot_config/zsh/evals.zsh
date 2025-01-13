@@ -8,6 +8,7 @@ typeset -A comps=(
    docker "docker completion zsh"
    fd "fd --gen-completions zsh"
    gh "gh completion -s zsh"
+   git-lfs "git-lfs completion zsh"
    helm "helm completion zsh"
    kind "kind completion zsh"
    kubectl "kubectl completion zsh"
