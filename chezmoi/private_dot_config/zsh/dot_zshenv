@@ -6,15 +6,13 @@ home_zshenv=${HOME}/.zshenv
 
 typeset -gU path
 
+path=(${^path}(N))
+
 for profile in ${(z)NIX_PROFILES}; do
   path=(${profile}/bin(N) ${path})
 done
 
-path=(
-  ${HOME}/.local/{,s}bin(N)
-  ${HOME}/{,s}bin(N)
-  ${path}
-)
+path=(${HOME}{/.local,}/{,s}bin(N) ${path})
 
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_CONFIG_HOME=${HOME}/.config
