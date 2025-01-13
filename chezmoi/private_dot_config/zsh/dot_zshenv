@@ -2,9 +2,13 @@
 sourced_zdotdir_zshenv=1
 
 home_zshenv=${HOME}/.zshenv
-[[ -f $home_zshenv ]] && source $home_zshenv
+[[ -f ${home_zshenv} ]] && source ${home_zshenv}
 
 typeset -gU path
+
+for profile in ${(z)NIX_PROFILES}; do
+  path=(${profile}/bin(N) ${path})
+done
 
 path=(
   ${HOME}/.local/{,s}bin(N)

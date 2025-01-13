@@ -2,7 +2,7 @@
 typeset -gU fpath
 
 for profile in ${(z)NIX_PROFILES}; do
-  fpath=($profile/share/zsh/site-functions(N) $profile/share/zsh/$ZSH_VERSION/functions(N) $profile/share/zsh/vendor-completions(N) $fpath)
+  fpath=(${profile}/share/zsh/site-functions(N) ${profile}/share/zsh/${ZSH_VERSION}/functions(N) ${profile}/share/zsh/vendor-completions(N) ${fpath})
 done
 
 # -----------------

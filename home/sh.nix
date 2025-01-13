@@ -39,10 +39,6 @@
       rclone
       rsync
     ];
-
-    sessionPath = [
-      "${config.home.homeDirectory}/.local/bin"
-    ];
   };
 
   programs = {
