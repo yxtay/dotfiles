@@ -23,7 +23,6 @@ typeset -A comps=(
 )
 
 typeset -A evals=(
-   brew "brew shellenv"
    direnv "direnv hook zsh"
    fzf "fzf --zsh"
    mcfly "mcfly init zsh"
@@ -38,3 +37,6 @@ typeset -A evals=(
 find ${XDG_CACHE_HOME}/zsh-smartcache/ -type f -mtime +30 -delete
 for name cmd ("${(@kv)comps}") (( $+commands[${name}] )) && smartcache comp ${(z)cmd}
 for name cmd ("${(@kv)evals}") (( $+commands[${name}] )) && smartcache eval ${(z)cmd}
+
+# brew shellenv changes depending whether it has been evaluated previously
+(( $+commands[brew] )) && eval $(brew shellenv)

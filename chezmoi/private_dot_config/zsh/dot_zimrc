@@ -39,7 +39,7 @@ zmodule termtitle --if '[[ $1 == "defer" ]]'
 zmodule utility --if '[[ $1 == "defer" ]]'
 # Provides handy git aliases and functions.
 zmodule git --if '[[ $1 == "defer" ]]'
-zmodule magic-enter --if '[[ $1 == "defer" ]]'
+# zmodule magic-enter --if '[[ $1 == "defer" ]]'
 zmodule run-help --if '[[ $1 == "defer" ]]'
 # command utilities
 zmodule exa --if '[[ $1 == "defer" ]]'
