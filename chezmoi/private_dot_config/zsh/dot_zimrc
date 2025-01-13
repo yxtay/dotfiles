@@ -81,7 +81,6 @@ zmodule Freed-Wu/fzf-tab-source --source fzf-tab-source.plugin.zsh --if-command 
 zmodule zdharma-continuum/fast-syntax-highlighting --fpath . --source fast-syntax-highlighting.plugin.zsh --if '[[ $1 == "defer" ]]'
 # history-substring-search must be sourced after syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search --if '[[ $1 == "defer" ]]'
-zmodule sorin-ionescu/prezto --root modules/history-substring-search --if '[[ $1 == "defer" ]]'
 # autosuggestions, must be last for ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 zmodule zsh-users/zsh-autosuggestions --if '[[ $1 == "defer" ]]'
 # End configuration added by Zim install
