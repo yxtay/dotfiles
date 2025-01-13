@@ -7,9 +7,6 @@ for profile in ${(z)NIX_PROFILES}; do
   fpath=(${profile}/share/zsh/site-functions(N) ${profile}/share/zsh/${ZSH_VERSION}/functions(N) ${profile}/share/zsh/vendor-completions(N) ${fpath})
 done
 
-# homebrew
-fpath=({/usr/local,/opt/homebrew,/home/linuxbrew/.linuxbrew}/share/zsh/site-functions(N) $fpath)
-
 # -----------------
 # Zsh configuration
 # -----------------
