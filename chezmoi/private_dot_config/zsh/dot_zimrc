@@ -22,14 +22,13 @@ zmodule romkatv/powerlevel10k --if '[[ -z $1 ]]'
 
 # prezto
 zmodule sorin-ionescu/prezto --root modules/environment --if '[[ -z $1 ]]'
-zmodule sorin-ionescu/prezto --root modules/terminal --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/editor --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/history --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/directory --if '[[ -z $1 ]]'
+zmodule sorin-ionescu/prezto --root modules/terminal --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/spectrum --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/archive --if '[[ $1 == "defer" ]]'
-zmodule sorin-ionescu/prezto --root modules/docker --if '[[ $1 == "defer" ]]'
-zmodule sorin-ionescu/prezto --root modules/tmux --if '[[ $1 == "defer" ]]'
+
 # Sets sane Zsh built-in environment options.
 # zmodule environment --if '[[ -z $1 ]]'
 # Applies correct bindkeys for input events.
@@ -40,12 +39,19 @@ zmodule sorin-ionescu/prezto --root modules/tmux --if '[[ $1 == "defer" ]]'
 zmodule utility --if '[[ $1 == "defer" ]]'
 # Provides handy git aliases and functions.
 zmodule git --if '[[ $1 == "defer" ]]'
-# zmodule magic-enter --if '[[ $1 == "defer" ]]'
 zmodule run-help --if '[[ $1 == "defer" ]]'
 # command utilities
+zmodule direnv --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/dnf --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/docker --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/dpkg --if '[[ $1 == "defer" ]]'
 zmodule exa --if '[[ $1 == "defer" ]]'
-zmodule k --if '[[ $1 == "defer" ]]'
 zmodule homebrew --if '[[ -z $1 ]]'
+zmodule k --if '[[ $1 == "defer" ]]'
+zmodule macports --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/pacman --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/tmux --if '[[ $1 == "defer" ]]'
+zmodule sorin-ionescu/prezto --root modules/yum --if '[[ $1 == "defer" ]]'
 # fzf related
 zmodule junegunn/fzf-git.sh --name fzf-git --if '[[ $1 == "defer" ]]'
 zmodule wfxr/forgit --fpath completions --source forgit.plugin.zsh --if '[[ $1 == "defer" ]]'
