@@ -1,12 +1,11 @@
+#!/usr/bin/env zsh
 [[ -v sourced_zdotdir_zshenv ]] && return || true
 sourced_zdotdir_zshenv=1
 
 home_zshenv=${HOME}/.zshenv
-[[ -f ${home_zshenv} ]] && source ${home_zshenv} || true
+[[ -f "${home_zshenv}" ]] && source "${home_zshenv}" || true
 
-typeset -gU path
-
-path=(${^path}(N))
+typeset -gU path=(${^path}(N))
 
 for profile in ${(z)NIX_PROFILES}; do
   path=(${profile}/bin(N) ${path})

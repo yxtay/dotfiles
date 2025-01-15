@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # smartcache
 
 typeset -A comps=(
@@ -34,7 +36,7 @@ typeset -A evals=(
 )
 
 # delete smartcache files older than 30 days
-find ${XDG_CACHE_HOME}/zsh-smartcache/ -type f -mtime +30 -delete
+find "${XDG_CACHE_HOME}/zsh-smartcache/" -type f -mtime +30 -delete
 for name cmd ("${(@kv)comps}") (( $+commands[${name}] )) && smartcache comp ${(z)cmd} || true
 for name cmd ("${(@kv)evals}") (( $+commands[${name}] )) && smartcache eval ${(z)cmd} || true
 

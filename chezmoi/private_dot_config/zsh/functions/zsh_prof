@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
-for i in $(seq 1 10); do time zsh -il -c exit; done
-time ZPROF=1 zsh -il -c exit
+for i ({1..10}) time zsh -il -c exit
+ZPROF=1 zsh -il -c exit
