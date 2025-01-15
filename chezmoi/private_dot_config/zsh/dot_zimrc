@@ -21,17 +21,20 @@ zmodule romkatv/powerlevel10k --if '[[ -z $1 ]]'
 # Modules
 #
 
-# prezto
+# Sets sane Zsh built-in environment options.
+# zmodule environment --if '[[ -z $1 ]]'
+# setops
 zmodule sorin-ionescu/prezto --root modules/environment --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/editor --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/history --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/directory --if '[[ -z $1 ]]'
+zmodule zshzoo/compstyle --if '[[ -z $1 ]]'
+# defer
+zmodule romkatv/zsh-defer --fpath . --autoload zsh-defer --if '[[ -z $1 ]]'
+# prezto
 zmodule sorin-ionescu/prezto --root modules/terminal --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/spectrum --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/archive --if '[[ $1 == "defer" ]]'
-
-# Sets sane Zsh built-in environment options.
-# zmodule environment --if '[[ -z $1 ]]'
 # Applies correct bindkeys for input events.
 # zmodule input --if '[[ $1 == "defer" ]]'
 # Sets a custom terminal title.
@@ -48,7 +51,7 @@ zmodule sorin-ionescu/prezto --root modules/docker --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/dpkg --if '[[ $1 == "defer" ]]'
 zmodule exa --if '[[ $1 == "defer" ]]'
 zmodule homebrew --if '[[ $1 == "defer" ]]'
-zmodule k --if '[[ $1 == "defer" ]]'
+zmodule k --if '(( ${+commands[kubectl]} )) && [[ $1 == "defer" ]]'
 zmodule macports --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/pacman --if '[[ $1 == "defer" ]]'
 zmodule sorin-ionescu/prezto --root modules/tmux --if '[[ $1 == "defer" ]]'
@@ -58,25 +61,22 @@ zmodule junegunn/fzf-git.sh --name fzf-git --if '[[ $1 == "defer" ]]'
 zmodule wfxr/forgit --fpath completions --source forgit.plugin.zsh --if '[[ $1 == "defer" ]]'
 # use aliases
 zmodule MichaelAquilina/zsh-you-should-use --if '[[ $1 == "defer" ]]'
-# benchmark
-# zmodule romkatv/zsh-bench --use git --disabled
-# defer smart eval
-zmodule romkatv/zsh-defer --fpath . --autoload zsh-defer --if '[[ -z $1 ]]'
-zmodule QuarticCat/zsh-smartcache --if '[[ -z $1 ]]'
+# smartcache
+zmodule QuarticCat/zsh-smartcache --if '[[ $1 == "defer" ]]'
 
 #
 # Completion
 #
 
-# Additional completion definitions for Zsh.
-zmodule zsh-users/zsh-completions --fpath src --if '[[ $1 == "defer" ]]'
 # local functions
 zmodule ${ZDOTDIR} --if '[[ $1 == "defer" ]]'
 # cache completions and evals
 zmodule ${ZDOTDIR} --fpath ${XDG_CACHE_HOME}/zsh-smartcache --source evals.zsh --if '[[ $1 == "defer" ]]'
+# Additional completion definitions for Zsh.
+zmodule zsh-users/zsh-completions --fpath src --if '[[ $1 == "defer" ]]'
 # Enables and configures smart and extensive tab completion.
 # completion must be sourced after all modules that add completion definitions.
-zmodule sorin-ionescu/prezto --root modules/completion --if '[[ $1 == "defer" ]]'
+zmodule completion --if '[[ $1 == "defer" ]]'
 
 #
 # Modules that must be initialized last
