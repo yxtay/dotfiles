@@ -5,13 +5,13 @@ sourced_zdotdir_zshenv=1
 home_zshenv=${HOME}/.zshenv
 [[ -f "${home_zshenv}" ]] && source "${home_zshenv}" || true
 
-typeset -gU path=(${^path}(N))
+typeset -gU path
 
 for profile in ${(z)NIX_PROFILES}; do
-  path=(${profile}/bin(N) ${path})
+  path=(${profile}/bin ${path})
 done
 
-path=(${HOME}{/.local,}/{,s}bin(N) ${path})
+path=(${HOME}{/.local,}/{,s}bin(FN) ${^path}(FN))
 
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_CONFIG_HOME=${HOME}/.config

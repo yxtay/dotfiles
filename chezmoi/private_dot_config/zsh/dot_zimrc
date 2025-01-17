@@ -68,12 +68,12 @@ zmodule QuarticCat/zsh-smartcache --if '[[ $1 == "defer" ]]'
 # Completion
 #
 
+# Additional completion definitions for Zsh.
+zmodule zsh-users/zsh-completions --fpath src --if '[[ $1 == "defer" ]]'
 # local functions
 zmodule ${ZDOTDIR} --if '[[ $1 == "defer" ]]'
 # cache completions and evals
 zmodule ${ZDOTDIR} --fpath ${XDG_CACHE_HOME}/zsh-smartcache --source evals.zsh --if '[[ $1 == "defer" ]]'
-# Additional completion definitions for Zsh.
-zmodule zsh-users/zsh-completions --fpath src --if '[[ $1 == "defer" ]]'
 # Enables and configures smart and extensive tab completion.
 # completion must be sourced after all modules that add completion definitions.
 zmodule completion --if '[[ $1 == "defer" ]]'
