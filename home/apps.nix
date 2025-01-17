@@ -46,4 +46,9 @@
     databricks-cli
     google-cloud-sdk
   ];
+
+  programs.java = {
+    enable = true;
+    package = pkgs.zulu8;
+  };
 }

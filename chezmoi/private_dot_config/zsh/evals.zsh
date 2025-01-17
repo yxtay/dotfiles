@@ -22,6 +22,7 @@ typeset -A comps=(
    ruff "ruff generate-shell-completion zsh"
    rustup "rustup completions zsh"
    uv "uv generate-shell-completion zsh"
+   uvx "uvx --generate-shell-completion zsh"
    wezterm "wezterm shell-completion --shell zsh"
 )
 
