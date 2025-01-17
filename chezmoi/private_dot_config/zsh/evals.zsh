@@ -46,3 +46,10 @@ for name cmd ("${(@kv)evals}") (( $+commands[${name}] )) && smartcache eval ${(z
 (( $+commands[brew] )) && eval $(brew shellenv) || true
 # mcfly-fzf must be after mcfly
 (( $+commands[mcfly-fzf] )) && smartcache eval mcfly-fzf init zsh || true
+
+# zcompile smartcache for subsequent speedup
+for cache in ${cache_dir}/*; do
+    if [[ -s "${cache}" && ! "${cache}.zwc" -nt "${cache}" ]]; then
+        zcompile "${cache}" &!
+    fi
+done
