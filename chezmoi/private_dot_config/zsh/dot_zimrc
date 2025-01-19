@@ -5,6 +5,113 @@
 # zimfw plugin manager.
 #
 
+typeset -A comps=(
+  chezmoi "chezmoi completion zsh"
+  codefresh "codefresh completion zsh"
+  databricks "databricks completion zsh"
+  delta "delta --generate-completion zsh"
+  docker "docker completion zsh"
+  fd "fd --gen-completions zsh"
+  gh "gh completion -s zsh"
+  git-lfs "git-lfs completion zsh"
+  helm "helm completion zsh"
+  kind "kind completion zsh"
+  kubectl "kubectl completion zsh"
+  mise "mise completion zsh"
+  pip "pip completion --zsh"
+  podman "podman completion zsh"
+  poetry "poetry completions zsh"
+  rg "rg --generate complete-zsh"
+  ruff "ruff generate-shell-completion zsh"
+  rustup "rustup completions zsh"
+  uv "uv generate-shell-completion zsh"
+  uvx "uvx --generate-shell-completion zsh"
+  wezterm "wezterm shell-completion --shell zsh"
+)
+
+typeset -A evals=(
+  brew "brew shellenv"
+  direnv "direnv hook zsh"
+  fzf "fzf --zsh"
+  mcfly "mcfly init zsh"
+  mcfly-fzf "mcfly-fzf init zsh"
+  mise "mise activate zsh"
+  starship "starship init zsh"
+  thefuck "thefuck --alias"
+  zoxide "zoxide init zsh"
+)
+
+zmodule-custom() {
+  local zcommand zname ztarget
+  local -a zargs
+  zcommand=${1}
+  zname=custom/${zcommand}
+  shift
+  while (( # > 0 )); do
+    case ${1} in
+      --name)
+        shift
+        zname=${1}
+        ;;
+      --if)
+        shift
+        zargs+=(--if "(( \${+commands[${zcommand}]} )) && ${1}")
+        ;;
+      --if-command)
+        shift
+        zargs+=(--if "(( \${+commands[${zcommand}]} && \${+commands[${1}]} ))")
+        ;;
+      --if-ostype)
+        shift
+        zargs+=(--if "(( \${+commands[${zcommand}]} )) && [[ \${OSTYPE} == ${1} ]]")
+        ;;
+      --on-pull)
+        shift
+        zargs+=(--on-pull ${1})
+        ;;
+      -d|--disabled)
+        zargs+=(--disabled)
+        ;;
+      -f|--fpath)
+        shift
+        zargs+=(--fpath ${1})
+        ;;
+      -a|--autoload)
+        shift
+        zargs+=(--autoload ${1})
+        ;;
+      -s|--source)
+        shift
+        zargs+=(--source ${1})
+        ;;
+      -c|--cmd)
+        shift
+        zargs+=(--cmd ${1})
+        ;;
+      --comp)
+        shift
+        ztarget=functions/_${1//[^[:IDENT:]]/-}
+        zargs+=(--on-pull "mkdir functions")
+        zargs+=(--fpath functions)
+        zargs+=(--cmd "if [[ ! {}/${ztarget} -nt \${commands[${zcommand}]} ]]; then ${1} >! {}/${ztarget}; fi")
+        ;;
+      --eval)
+        shift
+        ztarget=${1//[^[:IDENT:]]/-}.zsh
+        zargs+=(--cmd "if [[ ! {}/${ztarget} -nt \${commands[${zcommand}]} ]]; then ${1} >! {}/${ztarget}; zcompile -UR {}/${ztarget}; fi")
+        zargs+=(--source ${ztarget})
+        ;;
+      *)
+        print "Unknown zmodule option ${1}"
+        return 2
+        ;;
+    esac
+    shift
+  done
+
+  zmodule custom-${zcommand} --name ${zname} --use mkdir --if-command ${zcommand} ${zargs}
+}
+
 #
 # Prompt
 #
@@ -24,7 +131,7 @@ zmodule romkatv/powerlevel10k --if '[[ -z $1 ]]'
 # Sets sane Zsh built-in environment options.
 # zmodule environment --if '[[ -z $1 ]]'
 # setops
-zmodule sorin-ionescu/prezto --root modules/environment --if '[[ -z $1 ]]'
+zmodule sorin-ionescu/prezto --root modules/environment --if '[[ -z $1 ]]' --no-submodules
 zmodule sorin-ionescu/prezto --root modules/editor --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/history --if '[[ -z $1 ]]'
 zmodule sorin-ionescu/prezto --root modules/directory --if '[[ -z $1 ]]'
@@ -61,19 +168,22 @@ zmodule junegunn/fzf-git.sh --name fzf-git --if '[[ $1 == "defer" ]]'
 zmodule wfxr/forgit --fpath completions --source forgit.plugin.zsh --if '[[ $1 == "defer" ]]'
 # use aliases
 zmodule MichaelAquilina/zsh-you-should-use --if '[[ $1 == "defer" ]]'
-# smartcache
-zmodule QuarticCat/zsh-smartcache --if '[[ $1 == "defer" ]]'
 
 #
 # Completion
 #
 
-# Additional completion definitions for Zsh.
-zmodule zsh-users/zsh-completions --fpath src --if '[[ $1 == "defer" ]]'
+# cache completions and evals
+for name cmd in "${(@kv)comps}"; do
+  zmodule-custom ${name} --comp "${cmd}" --if '[[ $1 == "defer" ]]'
+done
+for name cmd in "${(@kv)evals}"; do
+  zmodule-custom ${name} --eval "${cmd}" --if '[[ $1 == "defer" ]]'
+done
 # local functions
 zmodule ${ZDOTDIR} --if '[[ $1 == "defer" ]]'
-# cache completions and evals
-zmodule ${ZDOTDIR} --fpath ${XDG_CACHE_HOME}/zsh-smartcache --source evals.zsh --if '[[ $1 == "defer" ]]'
+# Additional completion definitions for Zsh.
+zmodule zsh-users/zsh-completions --fpath src --if '[[ $1 == "defer" ]]'
 # Enables and configures smart and extensive tab completion.
 # completion must be sourced after all modules that add completion definitions.
 zmodule completion --if '[[ $1 == "defer" ]]'
