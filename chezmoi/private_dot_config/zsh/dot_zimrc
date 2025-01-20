@@ -5,7 +5,7 @@
 # zimfw plugin manager.
 #
 
-typeset -A comps=(
+comps=(
   chezmoi "chezmoi completion zsh"
   codefresh "codefresh completion zsh"
   databricks "databricks completion zsh"
@@ -29,7 +29,7 @@ typeset -A comps=(
   wezterm "wezterm shell-completion --shell zsh"
 )
 
-typeset -A evals=(
+evals=(
   brew "brew shellenv"
   direnv "direnv hook zsh"
   fzf "fzf --zsh"
@@ -174,10 +174,10 @@ zmodule MichaelAquilina/zsh-you-should-use --if '[[ $1 == "defer" ]]'
 #
 
 # cache completions and evals
-for name cmd in "${(@kv)comps}"; do
+for name cmd in ${comps}; do
   zmodule-custom ${name} --comp "${cmd}" --if '[[ $1 == "defer" ]]'
 done
-for name cmd in "${(@kv)evals}"; do
+for name cmd in ${evals}; do
   zmodule-custom ${name} --eval "${cmd}" --if '[[ $1 == "defer" ]]'
 done
 # local functions
