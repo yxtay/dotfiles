@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-    flake-compat.url = "github:hraban/flake-compat";
+    flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default-darwin";
 
     nix = {
@@ -17,8 +17,14 @@
       inputs.systems.follows = "systems";
     };
 
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:LnL7/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -46,6 +52,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nix-darwin.follows = "nix-darwin";
     };
+
+    flox = {
+      url = "github:flox/flox";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
+    };
   };
 
   outputs = inputs @ {
@@ -71,10 +83,12 @@
       workEmail = "139188417+daip-yxtay@users.noreply.github.com";
     };
 
+    flox = inputs.flox.packages.${system}.default;
+
     specialArgs =
       inputs
       // {
-        inherit host user;
+        inherit flox host user;
       };
   in {
     # Nix Darwin configuration entrypoint
