@@ -17,8 +17,8 @@
     git
     gh
     mise
-    nix-direnv
     ollama
+    process-compose
     rustup
     terraform
     terragrunt

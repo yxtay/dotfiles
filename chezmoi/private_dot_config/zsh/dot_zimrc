@@ -5,42 +5,6 @@
 # zimfw plugin manager.
 #
 
-comps=(
-  chezmoi "chezmoi completion zsh"
-  codefresh "codefresh completion zsh"
-  databricks "databricks completion zsh"
-  delta "delta --generate-completion zsh"
-  docker "docker completion zsh"
-  fd "fd --gen-completions zsh"
-  gh "gh completion -s zsh"
-  git-lfs "git-lfs completion zsh"
-  helm "helm completion zsh"
-  kind "kind completion zsh"
-  kubectl "kubectl completion zsh"
-  mise "mise completion zsh"
-  pip "pip completion --zsh"
-  podman "podman completion zsh"
-  poetry "poetry completions zsh"
-  rg "rg --generate complete-zsh"
-  ruff "ruff generate-shell-completion zsh"
-  rustup "rustup completions zsh"
-  uv "uv generate-shell-completion zsh"
-  uvx "uvx --generate-shell-completion zsh"
-  wezterm "wezterm shell-completion --shell zsh"
-)
-
-evals=(
-  brew "brew shellenv"
-  direnv "direnv hook zsh"
-  fzf "fzf --zsh"
-  mcfly "mcfly init zsh"
-  mcfly-fzf "mcfly-fzf init zsh"
-  mise "mise activate zsh"
-  starship "starship init zsh"
-  thefuck "thefuck --alias"
-  zoxide "zoxide init zsh"
-)
-
 zmodule-custom() {
   local zcommand zname ztarget
   local -a zargs
@@ -94,6 +58,7 @@ zmodule-custom() {
         zargs+=(--on-pull "mkdir functions")
         zargs+=(--fpath functions)
         zargs+=(--cmd "if [[ ! {}/${ztarget} -nt \${commands[${zcommand}]} ]]; then ${1} >! {}/${ztarget}; fi")
+        zargs+=(--cmd "if (( \${+_comps} && ! \${+_comps[${zcommand}]} )); then autoload -Uz ${ztarget:t}; _comps[${zcommand}]=${ztarget:t}; fi")
         ;;
       --eval)
         shift
@@ -111,6 +76,44 @@ zmodule-custom() {
 
   zmodule custom-${zcommand} --name ${zname} --use mkdir --if-command ${zcommand} ${zargs}
 }
+
+comps=(
+  chezmoi "chezmoi completion zsh"
+  codefresh "codefresh completion zsh"
+  databricks "databricks completion zsh"
+  delta "delta --generate-completion zsh"
+  devbox "devbox completion zsh"
+  docker "docker completion zsh"
+  fd "fd --gen-completions zsh"
+  gh "gh completion -s zsh"
+  git-lfs "git-lfs completion zsh"
+  helm "helm completion zsh"
+  kind "kind completion zsh"
+  kubectl "kubectl completion zsh"
+  mise "mise completion zsh"
+  pip "pip completion --zsh"
+  podman "podman completion zsh"
+  poetry "poetry completions zsh"
+  process-compose "process-compose completion zsh"
+  rg "rg --generate complete-zsh"
+  ruff "ruff generate-shell-completion zsh"
+  rustup "rustup completions zsh"
+  uv "uv generate-shell-completion zsh"
+  uvx "uvx --generate-shell-completion zsh"
+  wezterm "wezterm shell-completion --shell zsh"
+)
+
+evals=(
+  brew "brew shellenv"
+  direnv "direnv hook zsh"
+  fzf "fzf --zsh"
+  mcfly "mcfly init zsh"
+  mcfly-fzf "mcfly-fzf init zsh"
+  mise "mise activate zsh"
+  starship "starship init zsh"
+  thefuck "thefuck --alias"
+  zoxide "zoxide init zsh"
+)
 
 #
 # Prompt
