@@ -1,9 +1,5 @@
 #!/usr/bin/env zsh
 
-source "${ZIM_HOME}/init.zsh" defer
-
-fpath=(${^fpath}(FN))
-
 # ------------------------------
 # Post-init module configuration
 # ------------------------------

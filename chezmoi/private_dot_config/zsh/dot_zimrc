@@ -54,7 +54,7 @@ zmodule-custom() {
         ;;
       --comp)
         shift
-        ztarget=functions/_${1//[^[:IDENT:]]/-}
+        ztarget=functions/_${1//[^[:IDENT:]-]/-}
         zargs+=(--on-pull "mkdir functions")
         zargs+=(--fpath functions)
         zargs+=(--cmd "if [[ ! {}/${ztarget} -nt \${commands[${zcommand}]} ]]; then ${1} >! {}/${ztarget}; fi")
@@ -62,7 +62,7 @@ zmodule-custom() {
         ;;
       --eval)
         shift
-        ztarget=${1//[^[:IDENT:]]/-}.zsh
+        ztarget=${1//[^[:IDENT:]-]/-}.zsh
         zargs+=(--cmd "if [[ ! {}/${ztarget} -nt \${commands[${zcommand}]} ]]; then ${1} >! {}/${ztarget}; zcompile -UR {}/${ztarget}; fi")
         zargs+=(--source ${ztarget})
         ;;
@@ -183,13 +183,11 @@ done
 for name cmd in ${evals}; do
   zmodule-custom ${name} --eval "${cmd}" --if '[[ $1 == "defer" ]]'
 done
-# local functions
-zmodule ${ZDOTDIR} --if '[[ $1 == "defer" ]]'
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions --fpath src --if '[[ $1 == "defer" ]]'
 # Enables and configures smart and extensive tab completion.
 # completion must be sourced after all modules that add completion definitions.
-zmodule completion --if '[[ $1 == "defer" ]]'
+zmodule completion --cmd "fpath=(\${^fpath}(FN))" --source init.zsh --if '[[ $1 == "defer" ]]'
 
 #
 # Modules that must be initialized last
@@ -207,3 +205,6 @@ zmodule zsh-users/zsh-history-substring-search --if '[[ $1 == "defer" ]]'
 # autosuggestions, must be last for ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 zmodule zsh-users/zsh-autosuggestions --if '[[ $1 == "defer" ]]'
 # End configuration added by Zim install
+# local functions
+zmodule ${ZDOTDIR} --if '[[ $1 == "defer" ]]'
+zmodule ${ZDOTDIR} --source post.zsh --if '[[ $1 == "defer" ]]'
