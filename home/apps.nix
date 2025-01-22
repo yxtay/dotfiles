@@ -1,4 +1,4 @@
-{pkgs, flox, ...}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # terminals & editors
     helix
@@ -13,7 +13,6 @@
     ansible
     devbox
     direnv
-    flox
     git
     gh
     mise

@@ -17,12 +17,6 @@
       inputs.systems.follows = "systems";
     };
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-darwin = {
       url = "github:LnL7/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,23 +47,25 @@
       inputs.nix-darwin.follows = "nix-darwin";
     };
 
-    flox = {
-      url = "github:flox/flox";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
     };
   };
 
   outputs = inputs @ {
+    self,
     nixpkgs,
     determinate,
     nix-darwin,
     home-manager,
     mac-app-util,
     nix-homebrew,
+    treefmt-nix,
     ...
   }: let
     system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
+    pkgs = nixpkgs.legacyPackages.${system};
 
     host = {
       name = "yx-tay-pkf2k";
@@ -83,12 +79,12 @@
       workEmail = "139188417+daip-yxtay@users.noreply.github.com";
     };
 
-    flox = inputs.flox.packages.${system}.default;
+    treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
 
     specialArgs =
       inputs
       // {
-        inherit flox host user;
+        inherit host user;
       };
   in {
     # Nix Darwin configuration entrypoint
@@ -126,8 +122,9 @@
     # Available through 'nix run home-manager -- switch --flake .#simple'
     homeConfigurations = {
       "${user.name}" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
         extraSpecialArgs = specialArgs;
-        pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
 
         modules = [
           ./home
@@ -137,6 +134,11 @@
     };
 
     # nix code formatter
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+    # formatter.${system} = pkgs.alejandra;
+    formatter.${system} = treefmtEval.config.build.wrapper;
+
+    checks.${system} = {
+      formatting = treefmtEval.config.build.check self;
+    };
   };
 }

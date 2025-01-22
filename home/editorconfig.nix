@@ -1,4 +1,4 @@
-{...}: {
+_: {
   editorconfig = {
     enable = false;
     settings = {

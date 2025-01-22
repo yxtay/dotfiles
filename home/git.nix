@@ -1,14 +1,8 @@
 {
-  config,
   pkgs,
   lib,
-  gitignore,
-  gitalias,
-  user,
   ...
-}: let
-  gitignore_files = ["macOS" "Linux"];
-in {
+}: {
   # `programs.git` will generate the config file: ~/.config/git/config
   # to make git use this config file, `~/.gitconfig` should not exist!
   #

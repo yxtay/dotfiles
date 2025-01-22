@@ -13,7 +13,7 @@
 
   users.users = {
     "${user.name}" = {
-      home = user.home;
+      inherit (user) home;
     };
   };
 }

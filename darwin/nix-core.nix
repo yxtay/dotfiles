@@ -1,4 +1,4 @@
-{...}: {
+_: {
   nix = {
     settings = {
       extra-substituters = [
