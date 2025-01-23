@@ -1,4 +1,5 @@
-{user, ...}: {
+{ user, ... }:
+{
   imports = [
     ./networking.nix
     ./homebrew.nix
@@ -12,8 +13,6 @@
   time.timeZone = "Asia/Singapore";
 
   users.users = {
-    "${user.name}" = {
-      inherit (user) home;
-    };
+    "${user.name}" = { inherit (user) home; };
   };
 }

@@ -7,6 +7,6 @@ _: {
       # theme = "dracula";
     };
 
-    languages = {};
+    languages = { };
   };
 }

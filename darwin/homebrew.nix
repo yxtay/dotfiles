@@ -3,20 +3,21 @@
   config,
   user,
   ...
-}: {
+}:
+{
   # https://github.com/zhaofengli/nix-homebrew/issues/3
   system.activationScripts.extraUserActivation.text = lib.mkOrder 1501 (
     lib.concatLines (
       lib.mapAttrsToList (
         prefix: d:
-          if d.enable
-          then ''
+        if d.enable then
+          ''
             sudo chown -R ${config.nix-homebrew.user} ${prefix}/bin
             sudo chgrp -R ${config.nix-homebrew.group} ${prefix}/bin
           ''
-          else ""
-      )
-      config.nix-homebrew.prefixes
+        else
+          ""
+      ) config.nix-homebrew.prefixes
     )
   );
 

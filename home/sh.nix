@@ -1,8 +1,5 @@
+{ pkgs, config, ... }:
 {
-  pkgs,
-  config,
-  ...
-}: {
   home = {
     packages = with pkgs; [
       # shell
@@ -66,11 +63,13 @@
     fzf = {
       enable = true;
       changeDirWidgetCommand = "fd --type d --hidden --exclude '.git'";
-      changeDirWidgetOptions = ["--preview 'eza --tree --color=always --icons=always {} | head -200'"];
+      changeDirWidgetOptions = [
+        "--preview 'eza --tree --color=always --icons=always {} | head -200'"
+      ];
       # defaultCommand = "";
       # defaultOptions = [];
       fileWidgetCommand = "fd --hidden --exclude '.git'";
-      fileWidgetOptions = ["--preview 'bat --color=always --line-range :500 {}'"];
+      fileWidgetOptions = [ "--preview 'bat --color=always --line-range :500 {}'" ];
       tmux.enableShellIntegration = true;
     };
 

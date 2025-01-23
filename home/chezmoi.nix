@@ -3,10 +3,11 @@
   lib,
   self,
   ...
-}: {
-  home.packages = [pkgs.chezmoi];
+}:
+{
+  home.packages = [ pkgs.chezmoi ];
 
-  home.activation.chezmoi = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.chezmoi = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [[ ! -v DRY_RUN ]]; then
       chezmoi=${pkgs.chezmoi}/bin/chezmoi
       source_path=$("$chezmoi" source-path)

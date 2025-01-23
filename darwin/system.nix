@@ -1,4 +1,5 @@
-{user, ...}: {
+{ user, ... }:
+{
   ###################################################################################
   #
   #  macOS's System configuration
@@ -27,9 +28,7 @@
       # or `defaults read xxx` to read a specific domain.
       CustomUserPreferences = {
         NSGlobalDomain = {
-          AppleLanguages = [
-            "en-SG"
-          ];
+          AppleLanguages = [ "en-SG" ];
           AppleLocale = "en_SG";
         };
         "com.apple.AdLib" = {
@@ -118,9 +117,7 @@
           "/Applications/Visual Studio Code.app"
           "/Applications/GitHub Desktop.app"
         ];
-        persistent-others = [
-          "${user.home}/Downloads"
-        ];
+        persistent-others = [ "${user.home}/Downloads" ];
         show-process-indicators = true;
         show-recents = false;
         tilesize = 56;

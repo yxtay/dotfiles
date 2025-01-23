@@ -1,4 +1,5 @@
-{user, ...}: {
+{ user, ... }:
+{
   # import sub modules
   imports = [
     ./apps.nix
@@ -33,7 +34,7 @@
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
     stateVersion = "24.11";
-    sessionPath = ["${user.home}/.local/bin"];
+    sessionPath = [ "${user.home}/.local/bin" ];
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
