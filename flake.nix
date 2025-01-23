@@ -29,26 +29,38 @@
 
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix.follows = "nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix.follows = "nix";
+      };
     };
 
     mac-app-util = {
       url = "github:hraban/mac-app-util";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.systems.follows = "systems";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        systems.follows = "systems";
+      };
     };
 
     nix-homebrew = {
       url = "github:zhaofengli/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix-darwin.follows = "nix-darwin";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix-darwin.follows = "nix-darwin";
+      };
     };
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -62,6 +74,7 @@
     mac-app-util,
     nix-homebrew,
     treefmt-nix,
+    pre-commit-hooks,
     ...
   }: let
     system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
@@ -80,6 +93,7 @@
     };
 
     treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+    pre-commit-checks = pre-commit-hooks.lib.${system}.run (import ./pre-commit.nix {});
 
     specialArgs =
       inputs
@@ -138,6 +152,7 @@
     formatter.${system} = treefmtEval.config.build.wrapper;
 
     checks.${system} = {
+      inherit pre-commit-checks;
       formatting = treefmtEval.config.build.check self;
     };
   };

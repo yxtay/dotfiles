@@ -1,10 +1,13 @@
 _: {
   projectRootFile = "flake.nix";
-  programs.alejandra.enable = true;
-  programs.deadnix.enable = true;
-  programs.prettier.enable = true;
-  programs.shellcheck.enable = true;
-  programs.shfmt.enable = true;
-  programs.statix.enable = true;
-  programs.taplo.enable = true;
+
+  programs = {
+    alejandra.enable = true;
+    deadnix.enable = true;
+    prettier.enable = true;
+    shellcheck.enable = true;
+    shfmt.enable = true;
+    statix.enable = true;
+    taplo.enable = true;
+  };
 }
