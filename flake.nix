@@ -2,19 +2,11 @@
   description = "nix-darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-    flake-compat.url = "github:edolstra/flake-compat";
-    systems.url = "github:nix-systems/default-darwin";
+    nixpkgs.follows = "nix/nixpkgs";
 
     nix = {
       url = "github:NixOS/nix/latest-release";
       # inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-    };
-
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
     };
 
     nix-darwin = {
@@ -30,8 +22,8 @@
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         nix.follows = "nix";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -39,9 +31,7 @@
       url = "github:hraban/mac-app-util";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        systems.follows = "systems";
+        flake-compat.follows = "nix/flake-compat";
       };
     };
 
@@ -58,11 +48,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    git-hooks-nix.follows = "nix/git-hooks-nix";
   };
 
   outputs = inputs @ {
@@ -74,11 +60,10 @@
     mac-app-util,
     nix-homebrew,
     treefmt-nix,
-    pre-commit-hooks,
+    git-hooks-nix,
     ...
   }: let
     system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
-    pkgs = nixpkgs.legacyPackages.${system};
 
     host = {
       name = "yx-tay-pkf2k";
@@ -92,8 +77,9 @@
       workEmail = "139188417+daip-yxtay@users.noreply.github.com";
     };
 
+    pkgs = nixpkgs.legacyPackages.${system};
     treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-    pre-commit-checks = pre-commit-hooks.lib.${system}.run (import ./pre-commit.nix {});
+    git-hooks-checks = git-hooks-nix.lib.${system}.run (import ./git-hooks.nix {});
 
     specialArgs =
       inputs
@@ -109,7 +95,6 @@
 
         modules = [
           ./darwin
-
           determinate.darwinModules.default
           mac-app-util.darwinModules.default
           nix-homebrew.darwinModules.nix-homebrew
@@ -137,7 +122,6 @@
     homeConfigurations = {
       "${user.name}" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
         extraSpecialArgs = specialArgs;
 
         modules = [
@@ -152,7 +136,7 @@
     formatter.${system} = treefmtEval.config.build.wrapper;
 
     checks.${system} = {
-      inherit pre-commit-checks;
+      inherit git-hooks-checks;
       formatting = treefmtEval.config.build.check self;
     };
   };

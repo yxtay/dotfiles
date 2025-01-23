@@ -9,5 +9,6 @@ _: {
     shfmt.enable = true;
     statix.enable = true;
     taplo.enable = true;
+    yamlfmt.enable = true;
   };
 }
