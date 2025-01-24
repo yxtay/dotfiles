@@ -79,6 +79,12 @@
       fzf.enable = true;
     };
 
+    nix-index = {
+      enable = true;
+      symlinkToCacheHome = true;
+    };
+    nix-index-database.comma.enable = true;
+
     ripgrep = {
       enable = true;
       # arguments = "--smart-case";

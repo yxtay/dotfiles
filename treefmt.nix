@@ -1,14 +1,18 @@
 _: {
-  projectRootFile = "flake.nix";
+  perSystem = {
+    treefmt = {
+      projectRootFile = "flake.nix";
 
-  programs = {
-    deadnix.enable = true;
-    prettier.enable = true;
-    nixfmt.enable = true;
-    shellcheck.enable = true;
-    shfmt.enable = true;
-    statix.enable = true;
-    taplo.enable = true;
-    yamlfmt.enable = true;
+      programs = {
+        deadnix.enable = true;
+        prettier.enable = true;
+        nixfmt.enable = true;
+        shellcheck.enable = true;
+        shfmt.enable = true;
+        statix.enable = true;
+        taplo.enable = true;
+        yamlfmt.enable = true;
+      };
+    };
   };
 }

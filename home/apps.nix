@@ -35,11 +35,8 @@
 
     # python
     cookiecutter
-    # poetry
     pre-commit
     pyright
-    # ruff
-    # uv
 
     # work
     awscli

@@ -43,6 +43,9 @@
       };
     };
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     flake-parts.follows = "nix/flake-parts";
     systems.follows = "mac-app-util/systems";
 
@@ -59,7 +62,10 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       flake =
         let
+          inherit (pkgs.stdenv) isDarwin;
+
           system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
+          pkgs = import inputs.nixpkgs { inherit system; };
 
           host = {
             name = "yx-tay-pkf2k";
@@ -67,13 +73,11 @@
 
           user = {
             name = "yuxuantay";
-            home = "/Users/${user.name}";
+            home = (if isDarwin then "/Users/" else "/home/") + user.name;
             githubName = "yxtay";
             email = "5795122+${user.githubName}@users.noreply.github.com";
             workEmail = "139188417+daip-yxtay@users.noreply.github.com";
           };
-
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
 
           specialArgs = inputs // {
             inherit host user;
@@ -91,16 +95,20 @@
                 inputs.determinate.darwinModules.default
                 inputs.mac-app-util.darwinModules.default
                 inputs.nix-homebrew.darwinModules.nix-homebrew
+                inputs.home-manager.darwinModules.home-manager
+                inputs.nix-index-database.darwinModules.nix-index
 
                 # home manager
-                inputs.home-manager.darwinModules.home-manager
                 {
                   home-manager = {
                     backupFileExtension = "backup";
                     useGlobalPkgs = true;
                     useUserPackages = true;
                     extraSpecialArgs = specialArgs;
-                    sharedModules = [ inputs.mac-app-util.homeManagerModules.default ];
+                    sharedModules = [
+                      inputs.mac-app-util.homeManagerModules.default
+                      inputs.nix-index-database.hmModules.nix-index
+                    ];
                     users.${user.name} = import ./home;
                   };
                 }
@@ -118,19 +126,18 @@
               modules = [
                 ./home
                 inputs.mac-app-util.homeManagerModules.default
+                inputs.nix-index-database.hmModules.nix-index
               ];
             };
           };
         };
 
       imports = [
-        inputs.git-hooks-nix.flakeModule
         inputs.treefmt-nix.flakeModule
+        inputs.git-hooks-nix.flakeModule
+        ./treefmt.nix
+        ./git-hooks.nix
       ];
       systems = import inputs.systems;
-      perSystem = _: {
-        pre-commit.settings = import ./git-hooks.nix;
-        treefmt = import ./treefmt.nix;
-      };
     };
 }
