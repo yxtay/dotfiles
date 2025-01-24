@@ -1,8 +1,6 @@
 _: {
   perSystem = {
     treefmt = {
-      projectRootFile = "flake.nix";
-
       programs = {
         deadnix.enable = true;
         prettier.enable = true;

@@ -5,7 +5,6 @@
     ./apps.nix
     ./chezmoi.nix
     ./editorconfig.nix
-    ./fonts.nix
     ./git.nix
     ./gnu.nix
     ./helix.nix

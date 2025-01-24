@@ -1,8 +1,6 @@
 _: {
   perSystem = {
     pre-commit.settings = {
-      src = ./.;
-
       hooks = {
         deadnix.enable = true;
         editorconfig-checker.enable = true;

@@ -91,7 +91,7 @@
               inherit system specialArgs;
 
               modules = [
-                ./darwin
+                ./modules/darwin
                 inputs.determinate.darwinModules.default
                 inputs.mac-app-util.darwinModules.default
                 inputs.nix-homebrew.darwinModules.nix-homebrew
@@ -109,7 +109,7 @@
                       inputs.mac-app-util.homeManagerModules.default
                       inputs.nix-index-database.hmModules.nix-index
                     ];
-                    users.${user.name} = import ./home;
+                    users.${user.name} = import ./modules/home;
                   };
                 }
               ];
@@ -124,7 +124,7 @@
               extraSpecialArgs = specialArgs;
 
               modules = [
-                ./home
+                ./modules/home
                 inputs.mac-app-util.homeManagerModules.default
                 inputs.nix-index-database.hmModules.nix-index
               ];
@@ -135,8 +135,8 @@
       imports = [
         inputs.treefmt-nix.flakeModule
         inputs.git-hooks-nix.flakeModule
-        ./treefmt.nix
-        ./git-hooks.nix
+        ./modules/flake-parts/treefmt.nix
+        ./modules/flake-parts/git-hooks.nix
       ];
       systems = import inputs.systems;
     };
