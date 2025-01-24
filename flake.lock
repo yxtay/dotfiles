@@ -353,6 +353,10 @@
     "root": {
       "inputs": {
         "determinate": "determinate",
+        "flake-parts": [
+          "nix",
+          "flake-parts"
+        ],
         "git-hooks-nix": [
           "nix",
           "git-hooks-nix"
@@ -365,6 +369,10 @@
         "nixpkgs": [
           "nix",
           "nixpkgs"
+        ],
+        "systems": [
+          "mac-app-util",
+          "systems"
         ],
         "treefmt-nix": "treefmt-nix"
       }
