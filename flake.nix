@@ -59,85 +59,50 @@
 
   outputs =
     inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      flake =
-        let
-          inherit (pkgs.stdenv) isDarwin;
+    let
+      system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
+      pkgs = import inputs.nixpkgs { inherit system; };
+      inherit (pkgs.stdenv) isDarwin;
 
-          system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
-          pkgs = import inputs.nixpkgs { inherit system; };
+      host = {
+        name = "yx-tay-pkf2k";
+      };
 
-          host = {
-            name = "yx-tay-pkf2k";
-          };
+      user = {
+        name = "yuxuantay";
+        home = (if isDarwin then "/Users/" else "/home/") + user.name;
+        githubName = "yxtay";
+        email = "5795122+${user.githubName}@users.noreply.github.com";
+        workEmail = "139188417+daip-yxtay@users.noreply.github.com";
+      };
 
-          user = {
-            name = "yuxuantay";
-            home = (if isDarwin then "/Users/" else "/home/") + user.name;
-            githubName = "yxtay";
-            email = "5795122+${user.githubName}@users.noreply.github.com";
-            workEmail = "139188417+daip-yxtay@users.noreply.github.com";
-          };
-
-          specialArgs = inputs // {
-            inherit host user;
-          };
-        in
+      specialArgs = inputs // {
+        inherit system host user;
+      };
+    in
+    inputs.flake-parts.lib.mkFlake
+      {
+        inherit inputs;
+        inherit specialArgs;
+      }
+      (
+        inputs@{ systems, ... }:
         {
-          # Nix Darwin configuration entrypoint
-          # Available through 'nix run nix-darwin -- switch --flake .#simple'
-          darwinConfigurations = {
-            "${host.name}" = inputs.nix-darwin.lib.darwinSystem {
-              inherit system specialArgs;
+          flake = {
+            # Nix Darwin configuration entrypoint
+            # Available through 'nix run nix-darwin -- switch --flake .#simple'
+            darwinConfigurations = import ./configurations/darwin inputs;
 
-              modules = [
-                ./modules/darwin
-                inputs.determinate.darwinModules.default
-                inputs.mac-app-util.darwinModules.default
-                inputs.nix-homebrew.darwinModules.nix-homebrew
-                inputs.home-manager.darwinModules.home-manager
-                inputs.nix-index-database.darwinModules.nix-index
-
-                # home manager
-                {
-                  home-manager = {
-                    backupFileExtension = "backup";
-                    useGlobalPkgs = true;
-                    useUserPackages = true;
-                    extraSpecialArgs = specialArgs;
-                    sharedModules = [
-                      inputs.mac-app-util.homeManagerModules.default
-                      inputs.nix-index-database.hmModules.nix-index
-                    ];
-                    users.${user.name} = import ./modules/home;
-                  };
-                }
-              ];
-            };
+            # Standalone home-manager configuration entrypoint
+            # Available through 'nix run home-manager -- switch --flake .#simple'
+            homeConfigurations = import ./configurations/home inputs;
           };
 
-          # Standalone home-manager configuration entrypoint
-          # Available through 'nix run home-manager -- switch --flake .#simple'
-          homeConfigurations = {
-            "${user.name}" = inputs.home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              extraSpecialArgs = specialArgs;
-
-              modules = [
-                ./modules/home
-                inputs.mac-app-util.homeManagerModules.default
-                inputs.nix-index-database.hmModules.nix-index
-              ];
-            };
-          };
-        };
-
-      imports = [
-        inputs.treefmt-nix.flakeModule
-        inputs.git-hooks-nix.flakeModule
-        ./modules/flake-parts/treefmt.nix
-        ./modules/flake-parts/git-hooks.nix
-      ];
-      systems = import inputs.systems;
-    };
+          imports = [
+            ./modules/flake-parts/treefmt.nix
+            ./modules/flake-parts/git-hooks.nix
+          ];
+          systems = import systems;
+        }
+      );
 }

@@ -1,4 +1,6 @@
-_: {
+{ treefmt-nix, ... }:
+{
+  imports = [ treefmt-nix.flakeModule ];
   perSystem = {
     treefmt = {
       programs = {
