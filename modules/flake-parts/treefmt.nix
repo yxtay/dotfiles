@@ -1,7 +1,7 @@
 { treefmt-nix, ... }:
 {
   imports = [ treefmt-nix.flakeModule ];
-  perSystem = {
+  perSystem = _: {
     treefmt = {
       programs = {
         deadnix.enable = true;

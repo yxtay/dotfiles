@@ -58,10 +58,10 @@
   };
 
   outputs =
-    inputs:
+    inputs@{ nixpkgs, flake-parts, ... }:
     let
       system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
-      pkgs = import inputs.nixpkgs { inherit system; };
+      pkgs = import nixpkgs { inherit system; };
       inherit (pkgs.stdenv) isDarwin;
 
       host = {
@@ -80,29 +80,12 @@
         inherit system host user;
       };
     in
-    inputs.flake-parts.lib.mkFlake
+    flake-parts.lib.mkFlake
       {
         inherit inputs;
         inherit specialArgs;
       }
-      (
-        inputs@{ systems, ... }:
-        {
-          flake = {
-            # Nix Darwin configuration entrypoint
-            # Available through 'nix run nix-darwin -- switch --flake .#simple'
-            darwinConfigurations = import ./configurations/darwin inputs;
-
-            # Standalone home-manager configuration entrypoint
-            # Available through 'nix run home-manager -- switch --flake .#simple'
-            homeConfigurations = import ./configurations/home inputs;
-          };
-
-          imports = [
-            ./modules/flake-parts/treefmt.nix
-            ./modules/flake-parts/git-hooks.nix
-          ];
-          systems = import systems;
-        }
-      );
+      (_: {
+        imports = [ ./modules/flake-parts ];
+      });
 }

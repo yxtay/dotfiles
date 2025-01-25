@@ -16,8 +16,8 @@
     inherit system specialArgs;
 
     modules = [
-      home-manager.darwinModules.home-manager
       determinate.darwinModules.default
+      home-manager.darwinModules.home-manager
       mac-app-util.darwinModules.default
       nix-homebrew.darwinModules.nix-homebrew
       nix-index-database.darwinModules.nix-index

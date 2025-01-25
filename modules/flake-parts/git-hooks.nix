@@ -1,7 +1,7 @@
 { git-hooks-nix, ... }:
 {
   imports = [ git-hooks-nix.flakeModule ];
-  perSystem = {
+  perSystem = _: {
     pre-commit.settings = {
       hooks = {
         deadnix.enable = true;
@@ -12,6 +12,5 @@
         yamlfmt.enable = true;
       };
     };
-
   };
 }
