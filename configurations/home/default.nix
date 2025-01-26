@@ -1,18 +1,15 @@
-{
+extraSpecialArgs@{
   self,
-  nixpkgs,
   home-manager,
   mac-app-util,
   nix-index-database,
-  specialArgs,
-  system,
+  pkgs,
   user,
   ...
 }:
 {
   "${user.name}" = home-manager.lib.homeManagerConfiguration {
-    pkgs = import nixpkgs { inherit system; };
-    extraSpecialArgs = specialArgs;
+    inherit pkgs extraSpecialArgs;
 
     modules = [
       mac-app-util.homeManagerModules.default

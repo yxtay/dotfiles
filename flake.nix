@@ -76,9 +76,7 @@
         workEmail = "139188417+daip-yxtay@users.noreply.github.com";
       };
 
-      specialArgs = inputs // {
-        inherit system host user;
-      };
+      specialArgs = { inherit host user; };
     in
     flake-parts.lib.mkFlake
       {

@@ -1,4 +1,9 @@
-inputs@{ self, ... }:
+{
+  self,
+  inputs,
+  user,
+  ...
+}:
 {
   flake = {
     # Standalone home-manager configuration entrypoint
@@ -7,12 +12,12 @@ inputs@{ self, ... }:
   };
 
   perSystem =
-    { system, ... }:
+    { pkgs, ... }:
     {
       # Standalone home-manager configuration entrypoint
       # Available through 'nix run home-manager -- switch --flake .#simple'
       legacyPackages.homeConfigurations = import "${self}/configurations/home" (
-        inputs // { inherit system; }
+        inputs // { inherit pkgs user; }
       );
     };
 }

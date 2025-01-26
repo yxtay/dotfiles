@@ -1,4 +1,10 @@
-inputs@{ self, ... }:
+{
+  self,
+  inputs,
+  host,
+  user,
+  ...
+}:
 {
   flake = {
     # Nix Darwin configuration entrypoint
@@ -7,12 +13,16 @@ inputs@{ self, ... }:
   };
 
   perSystem =
-    { system, ... }:
+    { system, pkgs, ... }:
+    let
+      inherit (pkgs.lib) mkIf;
+      inherit (pkgs.stdenv) isDarwin;
+    in
     {
-      # Standalone home-manager configuration entrypoint
-      # Available through 'nix run home-manager -- switch --flake .#simple'
-      legacyPackages.darwinConfigurations = import "${self}/configurations/darwin" (
-        inputs // { inherit system; }
+      # Nix Darwin configuration entrypoint
+      # Available through 'nix run nix-darwin -- switch --flake .#simple'
+      legacyPackages.darwinConfigurations = mkIf isDarwin (
+        import "${self}/configurations/darwin" (inputs // { inherit system host user; })
       );
     };
 }

@@ -1,6 +1,6 @@
-{ git-hooks-nix, ... }:
+{ inputs, ... }:
 {
-  imports = [ git-hooks-nix.flakeModule ];
+  imports = [ inputs.git-hooks-nix.flakeModule ];
   perSystem = _: {
     pre-commit.settings = {
       hooks = {

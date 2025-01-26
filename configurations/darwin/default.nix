@@ -1,4 +1,4 @@
-{
+specialArgs@{
   self,
   nix-darwin,
   home-manager,
@@ -6,7 +6,6 @@
   mac-app-util,
   nix-homebrew,
   nix-index-database,
-  specialArgs,
   system,
   host,
   ...
