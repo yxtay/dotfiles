@@ -58,19 +58,15 @@
   };
 
   outputs =
-    inputs@{ nixpkgs, flake-parts, ... }:
+    inputs@{ flake-parts, ... }:
     let
-      system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
-      pkgs = import nixpkgs { inherit system; };
-      inherit (pkgs.stdenv) isDarwin;
-
       host = {
         name = "yx-tay-pkf2k";
       };
 
       user = {
         name = "yuxuantay";
-        home = (if isDarwin then "/Users/" else "/home/") + user.name;
+        home = "/Users/${user.name}";
         githubName = "yxtay";
         email = "5795122+${user.githubName}@users.noreply.github.com";
         workEmail = "139188417+daip-yxtay@users.noreply.github.com";

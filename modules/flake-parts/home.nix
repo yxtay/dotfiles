@@ -1,7 +1,6 @@
 {
   self,
   inputs,
-  user,
   ...
 }:
 {
@@ -12,7 +11,7 @@
   };
 
   perSystem =
-    { pkgs, ... }:
+    { pkgs, user, ... }:
     {
       # Standalone home-manager configuration entrypoint
       # Available through 'nix run home-manager -- switch --flake .#simple'

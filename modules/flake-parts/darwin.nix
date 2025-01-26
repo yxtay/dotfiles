@@ -1,8 +1,8 @@
 {
   self,
   inputs,
+  lib,
   host,
-  user,
   ...
 }:
 {
@@ -13,15 +13,16 @@
   };
 
   perSystem =
-    { system, pkgs, ... }:
-    let
-      inherit (pkgs.lib) mkIf;
-      inherit (pkgs.stdenv) isDarwin;
-    in
+    {
+      system,
+      pkgs,
+      user,
+      ...
+    }:
     {
       # Nix Darwin configuration entrypoint
       # Available through 'nix run nix-darwin -- switch --flake .#simple'
-      legacyPackages.darwinConfigurations = mkIf isDarwin (
+      legacyPackages.darwinConfigurations = lib.mkIf pkgs.stdenv.isDarwin (
         import "${self}/configurations/darwin" (inputs // { inherit system host user; })
       );
     };
