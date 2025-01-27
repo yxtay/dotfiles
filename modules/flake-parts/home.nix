@@ -4,6 +4,8 @@
   ...
 }:
 {
+  flake.homeModules.default = import "${self}/modules/home";
+
   perSystem =
     { pkgs, user, ... }:
     {
@@ -17,7 +19,7 @@
             inherit user;
           };
 
-          modules = [ "${self}/modules/home" ];
+          modules = [ self.homeModules.default ];
         };
       };
     };

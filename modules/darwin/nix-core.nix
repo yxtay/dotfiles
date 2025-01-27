@@ -1,5 +1,8 @@
 inputs: {
-  imports = [ inputs.determinate.darwinModules.default ];
+  imports = [
+    inputs.determinate.darwinModules.default
+    inputs.nix-index-database.darwinModules.nix-index
+  ];
 
   nix = {
     settings = {

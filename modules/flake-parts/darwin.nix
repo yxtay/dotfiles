@@ -6,6 +6,8 @@
   ...
 }:
 {
+  flake.darwinModules.default = import "${self}/modules/darwin";
+
   perSystem =
     {
       system,
@@ -24,7 +26,13 @@
             inherit host user;
           };
 
-          modules = [ "${self}/modules/darwin" ];
+          modules = [
+            self.darwinModules.default
+            {
+              home-manager.users.${user.name} = self.homeModules.default;
+              users.users.${user.name} = { inherit (user) home; };
+            }
+          ];
         };
       };
     };

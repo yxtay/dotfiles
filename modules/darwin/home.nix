@@ -1,7 +1,5 @@
 inputs@{
-  self,
   specialArgs,
-  user,
   ...
 }:
 {
@@ -12,11 +10,5 @@ inputs@{
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = specialArgs;
-    sharedModules = [ ];
-    users.${user.name} = import "${self}/modules/home";
-  };
-
-  users.users = {
-    "${user.name}" = { inherit (user) home; };
   };
 }
