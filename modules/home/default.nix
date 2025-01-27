@@ -1,4 +1,9 @@
-{ user, ... }:
+{
+  pkgs,
+  lib,
+  user,
+  ...
+}:
 {
   # import sub modules
   imports = [
@@ -13,9 +18,8 @@
     ./zsh.nix
   ];
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+  nix.package = lib.mkDefault pkgs.nix;
+  nixpkgs.config.allowUnfree = true;
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.

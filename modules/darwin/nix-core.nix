@@ -29,10 +29,7 @@ _: {
       automatic = true;
       options = "--delete-older-than 1w";
     };
-
-    optimise = {
-      automatic = true;
-    };
+    optimise.automatic = true;
   };
 
   # Allow unfree packages

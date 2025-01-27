@@ -1,9 +1,9 @@
 extraSpecialArgs@{
   self,
+  pkgs,
   home-manager,
   mac-app-util,
   nix-index-database,
-  pkgs,
   user,
   ...
 }:

@@ -6,12 +6,6 @@
   ...
 }:
 {
-  flake = {
-    # Nix Darwin configuration entrypoint
-    # Available through 'nix run nix-darwin -- switch --flake .#simple'
-    # darwinConfigurations = import "${self}/configurations/darwin" inputs;
-  };
-
   perSystem =
     {
       system,

@@ -28,7 +28,7 @@
     enableZshIntegration = false;
 
     # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
-    enableRosetta = true;
+    enableRosetta = config.system == "aarch64-darwin";
 
     # User owning the Homebrew prefix
     user = user.name;
