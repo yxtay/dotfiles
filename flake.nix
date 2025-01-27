@@ -58,7 +58,7 @@
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
+    inputs:
     let
       host = {
         name = "yx-tay-pkf2k";
@@ -74,7 +74,7 @@
 
       specialArgs = { inherit host user; };
     in
-    flake-parts.lib.mkFlake
+    inputs.flake-parts.lib.mkFlake
       {
         inherit inputs;
         inherit specialArgs;

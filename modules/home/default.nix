@@ -13,6 +13,7 @@
     ./git.nix
     ./gnu.nix
     ./helix.nix
+    ./nix-index.nix
     ./sh.nix
     ./wezterm.nix
     ./zsh.nix

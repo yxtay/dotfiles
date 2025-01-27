@@ -1,4 +1,6 @@
-_: {
+inputs: {
+  imports = [ inputs.determinate.darwinModules.default ];
+
   nix = {
     settings = {
       extra-substituters = [

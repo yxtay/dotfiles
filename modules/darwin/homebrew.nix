@@ -1,4 +1,4 @@
-{
+inputs@{
   lib,
   config,
   user,
@@ -20,6 +20,8 @@
       ) config.nix-homebrew.prefixes
     )
   );
+
+  imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
 
   # https://github.com/zhaofengli/nix-homebrew
   nix-homebrew = {

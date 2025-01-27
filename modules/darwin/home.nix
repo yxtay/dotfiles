@@ -1,21 +1,18 @@
-{
+inputs@{
   self,
-  mac-app-util,
-  nix-index-database,
   specialArgs,
   user,
   ...
 }:
 {
+  imports = [ inputs.home-manager.darwinModules.home-manager ];
+
   home-manager = {
     backupFileExtension = "backup";
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = specialArgs;
-    sharedModules = [
-      mac-app-util.homeManagerModules.default
-      nix-index-database.hmModules.nix-index
-    ];
+    sharedModules = [ ];
     users.${user.name} = import "${self}/modules/home";
   };
 
