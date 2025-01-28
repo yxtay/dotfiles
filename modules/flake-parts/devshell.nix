@@ -3,7 +3,12 @@ _: {
     { pkgs, ... }:
     {
       devShells.default = pkgs.mkShell {
-        packages = with pkgs; [ cowsay ];
+        packages = with pkgs; [
+          cowsay
+          fastfetch
+          figlet
+          lolcat
+        ];
       };
     };
 }

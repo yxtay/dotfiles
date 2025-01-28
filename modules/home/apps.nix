@@ -1,4 +1,7 @@
-inputs@{ pkgs, ... }:
+{ pkgs, flake, ... }:
+let
+  inherit (flake) inputs;
+in
 {
   imports = [ inputs.mac-app-util.homeManagerModules.default ];
 

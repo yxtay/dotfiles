@@ -1,4 +1,8 @@
-inputs: {
+{ flake, ... }:
+let
+  inherit (flake) inputs;
+in
+{
   imports = [
     inputs.determinate.darwinModules.default
     inputs.nix-index-database.darwinModules.nix-index

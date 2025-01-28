@@ -1,17 +1,6 @@
 { pkgs, config, ... }:
 {
-  home.packages = with pkgs; [
-    # fzf-git-sh
-    # nix-zsh-completions
-    zsh
-    # zsh-autosuggestions
-    # zsh-completions
-    # zsh-fast-syntax-highlighting
-    # zsh-forgit
-    # zsh-fzf-tab
-    # zsh-history-substring-search
-    # zsh-you-should-use
-  ];
+  home.packages = with pkgs; [ zsh ];
 
   programs.zsh = {
     enable = true;

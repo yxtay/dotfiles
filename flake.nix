@@ -19,6 +19,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-unified.url = "github:srid/nixos-unified";
+
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
       inputs = {
@@ -61,18 +63,12 @@
     inputs:
     let
       host.name = "yx-tay-pkf2k";
-      user = {
-        name = "yuxuantay";
-        home = "/Users/${user.name}";
-      };
-      specialArgs = { inherit host user; };
+      user.name = "yuxuantay";
     in
-    inputs.flake-parts.lib.mkFlake
-      {
-        inherit inputs;
-        inherit specialArgs;
-      }
-      (_: {
-        imports = [ ./modules/flake-parts ];
-      });
+    inputs.nixos-unified.lib.mkFlake {
+      inputs = inputs // {
+        inherit host user;
+      };
+      root = ./.;
+    };
 }

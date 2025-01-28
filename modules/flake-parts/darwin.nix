@@ -2,35 +2,28 @@
   self,
   lib,
   inputs,
-  host,
   ...
 }:
+let
+  inherit (inputs) host user;
+in
 {
   flake.darwinModules.default = import "${self}/modules/darwin";
 
   perSystem =
-    {
-      system,
-      pkgs,
-      user,
-      ...
-    }:
+    { pkgs, ... }:
     {
       # Nix Darwin configuration entrypoint
       # Available through 'nix run nix-darwin -- switch --flake .#simple'
       legacyPackages.darwinConfigurations = lib.mkIf pkgs.stdenv.isDarwin {
-        "${host.name}" = inputs.nix-darwin.lib.darwinSystem {
-          inherit system;
+        "${host.name}" = self.nixos-unified.lib.mkMacosSystem { home-manager = true; } {
+          nixpkgs.pkgs = pkgs;
 
-          specialArgs = inputs // {
-            inherit host user;
-          };
-
-          modules = [
+          imports = [
             self.darwinModules.default
             {
               home-manager.users.${user.name} = self.homeModules.default;
-              users.users.${user.name} = { inherit (user) home; };
+              users.users.${user.name}.home = "/Users/${user.name}";
             }
           ];
         };

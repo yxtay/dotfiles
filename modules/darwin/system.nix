@@ -1,4 +1,8 @@
-{ user, ... }:
+{ config, flake, ... }:
+let
+  inherit (flake) inputs;
+  inherit (inputs) user;
+in
 {
   ###################################################################################
   #
@@ -117,7 +121,7 @@
           "/Applications/Visual Studio Code.app"
           "/Applications/GitHub Desktop.app"
         ];
-        persistent-others = [ "${user.home}/Downloads" ];
+        persistent-others = [ "${config.users.users.${user.name}.home}/Downloads" ];
         show-process-indicators = true;
         show-recents = false;
         tilesize = 56;
