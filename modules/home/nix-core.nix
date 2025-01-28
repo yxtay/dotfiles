@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  flake,
-  ...
-}:
-let
-  inherit (flake) inputs;
-in
+inputs@{ pkgs, lib, ... }:
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
 

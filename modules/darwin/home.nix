@@ -1,7 +1,4 @@
-{ flake, ... }:
-let
-  inherit (flake) inputs;
-in
+inputs@{ specialArgs, ... }:
 {
   imports = [ inputs.home-manager.darwinModules.home-manager ];
 
@@ -9,6 +6,6 @@ in
     backupFileExtension = "backup";
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit flake; };
+    extraSpecialArgs = specialArgs;
   };
 }

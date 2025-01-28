@@ -1,12 +1,9 @@
 {
+  self,
   pkgs,
   lib,
-  flake,
   ...
 }:
-let
-  inherit (flake) self;
-in
 {
   home.packages = [ pkgs.chezmoi ];
 

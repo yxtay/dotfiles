@@ -1,8 +1,4 @@
-{ config, flake, ... }:
-let
-  inherit (flake) inputs;
-  inherit (inputs) user;
-in
+{ config, user, ... }:
 {
   ###################################################################################
   #

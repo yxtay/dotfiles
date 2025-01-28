@@ -322,21 +322,6 @@
         "type": "github"
       }
     },
-    "nixos-unified": {
-      "locked": {
-        "lastModified": 1738013480,
-        "narHash": "sha256-tZP5QX2Wto+KefSoEuy7Z7h8PtXPbKVSdzjRqZDTvz8=",
-        "owner": "srid",
-        "repo": "nixos-unified",
-        "rev": "9fcf4d410497dea1c1419760104cc16a42335f4f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "srid",
-        "repo": "nixos-unified",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1737604399,
@@ -402,7 +387,6 @@
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nix-index-database": "nix-index-database",
-        "nixos-unified": "nixos-unified",
         "nixpkgs": [
           "nix",
           "nixpkgs"
