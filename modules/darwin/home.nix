@@ -1,7 +1,4 @@
-inputs@{
-  specialArgs,
-  ...
-}:
+inputs@{ specialArgs, ... }:
 {
   imports = [ inputs.home-manager.darwinModules.home-manager ];
 

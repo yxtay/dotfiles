@@ -5,7 +5,25 @@ inputs: {
   ];
 
   nix = {
+    channel.enable = false;
+    optimise.automatic = true;
+    useDaemon = true;
+
+    gc = {
+      automatic = true;
+      interval = {
+        Hour = 3;
+        Minute = 15;
+      };
+      options = "--delete-older-than 1w";
+    };
+
     settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
       extra-substituters = [
         "https://nix-community.cachix.org"
         "https://nixpkgs-unfree.cachix.org"
@@ -28,18 +46,8 @@ inputs: {
         "@admin"
       ];
     };
-
-    # do garbage collection weekly to keep disk usage low
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 1w";
-    };
-    optimise.automatic = true;
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
 }

@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  user,
-  ...
-}:
+{ user, ... }:
 {
   # import sub modules
   imports = [
@@ -14,14 +8,11 @@
     ./git.nix
     ./gnu.nix
     ./helix.nix
-    ./nix-index.nix
+    ./nix-core.nix
     ./sh.nix
     ./wezterm.nix
     ./zsh.nix
   ];
-
-  nix.package = lib.mkDefault pkgs.nix;
-  nixpkgs.config.allowUnfree = true;
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -30,7 +21,7 @@
     # manage.
     username = user.name;
     homeDirectory = user.home;
-    sessionPath = [ "${user.home}/.local/bin" ];
+    sessionPath = [ "$HOME/.local/bin" ];
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release

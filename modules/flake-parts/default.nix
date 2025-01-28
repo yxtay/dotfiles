@@ -1,8 +1,4 @@
-{
-  inputs,
-  user,
-  ...
-}:
+{ inputs, user, ... }:
 {
   imports = [
     ./darwin.nix

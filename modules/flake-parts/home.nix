@@ -1,8 +1,4 @@
-{
-  self,
-  inputs,
-  ...
-}:
+{ self, inputs, ... }:
 {
   flake.homeModules.default = import "${self}/modules/home";
 

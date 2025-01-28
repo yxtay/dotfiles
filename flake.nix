@@ -60,18 +60,11 @@
   outputs =
     inputs:
     let
-      host = {
-        name = "yx-tay-pkf2k";
-      };
-
+      host.name = "yx-tay-pkf2k";
       user = {
         name = "yuxuantay";
         home = "/Users/${user.name}";
-        githubName = "yxtay";
-        email = "5795122+${user.githubName}@users.noreply.github.com";
-        workEmail = "139188417+daip-yxtay@users.noreply.github.com";
       };
-
       specialArgs = { inherit host user; };
     in
     inputs.flake-parts.lib.mkFlake
