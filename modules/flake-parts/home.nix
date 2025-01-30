@@ -10,10 +10,6 @@
   perSystem =
     { pkgs, ... }:
     let
-      extraSpecialArgs = inputs // {
-        inherit user;
-      };
-
       configuration = {
         home.username = user.name;
         home.homeDirectory = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/") + user.name;
@@ -25,7 +21,8 @@
       # Available through 'nix run home-manager -- switch --flake .#simple'
       legacyPackages.homeConfigurations = {
         "${user.name}" = inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs extraSpecialArgs;
+          inherit pkgs;
+          extraSpecialArgs = inputs;
           modules = [ configuration ];
         };
       };

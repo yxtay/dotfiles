@@ -64,12 +64,7 @@
       user.name = "yuxuantay";
       specialArgs = { inherit host user; };
     in
-    inputs.flake-parts.lib.mkFlake
-      {
-        inherit inputs;
-        inherit specialArgs;
-      }
-      (_: {
-        imports = [ ./modules/flake-parts ];
-      });
+    inputs.flake-parts.lib.mkFlake { inherit inputs specialArgs; } {
+      imports = [ ./modules/flake-parts ];
+    };
 }
