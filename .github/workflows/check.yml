@@ -2,10 +2,8 @@ on:
   pull_request:
   push:
     branches: [main]
-
 jobs:
   build:
-    name: Nix Checks
     runs-on: macos-latest
     permissions:
       id-token: "write"
