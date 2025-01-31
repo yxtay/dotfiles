@@ -14,7 +14,12 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v3
         with:
           determinate: true
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: cachix/cachix-action@v14
+        with:
+          name: nix-community
+      - uses: cachix/cachix-action@v14
+        with:
+          name: nixpkgs-unfree
       - uses: astro/deadnix-action@main
       - run: nix flake check
       - run: nix fmt
