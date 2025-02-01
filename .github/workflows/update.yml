@@ -1,0 +1,23 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * 0
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: cachix/cachix-action@v14
+        with:
+          name: nix-community
+      - uses: cachix/cachix-action@v14
+        with:
+          name: cachix
+      - uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: Update flake.lock
+          pr-labels: |
+            dependencies
+            automated
