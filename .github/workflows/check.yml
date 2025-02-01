@@ -19,12 +19,12 @@ jobs:
           trust-runner-user: true
           extra-conf: |
             trusted-users = root runner
-      - uses: cachix/cachix-action@v15
-        with:
-          name: nix-community
-      - uses: cachix/cachix-action@v15
-        with:
-          name: cachix
+      # - uses: cachix/cachix-action@v15
+      #   with:
+      #     name: nix-community
+      # - uses: cachix/cachix-action@v15
+      #   with:
+      #     name: cachix
       - uses: astro/deadnix-action@main
       - run: nix flake check
       - run: nix fmt
