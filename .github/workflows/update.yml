@@ -13,7 +13,7 @@ jobs:
           name: nix-community
       - uses: cachix/cachix-action@v14
         with:
-          name: nixpkgs-unfree
+          name: cachix
       - uses: DeterminateSystems/update-flake-lock@main
         with:
           pr-title: Update flake.lock # Title of PR to be created

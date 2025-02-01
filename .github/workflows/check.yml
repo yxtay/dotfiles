@@ -19,7 +19,7 @@ jobs:
           name: nix-community
       - uses: cachix/cachix-action@v14
         with:
-          name: nixpkgs-unfree
+          name: cachix
       - uses: astro/deadnix-action@main
       - run: nix flake check
       - run: nix fmt
