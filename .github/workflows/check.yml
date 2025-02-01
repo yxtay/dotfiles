@@ -9,15 +9,15 @@ jobs:
       id-token: "write"
       contents: "read"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # - uses: DeterminateSystems/flake-checker-action@v4
-      - uses: DeterminateSystems/nix-installer-action@v3
+      - uses: DeterminateSystems/nix-installer-action@v16
         with:
           determinate: true
-      - uses: cachix/cachix-action@v14
+      - uses: cachix/cachix-action@v15
         with:
           name: nix-community
-      - uses: cachix/cachix-action@v14
+      - uses: cachix/cachix-action@v15
         with:
           name: cachix
       - uses: astro/deadnix-action@main
