@@ -1,7 +1,8 @@
 on:
-  workflow_dispatch: # allows manual triggering
+  workflow_dispatch:
   schedule:
-    - cron: 0 0 * * 0 # runs weekly on Sunday at 00:00
+    - cron: 0 0 * * 0
+
 jobs:
   lockfile:
     runs-on: ubuntu-latest
@@ -16,7 +17,7 @@ jobs:
           name: cachix
       - uses: DeterminateSystems/update-flake-lock@main
         with:
-          pr-title: Update flake.lock # Title of PR to be created
-          pr-labels: | # Labels to be set on the PR
+          pr-title: Update flake.lock
+          pr-labels: |
             dependencies
             automated
