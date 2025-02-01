@@ -8,14 +8,15 @@ jobs:
   build:
     runs-on: macos-latest
     permissions:
-      id-token: "write"
-      contents: "read"
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       # - uses: DeterminateSystems/flake-checker-action@v4
       - uses: DeterminateSystems/nix-installer-action@v16
         with:
           determinate: true
+          trust-runner-user: true
           extra-conf: |
             trusted-users = root runner
       - uses: cachix/cachix-action@v15
