@@ -11,12 +11,12 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
-      # - uses: cachix/cachix-action@v15
-      #   with:
-      #     name: nix-community
-      # - uses: cachix/cachix-action@v15
-      #   with:
-      #     name: cachix
-      - uses: DeterminateSystems/update-flake-lock@main
+      - uses: cachix/install-nix-action@v27
+        with:
+          github_access_token: ${{ github.token }}
+      - uses: cachix/cachix-action@v15
+        with:
+          name: nix-community
+          extraPullNames: nixpkgs-unfree,cachix
+      - uses: DeterminateSystems/update-flake-lock@v24
       - uses: astro/deadnix-action@main

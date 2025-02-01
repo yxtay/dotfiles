@@ -13,17 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # - uses: DeterminateSystems/flake-checker-action@v4
-      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: cachix/install-nix-action@v27
         with:
-          determinate: true
-          trust-runner-user: true
-          extra-conf: |
-            trusted-users = root runner
-      # - uses: cachix/cachix-action@v15
-      #   with:
-      #     name: nix-community
-      # - uses: cachix/cachix-action@v15
-      #   with:
-      #     name: cachix
+          github_access_token: ${{ github.token }}
+      - uses: cachix/cachix-action@v15
+        with:
+          name: nix-community
+          extraPullNames: nixpkgs-unfree,cachix
       - run: nix flake check
       - run: nix fmt
