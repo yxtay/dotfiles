@@ -6,18 +6,17 @@ on:
 jobs:
   lockfile:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: cachix/cachix-action@v14
-        with:
-          name: nix-community
-      - uses: cachix/cachix-action@v14
-        with:
-          name: cachix
+      # - uses: cachix/cachix-action@v15
+      #   with:
+      #     name: nix-community
+      # - uses: cachix/cachix-action@v15
+      #   with:
+      #     name: cachix
       - uses: DeterminateSystems/update-flake-lock@main
-        with:
-          pr-title: Update flake.lock
-          pr-labels: |
-            dependencies
-            automated
+      - uses: astro/deadnix-action@main
