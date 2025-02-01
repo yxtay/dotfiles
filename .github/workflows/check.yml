@@ -25,6 +25,5 @@ jobs:
       # - uses: cachix/cachix-action@v15
       #   with:
       #     name: cachix
-      - uses: astro/deadnix-action@main
       - run: nix flake check
       - run: nix fmt

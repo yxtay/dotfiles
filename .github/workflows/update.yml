@@ -19,8 +19,4 @@ jobs:
       #   with:
       #     name: cachix
       - uses: DeterminateSystems/update-flake-lock@main
-        with:
-          pr-title: Update flake.lock
-          pr-labels: |
-            dependencies
-            automated
+      - uses: astro/deadnix-action@main
