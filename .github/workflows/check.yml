@@ -1,3 +1,4 @@
+name: check
 on:
   workflow_dispatch:
   pull_request:
@@ -5,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  check:
     runs-on: macos-latest
     permissions:
       id-token: write
