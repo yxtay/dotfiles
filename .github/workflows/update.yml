@@ -16,7 +16,7 @@ jobs:
           github_access_token: ${{ github.token }}
       - uses: cachix/cachix-action@v15
         with:
-          name: nix-community
-          extraPullNames: nixpkgs-unfree,cachix
+          name: cachix
+          extraPullNames: nix-community,nixpkgs-unfree
       - uses: DeterminateSystems/update-flake-lock@v24
       - uses: astro/deadnix-action@main
