@@ -31,11 +31,6 @@ repos:
     hooks:
       - id: gitleaks
 
-  - repo: https://github.com/trufflesecurity/truffleHog
-    rev: v3.88.4
-    hooks:
-      - id: trufflehog
-
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.7
     hooks:
