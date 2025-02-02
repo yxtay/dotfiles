@@ -19,6 +19,7 @@ inputs@{ pkgs, ... }:
     direnv
     git
     gh
+    ghc
     go
     mise
     ollama
