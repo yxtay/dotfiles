@@ -8,8 +8,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
-      contents: read
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v27
