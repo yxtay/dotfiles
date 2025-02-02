@@ -56,7 +56,7 @@
     #     src = "${zsh-fast-syntax-highlighting}/share/zsh/site-functions";
     #   }
     #   {
-    #     # after syntax-highting
+    #     # after syntax-highlighting
     #     name = "zsh-history-substring-search";
     #     src = "${zsh-history-substring-search}/share/zsh-history-substring-search";
     #     file = "zsh-history-substring-search.zsh";

@@ -8,9 +8,6 @@ on:
 jobs:
   check:
     runs-on: macos-latest
-    permissions:
-      id-token: write
-      contents: read
     steps:
       - uses: actions/checkout@v4
       # - uses: DeterminateSystems/flake-checker-action@v4

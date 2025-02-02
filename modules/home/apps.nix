@@ -14,13 +14,18 @@ inputs@{ pkgs, ... }:
 
     # dev
     ansible
+    cabal-install
     devbox
     direnv
     git
     gh
+    ghc
+    go
     mise
     ollama
     process-compose
+    python3
+    ruby
     rustup
     terraform
     terragrunt
