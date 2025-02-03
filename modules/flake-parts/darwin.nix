@@ -24,7 +24,7 @@
     in
     {
       # Nix Darwin configuration entrypoint
-      # Available through 'nix run nix-darwin -- switch --flake .#simple'
+      # Available through 'nix run --experimental-features "nix-command flakes" nix-darwin -- switch --flake .'
       legacyPackages.darwinConfigurations = lib.mkIf pkgs.stdenv.isDarwin {
         "${host.name}" = inputs.nix-darwin.lib.darwinSystem {
           inherit pkgs specialArgs;

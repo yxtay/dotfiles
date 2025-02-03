@@ -14,7 +14,9 @@ inputs@{ pkgs, ... }:
 
     # dev
     ansible
+    bun
     cabal-install
+    deno
     devbox
     direnv
     git
@@ -22,7 +24,9 @@ inputs@{ pkgs, ... }:
     ghc
     go
     mise
+    nodejs_22
     ollama
+    pnpm
     process-compose
     python3
     ruby
@@ -30,6 +34,7 @@ inputs@{ pkgs, ... }:
     terraform
     terragrunt
     usage
+    yarn
 
     # container
     docker
