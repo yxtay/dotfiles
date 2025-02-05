@@ -49,12 +49,12 @@ repos:
         language: rust
 
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.12.0
+    rev: v2.13.1-beta
     hooks:
       - id: hadolint-docker
 
   - repo: https://github.com/markdownlint/markdownlint
-    rev: v0.13.0
+    rev: v0.12.0
     hooks:
       - id: markdownlint
 
