@@ -34,7 +34,6 @@ inputs@{ pkgs, ... }:
     terraform
     terragrunt
     usage
-    yarn
 
     # container
     docker
