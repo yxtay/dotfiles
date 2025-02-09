@@ -11,23 +11,23 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - uses: cachix/install-nix-action@v30
+      - uses: cachix/install-nix-action@08dcb3a5e62fa31e2da3d490afc4176ef55ecd72 # v30
         with:
           github_access_token: ${{ github.token }}
 
-      - uses: nix-community/cache-nix-action@v5
+      - uses: nix-community/cache-nix-action@8351fb9f51c580c96c509987ebb99e38aed956ce # v5
         with:
           primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.nix', 'flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-
           restore-prefixes-all-matches: nix-${{ runner.os }}-
 
-      - uses: cachix/cachix-action@v15
+      - uses: cachix/cachix-action@ad2ddac53f961de1989924296a1f236fcfbaa4fc # v15
         with:
           name: cachix
           extraPullNames: nix-community, nixpkgs-unfree
 
-      - uses: DeterminateSystems/update-flake-lock@v24
+      - uses: DeterminateSystems/update-flake-lock@a2bbe0274e3a0c4194390a1e445f734c597ebc37 # v24
 
       - uses: astro/deadnix-action@main
