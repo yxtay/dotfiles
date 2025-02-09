@@ -30,4 +30,4 @@ jobs:
 
       - uses: DeterminateSystems/update-flake-lock@a2bbe0274e3a0c4194390a1e445f734c597ebc37 # v24
 
-      - uses: astro/deadnix-action@main
+      - uses: astro/deadnix-action@ee2dbf0e5d720af59156d620d843fe4964d794ca
