@@ -51,16 +51,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: metadata
-        uses: dependabot/fetch-metadata@v2
+        uses: dependabot/fetch-metadata@d7267f607e9d3fb96fc2fbe83e0af444713e90b7 # v2
 
       - name: log metadata
         env:
           DEPENDABOT_METADATA: ${{ toJson(steps.metadata.outputs) }}
-        run: echo ${DEPENDABOT_METADATA}
+        run: echo "${DEPENDABOT_METADATA}"
 
       - name: automerge
         if: ${{ !contains(steps.metadata.outputs.update-type, 'major' ) }}
-        run: gh pr merge --auto --squash ${PR_NUMBER}
+        run: gh pr merge --auto --squash "${PR_NUMBER}"
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
           GH_TOKEN: ${{ github.token }}
