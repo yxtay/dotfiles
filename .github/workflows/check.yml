@@ -16,6 +16,8 @@ jobs:
       matrix:
         os: [ubuntu-latest]
 
+    permissions:
+      contents: read
     runs-on: ${{ matrix.os }}
     steps:
       - name: Dump GitHub script context
