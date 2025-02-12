@@ -93,6 +93,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo || github.repository }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - id: ml
         # You can override MegaLinter flavor used to have faster performances
@@ -103,6 +106,7 @@ jobs:
           # https://megalinter.io/latest/configuration/
           APPLY_FIXES: all
           DISABLE_LINTERS: JSON_JSONLINT,SPELL_CSPELL
+          FAIL_IF_UPDATED_SOURCES: ${{ github.event_name != 'pull_request' }}
           GITHUB_STATUS_REPORTER: true
           GITHUB_TOKEN: ${{ github.token }}
           PYTHON_DEFAULT_STYLE: ruff
@@ -137,7 +141,8 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
-          fetch-depth: 0
+          repository: ${{ github.event.pull_request.head.repo || github.repository }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: super-linter/super-linter@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7
         env:
