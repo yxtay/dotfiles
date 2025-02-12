@@ -92,7 +92,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      statuses: write
+      # statuses: write
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -105,6 +105,7 @@ jobs:
           # https://megalinter.io/latest/configuration/
           APPLY_FIXES: all
           DISABLE_LINTERS: SPELL_CSPELL
+          GITHUB_STATUS_REPORTER: true
           GITHUB_TOKEN: ${{ github.token }}
           VALIDATE_ALL_CODEBASE: false
 
@@ -116,15 +117,15 @@ jobs:
             megalinter-reports
             mega-linter.log
 
-    # - name: commit changes
-    #   if: ${{ github.event_name == 'pull_request' && steps.ml.outputs.has_updated_sources == 1 }}
-    #   env:
-    #     # https://github.com/oxsecurity/megalinter/blob/main/.github/workflows/mega-linter.yml
-    #     COMMIT_MESSAGE: "[MegaLinter] Apply linters fixes"
-    #     GIT_USER_NAME: megalinter-bot
-    #     GIT_USER_EMAIL: nicolas.vuillamy@ox.security
-    #   run: |
-    #     git config user.name "${GIT_USER_NAME}"
-    #     git config user.email "${GIT_USER_EMAIL}"
-    #     git commit --all --message "${COMMIT_MESSAGE}"
-    #     git push
+      - name: commit changes
+        if: ${{ github.event_name == 'pull_request' && steps.ml.outputs.has_updated_sources == 1 }}
+        env:
+          # https://github.com/oxsecurity/megalinter/blob/main/.github/workflows/mega-linter.yml
+          COMMIT_MESSAGE: "[MegaLinter] Apply linters fixes"
+          GIT_USER_NAME: megalinter-bot
+          GIT_USER_EMAIL: nicolas.vuillamy@ox.security
+        run: |
+          git config user.name "${GIT_USER_NAME}"
+          git config user.email "${GIT_USER_EMAIL}"
+          git commit --all --message "${COMMIT_MESSAGE}"
+          git push
