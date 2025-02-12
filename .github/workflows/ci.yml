@@ -1,4 +1,4 @@
-name: check
+name: ci
 on:
   push:
     branches: [main]
@@ -10,12 +10,17 @@ on:
   workflow_call:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   context:
     strategy:
       matrix:
         os: [ubuntu-latest]
 
+    permissions:
+      contents: read
     runs-on: ${{ matrix.os }}
     steps:
       - name: Dump GitHub script context
@@ -56,7 +61,7 @@ jobs:
       - name: Dump environment variables
         run: ${{ (runner.os == 'Windows') && 'gci env:' || 'env | sort' }}
 
-  check:
+  nix-check:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -83,11 +88,11 @@ jobs:
       - run: nix fmt
 
   megalinter:
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
       statuses: write
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -102,10 +107,9 @@ jobs:
           DISABLE_LINTERS: SPELL_CSPELL
           GITHUB_STATUS_REPORTER: true
           GITHUB_TOKEN: ${{ github.token }}
-          PYTHON_DEFAULT_STYLE: ruff
           VALIDATE_ALL_CODEBASE: false
 
-      - if: ${{ success() || failure() }}
+      - if: always()
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
         with:
           name: MegaLinter reports
@@ -125,23 +129,3 @@ jobs:
           git config user.email "${GIT_USER_EMAIL}"
           git commit --all --message "${COMMIT_MESSAGE}"
           git push
-
-  superlinter:
-    permissions:
-      contents: read
-      statuses: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-
-      - uses: super-linter/super-linter@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
-        with:
-          name: SuperLinter reports
-          path: |
-            super-linter-output
-            super-linter.log
