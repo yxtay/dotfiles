@@ -1,4 +1,4 @@
-name: check
+name: ci
 on:
   push:
     branches: [main]
@@ -58,7 +58,7 @@ jobs:
       - name: Dump environment variables
         run: ${{ (runner.os == 'Windows') && 'gci env:' || 'env | sort' }}
 
-  check:
+  nix-check:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -83,3 +83,42 @@ jobs:
       - run: nix flake check
 
       - run: nix fmt
+
+  megalinter:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: ml
+        # You can override MegaLinter flavor used to have faster performances
+        # More info at https://megalinter.io/flavors/
+        uses: oxsecurity/megalinter@v8
+        env:
+          # All available variables are described in documentation
+          # https://megalinter.io/configuration/
+          VALIDATE_ALL_CODEBASE: false
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MegaLinter reports
+          path: |
+            megalinter-reports
+            mega-linter.log
+
+      - name: commit changes
+        if: ${{ github.event_name == 'pull_request' && steps.ml.outputs.has_updated_sources == 1 }}
+        env:
+          # https://github.com/oxsecurity/megalinter/blob/main/.github/workflows/mega-linter.yml
+          COMMIT_MESSAGE: "[MegaLinter] Apply linters fixes"
+          GIT_USER_NAME: megalinter-bot
+          GIT_USER_EMAIL: nicolas.vuillamy@ox.security
+        run: |
+          git config user.name "${GIT_USER_NAME}"
+          git config user.email "${GIT_USER_EMAIL}"
+          git commit --all --message "${COMMIT_MESSAGE}"
+          git push
