@@ -10,6 +10,9 @@ on:
   workflow_call:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   context:
     strategy:
@@ -89,18 +92,19 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      statuses: write
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - id: ml
         # You can override MegaLinter flavor used to have faster performances
-        # More info at https://megalinter.io/flavors/
+        # More info at https://megalinter.io/latest/flavors/
         uses: oxsecurity/megalinter@ec124f7998718d79379a3c5b39f5359952baf21d # v8
         env:
           # All available variables are described in documentation
-          # https://megalinter.io/configuration/
+          # https://megalinter.io/latest/configuration/
           APPLY_FIXES: all
-          DISABLE: SPELL_CSPELL
+          DISABLE_LINTERS: SPELL_CSPELL
           GITHUB_TOKEN: ${{ github.token }}
           VALIDATE_ALL_CODEBASE: false
 
