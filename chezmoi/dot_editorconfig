@@ -19,7 +19,7 @@ trim_trailing_whitespace=false
 indent_size=4
 tab_width=4
 
-[{.{go,tsv},go.{mod,sum},Makefile}]
+[{*.{go,lua,sh,tsv},go.{mod,sum},Makefile}]
 indent_size=4
 indent_style=tab
 tab_width=4

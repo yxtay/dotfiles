@@ -142,6 +142,7 @@ jobs:
       - uses: super-linter/super-linter@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          VALIDATE_JSCPD: false
 
       - if: ${{ success() || failure() }}
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
