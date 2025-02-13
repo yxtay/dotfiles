@@ -107,6 +107,7 @@ jobs:
           APPLY_FIXES: all
           DISABLE_LINTERS: JSON_JSONLINT,SPELL_CSPELL
           FAIL_IF_UPDATED_SOURCES: true
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           GITHUB_STATUS_REPORTER: true
           GITHUB_TOKEN: ${{ github.token }}
           PYTHON_DEFAULT_STYLE: ruff
