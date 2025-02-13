@@ -4,8 +4,7 @@ on:
     types: [opened, synchronize, reopened, edited]
     branches: [main]
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   lint-title:
