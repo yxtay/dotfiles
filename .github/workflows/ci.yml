@@ -121,7 +121,7 @@ jobs:
             mega-linter.log
 
       - name: commit changes
-        if: ${{ github.event_name == 'pull_request' && steps.ml.outputs.has_updated_sources == 1 }}
+        if: ${{ ( success() || failure() ) && github.event_name == 'pull_request' && steps.ml.outputs.has_updated_sources == 1 }}
         env:
           # https://github.com/oxsecurity/megalinter/blob/main/.github/workflows/mega-linter.yml
           BRANCH_NAME: ${{ github.head_ref }}
