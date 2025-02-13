@@ -126,7 +126,7 @@ jobs:
         env:
           # https://github.com/oxsecurity/megalinter/blob/main/.github/workflows/mega-linter.yml
           BRANCH_NAME: ${{ github.head_ref }}
-          COMMIT_MESSAGE: "[MegaLinter] Apply linters fixes"
+          COMMIT_MESSAGE: "fix: apply megalinter fixes"
           GIT_USER_NAME: megalinter-bot
           GIT_USER_EMAIL: nicolas.vuillamy@ox.security
         run: |
