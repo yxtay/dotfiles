@@ -1,2 +1,3 @@
 *.log
-megalinter-reports/
+megalinter-reports
+super-linter-output
