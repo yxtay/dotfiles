@@ -14,51 +14,6 @@ permissions:
   contents: read
 
 jobs:
-  context:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Dump GitHub script context
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
-        with:
-          script: console.log(context)
-
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "${GITHUB_CONTEXT}"
-
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "${JOB_CONTEXT}"
-
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "${STEPS_CONTEXT}"
-
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-        run: echo "${RUNNER_CONTEXT}"
-
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        run: echo "${STRATEGY_CONTEXT}"
-
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "${MATRIX_CONTEXT}"
-
-      - name: Dump environment variables
-        run: ${{ (runner.os == 'Windows') && 'gci env:' || 'env | sort' }}
-
   nix-check:
     runs-on: macos-latest
     steps:
@@ -158,3 +113,70 @@ jobs:
           path: |
             super-linter-output
             super-linter.log
+
+  dependabot:
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - id: metadata
+        uses: dependabot/fetch-metadata@d7267f607e9d3fb96fc2fbe83e0af444713e90b7 # v2
+
+      - name: log metadata
+        env:
+          DEPENDABOT_METADATA: ${{ toJson(steps.metadata.outputs) }}
+        run: echo "${DEPENDABOT_METADATA}"
+
+      - name: automerge
+        if: ${{ !contains(steps.metadata.outputs.update-type, 'major' ) }}
+        run: gh pr merge --auto --squash "${PR_NUMBER}"
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ github.token }}
+
+  context:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Dump GitHub script context
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        with:
+          script: console.log(context)
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "${GITHUB_CONTEXT}"
+
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "${JOB_CONTEXT}"
+
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "${STEPS_CONTEXT}"
+
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "${RUNNER_CONTEXT}"
+
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+        run: echo "${STRATEGY_CONTEXT}"
+
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "${MATRIX_CONTEXT}"
+
+      - name: Dump environment variables
+        run: ${{ (runner.os == 'Windows') && 'gci env:' || 'env | sort' }}
