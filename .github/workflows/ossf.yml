@@ -1,4 +1,4 @@
-name: scans
+name: ossf
 on:
   push:
     branches: [main]
