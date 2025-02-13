@@ -2,7 +2,6 @@ name: ci
 on:
   push:
     branches: [main]
-    tags: ["**"]
   pull_request:
     branches: [main]
   merge_group:
@@ -115,7 +114,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
-          fetch-depth: 0
+          fetch-depth: 3
 
       - uses: super-linter/super-linter@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7
         env:
