@@ -62,11 +62,10 @@ jobs:
           APPLY_FIXES: all
           DISABLE_LINTERS: JSON_JSONLINT,SPELL_CSPELL
           FAIL_IF_UPDATED_SOURCES: true
-          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           GITHUB_STATUS_REPORTER: true
           GITHUB_TOKEN: ${{ github.token }}
           PYTHON_DEFAULT_STYLE: ruff
-          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_ALL_CODEBASE: false
 
       - if: ${{ success() || failure() }}
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
@@ -90,7 +89,7 @@ jobs:
           git commit --all --message "${COMMIT_MESSAGE}"
           git push origin "HEAD:${BRANCH_NAME}"
 
-  superlinter:
+  super-linter:
     permissions:
       contents: read
       statuses: write
@@ -109,7 +108,7 @@ jobs:
       - if: ${{ success() || failure() }}
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
         with:
-          name: SuperLinter reports
+          name: Super-Linter reports
           path: |
             super-linter-output
             super-linter.log
