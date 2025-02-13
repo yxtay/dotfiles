@@ -2,5 +2,15 @@
   insteadOf = "git@github.com:"
   pushInsteadOf = "https://github.com/"
 
+[url "git@sgts.gitlab-dedicated.com:"]
+  pushInsteadOf = "https://sgts.gitlab-dedicated.com"
+
 [user]
   email = "{{ .work_email }}"
+  signingkey = ~/.ssh/id_ed25519_work.pub
+
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true

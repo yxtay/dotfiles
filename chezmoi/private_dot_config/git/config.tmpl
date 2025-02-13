@@ -96,5 +96,8 @@
 [includeIf "gitdir:~/work/"]
   path = "~/.config/git/work_config"
 
+[includeIf "hasconfig:remote.*.url:https://sgts.gitlab-dedicated.com/**"]
+  path = "~/.config/git/work_config"
+
 [include]
   path = "~/.config/git/alias"

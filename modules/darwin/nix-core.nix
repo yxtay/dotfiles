@@ -1,10 +1,12 @@
-inputs: {
+inputs@{ pkgs, lib, ... }:
+{
   imports = [
-    inputs.determinate.darwinModules.default
     inputs.nix-index-database.darwinModules.nix-index
   ];
 
   nix = {
+    package = lib.mkDefault inputs.nix.packages.${pkgs.system}.default;
+
     channel.enable = false;
     optimise.automatic = true;
     useDaemon = true;
@@ -42,7 +44,6 @@ inputs: {
       ];
 
       trusted-users = [
-        "root"
         "@admin"
       ];
     };

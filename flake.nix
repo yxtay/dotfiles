@@ -19,14 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-      inputs = {
-        nix.follows = "nix";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
     mac-app-util = {
       url = "github:hraban/mac-app-util";
       inputs = {
