@@ -106,7 +106,7 @@ jobs:
           # https://megalinter.io/latest/configuration/
           APPLY_FIXES: all
           DISABLE_LINTERS: JSON_JSONLINT,SPELL_CSPELL
-          FAIL_IF_UPDATED_SOURCES: ${{ github.event_name != 'pull_request' }}
+          FAIL_IF_UPDATED_SOURCES: true
           GITHUB_STATUS_REPORTER: true
           GITHUB_TOKEN: ${{ github.token }}
           PYTHON_DEFAULT_STYLE: ruff
@@ -121,7 +121,7 @@ jobs:
             mega-linter.log
 
       - name: commit changes
-        if: ${{ ( success() || failure() ) && github.event_name == 'pull_request' && steps.ml.outputs.has_updated_sources == 1 }}
+        if: ${{ failure() && github.event_name == 'pull_request' && steps.ml.outputs.has_updated_sources == 1 }}
         env:
           # https://github.com/oxsecurity/megalinter/blob/main/.github/workflows/mega-linter.yml
           BRANCH_NAME: ${{ github.head_ref }}
