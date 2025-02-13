@@ -40,7 +40,7 @@ jobs:
           # purge all versions of the cache
           purge-prefixes: cache-${{ runner.os }}-
           # created more than this number of seconds ago relative to the start of the `Post Restore` phase
-          purge-last-accessed: 86400
+          purge-created: 0
           # except the version with the `primary-key`, if it exists
           purge-primary-key: never
 
