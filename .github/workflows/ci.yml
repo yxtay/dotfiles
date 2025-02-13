@@ -116,6 +116,11 @@ jobs:
         with:
           fetch-depth: 3
 
+      - if: ${{ github.ref_name != github.event.repository.default_branch }}
+        run: git fetch origin "${DEFAULT_BRANCH}" --depth 1
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+
       - uses: super-linter/super-linter@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7
         env:
           GITHUB_TOKEN: ${{ github.token }}
