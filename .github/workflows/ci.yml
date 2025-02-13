@@ -70,7 +70,7 @@ jobs:
       - if: ${{ success() || failure() }}
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
         with:
-          name: MegaLinter reports
+          name: megalinter-reports
           path: |
             megalinter-reports
             mega-linter.log
@@ -108,7 +108,7 @@ jobs:
       - if: ${{ success() || failure() }}
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
         with:
-          name: Super-Linter reports
+          name: super-linter-output
           path: |
             super-linter-output
             super-linter.log
