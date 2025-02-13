@@ -13,10 +13,10 @@ permissions: {}
 
 jobs:
   nix-check:
+    runs-on: macos-latest
     permissions:
       actions: write
       contents: read
-    runs-on: macos-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -58,11 +58,11 @@ jobs:
       - run: nix fmt
 
   megalinter:
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
       statuses: write
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
@@ -107,10 +107,10 @@ jobs:
           git push origin "HEAD:${BRANCH_NAME}"
 
   super-linter:
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       statuses: write
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
@@ -137,10 +137,10 @@ jobs:
 
   dependabot:
     if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-    runs-on: ubuntu-latest
     steps:
       - id: metadata
         uses: dependabot/fetch-metadata@d7267f607e9d3fb96fc2fbe83e0af444713e90b7 # v2
