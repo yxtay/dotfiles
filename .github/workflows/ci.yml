@@ -142,9 +142,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
-          depth: 2
-          # repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          # ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          depth: 0
 
       - uses: super-linter/super-linter@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7
         env:
