@@ -84,6 +84,7 @@ jobs:
   osv-scan-pr:
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
     permissions:
+      actions: read
       contents: read
       security-events: write
     uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@764c91816374ff2d8fc2095dab36eecd42d61638 # v1
@@ -91,6 +92,7 @@ jobs:
   devskim:
     runs-on: ubuntu-latest
     permissions:
+      actions: read
       contents: read
       security-events: write
     steps:
