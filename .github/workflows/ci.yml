@@ -54,9 +54,9 @@ jobs:
           name: cachix
           extraPullNames: nix-community,nixpkgs-unfree
 
-      - run: nix flake check
+      - run: nix flake check --no-update-lock-file
 
-      - run: nix fmt
+      - run: nix fmt --no-update-lock-file
 
   megalinter:
     permissions:
