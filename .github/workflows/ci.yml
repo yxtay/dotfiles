@@ -16,7 +16,7 @@ jobs:
     runs-on: macos-latest
     permissions:
       actions: write
-      contents: write
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -60,23 +60,12 @@ jobs:
       - uses: tj-actions/verify-changed-files@6ed7632824d235029086612d4330d659005af687 # v20
         id: verify-changed-files
 
-      - name: commit changes
+      - name: files changed
         if: ${{ steps.verify-changed-files.outputs.files_changed == 'true' }}
         env:
-          # https://api.github.com/users/github-actions%5Bbot%5D
-          BRANCH_NAME: ${{ github.head_ref }}
-          COMMIT_MESSAGE: "fix: nix fmt fixes"
-          FILES_MODIFIED: ${{ steps.verify-changed-files.outputs.changed_files }}
-          GITHUB_ACTOR: github-actions[bot]
-          GITHUB_ACTOR_ID: 41898282
+          FILES_CHANGED: ${{ steps.verify-changed-files.outputs.changed_files }}
         run: |
-          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@@users.noreply.github.com"
-          git config user.name "${GITHUB_ACTOR}"
-          git fetch origin "${BRANCH_NAME}" --depth 1
-          git switch "${BRANCH_NAME}"
-          git commit --all --message "${COMMIT_MESSAGE}"
-          git push origin "HEAD:${BRANCH_NAME}"
-          echo "files modified: ${FILES_MODIFIED}"
+          echo ::error::"files modified: ${FILES_CHANGED}"
           exit 1
 
   megalinter:
@@ -120,9 +109,9 @@ jobs:
       - name: commit changes
         if: ${{ failure() && steps.ml.outputs.has_updated_sources == 1 && github.event_name == 'pull_request' }}
         env:
-          # https://api.github.com/users/megalinter-bot
           BRANCH_NAME: ${{ github.head_ref }}
           COMMIT_MESSAGE: "fix: apply megalinter fixes"
+          # https://api.github.com/users/megalinter-bot
           GITHUB_ACTOR: megalinter-bot
           GITHUB_ACTOR_ID: 129584137
         run: |
