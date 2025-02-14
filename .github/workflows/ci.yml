@@ -122,10 +122,10 @@ jobs:
           GITHUB_ACTOR: megalinter-bot
           GITHUB_ACTOR_ID: 129584137
         run: |
-          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@@users.noreply.github.com"
+          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
           git config user.name "${GITHUB_ACTOR}"
           git commit --all --message "${COMMIT_MESSAGE}"
-          git push origin "HEAD:${BRANCH_NAME}"
+          git push origin "HEAD:refs/heads/${BRANCH_NAME}"
 
   context:
     strategy:
@@ -137,7 +137,7 @@ jobs:
       - name: Dump GitHub script context
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
         with:
-          script: console.log(context)
+          script: console.log(JSON.stringify(context, null, 2))
 
       - name: Dump GitHub context
         env:
