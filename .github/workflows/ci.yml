@@ -63,14 +63,8 @@ jobs:
 
       - uses: tj-actions/verify-changed-files@6ed7632824d235029086612d4330d659005af687 # v20
         id: verify-changed-files
-
-      - name: files changed
-        if: ${{ steps.verify-changed-files.outputs.files_changed == 'true' }}
-        env:
-          FILES_CHANGED: ${{ steps.verify-changed-files.outputs.changed_files }}
-        run: |
-          echo "::error::files changed: ${FILES_CHANGED}"
-          exit 1
+        with:
+          fail-if-changed: true
 
   megalinter:
     runs-on: ubuntu-latest
@@ -101,16 +95,16 @@ jobs:
           SARIF_REPORTER: true
           VALIDATE_ALL_CODEBASE: false
 
-      - if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
+      - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
+        if: ${{ success() || failure() }}
         with:
           name: megalinter-reports
           path: |
             megalinter-reports
             mega-linter.log
 
-      - if: ${{ success() || failure() }}
-        uses: github/codeql-action/upload-sarif@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0 # v3
+      - uses: github/codeql-action/upload-sarif@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0 # v3
+        if: ${{ success() || failure() }}
         with:
           sarif_file: megalinter-reports/megalinter-report.sarif
           ref: ${{ github.head_ref && format('refs/heads/{0}', github.head_ref) || github.ref }}
