@@ -9,6 +9,10 @@ on:
   workflow_call:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
+
 permissions: {}
 
 jobs:
@@ -57,6 +61,17 @@ jobs:
 
       - run: nix fmt
 
+      - uses: tj-actions/verify-changed-files@6ed7632824d235029086612d4330d659005af687 # v20
+        id: verify-changed-files
+
+      - name: files changed
+        if: ${{ steps.verify-changed-files.outputs.files_changed == 'true' }}
+        env:
+          FILES_CHANGED: ${{ steps.verify-changed-files.outputs.changed_files }}
+        run: |
+          echo "::error::files changed: ${FILES_CHANGED}"
+          exit 1
+
   megalinter:
     runs-on: ubuntu-latest
     permissions:
@@ -69,7 +84,7 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - id: ml
+      - id: megalinter
         # You can override MegaLinter flavor used to have faster performances
         # More info at https://megalinter.io/latest/flavors/
         uses: oxsecurity/megalinter@ec124f7998718d79379a3c5b39f5359952baf21d # v8
@@ -82,6 +97,7 @@ jobs:
           GITHUB_STATUS_REPORTER: true
           GITHUB_TOKEN: ${{ github.token }}
           PYTHON_DEFAULT_STYLE: ruff
+          SARIF_REPORTER: true
           VALIDATE_ALL_CODEBASE: false
 
       - if: ${{ success() || failure() }}
@@ -92,70 +108,24 @@ jobs:
             megalinter-reports
             mega-linter.log
 
+      - if: ${{ success() || failure() }}
+        uses: github/codeql-action/upload-sarif@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0 # v3
+        with:
+          sarif_file: megalinter-reports/megalinter-report.sarif
+
       - name: commit changes
-        if: ${{ failure() && steps.ml.outputs.has_updated_sources == 1 && github.event_name == 'pull_request' }}
+        if: ${{ failure() && steps.megalinter.outputs.has_updated_sources == 1 && github.event_name == 'pull_request' }}
         env:
-          # https://github.com/oxsecurity/megalinter/blob/main/.github/workflows/mega-linter.yml
           BRANCH_NAME: ${{ github.head_ref }}
           COMMIT_MESSAGE: "fix: apply megalinter fixes"
-          GIT_USER_NAME: megalinter-bot
-          GIT_USER_EMAIL: nicolas.vuillamy@ox.security
+          # https://api.github.com/users/megalinter-bot
+          GITHUB_ACTOR: megalinter-bot
+          GITHUB_ACTOR_ID: 129584137
         run: |
-          git config user.name "${GIT_USER_NAME}"
-          git config user.email "${GIT_USER_EMAIL}"
+          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+          git config user.name "${GITHUB_ACTOR}"
           git commit --all --message "${COMMIT_MESSAGE}"
-          git push origin "HEAD:${BRANCH_NAME}"
-
-  super-linter:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      statuses: write
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-        with:
-          fetch-depth: 3
-
-      - if: ${{ github.ref_name != github.event.repository.default_branch }}
-        run: git fetch origin "${DEFAULT_BRANCH}" --depth 1
-        env:
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-
-      - uses: super-linter/super-linter@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          VALIDATE_JSCPD: false
-          VALIDATE_JSON: false
-
-      - if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
-        with:
-          name: super-linter-output
-          path: |
-            super-linter-output
-            super-linter.log
-
-  dependabot:
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - id: metadata
-        uses: dependabot/fetch-metadata@d7267f607e9d3fb96fc2fbe83e0af444713e90b7 # v2
-
-      - name: log metadata
-        env:
-          DEPENDABOT_METADATA: ${{ toJson(steps.metadata.outputs) }}
-        run: echo "${DEPENDABOT_METADATA}"
-
-      - name: automerge
-        if: ${{ !contains(steps.metadata.outputs.update-type, 'major' ) }}
-        run: gh pr merge --auto --squash "${PR_NUMBER}"
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          GH_TOKEN: ${{ github.token }}
+          git push origin "HEAD:refs/heads/${BRANCH_NAME}"
 
   context:
     strategy:
@@ -167,7 +137,7 @@ jobs:
       - name: Dump GitHub script context
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
         with:
-          script: console.log(context)
+          script: console.log(JSON.stringify(context, null, 2))
 
       - name: Dump GitHub context
         env:
