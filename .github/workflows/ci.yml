@@ -77,6 +77,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      security-events: write
       statuses: write
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -112,11 +113,12 @@ jobs:
         uses: github/codeql-action/upload-sarif@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0 # v3
         with:
           sarif_file: megalinter-reports/megalinter-report.sarif
+          ref: ${{ github.head_ref && format('refs/heads/{0}', github.head_ref) || github.ref }}
+          sha: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: commit changes
         if: ${{ failure() && steps.megalinter.outputs.has_updated_sources == 1 && github.event_name == 'pull_request' }}
         env:
-          BRANCH_NAME: ${{ github.head_ref }}
           COMMIT_MESSAGE: "fix: apply megalinter fixes"
           # https://api.github.com/users/megalinter-bot
           GITHUB_ACTOR: megalinter-bot
@@ -125,7 +127,7 @@ jobs:
           git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
           git config user.name "${GITHUB_ACTOR}"
           git commit --all --message "${COMMIT_MESSAGE}"
-          git push origin "HEAD:refs/heads/${BRANCH_NAME}"
+          git push origin "HEAD:refs/heads/${GITHUB_HEAD_REF}"
 
   context:
     strategy:
