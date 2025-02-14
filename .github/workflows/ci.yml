@@ -57,6 +57,26 @@ jobs:
 
       - run: nix flake check
 
+      - id: changed-files
+        uses: tj-actions/changed-files@dcc7a0cba800f454d79fff4b993e8c3555bcc0a8 # v45
+
+      - name: commit changes
+        if: ${{ steps.changed-files.outputs.any_modified }}
+        env:
+          # https://api.github.com/users/github-actions%5Bbot%5D
+          BRANCH_NAME: ${{ github.head_ref }}
+          COMMIT_MESSAGE: "fix: nix fmt fixes"
+          GITHUB_ACTOR: github-actions[bot]
+          GITHUB_ACTOR_ID: 41898282
+        run: |
+          git config user.name "${GIT_USER_NAME}"
+          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@@users.noreply.github.com"
+          git fetch "${BRANCH_NAME}" --depth 1
+          git switch "${BRANCH_NAME}"
+          git commit --all --message "${COMMIT_MESSAGE}"
+          git push
+          exit 1
+
   megalinter:
     runs-on: ubuntu-latest
     permissions:
@@ -98,15 +118,16 @@ jobs:
       - name: commit changes
         if: ${{ failure() && steps.ml.outputs.has_updated_sources == 1 && github.event_name == 'pull_request' }}
         env:
-          # https://github.com/oxsecurity/megalinter/blob/main/.github/workflows/mega-linter.yml
+          # https://api.github.com/users/megalinter-bot
           BRANCH_NAME: ${{ github.head_ref }}
           COMMIT_MESSAGE: "fix: apply megalinter fixes"
-          GIT_USER_NAME: megalinter-bot
-          GIT_USER_EMAIL: nicolas.vuillamy@ox.security
+          GITHUB_ACTOR: megalinter-bot
+          GITHUB_ACTOR_ID: 129584137
         run: |
           git config user.name "${GIT_USER_NAME}"
-          git config user.email "${GIT_USER_EMAIL}"
-          git checkout "${BRANCH_NAME}"
+          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@@users.noreply.github.com"
+          git fetch "${BRANCH_NAME}" --depth 1
+          git switch "${BRANCH_NAME}"
           git commit --all --message "${COMMIT_MESSAGE}"
           git push
 
