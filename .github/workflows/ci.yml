@@ -53,9 +53,9 @@ jobs:
           name: cachix
           extraPullNames: nix-community,nixpkgs-unfree
 
-      - run: nix flake check
-
       - run: nix fmt
+
+      - run: nix flake check
 
   megalinter:
     runs-on: ubuntu-latest
@@ -65,9 +65,6 @@ jobs:
       statuses: write
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - id: ml
         # You can override MegaLinter flavor used to have faster performances
@@ -109,8 +106,9 @@ jobs:
         run: |
           git config user.name "${GIT_USER_NAME}"
           git config user.email "${GIT_USER_EMAIL}"
+          git checkout "${BRANCH_NAME}"
           git commit --all --message "${COMMIT_MESSAGE}"
-          git push origin "HEAD:${BRANCH_NAME}"
+          git push
 
   context:
     strategy:
