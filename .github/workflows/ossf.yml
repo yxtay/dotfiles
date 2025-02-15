@@ -9,21 +9,22 @@ on:
   workflow_call:
   workflow_dispatch:
 
+permissions: {}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
 
-permissions: {}
-
 jobs:
   ossf:
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       # Needed for GitHub OIDC token if publish_results is true
       id-token: write
       # Needed for Code scanning upload
       security-events: write
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 

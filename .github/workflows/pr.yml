@@ -4,40 +4,40 @@ on:
     types: [opened, synchronize, reopened, edited]
     branches: [main]
 
+permissions: {}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
 
-permissions: {}
-
 jobs:
   lint-title:
-    runs-on: ubuntu-latest
     permissions:
       pull-requests: read
+
+    runs-on: ubuntu-latest
     steps:
-      - name: semantic-pull-request
-        uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
   label:
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
+
+    runs-on: ubuntu-latest
     steps:
-      - name: labeler
-        uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5
+      - uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5
 
   label-size:
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
+
+    runs-on: ubuntu-latest
     steps:
-      - name: size-label
-        uses: pascalgn/size-label-action@f8edde36b3be04b4f65dcfead05dc8691b374348 # v0.5.5
+      - uses: pascalgn/size-label-action@f8edde36b3be04b4f65dcfead05dc8691b374348 # v0.5.5
         env:
           GITHUB_TOKEN: ${{ github.token }}
           IGNORED: |

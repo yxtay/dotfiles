@@ -9,18 +9,19 @@ on:
   workflow_call:
   workflow_dispatch:
 
+permissions: {}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
 
-permissions: {}
-
 jobs:
   trivy:
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       security-events: write
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -38,9 +39,10 @@ jobs:
           sarif_file: "trivy-results.sarif"
 
   trufflehog:
-    runs-on: ubuntu-latest
     permissions:
       contents: read
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
@@ -51,26 +53,29 @@ jobs:
           extra_args: --results=verified,unknown
 
   osv-scan-push:
-    if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
     permissions:
       actions: read
       contents: read
       security-events: write
+
+    if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
     uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@764c91816374ff2d8fc2095dab36eecd42d61638 # v1
 
   osv-scan-pr:
-    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
     permissions:
       actions: read
       contents: read
       security-events: write
+
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
     uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@764c91816374ff2d8fc2095dab36eecd42d61638 # v1
 
   devskim:
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       security-events: write
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -81,16 +86,17 @@ jobs:
           sarif_file: devskim-results.sarif
 
   msdo:
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
       security-events: write
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - id: msdo
-        uses: microsoft/security-devops-action@08976cb623803b1b36d7112d4ff9f59eae704de0 # v1
+      - uses: microsoft/security-devops-action@08976cb623803b1b36d7112d4ff9f59eae704de0 # v1
+        id: msdo
 
       - uses: github/codeql-action/upload-sarif@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0 # v3
         with:
