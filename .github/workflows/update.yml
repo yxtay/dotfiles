@@ -51,11 +51,6 @@ jobs:
           name: cachix
           extraPullNames: nix-community,nixpkgs-unfree
 
-      - uses: cachix/cachix-action@ad2ddac53f961de1989924296a1f236fcfbaa4fc # v15
-        with:
-          name: cachix
-          extraPullNames: nix-community, nixpkgs-unfree
-
       - uses: DeterminateSystems/update-flake-lock@a2bbe0274e3a0c4194390a1e445f734c597ebc37 # v24
 
       - uses: astro/deadnix-action@ee2dbf0e5d720af59156d620d843fe4964d794ca
