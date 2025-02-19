@@ -10,18 +10,21 @@
   perSystem =
     { pkgs, ... }:
     let
-      homeConfiguration = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = inputs;
-        modules = [ self.homeModules.default ];
+      configuration = {
+        home.username = user.name;
+        home.homeDirectory = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/") + user.name;
+        imports = [ self.homeModules.default ];
       };
     in
     {
       # Standalone home-manager configuration entrypoint
       # Available through 'nix run home-manager -- switch --flake .#simple'
       legacyPackages.homeConfigurations = {
-        "${user.name}" = homeConfiguration;
-        "runner" = homeConfiguration;
+        "${user.name}" = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = inputs;
+          modules = [ configuration ];
+        };
       };
     };
 }

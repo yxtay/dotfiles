@@ -71,43 +71,6 @@ jobs:
         with:
           fail-if-changed: true
 
-  nix-home-manager:
-    permissions:
-      actions: write
-      contents: read
-
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-
-      - uses: nixbuild/nix-quick-install-action@25aff27c252e0c8cdda3264805f7b6bcd92c8718 # v29
-
-      - uses: nix-community/cache-nix-action@8351fb9f51c580c96c509987ebb99e38aed956ce # v5
-        with:
-          # restore and save a cache using this key
-          primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock') }}
-          # if there's no cache hit, restore a cache by this prefix
-          restore-prefixes-first-match: nix-${{ runner.os }}-
-          # collect garbage until Nix store size (in bytes) is at most this number
-          # before trying to save a new cache
-          gc-max-store-size-linux: 1073741824
-          # do purge caches
-          purge: true
-          # purge all versions of the cache
-          purge-prefixes: nix-${{ runner.os }}-
-          # created more than this number of seconds ago relative to the start of the `Post Restore` phase
-          purge-created: 0
-          # except the version with the `primary-key`, if it exists
-          purge-primary-key: never
-
-      - uses: cachix/cachix-action@ad2ddac53f961de1989924296a1f236fcfbaa4fc # v15
-        with:
-          name: cachix
-          extraPullNames: nix-community,nixpkgs-unfree
-
-      - name: home-manager
-        run: nix run home-manager -- switch --flake .#yuxuantay
-
   context:
     strategy:
       matrix:
