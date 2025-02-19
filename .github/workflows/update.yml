@@ -22,7 +22,7 @@ jobs:
 
       - uses: nixbuild/nix-quick-install-action@25aff27c252e0c8cdda3264805f7b6bcd92c8718 # v29
 
-      - uses: nix-community/cache-nix-action@8351fb9f51c580c96c509987ebb99e38aed956ce # v5
+      - uses: nix-community/cache-nix-action@92aaf15ec4f2857ffed00023aecb6504bb4a5d3d # v6
         with:
           # restore and save a cache using this key
           primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock') }}
