@@ -60,6 +60,10 @@ jobs:
 
       - run: nix flake check
 
+      - uses: astro/deadnix-action@ee2dbf0e5d720af59156d620d843fe4964d794ca
+        with:
+          create_pr: false
+
       - run: nix fmt
 
       - id: verify-changed-files
