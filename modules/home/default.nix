@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, config, ... }:
 {
   # import sub modules
   imports = [
@@ -15,6 +15,9 @@
   ];
 
   home = {
+    username = config.name;
+    homeDirectory = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/") + config.name;
+
     sessionPath = [ "$HOME/.local/bin" ];
 
     # This value determines the Home Manager release that your configuration is
