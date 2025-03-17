@@ -1,0 +1,57 @@
+name: setup-nix-cache
+description: setup nix with cache
+inputs:
+  primary-key:
+    description: restore and save a cache using this key
+    default: nix-${{ runner.os }}-${{ hashFiles('flake.lock') }}
+  restore-prefixes-first-match:
+    description: if there's no cache hit, restore a cache by this prefix
+    default: nix-${{ runner.os }}-
+
+  gc-max-store-size:
+    description: collect garbage until Nix store size is at most this amount
+    default: 10G
+
+  purge:
+    description: do purge caches
+    default: "true"
+  purge-primary-key:
+    description: except the version with the `primary-key`, if it exists
+    default: never
+  purge-prefixes:
+    description: purge all versions of the cache
+    default: nix-${{ runner.os }}-
+  purge-created:
+    description: created more than this number of seconds ago relative to the start of the `Post Restore` phase
+    default: "0"
+
+  cachix-names:
+    description: cachix names to pull from
+    default: nix-community,nixpkgs-unfree
+runs:
+  using: composite
+  steps:
+    # - uses: DeterminateSystems/flake-checker-action@v4
+
+    # - uses: DeterminateSystems/nix-installer-action@e50d5f73bfe71c2dd0aa4218de8f4afa59f8f81d # v16
+    #   with:
+    #     determinate: true
+    # - uses: cachix/install-nix-action@08dcb3a5e62fa31e2da3d490afc4176ef55ecd72 # v30
+    #   with:
+    #     github_access_token: ${{ github.token }}
+    - uses: nixbuild/nix-quick-install-action@5bb6a3b3abe66fd09bbf250dce8ada94f856a703 # v30
+
+    - uses: nix-community/cache-nix-action@c448f065ba14308da81de769632ca67a3ce67cf5 # v6
+      with:
+        primary-key: ${{ inputs.primary-key }}
+        restore-prefixes-first-match: ${{ inputs.restore-prefixes-first-match }}
+        gc-max-store-size: ${{ inputs.gc-max-store-size }}
+        purge: ${{ inputs.purge }}
+        purge-primary-key: ${{ inputs.purge-primary-key }}
+        purge-prefixes: ${{ inputs.purge-prefixes }}
+        purge-created: ${{ inputs.purge-created }}
+
+    - uses: cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad # v16
+      with:
+        name: cachix
+        extraPullNames: ${{ inputs.cachix-names }}
