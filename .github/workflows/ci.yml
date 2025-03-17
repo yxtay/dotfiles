@@ -42,6 +42,14 @@ jobs:
         with:
           fail-if-changed: true
 
+  chezmoi:
+    permissions:
+      contents: read
+
+    runs-on: macos-latest
+    steps:
+      - run: ./install.sh
+
   context:
     strategy:
       matrix:
