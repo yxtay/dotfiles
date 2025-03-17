@@ -106,7 +106,7 @@ comps=(
 )
 
 evals=(
-  # brew "brew shellenv"  # removes nix path
+  brew "brew shellenv"
   direnv "direnv hook zsh"
   fzf "fzf --zsh"
   mcfly "mcfly init zsh"
