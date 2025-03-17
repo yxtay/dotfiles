@@ -2,7 +2,7 @@ _: {
   networking = {
     knownNetworkServices = [
       "Wi-Fi"
-      # "Thunderbolt Bridge"
+      "Thunderbolt Bridge"
     ];
     dns = [
       # adguard
