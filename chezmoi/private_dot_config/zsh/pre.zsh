@@ -1,12 +1,7 @@
 #!/usr/bin/env zsh
 # Ensure path arrays do not contain duplicates.
 typeset -U fpath
-
-for profile in ${(z)NIX_PROFILES}; do
-  fpath=(${profile}/share/zsh/site-functions ${profile}/share/zsh/${ZSH_VERSION}/functions ${profile}/share/zsh/vendor-completions ${fpath})
-done
-
-fpath=(${^fpath}(FN))
+fpath=(${(Oaz)^NIX_PROFILES}/share/zsh/{site-functions,${ZSH_VERSION}/functions,vendor-completions}(N) ${^fpath}(N))
 
 # -----------------
 # Zsh configuration
