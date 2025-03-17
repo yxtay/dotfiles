@@ -3,7 +3,7 @@
 # ------------------------------
 # Post-init module configuration
 # ------------------------------
-
+path=(${path} ${(z)^NIX_PROFILES}/bin(N))
 #
 # zsh-history-substring-search
 #

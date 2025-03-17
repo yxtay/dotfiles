@@ -15,7 +15,7 @@ for profile in ${(z)NIX_PROFILES}; do
   path=(${profile}/bin ${path})
 done
 
-path=(${HOME}{/.local,}/{,s}bin(FN) ${^path}(FN))
+path=(${HOME}{/.local,}/{,s}bin(FN) ${^path}(N))
 
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_CONFIG_HOME=${HOME}/.config
