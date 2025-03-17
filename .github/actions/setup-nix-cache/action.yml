@@ -31,14 +31,14 @@ inputs:
 runs:
   using: composite
   steps:
-    # - uses: DeterminateSystems/flake-checker-action@v4
-
     # - uses: DeterminateSystems/nix-installer-action@e50d5f73bfe71c2dd0aa4218de8f4afa59f8f81d # v16
     #   with:
     #     determinate: true
+
     # - uses: cachix/install-nix-action@08dcb3a5e62fa31e2da3d490afc4176ef55ecd72 # v30
     #   with:
     #     github_access_token: ${{ github.token }}
+
     - uses: nixbuild/nix-quick-install-action@5bb6a3b3abe66fd09bbf250dce8ada94f856a703 # v30
 
     - uses: nix-community/cache-nix-action@c448f065ba14308da81de769632ca67a3ce67cf5 # v6
