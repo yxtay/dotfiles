@@ -44,9 +44,9 @@ in
         "flakes"
       ];
 
-      extra-substituters = extra-substituters;
-      extra-trusted-public-keys = extra-trusted-public-keys;
-      trusted-users = trusted-users;
+      inherit extra-substituters;
+      inherit extra-trusted-public-keys;
+      inherit trusted-users;
     };
   };
 
