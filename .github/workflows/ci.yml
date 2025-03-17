@@ -55,8 +55,10 @@ jobs:
       - run: ./install.sh
 
       - run: |
+          exec zsh
           echo path: ${path}
           echo fpath: ${fpath}
+          zsh_prof
         shell: zsh {0}
 
   context:
