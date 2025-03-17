@@ -50,12 +50,11 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - run: sudo apt-get update; sudo apt-get install zsh
+      - run: sudo apt-get update; sudo apt-get install --yes zsh
 
       - run: ./install.sh
 
       - run: |
-          exec zsh
           echo path: ${path}
           echo fpath: ${fpath}
           zsh_prof
