@@ -1,5 +1,5 @@
-name: setup-nix-cache
-description: setup nix with cache
+name: setup-nix-cache-cachix
+description: setup nix with cache and cachix
 inputs:
   primary-key:
     description: restore and save a cache using this key
