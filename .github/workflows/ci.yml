@@ -55,8 +55,8 @@ jobs:
       - run: ./install.sh
 
       - run: |
-          echo path: ${path}
-          echo fpath: ${fpath}
+          setopt
+          env | sort
         shell: zsh {0}
 
   context:
