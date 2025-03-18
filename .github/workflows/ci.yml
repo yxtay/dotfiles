@@ -56,6 +56,7 @@ jobs:
 
       - run: |
           setopt
+          unsetopt
           ls ~/.config/zsh
           echo path: ${path}
           echo fpath: ${fpath}
