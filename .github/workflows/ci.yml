@@ -56,7 +56,9 @@ jobs:
 
       - run: |
           setopt
-          env | sort
+          ls ~/.config/zsh
+          echo path: ${path}
+          echo fpath: ${fpath}
         shell: zsh {0}
 
   context:
