@@ -50,17 +50,18 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - run: sudo apt-get update; sudo apt-get install --yes zsh
+      - run: |
+          sudo apt-get update
+          sudo apt-get install --yes zsh
 
       - run: ./install.sh
 
       - run: |
-          setopt
-          unsetopt
-          ls ~/.config/zsh
           echo path: ${path}
           echo fpath: ${fpath}
-        shell: zsh +f {0}
+          echo setopt: $(setopt)
+          echo unsetopt: $(unsetopt)
+        shell: zsh {0}
 
   context:
     strategy:
