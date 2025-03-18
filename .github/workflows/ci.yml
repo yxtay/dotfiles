@@ -52,6 +52,8 @@ jobs:
 
       - run: ./install.sh
         shell: zsh {0}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - run: |
           echo ${ZSH_NAME} ${ZSH_VERSION}
