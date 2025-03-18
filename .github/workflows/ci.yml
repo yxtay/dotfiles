@@ -60,7 +60,7 @@ jobs:
           ls ~/.config/zsh
           echo path: ${path}
           echo fpath: ${fpath}
-        shell: zsh {0}
+        shell: zsh --rcs {0}
 
   context:
     strategy:
