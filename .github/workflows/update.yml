@@ -24,4 +24,4 @@ jobs:
 
       - uses: DeterminateSystems/update-flake-lock@a2bbe0274e3a0c4194390a1e445f734c597ebc37 # v24
         with:
-          commit-msg: "build(deps): update flake.lock"
+          pr-title: "build(deps): update flake.lock"
