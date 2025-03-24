@@ -6,16 +6,26 @@ default_stages:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
       - id: validate_manifest
+        name: pre-commit autoupdate
+        entry: pre-commit autoupdate
+        always_run: true
+        pass_filenames: false
+
+  - repo: meta
+    hooks:
+      #   - id: check-hooks-apply
+      - id: check-useless-excludes
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
-      # whitespace
+      # endings
       - id: end-of-file-fixer
       - id: mixed-line-ending
+        args: [--fix, lf]
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext, md]
 
@@ -31,9 +41,15 @@ repos:
       - id: check-merge-conflict
       - id: check-vcs-permalinks
       - id: no-commit-to-branch
+      - id: forbid-new-submodules
+
+        # security
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: detect-private-key
 
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.24.0
+    rev: v8.24.2
     hooks:
       - id: gitleaks
 
@@ -53,10 +69,26 @@ repos:
       - id: deadnix
         language: rust
 
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.13.1-beta
+    hooks:
+      - id: hadolint-docker
+
   - repo: https://github.com/markdownlint/markdownlint
     rev: v0.12.0
     hooks:
       - id: markdownlint
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+      - id: shellcheck
+        exclude: (\.|_)zsh(env|rc)?$
+
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.11.0-1
+    hooks:
+      - id: shfmt
 
   - repo: https://github.com/ComPWA/taplo-pre-commit
     rev: v0.9.3
@@ -70,3 +102,4 @@ repos:
 
 ci:
   autoupdate_commit_msg: "ci: pre-commit autoupdate"
+  skip: [validate_manifest, hadolint-docker, shellcheck]
