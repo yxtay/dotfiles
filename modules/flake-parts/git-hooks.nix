@@ -15,6 +15,15 @@
       taplo.enable = true;
       trufflehog.enable = true;
       yamlfmt.enable = true;
+
+      shellcheck = {
+        enable = true;
+        excludes = [ "(\.|_)zsh(env|rc)?$" ];
+      };
+      shfmt = {
+        enable = true;
+        excludes = [ "(\.|_)zsh(env|rc)?$" ];
+      };
     };
   };
 }
