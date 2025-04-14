@@ -33,7 +33,7 @@ jobs:
 
   grype:
     permissions:
-      actions: read
+      actions: write
       contents: write
       security-events: write
 
