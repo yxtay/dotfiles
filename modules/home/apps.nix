@@ -23,6 +23,7 @@ inputs@{ pkgs, ... }:
     gh
     ghc
     go
+    llvmPackages.openmp
     mise
     nodejs_22
     ollama
