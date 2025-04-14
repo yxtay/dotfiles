@@ -50,12 +50,14 @@ jobs:
         with:
           sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
           severity-cutoff: high
+          only-fixed: true
 
       - id: grype
         uses: anchore/scan-action@7c05671ae9be166aeb155bad2d7df9121823df32 # v6
         with:
           path: .
           severity-cutoff: high
+          only-fixed: true
 
       - if: ${{ success() || failure() }}
         uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # v3
