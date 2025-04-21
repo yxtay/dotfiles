@@ -34,6 +34,7 @@ inputs@{ pkgs, ... }:
     rustup
     terraform
     terragrunt
+    trunk-io
     usage
 
     # container
