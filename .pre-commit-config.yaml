@@ -50,7 +50,7 @@ repos:
       - id: gitleaks
 
   - repo: https://github.com/trufflesecurity/trufflehog
-    rev: v3.88.24
+    rev: v3.88.25
     hooks:
       - id: trufflehog
 
