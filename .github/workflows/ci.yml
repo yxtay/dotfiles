@@ -42,6 +42,7 @@ jobs:
           if [ -n "${changed_files}" ]; then
             echo "Found uncommitted changes: ${changed_files}"
             exit 1
+          fi
           echo "No changes found."
 
   chezmoi:
