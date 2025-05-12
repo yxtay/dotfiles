@@ -63,10 +63,7 @@ inputs@{
     # https://github.com/zhaofengli/nix-homebrew/issues/16
     # add taps from config.nix-homebrew.taps
     # taps = map (key: builtins.replaceStrings ["homebrew-"] [""] key) (builtins.attrNames config.nix-homebrew.taps);
-    taps = [
-      "homebrew/bundle"
-      "homebrew/services"
-    ];
+    taps = [];
 
     # Applications to install from Mac App Store using mas.
     # You need to install all these Apps manually first so that your apple account have records for them.
