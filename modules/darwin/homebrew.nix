@@ -1,24 +1,25 @@
-inputs@{
-  pkgs,
-  lib,
-  config,
-  user,
-  ...
+inputs@{ pkgs
+, lib
+, config
+, user
+, ...
 }:
 {
   # https://github.com/zhaofengli/nix-homebrew/issues/3
   system.activationScripts.extraUserActivation.text = lib.mkOrder 1501 (
     lib.concatLines (
-      lib.mapAttrsToList (
-        prefix: d:
-        if d.enable then
-          ''
-            sudo chown -R ${config.nix-homebrew.user} ${prefix}/bin
-            sudo chgrp -R ${config.nix-homebrew.group} ${prefix}/bin
-          ''
-        else
-          ""
-      ) config.nix-homebrew.prefixes
+      lib.mapAttrsToList
+        (
+          prefix: d:
+            if d.enable then
+              ''
+                sudo chown -R ${config.nix-homebrew.user} ${prefix}/bin
+                sudo chgrp -R ${config.nix-homebrew.group} ${prefix}/bin
+              ''
+            else
+              ""
+        )
+        config.nix-homebrew.prefixes
     )
   );
 
@@ -63,7 +64,7 @@ inputs@{
     # https://github.com/zhaofengli/nix-homebrew/issues/16
     # add taps from config.nix-homebrew.taps
     # taps = map (key: builtins.replaceStrings ["homebrew-"] [""] key) (builtins.attrNames config.nix-homebrew.taps);
-    taps = [];
+    taps = [ ];
 
     # Applications to install from Mac App Store using mas.
     # You need to install all these Apps manually first so that your apple account have records for them.
