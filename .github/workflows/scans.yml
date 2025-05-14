@@ -295,6 +295,7 @@ jobs:
     permissions:
       checks: write
       contents: write
+      issues: write # create labels
       pull-requests: write
 
     runs-on: ubuntu-latest
