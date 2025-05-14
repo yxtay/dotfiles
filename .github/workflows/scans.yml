@@ -295,6 +295,8 @@ jobs:
     permissions:
       checks: write
       contents: write
+      issues: write # create labels
+      pull-requests: write
 
     runs-on: ubuntu-latest
     steps:
@@ -303,6 +305,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: trunk-io/trunk-action/upgrade@4d5ecc89b2691705fd08c747c78652d2fc806a94 # v1
+        with:
+          prefix: "ci: "
 
       - uses: trunk-io/trunk-action@4d5ecc89b2691705fd08c747c78652d2fc806a94 # v1
         env:
