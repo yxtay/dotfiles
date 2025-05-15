@@ -304,7 +304,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - uses: trunk-io/trunk-action/upgrade@06c428bf05832198443baab1096754b166a6c466 # v1
+      - if: ${{ github.event_name == 'pull_request' && !contains(github.event.pull_request.title, 'upgrade trunk') }}
+        uses: trunk-io/trunk-action/upgrade@06c428bf05832198443baab1096754b166a6c466 # v1
         with:
           prefix: "ci: "
 
