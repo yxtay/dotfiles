@@ -23,7 +23,7 @@ lint:
   enabled:
     - actionlint@1.7.7
     - biome@1.9.4
-    - checkov@3.2.417
+    - checkov@3.2.421
     - git-diff-check
     - markdownlint@0.44.0
     - prettier@3.5.3
