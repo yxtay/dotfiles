@@ -80,11 +80,6 @@ repos:
     hooks:
       - id: markdownlint
 
-  - repo: https://github.com/NixOS/nixfmt
-    rev: master
-    hooks:
-      - id: nixfmt
-
   - repo: https://github.com/koalaman/shellcheck-precommit
     rev: v0.10.0
     hooks:
