@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   home.packages = with pkgs; [ zsh ];
 
@@ -14,15 +19,15 @@
     '';
 
     initContent =
-    let
-      initFirst = lib.mkBefore ''
-        [[ -v sourced_home_zsherc ]] && return || true
-        sourced_home_zsherc=1
-      '';
-      initBeforeCompInit = lib.mkOrder 550 "";
-      initContent = "";
-      initLast = lib.mkAfter "";
-    in
+      let
+        initFirst = lib.mkBefore ''
+          [[ -v sourced_home_zsherc ]] && return || true
+          sourced_home_zsherc=1
+        '';
+        initBeforeCompInit = lib.mkOrder 550 "";
+        initContent = "";
+        initLast = lib.mkAfter "";
+      in
       lib.mkMerge [
         initFirst
         initBeforeCompInit
