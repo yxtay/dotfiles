@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 {
   home.packages = with pkgs; [ zsh ];
 
@@ -13,10 +13,22 @@
       [[ -f $zdotdir_zshenv ]] && source $zdotdir_zshenv || true
     '';
 
-    initExtraFirst = ''
-      [[ -v sourced_home_zsherc ]] && return || true
-      sourced_home_zsherc=1
-    '';
+    initContent =
+    let
+      initFirst = lib.mkBefore ''
+        [[ -v sourced_home_zsherc ]] && return || true
+        sourced_home_zsherc=1
+      '';
+      initBeforeCompInit = lib.mkOrder 550 "";
+      initContent = "";
+      initLast = lib.mkAfter "";
+    in
+      lib.mkMerge [
+        initFirst
+        initBeforeCompInit
+        initContent
+        initLast
+      ];
 
     # defaultKeymap = "emacs";
 
