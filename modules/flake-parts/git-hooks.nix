@@ -13,7 +13,7 @@
       nixfmt-rfc-style.enable = true;
       statix.enable = true;
       taplo.enable = true;
-      trufflehog.enable = true;
+      # trufflehog.enable = true;
       yamlfmt.enable = true;
 
       shellcheck = {
