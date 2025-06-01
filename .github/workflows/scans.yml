@@ -237,7 +237,7 @@ jobs:
         with:
           sarif_file: ${{ steps.grype.outputs.sarif }}
 
-  trivy:
+  trivy-fs:
     permissions:
       contents: write
       security-events: write
@@ -249,16 +249,11 @@ jobs:
       - uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # 0.30
         with:
           scan-type: fs
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
           format: github
           output: dependency-results.sbom.json
           github-pat: ${{ github.token }}
-          ignore-unfixed: true
-          severity: HIGH,CRITICAL
-
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: trivy-sbom-report
-          path: dependency-results.sbom.json
 
       - uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # 0.30
         with:
@@ -267,6 +262,7 @@ jobs:
           severity: HIGH,CRITICAL
           format: sarif
           output: trivy-results.sarif
+          scanners: vuln,secret,misconfig
 
       - uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # v3
         with:
