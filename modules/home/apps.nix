@@ -52,7 +52,7 @@ inputs@{ pkgs, ... }:
     pyright
 
     # work
-    awscli
+    awscli2
     azure-cli
     codefresh
     databricks-cli
