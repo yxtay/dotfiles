@@ -23,15 +23,15 @@ lint:
   enabled:
     - actionlint@1.7.7
     - biome@1.9.4
-    - checkov@3.2.439
+    - checkov@3.2.440
     - git-diff-check
     - markdownlint@0.45.0
     - prettier@3.5.3
-    - renovate@40.49.0
+    - renovate@40.49.10
     - shellcheck@0.10.0
     - shfmt@3.6.0
     - taplo@0.9.3
-    - trufflehog@3.89.0
+    - trufflehog@3.89.1
     - yamllint@1.37.1
 actions:
   disabled:
