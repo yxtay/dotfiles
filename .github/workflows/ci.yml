@@ -43,7 +43,7 @@ jobs:
       - run: nix fmt
 
       - run: |
-          changed_files=$(git diff --diff-filter=ACMUXTR --name-only)
+          changed_files=$(git ls-files --modified --others --directory --no-empty-directory --exclude-standard)
           if [ -n "${changed_files}" ]; then
             echo "Found uncommitted changes: ${changed_files}"
             exit 1
