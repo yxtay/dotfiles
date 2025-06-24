@@ -5,7 +5,6 @@
   perSystem = _: {
     treefmt = {
       programs = {
-        biome.enable = true;
         deadnix.enable = true;
         prettier.enable = true;
         nixfmt.enable = true;
