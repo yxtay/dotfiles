@@ -5,7 +5,6 @@
   perSystem = _: {
     pre-commit.settings.hooks = {
       actionlint.enable = true;
-      biome.enable = true;
       deadnix.enable = true;
       editorconfig-checker.enable = true;
       hadolint.enable = true;
