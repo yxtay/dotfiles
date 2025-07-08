@@ -74,10 +74,10 @@ inputs@{
     };
 
     brews = [
-      "docker-compose"  # podman-desktop
-      "kind"  # podman-desktop
-      "kubectl"  # podman-desktop
-      "podman"  # podman-desktop
+      "docker-compose" # podman-desktop
+      "kind" # podman-desktop
+      "kubectl" # podman-desktop
+      "podman" # podman-desktop
     ];
 
     casks = [
