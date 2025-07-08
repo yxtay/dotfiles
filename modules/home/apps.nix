@@ -40,11 +40,13 @@ inputs@{ pkgs, ... }:
     # container
     docker
     docker-buildx
-    docker-compose
+    # docker-compose  # homebrew
     docker-credential-helpers
+    # kind  # homebrew
     # kubectl  # homebrew
     kubernetes-helm
     # podman  # homebrew
+    podman-compose
 
     # python
     cookiecutter
