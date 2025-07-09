@@ -1,6 +1,6 @@
 _:
 {
-  system.activationScripts.postActivation.text =
+  system.activationScripts.extraActivation.text =
     let
       leftOption = "30064771298";
       leftCommand = "30064771299";
