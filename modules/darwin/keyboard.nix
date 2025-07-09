@@ -1,5 +1,4 @@
-_:
-{
+_: {
   system.activationScripts.extraActivation.text =
     let
       leftOptionId = "30064771298";
