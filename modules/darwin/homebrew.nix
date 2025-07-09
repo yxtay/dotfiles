@@ -78,6 +78,7 @@ inputs@{
       "kind" # podman-desktop
       "kubectl" # podman-desktop
       "podman" # podman-desktop
+      "podman-compose" # podman-desktop
     ];
 
     casks = [
