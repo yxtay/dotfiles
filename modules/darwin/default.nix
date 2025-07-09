@@ -4,6 +4,7 @@ inputs: {
     ./networking.nix
     ./home.nix
     ./homebrew.nix
+    ./keyboard.nix
     ./nix-core.nix
     ./system.nix
     ./zsh.nix
