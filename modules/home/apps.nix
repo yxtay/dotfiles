@@ -46,7 +46,7 @@ inputs@{ pkgs, ... }:
     # kubectl  # homebrew
     kubernetes-helm
     # podman  # homebrew
-    podman-compose
+    # podman-compose  # homebrew
 
     # python
     cookiecutter
