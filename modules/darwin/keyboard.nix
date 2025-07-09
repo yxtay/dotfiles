@@ -2,10 +2,10 @@ _:
 {
   system.activationScripts.extraActivation.text =
     let
-      leftOption = "30064771298";
-      leftCommand = "30064771299";
-      rightOption = "30064771302";
-      rightCommand = "30064771303";
+      leftOptionId = "30064771298";
+      leftCommandId = "30064771299";
+      rightOptionId = "30064771302";
+      rightCommandId = "30064771303";
       keyboardId = "14-13330-0";
     in
     ''
@@ -14,27 +14,27 @@ _:
       defaults -currentHost write -g com.apple.keyboard.modifiermapping.${keyboardId} -array \
       '<dict>
           <key>HIDKeyboardModifierMappingDst</key>
-          <integer>${leftOption}</integer>
+          <integer>${leftOptionId}</integer>
           <key>HIDKeyboardModifierMappingSrc</key>
-          <integer>${leftCommand}</integer>
+          <integer>${leftCommandId}</integer>
       </dict>' \
       '<dict>
           <key>HIDKeyboardModifierMappingDst</key>
-          <integer>${leftCommand}</integer>
+          <integer>${leftCommandId}</integer>
           <key>HIDKeyboardModifierMappingSrc</key>
-          <integer>${leftOption}</integer>
+          <integer>${leftOptionId}</integer>
       </dict>' \
       '<dict>
           <key>HIDKeyboardModifierMappingDst</key>
-          <integer>${rightOption}</integer>
+          <integer>${rightOptionId}</integer>
           <key>HIDKeyboardModifierMappingSrc</key>
-          <integer>${rightCommand}</integer>
+          <integer>${rightCommandId}</integer>
       </dict>' \
       '<dict>
           <key>HIDKeyboardModifierMappingDst</key>
-          <integer>${rightCommand}</integer>
+          <integer>${rightCommandId}</integer>
           <key>HIDKeyboardModifierMappingSrc</key>
-          <integer>${rightOption}</integer>
+          <integer>${rightOptionId}</integer>
       </dict>'
     '';
 }
