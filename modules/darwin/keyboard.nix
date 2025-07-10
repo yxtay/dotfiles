@@ -5,7 +5,10 @@ _: {
       leftCommandId = "30064771299";
       rightOptionId = "30064771302";
       rightCommandId = "30064771303";
-      keyboardId = "14-13330-0";
+
+      vendorId = "14";
+      productId = "13330";
+      keyboardId = "${vendorId}-${productId}-0";
     in
     ''
       # Customise modifier keys
