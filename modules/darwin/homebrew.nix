@@ -90,7 +90,6 @@ inputs@{
       "firefox"
 
       # communication
-      "libreoffice"
       "microsoft-auto-update" # for microsoft-teams
       "microsoft-teams"
       "slack"
@@ -110,6 +109,7 @@ inputs@{
       # work
       "cloudflare-warp"
       "intune-company-portal"
+      "libreoffice"
     ];
   };
 }
