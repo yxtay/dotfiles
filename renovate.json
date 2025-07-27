@@ -18,6 +18,12 @@
     "automerge": true,
     "enabled": true
   },
+  "nix": {
+    "enabled": true
+  },
+  "pre-commit": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "automerge": false,
