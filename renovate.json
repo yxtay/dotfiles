@@ -27,8 +27,9 @@
   "packageRules": [
     {
       "automerge": false,
-      "groupName": "nix",
-      "matchManagers": ["nix"]
+      "groupName": "nix digest",
+      "matchManagers": ["nix"],
+      "matchUpdateTypes": ["digest"]
     },
     {
       "automerge": false,
