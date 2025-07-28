@@ -27,6 +27,11 @@
   "packageRules": [
     {
       "automerge": false,
+      "groupName": "nix",
+      "matchManagers": ["nix"]
+    },
+    {
+      "automerge": false,
       "groupName": "python",
       "matchPackageNames": ["python"],
       "matchUpdateTypes": ["minor"]
