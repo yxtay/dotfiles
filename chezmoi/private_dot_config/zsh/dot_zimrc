@@ -55,7 +55,7 @@ zmodule-custom() {
       --comp)
         shift
         ztarget=functions/_${1//[^[:IDENT:]-]/-}
-        zargs+=(--on-pull "mkdir functions")
+        zargs+=(--on-pull "mkdir -p functions")
         zargs+=(--fpath functions)
         zargs+=(--cmd "if [[ ! {}/${ztarget} -nt \${commands[${zcommand}]} ]]; then ${1} >! {}/${ztarget}; fi")
         zargs+=(--cmd "if (( \${+_comps} && ! \${+_comps[${zcommand}]} )); then autoload -Uz ${ztarget:t}; _comps[${zcommand}]=${ztarget:t}; fi")
