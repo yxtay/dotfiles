@@ -36,6 +36,11 @@
       "groupName": "python",
       "matchPackageNames": ["python"],
       "matchUpdateTypes": ["minor"]
+    },
+    {
+      "matchManagers": ["pre-commit"],
+      "matchPackageNames": ["markdownlint"],
+      "allowedVersions": "!=13.0.0"
     }
   ]
 }
