@@ -1,6 +1,6 @@
 inputs@{ pkgs, lib, ... }:
 {
-  imports = [ inputs.nix-index-database.hmModules.nix-index ];
+  imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
   nix = {
     package = lib.mkDefault inputs.nix.packages.${pkgs.system}.default;

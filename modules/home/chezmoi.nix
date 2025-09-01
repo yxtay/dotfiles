@@ -12,9 +12,11 @@
       chezmoi=${pkgs.chezmoi}/bin/chezmoi
       source_path=$("$chezmoi" source-path)
 
-      args="apply"
-      [[ $source_path == */.local/share/chezmoi || $source_path == /nix/store/* ]] && args+=" --init --source ${self}" || true
-      "$chezmoi" $args
+      args=(apply --force)
+      if [[ $source_path == */.local/share/chezmoi || $source_path == /nix/store/* ]]; then
+        args+=(--init --source "${self}")
+      fi
+      "$chezmoi" "''${args[@]}"
     fi
   '';
 }
