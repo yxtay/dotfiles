@@ -8,9 +8,7 @@
   home.packages = [ pkgs.chezmoi ];
 
   home.activation.chezmoi = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [[ -v DRY_RUN ]]; then
-      exit;
-    fi
+    if [[ -v DRY_RUN ]]; then exit; fi
 
     chezmoi=${pkgs.chezmoi}/bin/chezmoi
     source_path=$("$chezmoi" source-path)
