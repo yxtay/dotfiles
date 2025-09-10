@@ -36,7 +36,7 @@ jobs:
 
       - run: nix flake check
 
-      - uses: astro/deadnix-action@ee2dbf0e5d720af59156d620d843fe4964d794ca
+      - uses: astro/deadnix-action@e6b9bbace580c30ff1e1bfa4d7e22b1c1d1ce56e
         with:
           create_pr: false
 
