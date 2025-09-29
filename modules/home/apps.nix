@@ -56,7 +56,6 @@ inputs@{ pkgs, ... }:
     # work
     awscli2
     azure-cli
-    codefresh
     databricks-cli
     google-cloud-sdk
   ];
