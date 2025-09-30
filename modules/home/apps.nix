@@ -23,7 +23,7 @@ inputs@{ pkgs, ... }:
     gh
     ghc
     go
-    llvmPackages.openmp
+    # llvmPackages.openmp  # lightgbm, xgboost
     mise
     nodejs_22
     ollama
