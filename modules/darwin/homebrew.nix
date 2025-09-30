@@ -75,6 +75,7 @@ inputs@{
 
     brews = [
       "docker-compose" # podman-desktop
+      "libomp" # lightgbm, xgboost
       "kind" # podman-desktop
       "kubectl" # podman-desktop
       "podman" # podman-desktop
