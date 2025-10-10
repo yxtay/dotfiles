@@ -17,5 +17,8 @@ export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_STATE_HOME=${HOME}/.local/state
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 
-export SSL_CERT_FILE=${XDG_CONFIG_HOME}/cloudflare/Cloudflare_CA.pem
-export REQUESTS_CA_BUNDLE=${SSL_CERT_FILE}
+cert_file="${HOME}/.config/cloudflare/Cloudflare_CA.pem"
+if [[ -f "${cert_file}" ]]; then
+  export SSL_CERT_FILE="${cert_file}"
+  export REQUESTS_CA_BUNDLE="${cert_file}"
+fi
