@@ -94,9 +94,10 @@ repos:
       - id: taplo-format
 
   - repo: https://github.com/google/yamlfmt
-    rev: v0.17.2
+    rev: v0.18.0
     hooks:
       - id: yamlfmt
+        types: [yaml]
 
 ci:
   autoupdate_commit_msg: "ci: pre-commit autoupdate"
