@@ -18,9 +18,6 @@
       args+=(--init --source "${self}")
     fi
 
-    GITHUB_TOKEN=$(${pkgs.gh}/bin/gh auth token)
-    export GITHUB_TOKEN
-    "$chezmoi" "''${args[@]}"
-    unset GITHUB_TOKEN
+    GITHUB_TOKEN=$(${pkgs.gh}/bin/gh auth token) "$chezmoi" "''${args[@]}"
   '';
 }
