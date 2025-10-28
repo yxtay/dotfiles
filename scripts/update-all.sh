@@ -6,6 +6,7 @@ trap 'unset GITHUB_TOKEN' EXIT
 GITHUB_TOKEN=$(gh auth token)
 export GITHUB_TOKEN
 
-sudo nix --option extra-access-tokens "github.com=${GITHUB_TOKEN}" run nix-darwin -- switch --flake .
+# pass secret as shell args to prevent leakage in ps aux
+sudo sh -c 'nix --option extra-access-tokens "github.com=${1}" run nix-darwin -- switch --flake .' "${GITHUB_TOKEN}"
 chezmoi --refresh-externals apply
 uv tool upgrade --all
