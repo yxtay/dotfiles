@@ -22,5 +22,5 @@ cert_file=${HOME}/.config/cloudflare/Cloudflare_CA.pem
 if [[ -f "${cert_file}" ]]; then
   export CURL_CA_BUNDLE=${cert_file}
   export REQUESTS_CA_BUNDLE=${cert_file}
+  export UV_NATIVE_TLS=true
 fi
-export UV_NATIVE_TLS=true
