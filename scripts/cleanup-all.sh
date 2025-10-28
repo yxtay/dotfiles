@@ -16,4 +16,4 @@ fi
 if command -v trunk >/dev/null; then trunk cache prune; fi
 
 find "${HOME}/.cache/huggingface/"{datasets/,xet/} -type f -mtime +7 -delete
-find "${HOME}/.cache/" -type d -empty -delete
+find "${HOME}/.cache/" -type d -empty -depth -delete
