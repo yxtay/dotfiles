@@ -7,3 +7,5 @@ export GITHUB_TOKEN
 sudo nix --option extra-access-tokens "github.com=${GITHUB_TOKEN}" run nix-darwin -- switch --flake .
 chezmoi --refresh-externals apply
 uv tool upgrade --all
+
+unset GITHUB_TOKEN
