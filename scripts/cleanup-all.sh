@@ -21,6 +21,6 @@ find "${HOME}/.cache/huggingface/" -not \( -path "${HOME}/.cache/huggingface/hub
 
 for clear_dir in .cache/ Library/Caches/; do
   if [ ! -d "${HOME}/${clear_dir}/" ]; then continue; fi
-  find "${HOME}/${clear_dir}/" -type f -atime +90 -delete
-  find "${HOME}/${clear_dir}/" -mindepth 1 -type d -empty -delete
+  find "${HOME}/${clear_dir}" -type f -atime +90 -delete
+  find "${HOME}/${clear_dir}" -mindepth 1 -type d -empty -delete
 done
