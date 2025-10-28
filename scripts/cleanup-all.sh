@@ -10,7 +10,7 @@ fi
 if command -v uv >/dev/null; then
   uv cache prune --force
   uvx pre-commit gc
-  uvx --from huggingface_hub hf cache ls --filter "accessed>4w" -q | xargs -r uvx --from huggingface_hub hf cache rm -y
+  uvx --from huggingface_hub hf cache ls --filter "accessed>4w" -q | xargs uvx --from huggingface_hub hf cache rm -y
 fi
 
 if command -v trunk >/dev/null; then trunk cache prune; fi
