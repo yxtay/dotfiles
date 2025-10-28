@@ -17,6 +17,10 @@ fi
 
 if command -v npm >/dev/null; then npm cache clean --force; fi
 
-find "${HOME}/.cache/huggingface/" -not \( -path "${HOME}/.cache/huggingface/hub/*" \) -type f -mtime +7 -delete
-find ~/.cache/ -type f -mtime +90 -delete
-find "${HOME}/.cache/" -type d -empty -delete
+find "${HOME}/.cache/huggingface/" -not \( -path "${HOME}/.cache/huggingface/hub/*" \) -type f -atime +30 -delete
+
+for clear_dir in .cache/ Library/Caches/; do
+  if [ ! -d "${HOME}/${clear_dir}/" ]; then continue; fi
+  find "${HOME}/${clear_dir}/" -type f -atime +90 -delete
+  find "${HOME}/${clear_dir}/" -mindepth 1 -type d -empty -delete
+done
