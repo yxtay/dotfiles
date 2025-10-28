@@ -18,4 +18,5 @@ fi
 if command -v npm >/dev/null; then npm cache clean --force; fi
 
 find "${HOME}/.cache/huggingface/" -not \( -path "${HOME}/.cache/huggingface/hub/*" \) -type f -mtime +7 -delete
+find ~/.cache/ -type f -mtime +90 -delete
 find "${HOME}/.cache/" -type d -empty -delete
