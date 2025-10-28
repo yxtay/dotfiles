@@ -17,6 +17,7 @@
     if [[ $source_path == */.local/share/chezmoi || $source_path == /nix/store/* ]]; then
       args+=(--init --source "${self}")
     fi
-    "$chezmoi" "''${args[@]}"
+
+    GITHUB_TOKEN=$(${pkgs.gh}/bin/gh auth token) "$chezmoi" "''${args[@]}"
   '';
 }
