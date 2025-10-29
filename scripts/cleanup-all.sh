@@ -7,6 +7,10 @@ if command -v nix >/dev/null; then
   nix store optimise
 fi
 
+if command -v docker >/dev/null; then docker buildx prune --all --force || true; fi
+if command -v npm >/dev/null; then npm cache clean --force; fi
+if command -v podman >/dev/null; then podman system prune --all --force; fi
+
 if command -v uv >/dev/null; then
   uv cache prune --force
   uvx --from huggingface_hub hf cache ls --filter "accessed>4w" -q | xargs -r uvx --from huggingface_hub hf cache rm -y
@@ -14,8 +18,6 @@ if command -v uv >/dev/null; then
   uvx poetry cache clear --all .
   uvx pre-commit gc
 fi
-
-if command -v npm >/dev/null; then npm cache clean --force; fi
 
 find "${HOME}/.cache/huggingface/" -not \( -path "${HOME}/.cache/huggingface/hub/*" \) -type f -atime +30 -delete
 
