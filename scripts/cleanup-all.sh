@@ -12,11 +12,11 @@ if command -v npm >/dev/null; then npm cache clean --force; fi
 if command -v podman >/dev/null; then podman system prune --all --force; fi
 
 if command -v uv >/dev/null; then
-  uv cache prune --force
-  uvx --from huggingface_hub hf cache ls --filter "accessed>4w" -q | xargs -r uvx --from huggingface_hub hf cache rm -y
+  uvx --from huggingface_hub hf cache ls --filter "accessed>30d" --quiet | xargs --no-run-if-empty uvx --from huggingface_hub hf cache rm --yes
   uvx pip cache purge
   uvx poetry cache clear --all .
   uvx pre-commit gc
+  uv cache prune --force
 fi
 
 find "${HOME}/.cache/huggingface/" -not \( -path "${HOME}/.cache/huggingface/hub/*" \) -type f -atime +30 -delete
