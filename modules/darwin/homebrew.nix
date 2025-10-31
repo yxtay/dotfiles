@@ -105,7 +105,7 @@ inputs@{
 
       # entertainment
       "spotify"
-      "stremio"
+      # "stremio"  # cannot be used with cloudflare-warp
 
       # work
       "cloudflare-warp"
