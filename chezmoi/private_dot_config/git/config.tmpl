@@ -86,14 +86,17 @@
 [transfer]
   fsckobjects = true
 
-[url "git@github.com:{{ .name }}"]
-  pushInsteadOf = "https://github.com/{{ .name }}"
+[url "git@github.com:"]
+  pushInsteadOf = "https://github.com/"
 
 [user]
   email = "{{ .git_email }}"
   name = "{{ .name }}"
 
 [includeIf "gitdir:~/work/"]
+  path = "~/.config/git/work_config"
+
+[includeIf "hasconfig:remote.*.url:git@sgts.gitlab-dedicated.com:**"]
   path = "~/.config/git/work_config"
 
 [includeIf "hasconfig:remote.*.url:https://sgts.gitlab-dedicated.com/**"]
