@@ -14,12 +14,13 @@
   "dependencyDashboardOSVVulnerabilitySummary": "all",
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
-    "labels": ["security"],
+    "enabled": true,
     "automerge": true,
-    "enabled": true
+    "labels": ["security"]
   },
   "nix": {
-    "enabled": true
+    "enabled": true,
+    "automerge": false
   },
   "pre-commit": {
     "enabled": true
