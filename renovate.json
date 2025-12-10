@@ -19,7 +19,7 @@
     "labels": ["security"]
   },
   "nix": {
-    "enabled": true,
+    "enabled": false,
     "automerge": false
   },
   "pre-commit": {
