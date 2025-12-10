@@ -88,7 +88,7 @@ jobs:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - id: grype
-        uses: anchore/scan-action@40a61b52209e9d50e87917c5b901783d546b12d0 # v7
+        uses: anchore/scan-action@3c9a191a0fbab285ca6b8530b5de5a642cba332f # v7
         with:
           path: .
           severity-cutoff: high
@@ -222,13 +222,13 @@ jobs:
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
-      - uses: anchore/sbom-action@fbfd9c6c189226748411491745178e0c2017392d # v0
+      - uses: anchore/sbom-action@43a17d6e7add2b5535efe4dcae9952337c479a93 # v0
         with:
           output-file: "${{ github.event.repository.name }}-sbom.spdx.json"
           dependency-snapshot: true
 
       - id: grype
-        uses: anchore/scan-action@40a61b52209e9d50e87917c5b901783d546b12d0 # v7
+        uses: anchore/scan-action@3c9a191a0fbab285ca6b8530b5de5a642cba332f # v7
         with:
           sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
           severity-cutoff: high
@@ -280,7 +280,7 @@ jobs:
         with:
           fetch-depth: (${{ github.event.pull_request.commits || 2 }} + 1)
 
-      - uses: trufflesecurity/trufflehog@821e8b9e5cdf8dc484dd23e06f78941fcf6b9191 # v3
+      - uses: trufflesecurity/trufflehog@7583da5f264ab0d3f588962d76687477503fe026 # v3
         with:
           extra_args: --results=verified,unknown
 
