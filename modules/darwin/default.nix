@@ -1,6 +1,5 @@
-inputs: {
+_: {
   imports = [
-    inputs.mac-app-util.darwinModules.default
     ./networking.nix
     ./home.nix
     ./homebrew.nix
