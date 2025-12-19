@@ -1,7 +1,5 @@
-inputs@{ pkgs, ... }:
+{ pkgs, ... }:
 {
-  imports = [ inputs.mac-app-util.homeManagerModules.default ];
-
   home.packages = with pkgs; [
     # terminals & editors
     helix

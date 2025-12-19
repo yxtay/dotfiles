@@ -19,15 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mac-app-util = {
-      url = "github:hraban/mac-app-util";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "nix/flake-compat";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
-
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     nix-index-database = {
@@ -36,7 +27,7 @@
     };
 
     flake-parts.follows = "nix/flake-parts";
-    systems.follows = "mac-app-util/systems";
+    systems.url = "github:nix-systems/default-darwin";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
