@@ -18,9 +18,10 @@ export XDG_STATE_HOME=${HOME}/.local/state
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 
 # custom SSL certificate
+export NODE_USE_SYSTEM_CA=1
 export UV_NATIVE_TLS=true
-# cert_file=${HOME}/.config/cloudflare/Cloudflare_CA.pem
-# if [[ -f "${cert_file}" ]]; then
-#   export CURL_CA_BUNDLE=${cert_file}
-#   export REQUESTS_CA_BUNDLE=${cert_file}
-# fi
+cert_file=${HOME}/.config/cloudflare/combined-bundle.pem
+if [[ -f "${cert_file}" ]]; then
+  export REQUESTS_CA_BUNDLE=${cert_file}
+  export SSL_CERT_FILE=${cert_file}
+fi
