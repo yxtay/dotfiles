@@ -100,6 +100,7 @@ inputs@{
       "github"
       # "docker"
       "podman-desktop"
+      "unison"
       "visual-studio-code"
       "wezterm"
 
