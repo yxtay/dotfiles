@@ -22,6 +22,7 @@ export NODE_USE_SYSTEM_CA=1
 export UV_NATIVE_TLS=true
 cert_file=${HOME}/.config/cloudflare/combined-bundle.pem
 if [[ -f "${cert_file}" ]]; then
+  export NODE_EXTRA_CA_CERTS=${cert_file}
   export REQUESTS_CA_BUNDLE=${cert_file}
   export SSL_CERT_FILE=${cert_file}
 fi
