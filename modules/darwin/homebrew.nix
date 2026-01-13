@@ -74,12 +74,17 @@ inputs@{
     };
 
     brews = [
+      "docker"
+      "docker-buildx"
       "docker-compose" # podman-desktop
+      "docker-credential-helper"
+      "helm"
       "kind" # podman-desktop
       "kubectl" # podman-desktop
       "libomp" # lightgbm, xgboost
       "podman" # podman-desktop
       "podman-compose" # podman-desktop
+      "unison"
     ];
 
     casks = [
@@ -98,9 +103,7 @@ inputs@{
 
       # dev
       "github"
-      # "docker"
       "podman-desktop"
-      "unison-app"
       "visual-studio-code"
       "wezterm"
 
