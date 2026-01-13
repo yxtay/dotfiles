@@ -40,7 +40,7 @@
     # docker-credential-helpers
     # kind  # homebrew
     # kubectl  # homebrew
-    kubernetes-helm
+    # kubernetes-helm
     # podman  # homebrew
     # podman-compose  # homebrew
 
