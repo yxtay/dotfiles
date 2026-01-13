@@ -98,7 +98,9 @@ inputs@{
 
       # dev
       "github"
-      # "docker"
+      "docker"
+      "docker-buildx"
+      "docker-credential-helper"
       "podman-desktop"
       "unison-app"
       "visual-studio-code"

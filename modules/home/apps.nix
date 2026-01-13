@@ -34,10 +34,10 @@
     usage
 
     # container
-    docker
-    docker-buildx
+    # docker
+    # docker-buildx
     # docker-compose  # homebrew
-    docker-credential-helpers
+    # docker-credential-helpers
     # kind  # homebrew
     # kubectl  # homebrew
     kubernetes-helm
@@ -45,9 +45,9 @@
     # podman-compose  # homebrew
 
     # python
-    cookiecutter
-    pre-commit
-    pyright
+    # cookiecutter
+    # pre-commit
+    # pyright
 
     # work
     awscli2
