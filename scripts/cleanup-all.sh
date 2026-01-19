@@ -15,7 +15,7 @@ if command -v uv >/dev/null; then
   uvx --from huggingface_hub hf cache ls --filter "accessed>30d" --quiet | xargs -I {} uvx --from huggingface_hub hf cache rm --yes "{}"
   uvx pip cache purge
   uvx poetry cache clear --all .
-  uvx pre-commit clean
+  uvx pre-commit gc
   uv cache prune --force
 fi
 
