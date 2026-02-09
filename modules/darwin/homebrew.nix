@@ -92,6 +92,7 @@ inputs@{
       "rectangle"
 
       # web
+      "adguard"
       "brave-browser"
       "firefox"
 
