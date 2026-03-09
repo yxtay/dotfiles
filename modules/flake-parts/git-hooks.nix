@@ -19,7 +19,7 @@
         excludes = [ "(\.|_)zsh(env|rc)?$" ];
       };
       shfmt = {
-        enable = true;
+        # enable = true;
         excludes = [ "(\.|_)zsh(env|rc)?$" ];
       };
     };
