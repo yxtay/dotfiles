@@ -6,8 +6,8 @@
       btop
       mcfly
       mcfly-fzf
+      pay-respects
       procs
-      thefuck
       tlrc
 
       # text
@@ -91,7 +91,7 @@
     lazygit.enable = true;
     mise.enable = true;
     # nix-index.enable = true;
-    thefuck.enable = true;
+    pay-respects.enable = true;
     yazi.enable = true;
     zoxide.enable = true;
   };
