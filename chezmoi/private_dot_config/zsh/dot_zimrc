@@ -112,8 +112,8 @@ evals=(
   mcfly "mcfly init zsh"
   mcfly-fzf "mcfly-fzf init zsh"
   mise "mise activate zsh"
+  pay-respects "pay-respects zsh --alias"
   starship "starship init zsh"
-  thefuck "thefuck --alias"
   zoxide "zoxide init zsh"
 )
 
