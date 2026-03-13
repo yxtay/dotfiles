@@ -40,7 +40,7 @@
   outputs =
     inputs:
     let
-      host.name = "yx-tay-pkf2k";
+      host.name = "Mac";
       user.name = "yuxuantay";
       specialArgs = { inherit host user; };
     in
