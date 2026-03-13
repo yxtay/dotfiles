@@ -38,10 +38,10 @@ and applies this repo as the source.
 
 ```bash
 # Remote source
-sudo nix run github:LnL7/nix-darwin -- switch --flake github:yxtay/dotfiles#Mac
+sudo nix run github:LnL7/nix-darwin -- switch --flake "github:yxtay/dotfiles#Mac"
 
 # Local checkout
-sudo nix run github:LnL7/nix-darwin -- switch --flake .#Mac
+sudo nix run github:LnL7/nix-darwin -- switch --flake ".#Mac"
 ```
 
 ## Apply user config (`home-manager` standalone)
