@@ -1,26 +1,26 @@
 inputs@{
   pkgs,
-  lib,
-  config,
+  # lib,
+  # config,
   user,
   ...
 }:
 {
   # https://github.com/zhaofengli/nix-homebrew/issues/3
-  system.activationScripts.extraActivation.text = lib.mkOrder 1501 (
-    lib.concatLines (
-      lib.mapAttrsToList (
-        prefix: d:
-        if d.enable then
-          ''
-            sudo chown -R ${config.nix-homebrew.user} ${prefix}/bin
-            sudo chgrp -R ${config.nix-homebrew.group} ${prefix}/bin
-          ''
-        else
-          ""
-      ) config.nix-homebrew.prefixes
-    )
-  );
+  # system.activationScripts.extraActivation.text = lib.mkOrder 1501 (
+  #   lib.concatLines (
+  #     lib.mapAttrsToList (
+  #       prefix: d:
+  #       if d.enable then
+  #         ''
+  #           sudo chown -R ${config.nix-homebrew.user} ${prefix}/bin
+  #           sudo chgrp -R ${config.nix-homebrew.group} ${prefix}/bin
+  #         ''
+  #       else
+  #         ""
+  #     ) config.nix-homebrew.prefixes
+  #   )
+  # );
 
   imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
 
