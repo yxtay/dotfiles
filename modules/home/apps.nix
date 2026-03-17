@@ -20,6 +20,7 @@
     git
     gh
     ghc
+    glab
     go
     mise
     nodejs_22
@@ -31,23 +32,20 @@
     rustup
     terraform
     terragrunt
+    unison
     usage
 
     # container
-    # docker
-    # docker-buildx
-    # docker-compose  # homebrew
-    # docker-credential-helpers
-    # kind  # homebrew
-    # kubectl  # homebrew
+    colima
+    docker
+    docker-buildx
+    docker-compose
+    docker-credential-helpers
+    # kind
+    kubectl
     # kubernetes-helm
-    # podman  # homebrew
-    # podman-compose  # homebrew
-
-    # python
-    # cookiecutter
-    # pre-commit
-    # pyright
+    # podman
+    # podman-compose
 
     # work
     awscli2
