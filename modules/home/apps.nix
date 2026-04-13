@@ -52,6 +52,11 @@
     azure-cli
     databricks-cli
     google-cloud-sdk
+
+    # ai
+    claude-code
+    gemini-cli
+    qwen-code
   ];
 
   programs.java = {

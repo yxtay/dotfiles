@@ -85,6 +85,7 @@ inputs@{
       "adguard"
       "brave-browser"
       "firefox"
+      "tailscale-app"
 
       # communication
       "microsoft-auto-update" # for microsoft-teams
