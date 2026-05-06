@@ -87,6 +87,7 @@ repos:
     hooks:
       - id: shfmt
         args: [--write]
+        exclude: (\.|_)zsh(env|rc)?$
 
   - repo: https://github.com/ComPWA/taplo-pre-commit
     rev: v0.9.3
