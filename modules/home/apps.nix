@@ -44,8 +44,6 @@
     # kind
     kubectl
     # kubernetes-helm
-    # podman
-    # podman-compose
 
     # work
     awscli2
@@ -56,7 +54,6 @@
     # ai
     claude-code
     gemini-cli
-    qwen-code
   ];
 
   programs.java = {
