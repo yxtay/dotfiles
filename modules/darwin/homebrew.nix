@@ -74,6 +74,7 @@ inputs@{
     };
 
     brews = [
+      "colima"
       "libomp" # lightgbm, xgboost
     ];
 
