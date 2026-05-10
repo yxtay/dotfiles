@@ -36,7 +36,6 @@
     usage
 
     # container
-    colima
     docker
     docker-buildx
     docker-compose
