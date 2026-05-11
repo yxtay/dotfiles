@@ -10,7 +10,7 @@
     }
   },
   "mounts": [
-    "source=gemini-config,target=${containerEnv:HOME}/.gemini,type=volume"
+    "source=gemini-config,target=/home/vscode/.gemini,type=volume"
   ],
   "onCreateCommand": "sudo chown -R ${containerEnv:USER} ${containerEnv:HOME}/.gemini"
 }
