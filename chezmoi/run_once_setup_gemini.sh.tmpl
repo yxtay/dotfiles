@@ -1,0 +1,26 @@
+#!/bin/sh
+set -eu
+
+{{ if .is_ephemeral -}}
+if command -v npm >/dev/null; then
+  npm install -g @google/gemini-cli
+fi
+
+if command -v gemini >/dev/null; then
+  extensions="
+    https://github.com/obra/superpowers
+    https://github.com/JuliusBrussee/caveman
+    https://github.com/upstash/context7
+    https://github.com/mvanhorn/last30days-skill
+    https://github.com/exa-labs/exa-mcp-server
+    https://github.com/gemini-cli-extensions/conductor
+    https://github.com/giancarloerra/SocratiCode
+    https://github.com/gemini-cli-extensions/security
+    https://github.com/gemini-cli-extensions/code-review
+    https://github.com/gemini-cli-extensions/jules
+  "
+  for ext in $extensions; do
+    gemini extensions install "$ext"
+  done
+fi
+{{- end }}

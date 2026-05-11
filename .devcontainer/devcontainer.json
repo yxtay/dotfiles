@@ -12,5 +12,5 @@
   "mounts": [
     "source=gemini-config,target=${containerEnv:HOME}/.gemini,type=volume"
   ],
-  "postCreateCommand": "sudo chown -R ${containerEnv:USER} ${containerEnv:HOME}/.gemini"
+  "onCreateCommand": "sudo chown -R ${containerEnv:USER} ${containerEnv:HOME}/.gemini"
 }
