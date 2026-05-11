@@ -1,5 +1,8 @@
 {
   "image": "mcr.microsoft.com/devcontainers/base",
+  "features": {
+    "ghcr.io/devcontainers/features/node:2": {}
+  },
   "runArgs": ["--platform=linux/x86_64"],
   "containerUser": "vscode",
   "containerEnv": { "HOME": "/home/vscode" },
