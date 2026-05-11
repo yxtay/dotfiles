@@ -10,6 +10,6 @@
     }
   },
   "mounts": ["source=gemini-config,target=/home/vscode/.gemini,type=volume"],
-  "updateContentCommand": "npm install -g @google/gemini-cli",
-  "postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.gemini"
+  "onCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.gemini",
+  "updateContentCommand": "sudo npm install -g @google/gemini-cli"
 }
