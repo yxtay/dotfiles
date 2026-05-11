@@ -19,7 +19,7 @@ if command -v gemini >/dev/null; then
     ext_name="${entry%%=*}"
     ext_url="${entry#*=}"
     if [ ! -d "$HOME/.gemini/extensions/$ext_name" ]; then
-      gemini extensions install "$ext_url"
+      gemini extensions install "$ext_url" --auto-update --consent
     fi
   done
 fi
