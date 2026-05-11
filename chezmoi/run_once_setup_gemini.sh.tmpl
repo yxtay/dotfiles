@@ -8,19 +8,19 @@ fi
 
 if command -v gemini >/dev/null; then
   extensions="
-    https://github.com/obra/superpowers
-    https://github.com/JuliusBrussee/caveman
-    https://github.com/upstash/context7
-    https://github.com/mvanhorn/last30days-skill
-    https://github.com/exa-labs/exa-mcp-server
-    https://github.com/gemini-cli-extensions/conductor
-    https://github.com/giancarloerra/SocratiCode
-    https://github.com/gemini-cli-extensions/security
-    https://github.com/gemini-cli-extensions/code-review
-    https://github.com/gemini-cli-extensions/jules
+    superpowers=https://github.com/obra/superpowers
+    exa-mcp-server=https://github.com/exa-labs/exa-mcp-server
+    conductor=https://github.com/gemini-cli-extensions/conductor
+    gemini-cli-security=https://github.com/gemini-cli-extensions/security
+    code-review=https://github.com/gemini-cli-extensions/code-review
+    gemini-jules=https://github.com/gemini-cli-extensions/jules
   "
-  for ext in $extensions; do
-    gemini extensions install "$ext"
+  for entry in $extensions; do
+    ext_name="${entry%%=*}"
+    ext_url="${entry#*=}"
+    if [ ! -d "$HOME/.gemini/extensions/$ext_name" ]; then
+      gemini extensions install "$ext_url"
+    fi
   done
 fi
 {{- end }}
