@@ -9,7 +9,8 @@
       "extensions": ["google.gemini-cli-vscode-ide-companion"]
     }
   },
-  "mounts": ["source=gemini-config,target=/home/vscode/.gemini,type=volume"],
-  "onCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.gemini",
-  "updateContentCommand": "sudo npm install -g @google/gemini-cli"
+  "mounts": [
+    "source=gemini-config,target=${containerEnv:HOME}/.gemini,type=volume"
+  ],
+  "postCreateCommand": "sudo chown -R ${containerEnv:USER} ${containerEnv:HOME}/.gemini"
 }
