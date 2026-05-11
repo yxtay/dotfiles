@@ -1,22 +1,12 @@
 {
   "image": "mcr.microsoft.com/devcontainers/base",
   "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/node:2": {}
   },
-  "runArgs": ["--platform=linux/x86_64"],
-  "containerUser": "vscode",
-  "containerEnv": { "HOME": "/home/vscode" },
-  "updateRemoteUserUID": true,
-  "remoteEnv": { "PODMAN_USERRNS": "keep-id" },
-  // Configure tool-specific properties.
   "customizations": {
-    // Configure properties specific to VS Code.
     "vscode": {
-      "extensions": ["google.gemini-cli-vscode-ide-companion"],
-      // Set *default* container specific settings.json values on container create.
-      "settings": {
-        "dotfiles.repository": "yxtay/dotfiles"
-      }
+      "extensions": ["google.gemini-cli-vscode-ide-companion"]
     }
   },
   "mounts": ["source=gemini-config,target=/home/vscode/.gemini,type=volume"],
