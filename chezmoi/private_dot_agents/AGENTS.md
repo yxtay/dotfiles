@@ -86,7 +86,7 @@ Resume terse after clear part done.
 - Keep changes minimal. No unrelated cleanup.
 - No premature abstractions. Three similar lines
   beat a premature helper.
-- When bug found, capture root cause as rule
+- When bug found, capture root cause as a code invariant or test case
   so same class of mistake never recurs.
 
 ## Security
@@ -116,7 +116,7 @@ Resume terse after clear part done.
   - No trailing period on subject line.
   - Body only when "why" isn't obvious from subject.
   - Never write "This commit does X",
-    "I", "we", "now" in body — diff says what.
+    "I", "we" in body — diff says what.
 - Push the feature branch regularly
   so work isn't lost.
 - When the task is complete,
