@@ -97,13 +97,6 @@
 - When task complete, open a pull request
   against the default branch.
 
-### Pull Request Format
-
-- Title: conventional commit format, ≤ 50 characters.
-- Body: summary (what and why), test plan,
-  breaking changes if any.
-- Keep PRs focused. One concern per PR.
-
 ## Code Review
 
 - Severity levels: critical (blocks merge),
