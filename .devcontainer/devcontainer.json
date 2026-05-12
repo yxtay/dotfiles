@@ -6,6 +6,6 @@
       "extensions": ["google.gemini-cli-vscode-ide-companion"]
     }
   },
-  "mounts": ["source=gemini-config,target=/home/vscode/.gemini,type=volume"],
-  "onCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.gemini"
+  "mounts": ["source=gemini-config,target=/home/codespace/.gemini,type=volume"],
+  "onCreateCommand": "sudo chown -R codespace:codespace /home/codespace/.gemini"
 }
