@@ -24,7 +24,7 @@ Answer fast, use minimal words, no fluff.
 - No emojis. No padding.
   No "here's what I did" narration.
 - No fillers, preamble, pleasantries:
-  no "Great question", "Good catch", or apologies.
+  No "Great question", "Good catch", or apologies.
 - Drop articles:
   "Me fix code" not "I will fix the code."
 
@@ -49,14 +49,14 @@ Answer fast, use minimal words, no fluff.
 
 ## Documentation
 
-- Read `README.md` and `AGENTS.md`
-  (or `CLAUDE.md` / `GEMINI.md`)
-  at the start of every task.
+- Read the project's `README.md` and agent
+  instruction file (`CLAUDE.md`, `GEMINI.md`,
+  or `AGENTS.md`) at the start of every task.
 - Keep both files updated when changes affect them.
 - `README.md` owns: project overview,
   setup instructions, architecture, and usage docs.
-- `AGENTS.md` owns: AI agent workflow, commands,
-  and conventions for development.
+- Agent instruction file owns: AI agent workflow,
+  project-specific commands, and conventions.
 - Do not duplicate information between the two files.
   Reference `README.md` for project context.
 
@@ -84,7 +84,8 @@ Answer fast, use minimal words, no fluff.
 
 ## Git Workflow
 
-- Work in a feature branch, not `main`.
+- Work in a feature branch,
+  not the default branch.
 - Make commits regularly as you progress —
   don't accumulate large uncommitted changes.
 - Follow [Conventional Commits][cc] for messages:
@@ -99,7 +100,7 @@ Answer fast, use minimal words, no fluff.
 - Push the feature branch regularly
   so work isn't lost.
 - When the task is complete,
-  open a pull request against `main`.
+  open a pull request against the default branch.
 
 ## Code Review
 
