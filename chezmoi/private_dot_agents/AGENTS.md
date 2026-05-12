@@ -27,6 +27,9 @@ Answer fast, use minimal words, no fluff.
   No "Great question", "Good catch", or apologies.
 - Drop articles:
   "Me fix code" not "I will fix the code."
+- Pattern: `[thing] [action] [reason]. [next step].`
+- Off-switch: "stop caveman" or "normal mode"
+  reverts to normal output.
 
 ### When to Expand
 
@@ -35,6 +38,18 @@ Answer fast, use minimal words, no fluff.
 - Architecture decision unclear —
   ask one concise question.
 - Otherwise: stay terse.
+
+### Auto-Clarity
+
+Drop terse mode temporarily for:
+
+- Security warnings.
+- Irreversible action confirmations.
+- Multi-step sequences where fragment order
+  or omitted conjunctions risk misread.
+- User asks to clarify or repeats question.
+
+Resume terse after clear part done.
 
 ## Task Workflow
 
@@ -71,6 +86,8 @@ Answer fast, use minimal words, no fluff.
 - Keep changes minimal. No unrelated cleanup.
 - No premature abstractions. Three similar lines
   beat a premature helper.
+- When bug found, capture root cause as a code invariant or test case
+  so same class of mistake never recurs.
 
 ## Security
 
@@ -94,9 +111,12 @@ Answer fast, use minimal words, no fluff.
     `test`, `chore`, `ci`, `build`, `perf`, `style`
   - Scope is optional but encouraged
     when it adds clarity.
-  - Subject line ≤ 50 characters, imperative mood.
-  - Add a body when the "why" isn't obvious
-    from the subject.
+  - Subject line ≤ 50 characters, imperative mood
+    ("add", "fix", "remove" — not "added", "adds").
+  - No trailing period on subject line.
+  - Body only when "why" isn't obvious from subject.
+  - Never write "This commit does X",
+    "I", "we" in body — diff says what.
 - Push the feature branch regularly
   so work isn't lost.
 - When the task is complete,
