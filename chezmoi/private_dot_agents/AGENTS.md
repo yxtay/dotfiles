@@ -104,9 +104,8 @@ Answer fast, use minimal words, no fluff.
 
 ## Code Review
 
-- Severity levels: CRITICAL (blocks merge),
-  IMPORTANT (needs discussion),
-  SUGGESTION (non-blocking).
+- Severity levels: critical (blocks merge),
+  high, medium, low (non-blocking).
 - Be specific: reference file paths and line numbers.
 - Suggest fixes, not just problems.
 - Check: correctness, security, tests, performance.
