@@ -1,4 +1,4 @@
-# AGENTS.md
+# AI Agent Instructions
 
 ## Caveman Mode
 
