@@ -40,8 +40,8 @@
 
 - Add tests for new logic and bug fixes.
 - Run existing tests before committing.
-- When bug found, capture root cause as
-  a test case so same class of mistake never recurs.
+- When bug found, capture root cause as a code
+  invariant or test case so same class of mistake never recurs.
 - Don't skip failing tests — fix or flag them.
 
 ## Dependencies
