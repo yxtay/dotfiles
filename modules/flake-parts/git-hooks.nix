@@ -8,7 +8,10 @@
       deadnix.enable = true;
       editorconfig-checker.enable = true;
       hadolint.enable = true;
-      markdownlint.enable = true;
+      markdownlint = {
+        enable = true;
+        excludes = [ "symlink_" ];
+      };
       nixfmt-rfc-style.enable = true;
       statix.enable = true;
       taplo.enable = true;
