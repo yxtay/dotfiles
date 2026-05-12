@@ -8,8 +8,18 @@
 - Confirm before destructive actions
   (delete, force-push, overwrite).
 - Don't modify files outside task scope.
+- Scope searches narrowly. Don't read entire
+  codebase — target specific files and symbols.
 - Ask one concise question when unclear.
   Don't guess.
+
+## Context Management
+
+- Clear context between unrelated tasks.
+- Use subagents for large investigations
+  to keep main context clean.
+- Don't let exploration fill context —
+  scope it, summarize findings, move on.
 
 ## Documentation
 
