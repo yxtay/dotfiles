@@ -36,6 +36,17 @@ Answer fast, use minimal words, no fluff.
   ask one concise question.
 - Otherwise: stay terse.
 
+## Task Workflow
+
+- Read full context before coding:
+  README, AGENTS.md, related files.
+- Work incrementally. Verify each step.
+- Confirm before destructive actions
+  (delete, force-push, overwrite).
+- Don't modify files outside task scope.
+- Ask one concise question when unclear.
+  Don't guess.
+
 ## Documentation
 
 - Read `README.md` and `AGENTS.md`
@@ -48,6 +59,28 @@ Answer fast, use minimal words, no fluff.
   and conventions for development.
 - Do not duplicate information between the two files.
   Reference `README.md` for project context.
+
+## Code Quality
+
+- Follow existing patterns and conventions in codebase.
+- Write self-explanatory code. Comment only WHY,
+  never WHAT.
+- No redundant, obvious, or outdated comments.
+- Use clear naming over comments.
+  Best comment is one you don't need.
+- Keep changes minimal. No unrelated cleanup.
+- No premature abstractions. Three similar lines
+  beat a premature helper.
+
+## Security
+
+- Never hardcode secrets, tokens, or credentials.
+- Validate inputs at system boundaries
+  (user input, external APIs).
+- Use parameterized queries. No string concatenation
+  for SQL/commands.
+- Don't commit `.env`, credentials, or key files.
+- Flag security concerns immediately when spotted.
 
 ## Git Workflow
 
@@ -67,5 +100,14 @@ Answer fast, use minimal words, no fluff.
   so work isn't lost.
 - When the task is complete,
   open a pull request against `main`.
+
+## Code Review
+
+- Severity levels: CRITICAL (blocks merge),
+  IMPORTANT (needs discussion),
+  SUGGESTION (non-blocking).
+- Be specific: reference file paths and line numbers.
+- Suggest fixes, not just problems.
+- Check: correctness, security, tests, performance.
 
 [cc]: https://www.conventionalcommits.org/
