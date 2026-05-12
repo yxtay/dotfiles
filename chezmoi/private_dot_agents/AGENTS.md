@@ -72,8 +72,8 @@
 - Follow [Conventional Commits](https://www.conventionalcommits.org/)
   for messages:
   - Format: `<type>(<scope>): <description>`
-  - Types: `feat`, `fix`, `refactor`, `docs`,
-    `test`, `chore`, `ci`, `build`, `perf`, `style`
+  - Types: feat, fix, refactor, docs,
+    test, chore, ci, build, perf, style, revert
   - Scope is optional but encouraged
     when it adds clarity.
   - Subject line ≤ 50 characters, imperative mood
