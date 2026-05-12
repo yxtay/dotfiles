@@ -1,9 +1,5 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/base",
-  "features": {
-    "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/node:2": {}
-  },
+  "image": "mcr.microsoft.com/devcontainers/universal",
   "customizations": {
     "vscode": {
       "extensions": ["google.gemini-cli-vscode-ide-companion"]
