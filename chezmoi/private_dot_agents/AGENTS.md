@@ -89,7 +89,7 @@
 
 ### Pull Request Format
 
-- Title: conventional commit format, ≤ 70 characters.
+- Title: conventional commit format, ≤ 50 characters.
 - Body: summary (what and why), test plan,
   breaking changes if any.
 - Keep PRs focused. One concern per PR.
