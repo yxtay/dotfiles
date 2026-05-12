@@ -199,7 +199,7 @@ jobs:
       security-events: write
 
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@c51854704019a247608d928f370c98740469d4b5 # v2
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@9a498708959aeaef5ef730655706c5a1df1edbc2 # v2
 
   osv-scan-push:
     permissions:
@@ -208,7 +208,7 @@ jobs:
       security-events: write
 
     if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@c51854704019a247608d928f370c98740469d4b5 # v2
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@9a498708959aeaef5ef730655706c5a1df1edbc2 # v2
     with:
       fail-on-vuln: false
 
@@ -280,7 +280,7 @@ jobs:
         with:
           fetch-depth: (${{ github.event.pull_request.commits || 2 }} + 1)
 
-      - uses: trufflesecurity/trufflehog@17456f8c7d042d8c82c9a8ca9e937231f9f42e26 # v3
+      - uses: trufflesecurity/trufflehog@37b77001d0174ebec2fcca2bd83ff83a6d45a3ab # v3
         with:
           extra_args: --results=verified,unknown
 
