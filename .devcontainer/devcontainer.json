@@ -1,11 +1,6 @@
 {
   "image": "mcr.microsoft.com/devcontainers/universal",
   "runArgs": ["--platform=linux/amd64"],
-  "customizations": {
-    "vscode": {
-      "extensions": ["google.gemini-cli-vscode-ide-companion"]
-    }
-  },
   "mounts": ["source=gemini-config,target=/home/codespace/.gemini,type=volume"],
   "onCreateCommand": "sudo chown -R codespace:codespace /home/codespace/.gemini"
 }
