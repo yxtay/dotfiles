@@ -34,6 +34,7 @@
     terragrunt
     unison
     usage
+    yarn
 
     # container
     docker
