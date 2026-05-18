@@ -2,12 +2,6 @@
 set -euo pipefail
 
 if command -v npx >/dev/null; then
-  agents=(
-    claude-code
-    gemini-cli
-  )
-  agent_args=("${agents[@]/#/--agent }")
-
   skills=(
     vercel-labs/skills
     anthropics/skills
@@ -15,6 +9,6 @@ if command -v npx >/dev/null; then
     JuliusBrussee/cavekit
   )
   for entry in "${skills[@]}"; do
-    npx --yes skills add "${entry}" --global "${agent_args[@]}" --skill "*" --yes
+    npx --yes skills add "${entry}" --global --agent universal --skill "*" --yes
   done
 fi
