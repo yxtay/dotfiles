@@ -5,14 +5,11 @@ if npx -v claude >/dev/null; then
   agents=(
     claude-code
     gemini-cli
-    opencode
   )
   agent_args=("${agents[@]/#/--agent }")
 
   skills=(
     vercel-labs/skills
-    obra/superpowers
-    JuliusBrussee/caveman
     anthropics/skills
     mattpocock/skills
   )

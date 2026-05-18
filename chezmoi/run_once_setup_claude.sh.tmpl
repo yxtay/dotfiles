@@ -31,7 +31,7 @@ if command -v claude >/dev/null; then
     pr-review-toolkit@claude-plugins-official
     pyright-lsp@claude-plugins-official
   )
-  for entry in ${plugins}; do
+  for entry in "${plugins[@]}"; do
     claude plugin install "${entry}"
   done
 fi
