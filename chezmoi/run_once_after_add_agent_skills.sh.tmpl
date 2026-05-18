@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if npx -v claude >/dev/null; then
+if command -v npx >/dev/null; then
   agents=(
     claude-code
     gemini-cli
