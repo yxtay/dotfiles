@@ -50,11 +50,6 @@
     azure-cli
     databricks-cli
     google-cloud-sdk
-
-    # ai
-    claude-code
-    gemini-cli
-    opencode
   ];
 
   programs.java = {

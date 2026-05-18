@@ -1,7 +1,6 @@
 #!/bin/sh
-set -eu
+set -euo pipefail
 
-{{ if .is_ephemeral -}}
 if ! command -v gemini >/dev/null && command -v npm >/dev/null; then
   npm install -g @google/gemini-cli
 fi
@@ -10,13 +9,15 @@ if command -v gemini >/dev/null; then
   extensions="
     superpowers=https://github.com/obra/superpowers
     caveman=https://github.com/JuliusBrussee/caveman
+    claude-code-workflows=https://github.com/wshobson/agents
+    github=https://github.com/github/github-mcp-server
     exa-mcp-server=https://github.com/exa-labs/exa-mcp-server
     conductor=https://github.com/gemini-cli-extensions/conductor
     gemini-cli-security=https://github.com/gemini-cli-extensions/security
     code-review=https://github.com/gemini-cli-extensions/code-review
     gemini-cli-jules=https://github.com/gemini-cli-extensions/jules
   "
-  for entry in $extensions; do
+  for entry in ${extensions}; do
     ext_name="${entry%%=*}"
     ext_url="${entry#*=}"
     if [ ! -d "${HOME}/.gemini/extensions/${ext_name}" ]; then
@@ -24,4 +25,3 @@ if command -v gemini >/dev/null; then
     fi
   done
 fi
-{{- end }}
