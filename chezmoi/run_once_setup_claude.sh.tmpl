@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 
 if ! command -v claude >/dev/null && command -v curl >/dev/null; then
@@ -6,21 +6,19 @@ if ! command -v claude >/dev/null && command -v curl >/dev/null; then
 fi
 
 if command -v claude >/dev/null; then
-  marketplaces="
+  marketplaces=(
     anthropics/claude-plugins-official
     JuliusBrussee/caveman
-  "
-  for entry in ${marketplaces}; do
+  )
+  for entry in "${marketplaces[@]}"; do
     claude plugin marketplace add "${entry}"
   done
 
-  plugins="
+  plugins=(
     superpowers@claude-plugins-official
     caveman@caveman
-    frontend-design@claude-plugins-official
     code-review@claude-plugins-official
     code-simplifier@claude-plugins-official
-    skill-creator@claude-plugins-official
     feature-dev@claude-plugins-official
     claude-md-management@claude-plugins-official
     ralph-loop@claude-plugins-official
@@ -30,8 +28,8 @@ if command -v claude >/dev/null; then
     claude-code-setup@claude-plugins-official
     pr-review-toolkit@claude-plugins-official
     pyright-lsp@claude-plugins-official
-  "
-  for entry in ${plugins}; do
+  )
+  for entry in "${plugins[@]}"; do
     claude plugin install "${entry}"
   done
 fi

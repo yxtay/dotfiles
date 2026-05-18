@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if npx -v claude >/dev/null; then
+  agents=(
+    claude-code
+    gemini-cli
+  )
+  agent_args=("${agents[@]/#/--agent }")
+
+  skills=(
+    vercel-labs/skills
+    anthropics/skills
+  )
+  for entry in "${skills[@]}"; do
+    npx --yes skills add "${entry}" --global "${agent_args[@]}" --skill "*" --yes
+  done
+fi
