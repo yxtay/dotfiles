@@ -54,6 +54,7 @@
     # ai
     claude-code
     gemini-cli
+    opencode
   ];
 
   programs.java = {
