@@ -1,0 +1,16 @@
+#!/bin/sh
+set -euo pipefail
+
+if ! command -v claude >/dev/null && command -v curl >/dev/null; then
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+
+if command -v claude >/dev/null; then
+  plugins="
+    superpowers
+    frontend-design
+  "
+  for entry in ${plugins}; do
+    claude plugin install "${entry}"
+  done
+fi

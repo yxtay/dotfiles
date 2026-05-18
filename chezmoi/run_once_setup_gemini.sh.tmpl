@@ -1,7 +1,6 @@
 #!/bin/sh
-set -eu
+set -euo pipefail
 
-{{ if .is_ephemeral -}}
 if ! command -v gemini >/dev/null && command -v npm >/dev/null; then
   npm install -g @google/gemini-cli
 fi
@@ -10,7 +9,6 @@ if command -v gemini >/dev/null; then
   extensions="
     superpowers=https://github.com/obra/superpowers
     caveman=https://github.com/JuliusBrussee/caveman
-    context7=https://github.com/upstash/context7
     claude-code-workflows=https://github.com/wshobson/agents
     github=https://github.com/github/github-mcp-server
     exa-mcp-server=https://github.com/exa-labs/exa-mcp-server
@@ -26,14 +24,4 @@ if command -v gemini >/dev/null; then
       gemini extensions install "${ext_url}" --auto-update --consent
     fi
   done
-
-  skills="
-    vercel-labs/agent-skills
-    anthropics/skills
-    mattpocock/skills
-  "
-  for skill in ${skills}; do
-    npx skills add "${skill}"
-  done
 fi
-{{- end }}
