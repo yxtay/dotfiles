@@ -10,18 +10,30 @@ if command -v gemini >/dev/null; then
   extensions="
     superpowers=https://github.com/obra/superpowers
     caveman=https://github.com/JuliusBrussee/caveman
+    context7=https://github.com/upstash/context7
+    claude-code-workflows=https://github.com/wshobson/agents
+    github=https://github.com/github/github-mcp-server
     exa-mcp-server=https://github.com/exa-labs/exa-mcp-server
     conductor=https://github.com/gemini-cli-extensions/conductor
     gemini-cli-security=https://github.com/gemini-cli-extensions/security
     code-review=https://github.com/gemini-cli-extensions/code-review
     gemini-cli-jules=https://github.com/gemini-cli-extensions/jules
   "
-  for entry in $extensions; do
+  for entry in ${extensions}; do
     ext_name="${entry%%=*}"
     ext_url="${entry#*=}"
     if [ ! -d "${HOME}/.gemini/extensions/${ext_name}" ]; then
       gemini extensions install "${ext_url}" --auto-update --consent
     fi
+  done
+
+  skills="
+    vercel-labs/agent-skills
+    anthropics/skills
+    mattpocock/skills
+  "
+  for skill in ${skills}; do
+    npx skills add "${skill}"
   done
 fi
 {{- end }}
