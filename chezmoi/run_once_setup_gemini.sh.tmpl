@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 
 if ! command -v gemini >/dev/null && command -v npm >/dev/null; then
@@ -6,7 +6,7 @@ if ! command -v gemini >/dev/null && command -v npm >/dev/null; then
 fi
 
 if command -v gemini >/dev/null; then
-  extensions="
+  extensions=(
     superpowers=https://github.com/obra/superpowers
     caveman=https://github.com/JuliusBrussee/caveman
     claude-code-workflows=https://github.com/wshobson/agents
@@ -16,8 +16,8 @@ if command -v gemini >/dev/null; then
     gemini-cli-security=https://github.com/gemini-cli-extensions/security
     code-review=https://github.com/gemini-cli-extensions/code-review
     gemini-cli-jules=https://github.com/gemini-cli-extensions/jules
-  "
-  for entry in ${extensions}; do
+  )
+  for entry in "${extensions[@]}"; do
     ext_name="${entry%%=*}"
     ext_url="${entry#*=}"
     if [ ! -d "${HOME}/.gemini/extensions/${ext_name}" ]; then

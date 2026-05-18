@@ -1,15 +1,22 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 
 if npx -v claude >/dev/null; then
-  skills="
+  agents=(
+    claude-code
+    gemini-cli
+    opencode
+  )
+  agent_args=("${agents[@]/#/--agent }")
+
+  skills=(
     vercel-labs/skills
     obra/superpowers
     JuliusBrussee/caveman
     anthropics/skills
     mattpocock/skills
-  "
-  for skill in ${skills}; do
-    npx --yes skills add "${skill}" --agent claude-code --agent gemini-cli --agent opencode --skill "*" --all
+  )
+  for entry in "${skills[@]}"; do
+    npx --yes skills add "${entry}" --global "${agent_args[@]}" --skill "*" --yes
   done
 fi
