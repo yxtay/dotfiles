@@ -1,0 +1,6 @@
+#!/bin/sh
+set -euo pipefail
+
+if npx -v claude >/dev/null; then
+  npx --yes skills update --global
+fi

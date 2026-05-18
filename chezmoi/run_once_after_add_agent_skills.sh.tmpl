@@ -10,6 +10,6 @@ if npx -v claude >/dev/null; then
     mattpocock/skills
   "
   for skill in ${skills}; do
-    npx --yes skills add "${skill}" --global --all
+    npx --yes skills add "${skill}" --agent claude-code --agent gemini-cli --agent opencode --skill * --all
   done
 fi
