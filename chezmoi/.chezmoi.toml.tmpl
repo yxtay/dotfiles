@@ -1,4 +1,5 @@
-{{- $ephemeral := or (env "CODESPACES") (env "REMOTE_CONTAINERS") (eq .chezmoi.username "codespaces" "devcontainer" "root" "ubuntu" "vagrant" "vscode") }}
+{{- $ephemeral := or (env "CI") (env "CODESPACES") (env "REMOTE_CONTAINERS") }}
+{{- $ephemeral := or $ephemeral (eq .chezmoi.username "codespaces" "debian" "devcontainer" "root" "ubuntu" "user" "vscode") }}
 {{- $interactive := stdinIsATTY }}
 
 {{- $arch := "x86_64" }}
