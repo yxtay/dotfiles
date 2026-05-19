@@ -14,7 +14,7 @@
 {{- end }}
   refreshPeriod = "168h"
 
-{{- if .is_ephemeral }}
+{{- if and .is_ephemeral (not .is_ci) }}
 [".local/bin/bat"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "bat-*-%s-*-%s-gnu.tar.gz" .arch .chezmoi.os) }}"
@@ -24,7 +24,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if .is_ephemeral }}
+{{- if and .is_ephemeral (not .is_ci) }}
 [".local/bin/delta"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "dandavison/delta" (printf "delta-*-%s-%s.tar.gz" .arch .os) }}"
@@ -34,7 +34,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if .is_ephemeral }}
+{{- if and .is_ephemeral (not .is_ci) }}
 [".local/bin/eza"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "eza-community/eza" (printf "eza_%s-%s.zip" .arch .os) }}"
@@ -43,7 +43,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if .is_ephemeral }}
+{{- if and .is_ephemeral (not .is_ci) }}
 [".local/bin/fd"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "sharkdp/fd" (printf "fd-*-%s-%s.tar.gz" .arch .os) }}"
@@ -53,7 +53,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if .is_ephemeral }}
+{{- if and .is_ephemeral (not .is_ci) }}
 [".local/bin/fzf"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) }}"
@@ -62,7 +62,7 @@
   refreshPeriod = "168h"
 {{- end }}
 
-{{- if .is_ephemeral }}
+{{- if and .is_ephemeral (not .is_ci) }}
 [".local/bin/rg"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "BurntSushi/ripgrep" (printf "ripgrep-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
@@ -88,7 +88,7 @@
   executable = true
   refreshPeriod = "168h"
 
-{{- if .is_ephemeral }}
+{{- if and .is_ephemeral (not .is_ci) }}
 [".local/bin/zoxide"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
