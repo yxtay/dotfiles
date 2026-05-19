@@ -1,5 +1,5 @@
 {{- $ci := (env "CI") }}
-{{- $ephemeral := or (env "CI") (env "CODESPACES") (env "REMOTE_CONTAINERS") }}
+{{- $ephemeral := or $ci (env "CODESPACES") (env "REMOTE_CONTAINERS") }}
 {{- $ephemeral := or $ephemeral (eq .chezmoi.username "codespaces" "debian" "devcontainer" "root" "ubuntu" "user" "vscode") }}
 {{- $interactive := stdinIsATTY }}
 
