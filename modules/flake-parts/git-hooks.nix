@@ -16,7 +16,7 @@
 
       shellcheck = {
         enable = true;
-        excludes = [ "(\.|_)zsh(env|rc)?$" ];
+        excludes = [ "((\.|_)zsh(env|rc)?|\.tmpl)$" ];
       };
       shfmt = {
         # enable = true;
