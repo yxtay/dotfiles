@@ -6,7 +6,6 @@ if command -v npx >/dev/null; then
     vercel-labs/skills
     anthropics/skills
     JuliusBrussee/caveman
-    JuliusBrussee/cavekit
   )
   for entry in "${skills[@]}"; do
     npx --yes skills add "${entry}" --global --agent universal --skill "*" --yes
