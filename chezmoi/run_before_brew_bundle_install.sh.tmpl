@@ -1,0 +1,170 @@
+{{ if and (eq .chezmoi.os "darwin") (not .is_ci) -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+brew bundle install --jobs auto --cleanup --zap --file=/dev/stdin <<EOF
+
+###
+# GNU
+###
+# https://github.com/shinokada/macgnu
+# https://github.com/pkill37/linuxify
+
+# GNU programs non-existing in macOS
+brew "autoconf"
+brew "tree"
+brew "watch"
+brew "wdiff"
+brew "wget"
+
+# GNU programs whose BSD counterpart is installed in macOS
+brew "coreutils"
+brew "binutils"
+brew "diffutils"
+brew "ed"
+brew "findutils"
+brew "gawk"
+brew "gnu-indent"
+brew "gnu-sed"
+brew "gnu-tar"
+brew "gnu-which"
+brew "grep"
+brew "gzip"
+brew "screen"
+
+# GNU programs existing in macOS which are outdated
+brew "bash"
+brew "bison"
+brew "emacs"
+brew "gpatch"
+brew "less"
+brew "m4"
+brew "make"
+brew "nano"
+
+# BSD programs existing in macOS which are outdated
+brew "flex"
+
+###
+# cli utilities
+###
+
+# shell
+brew "btop"
+brew "mcfly"
+brew "simonhammes/mcfly-fzf/mcfly-fzf"
+# brew "timescam/homebrew-tap/pay-respects"
+brew "procs"
+brew "tlrc"
+
+# text
+brew "bat"
+brew "jq"
+brew "ripgrep"
+brew "yq"
+
+# files
+brew "dtrx"
+brew "duf"
+brew "dust"
+brew "eza"
+brew "fd"
+brew "fzf"
+brew "zoxide"
+
+# security
+brew "gnupg"
+
+# data transfer
+brew "httpie"
+brew "rclone"
+brew "rsync"
+brew "unison"
+
+# git
+brew "git"
+brew "git-delta"
+brew "git-extras"
+brew "git-lfs"
+brew "gh"
+brew "glab"
+
+###
+# misc
+###
+
+# terminals & editors
+brew "helix"
+brew "tmux"
+
+# dev
+brew "ansible"
+brew "oven-sh/bun/bun"
+brew "deno"
+brew "direnv"
+brew "gemini-cli"
+brew "go"
+brew "libomp"
+brew "mise"
+brew "node"
+brew "ollama"
+brew "pnpm"
+brew "rustup"
+brew "hashicorp/tap/terraform"
+brew "terragrunt"
+brew "yarn"
+
+# python
+brew "pre-commit"
+brew "ruff"
+brew "uv"
+brew "ty"
+
+# container
+brew "colima"
+brew "docker"
+brew "docker-buildx"
+brew "docker-compose"
+brew "docker-credential-helper"
+brew "kubectl"
+
+# work
+brew "awscli"
+brew "azure-cli"
+brew "databricks/tap/databricks"
+
+##
+# casks
+##
+
+# mac
+cask "rectangle"
+
+# web
+cask "adguard"
+cask "brave-browser"
+cask "firefox"
+
+# communication
+cask "microsoft-auto-update" # for microsoft-teams
+cask "microsoft-teams"
+cask "slack"
+cask "zoom"
+
+# dev
+cask "antigravity"
+cask "claude"
+cask "claude-code"
+cask "github"
+cask "visual-studio-code"
+cask "wezterm"
+
+# entertainment
+cask "spotify"
+
+# work
+cask "cloudflare-warp"
+cask "intune-company-portal"
+cask "libreoffice"
+EOF
+{{ end -}}

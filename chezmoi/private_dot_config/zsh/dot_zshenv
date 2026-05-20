@@ -9,7 +9,10 @@ skip_global_compinit=1
 home_zshenv=${HOME}/.zshenv
 [[ -f "${home_zshenv}" ]] && source "${home_zshenv}" || true
 
-typeset -U path=(${HOME}{/.local,}/{,s}bin(N) ${(Oaz)^NIX_PROFILES}/bin /opt/homebrew/{,s}bin(N) ${^path}(N))
+HOMEBREW_PREFIX=/opt/homebrew
+
+typeset -U path=(${HOME}{/.local,}/{,s}bin(N) ${HOMEBREW_PREFIX}/opt/*/libexec/gnubin(N) ${HOMEBREW_PREFIX}/{,s}bin(N) ${^path}(N))
+typeset -U manpath=(${HOMEBREW_PREFIX}/opt/*/libexec/gnuman(N) ${HOMEBREW_PREFIX}/share/man(N) ${^manpath}(N))
 
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_CONFIG_HOME=${HOME}/.config
