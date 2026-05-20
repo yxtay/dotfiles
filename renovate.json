@@ -18,20 +18,10 @@
     "automerge": true,
     "labels": ["security"]
   },
-  "nix": {
-    "enabled": false,
-    "automerge": false
-  },
   "pre-commit": {
     "enabled": true
   },
   "packageRules": [
-    {
-      "automerge": false,
-      "groupName": "nix digest",
-      "matchManagers": ["nix"],
-      "matchUpdateTypes": ["digest"]
-    },
     {
       "automerge": false,
       "groupName": "python",

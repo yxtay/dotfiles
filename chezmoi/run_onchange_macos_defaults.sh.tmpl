@@ -1,5 +1,5 @@
+{{ if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
-{{- if eq .chezmoi.os "darwin" }}
 set -euo pipefail
 
 # Global
@@ -109,4 +109,4 @@ defaults -currentHost write -g "com.apple.keyboard.modifiermapping.14-13330-0" -
 killall Dock
 killall Finder
 killall SystemUIServer
-{{- end }}
+{{ end -}}
