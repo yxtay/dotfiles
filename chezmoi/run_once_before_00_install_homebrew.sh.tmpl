@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  [[ "$(uname -m)" == "arm64" ]] && HOMEBREW_PREFIX="/opt/homebrew" || HOMEBREW_PREFIX="/usr/local"
-else
-  HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-fi
-
 if command -v brew >/dev/null; then
   exit 0
 fi
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-eval "$("${HOMEBREW_PREFIX}/bin/brew" shellenv)"

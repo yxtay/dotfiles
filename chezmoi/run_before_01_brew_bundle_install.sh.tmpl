@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  [[ "$(uname -m)" == "arm64" ]] && HOMEBREW_PREFIX="/opt/homebrew" || HOMEBREW_PREFIX="/usr/local"
-else
-  HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-fi
+{{ if eq .chezmoi.os "linux" -}}
+HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+{{ else if eq .chezmoi.arch "arm64" -}}
+HOMEBREW_PREFIX="/opt/homebrew"
+{{ else -}}
+HOMEBREW_PREFIX="/usr/local"
+{{ end -}}
 eval "$("${HOMEBREW_PREFIX}/bin/brew" shellenv)"
 
 brew bundle install --jobs auto --cleanup --file=/dev/stdin <<EOF
