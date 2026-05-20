@@ -106,7 +106,7 @@ defaults -currentHost write -g "com.apple.keyboard.modifiermapping.14-13330-0" -
   '<dict><key>HIDKeyboardModifierMappingDst</key><integer>30064771303</integer><key>HIDKeyboardModifierMappingSrc</key><integer>30064771302</integer></dict>'
 
 # Apply changes
-killall Dock
-killall Finder
-killall SystemUIServer
+killall Dock || true
+killall Finder || true
+killall SystemUIServer || true
 {{ end -}}
