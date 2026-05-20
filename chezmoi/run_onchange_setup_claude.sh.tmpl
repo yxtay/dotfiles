@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-{{- if not .is_ephemeral }}
-if ! command -v claude >/dev/null && command -v curl >/dev/null; then
-  curl -fsSL https://claude.ai/install.sh | bash
-fi
-
 if command -v claude >/dev/null; then
   marketplaces=(
     anthropics/claude-plugins-official
@@ -34,4 +29,3 @@ if command -v claude >/dev/null; then
     claude plugin install "${entry}"
   done
 fi
-{{- end }}

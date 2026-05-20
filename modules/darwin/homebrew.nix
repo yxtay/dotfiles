@@ -27,7 +27,7 @@ inputs@{
   # https://github.com/zhaofengli/nix-homebrew
   nix-homebrew = {
     # Install Homebrew under the default prefix
-    enable = true;
+    enable = false;
     enableZshIntegration = false;
 
     # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
@@ -51,7 +51,7 @@ inputs@{
   # The apps installed by homebrew are not managed by nix, and not reproducible!
   # But on macOS, homebrew has a much larger selection of apps than nixpkgs, especially for GUI apps!
   homebrew = {
-    enable = true;
+    enable = false;
 
     onActivation = {
       autoUpdate = true; # Fetch the newest stable branch of Homebrew's git repo

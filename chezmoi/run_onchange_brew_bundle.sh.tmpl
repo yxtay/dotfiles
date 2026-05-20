@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-{{- if eq chezmoi.os "darwin" }}
-# {{ include "./private_dot_config/brewfile/Brewfile.tmpl" | sha256sum }}
-set -euo pipefail
-
-brew bundle --global
-{{- end }}

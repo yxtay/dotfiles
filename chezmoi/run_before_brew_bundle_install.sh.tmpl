@@ -1,4 +1,9 @@
-{{- if eq chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+brew bundle install --jobs auto --cleanup --zap --file=/dev/stdin <<EOF
+
 ###
 # GNU
 ###
@@ -48,7 +53,7 @@ brew "flex"
 brew "btop"
 brew "mcfly"
 brew "simonhammes/mcfly-fzf/mcfly-fzf"
-brew "timescam/homebrew-tap/pay-respects"
+# brew "timescam/homebrew-tap/pay-respects"
 brew "procs"
 brew "tlrc"
 
@@ -79,6 +84,7 @@ brew "rclone"
 brew "rsync"
 
 # git
+brew "git"
 brew "git-delta"
 brew "git-extras"
 brew "git-lfs"
@@ -94,21 +100,29 @@ brew "zsh"
 
 # dev
 brew "ansible"
-brew "bun"
+brew "oven-sh/bun/bun"
 brew "deno"
 brew "direnv"
-brew "git"
+brew "gemini-cli"
 brew "gh"
 brew "glab"
+brew "go"
 brew "libomp"
 brew "mise"
+brew "npm"
 brew "ollama"
 brew "pnpm"
 brew "rustup"
-brew "terraform"
+brew "hashicorp/tap/terraform"
 brew "terragrunt"
 brew "unison"
 brew "yarn"
+
+# python
+brew "pre-commit"
+brew "ruff"
+brew "uv"
+brew "ty"
 
 # container
 brew "colima"
@@ -143,6 +157,7 @@ cask "slack"
 cask "zoom"
 
 # dev
+cask "claude-code"
 cask "github"
 cask "visual-studio-code"
 cask "wezterm"
@@ -155,4 +170,5 @@ cask "spotify"
 cask "cloudflare-warp"
 cask "intune-company-portal"
 cask "libreoffice"
-{{- end }}
+EOF
+{{ end -}}

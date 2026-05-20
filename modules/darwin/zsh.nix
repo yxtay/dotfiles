@@ -1,7 +1,7 @@
 _: {
   programs = {
     zsh = {
-      enable = true;
+      enable = false;
       enableBashCompletion = false;
       enableCompletion = false;
       promptInit = "";

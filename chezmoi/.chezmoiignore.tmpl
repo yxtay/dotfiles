@@ -1,6 +1,3 @@
-{{- if not .is_ephemeral }}
-.zshenv
-{{- end }}
 {{- if contains ".local/share/chezmoi" .chezmoi.workingTree }}
 .local/share/chezmoi
 {{- end }}

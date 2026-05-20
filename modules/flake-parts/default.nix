@@ -4,7 +4,7 @@
     ./darwin.nix
     # ./devshell.nix
     # ./git-hooks.nix
-    ./home.nix
+    # ./home.nix
     # ./treefmt.nix
   ];
 
