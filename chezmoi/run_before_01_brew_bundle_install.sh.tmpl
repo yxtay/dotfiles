@@ -10,7 +10,11 @@ HOMEBREW_PREFIX="/usr/local"
 {{ end -}}
 eval "$("${HOMEBREW_PREFIX}/bin/brew" shellenv)"
 
-brew bundle install --jobs auto --cleanup --file=/dev/stdin <<EOF
+brew bundle install \
+{{ if .is_ci -}}
+--cleanup --zap \
+{{ end -}}
+--file=/dev/stdin <<EOF
 
 # codespaces
 brew "bat"
