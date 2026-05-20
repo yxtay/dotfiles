@@ -1,0 +1,189 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{ if eq .chezmoi.os "linux" -}}
+HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+{{ else if eq .chezmoi.arch "arm64" -}}
+HOMEBREW_PREFIX="/opt/homebrew"
+{{ else -}}
+HOMEBREW_PREFIX="/usr/local"
+{{ end -}}
+eval "$("${HOMEBREW_PREFIX}/bin/brew" shellenv)"
+
+brew bundle install \
+{{ if not .is_ci -}}
+--cleanup --zap \
+{{ end -}}
+--file=/dev/stdin <<EOF
+
+# codespaces
+brew "bat"
+brew "eza"
+brew "fd"
+brew "fzf"
+brew "git-delta"
+brew "jq"
+brew "ripgrep"
+brew "uv"
+brew "yq"
+brew "zoxide"
+brew "zsh"
+
+brew "gemini-cli"
+
+{{ if not .is_codespaces -}}
+
+###
+# cli utilities
+###
+
+# shell
+brew "btop"
+brew "mcfly"
+brew "simonhammes/mcfly-fzf/mcfly-fzf"
+# brew "timescam/homebrew-tap/pay-respects"
+brew "procs"
+brew "tlrc"
+
+# files
+brew "dtrx"
+brew "duf"
+brew "dust"
+
+# security
+brew "gnupg"
+
+# data transfer
+brew "httpie"
+brew "rclone"
+brew "rsync"
+brew "unison"
+
+# git
+brew "git"
+brew "git-extras"
+brew "git-lfs"
+brew "gh"
+brew "glab"
+
+###
+# misc
+###
+
+# terminals & editors
+brew "helix"
+brew "tmux"
+
+# dev
+brew "ansible"
+brew "oven-sh/bun/bun"
+brew "deno"
+brew "direnv"
+brew "go"
+brew "libomp"
+brew "mise"
+brew "node"
+brew "ollama"
+brew "pnpm"
+brew "rustup"
+brew "hashicorp/tap/terraform"
+brew "terragrunt"
+brew "yarn"
+
+# python
+brew "pre-commit"
+brew "ruff"
+brew "ty"
+
+# work
+brew "awscli"
+brew "azure-cli"
+brew "databricks/tap/databricks"
+
+# container
+brew "docker"
+brew "docker-buildx"
+brew "docker-compose"
+brew "docker-credential-helper"
+brew "kubectl"
+
+{{ if eq .chezmoi.os "darwin" -}}
+
+brew "colima"
+
+###
+# GNU
+###
+# https://github.com/shinokada/macgnu
+# https://github.com/pkill37/linuxify
+
+# GNU programs non-existing in macOS
+brew "autoconf"
+brew "tree"
+brew "watch"
+brew "wdiff"
+brew "wget"
+
+# GNU programs whose BSD counterpart is installed in macOS
+brew "coreutils"
+brew "binutils"
+brew "diffutils"
+brew "ed"
+brew "findutils"
+brew "gawk"
+brew "gnu-indent"
+brew "gnu-sed"
+brew "gnu-tar"
+brew "gnu-which"
+brew "grep"
+brew "gzip"
+brew "screen"
+
+# GNU programs existing in macOS which are outdated
+brew "bash"
+brew "bison"
+brew "emacs"
+brew "gpatch"
+brew "less"
+brew "m4"
+brew "make"
+brew "nano"
+
+# BSD programs existing in macOS which are outdated
+brew "flex"
+
+##
+# casks
+##
+
+# mac
+cask "rectangle"
+
+# web
+cask "adguard"
+cask "brave-browser"
+cask "firefox"
+
+# communication
+cask "microsoft-auto-update" # for microsoft-teams
+cask "microsoft-teams"
+cask "slack"
+cask "zoom"
+
+# dev
+cask "claude-code"
+cask "github"
+cask "visual-studio-code"
+cask "wezterm"
+
+# entertainment
+cask "spotify"
+
+# work
+cask "cloudflare-warp"
+cask "intune-company-portal"
+cask "libreoffice"
+
+{{ end -}}
+{{ end -}}
+EOF

@@ -20,11 +20,20 @@ jobs:
     permissions:
       contents: read
 
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           persist-credentials: false
+
+      - if: matrix.os == 'ubuntu-latest'
+        name: install zsh
+        run: sudo apt-get install -y zsh
 
       - run: ./install.sh
         shell: zsh {0}
