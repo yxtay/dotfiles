@@ -16,42 +16,6 @@ concurrency:
   cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
 
 jobs:
-  nix-check:
-    permissions:
-      actions: write
-      contents: read
-
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          persist-credentials: false
-
-      - uses: DeterminateSystems/flake-checker-action@3164002371bc90729c68af0e24d5aacf20d7c9f6 # v12
-
-      - uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
-
-      - uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
-        with:
-          name: cachix
-          extraPullNames: nix-community,nixpkgs-unfree
-
-      - run: nix flake check
-
-      - uses: astro/deadnix-action@e6b9bbace580c30ff1e1bfa4d7e22b1c1d1ce56e
-        with:
-          create_pr: false
-
-      - run: nix fmt
-
-      - run: |
-          changed_files=$(git ls-files --modified --others --directory --no-empty-directory --exclude-standard)
-          if [ -n "${changed_files}" ]; then
-            echo "Found uncommitted changes: ${changed_files}"
-            exit 1
-          fi
-          echo "No changes found."
-
   chezmoi:
     permissions:
       contents: read

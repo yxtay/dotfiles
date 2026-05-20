@@ -2,16 +2,16 @@
 {
   # import sub modules
   imports = [
-    ./apps.nix
-    ./chezmoi.nix
-    ./editorconfig.nix
-    ./git.nix
+    # ./apps.nix
+    # ./chezmoi.nix
+    # ./editorconfig.nix
+    # ./git.nix
     ./gnu.nix
-    ./helix.nix
+    # ./helix.nix
     ./nix-core.nix
     ./sh.nix
-    ./wezterm.nix
-    ./zsh.nix
+    # ./wezterm.nix
+    # ./zsh.nix
   ];
 
   home = {
