@@ -6,10 +6,10 @@
     # ./chezmoi.nix
     # ./editorconfig.nix
     # ./git.nix
-    ./gnu.nix
+    # ./gnu.nix
     # ./helix.nix
     ./nix-core.nix
-    ./sh.nix
+    # ./sh.nix
     # ./wezterm.nix
     # ./zsh.nix
   ];
