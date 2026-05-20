@@ -12,4 +12,4 @@ if command -v brew >/dev/null || [[ -f "${HOMEBREW_PREFIX}/bin/brew" ]]; then
   exit 0
 fi
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
