@@ -1,22 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  [[ "$(uname -m)" == "arm64" ]] && HOMEBREW_PREFIX="/opt/homebrew" || HOMEBREW_PREFIX="/usr/local"
+else
+  HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+fi
+
 if command -v brew >/dev/null; then
   exit 0
 fi
 
-{{ if eq .chezmoi.os "darwin" -}}
-# Xcode Command Line Tools (required for Homebrew on macOS)
-if ! xcode-select -p >/dev/null 2>&1; then
-  xcode-select --install
-  until xcode-select -p >/dev/null 2>&1; do sleep 5; done
-fi
-
-{{ else if eq .chezmoi.os "linux" -}}
-# Homebrew prerequisites for Debian/Ubuntu
-# https://docs.brew.sh/Homebrew-on-Linux
-sudo apt-get update
-sudo apt-get install -y build-essential procps curl file git
-
-{{ end -}}
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$("${HOMEBREW_PREFIX}/bin/brew" shellenv)"
