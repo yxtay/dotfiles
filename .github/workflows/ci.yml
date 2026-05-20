@@ -32,7 +32,6 @@ jobs:
           persist-credentials: false
 
       - run: ./install.sh
-        shell: zsh {0}
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
