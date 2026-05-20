@@ -31,7 +31,12 @@ jobs:
         with:
           persist-credentials: false
 
+      - if: matrix.os == 'ubuntu-latest'
+        name: install zsh
+        run: sudo apt-get install -y zsh
+
       - run: ./install.sh
+        shell: zsh {0}
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
