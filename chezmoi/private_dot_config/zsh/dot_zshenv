@@ -11,7 +11,8 @@ home_zshenv=${HOME}/.zshenv
 
 HOMEBREW_PREFIX=/opt/homebrew
 
-typeset -U path=(${HOME}{/.local,}/{,s}bin(N) ${HOMEBREW_PREFIX}/opt/*/libexec/gnubin ${HOMEBREW_PREFIX}/{,s}bin(N) ${^path}(N))
+typeset -U path=(${HOME}{/.local,}/{,s}bin(N) ${HOMEBREW_PREFIX}/opt/*/libexec/gnubin(N) ${HOMEBREW_PREFIX}/{,s}bin(N) ${^path}(N))
+typeset -U manpath=(${HOMEBREW_PREFIX}/opt/*/libexec/gnuman(N) ${HOMEBREW_PREFIX}/share/man(N) ${^manpath}(N))
 
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_CONFIG_HOME=${HOME}/.config
