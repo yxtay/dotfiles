@@ -5,7 +5,4 @@ GITHUB_TOKEN=$(gh auth token)
 export GITHUB_TOKEN
 trap 'unset GITHUB_TOKEN' EXIT
 
-# pass secret as shell args to prevent leakage in ps aux
-# sh -c 'nix --option extra-access-tokens "github.com=${1}" flake update' sh "${GITHUB_TOKEN}"
-# sudo sh -c 'nix --option extra-access-tokens "github.com=${1}" run nix-darwin -- switch --flake .#Mac' sh "${GITHUB_TOKEN}"
 chezmoi --refresh-externals apply

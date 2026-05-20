@@ -1,0 +1,4 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+softwareupdate --install-rosetta --agree-to-license
+{{ end -}}
