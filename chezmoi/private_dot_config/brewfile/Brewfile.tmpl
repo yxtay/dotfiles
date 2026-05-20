@@ -2,6 +2,8 @@
 ###
 # GNU
 ###
+# https://github.com/shinokada/macgnu
+# https://github.com/pkill37/linuxify
 
 # GNU programs non-existing in macOS
 brew "autoconf"
@@ -45,8 +47,8 @@ brew "flex"
 # shell
 brew "btop"
 brew "mcfly"
-brew "mcfly-fzf"
-brew "pay-respects"
+brew "simonhammes/mcfly-fzf/mcfly-fzf"
+brew "timescam/homebrew-tap/pay-respects"
 brew "procs"
 brew "tlrc"
 
@@ -85,12 +87,12 @@ brew "git-lfs"
 # misc
 ###
 
-# Terminals & Editors
+# terminals & editors
 brew "helix"
 brew "tmux"
 brew "zsh"
 
-# Dev tools
+# dev
 brew "ansible"
 brew "bun"
 brew "deno"
@@ -98,6 +100,7 @@ brew "direnv"
 brew "git"
 brew "gh"
 brew "glab"
+brew "libomp"
 brew "mise"
 brew "ollama"
 brew "pnpm"
@@ -107,7 +110,7 @@ brew "terragrunt"
 brew "unison"
 brew "yarn"
 
-# Container
+# container
 brew "colima"
 brew "docker"
 brew "docker-buildx"
@@ -115,27 +118,41 @@ brew "docker-compose"
 brew "docker-credential-helper"
 brew "kubectl"
 
-# Work / Cloud
+# work
 brew "awscli"
 brew "azure-cli"
-brew "databricks-cli"
-brew "libomp"
+brew "databricks/tap/databricks"
 
-# macOS Apps
+##
+# casks
+##
+
+# mac
+cask "rectangle"
+
+# web
 cask "adguard"
 cask "brave-browser"
-cask "cloudflare-warp"
 cask "firefox"
-cask "github"
-cask "intune-company-portal"
-cask "libreoffice"
-cask "microsoft-auto-update"
+# cask "tailscale-app"  # cannot be used with cloudflare-warp
+
+# communication
+cask "microsoft-auto-update" # for microsoft-teams
 cask "microsoft-teams"
-cask "rectangle"
 cask "slack"
-cask "spotify"
-cask "tailscale-app"
+cask "zoom"
+
+# dev
+cask "github"
 cask "visual-studio-code"
 cask "wezterm"
-cask "zoom"
+
+# entertainment
+cask "spotify"
+# cask "stremio"  # cannot be used with cloudflare-warp
+
+# work
+cask "cloudflare-warp"
+cask "intune-company-portal"
+cask "libreoffice"
 {{- end }}
