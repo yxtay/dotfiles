@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if command -v brew >/dev/null; then
+{{ if eq .chezmoi.os "linux" -}}
+HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+{{ else if eq .chezmoi.arch "arm64" -}}
+HOMEBREW_PREFIX="/opt/homebrew"
+{{ else -}}
+HOMEBREW_PREFIX="/usr/local"
+{{ end -}}
+if command -v brew >/dev/null || [[ -f "${HOMEBREW_PREFIX}/bin/brew" ]]; then
   exit 0
 fi
 
