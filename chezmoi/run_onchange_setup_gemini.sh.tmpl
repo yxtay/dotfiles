@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-{{- if ne .chezmoi.os "darwin" }}
+{{- if and (ne .chezmoi.os "darwin") (not .is_ci) }}
 if ! command -v gemini >/dev/null && command -v npm >/dev/null; then
   npm install -g @google/gemini-cli
 fi
