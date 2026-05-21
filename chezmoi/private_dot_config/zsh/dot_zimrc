@@ -97,7 +97,6 @@ comps=(
   kubectl "kubectl completion zsh"
   limactl "limactl completion zsh"
   mise "mise completion zsh"
-  ollama "ollama completion zsh"
   pip "pip completion --zsh"
   pnpm "pnpm completion zsh"
   procs "procs --gen-completion-out zsh"
