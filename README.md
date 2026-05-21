@@ -27,6 +27,14 @@ Run:
 This script installs `chezmoi` if missing, then initializes
 and applies this repo as the source.
 
+## Apply dotfiles directly from repo
+
+To install chezmoi and apply dotfiles in one step:
+
+```bash
+sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply yxtay
+```
+
 ## Apply dotfiles
 
 ```bash
