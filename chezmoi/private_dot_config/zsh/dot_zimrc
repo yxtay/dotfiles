@@ -79,6 +79,7 @@ zmodule-custom() {
 
 comps=(
   atuin "atuin gen-completions --shell zsh"
+  bw "bw completion --shell zsh"
   chezmoi "chezmoi completion zsh"
   databricks "databricks completion zsh"
   delta "delta --generate-completion zsh"
