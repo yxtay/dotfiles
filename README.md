@@ -9,13 +9,6 @@ Personal macOS and shell setup managed with
   (zsh, git, helix, wezterm, bat, etc.)
 - `scripts/`: convenience maintenance scripts (`update-all.sh`, `cleanup-all.sh`)
 
-## Prerequisites
-
-- macOS
-- `git`
-- `gh` authenticated (`gh auth login`) for update flows
-  that need a GitHub token
-
 ## Apply directly from repo
 
 Install chezmoi and apply dotfiles in one step, no clone needed:
@@ -55,7 +48,7 @@ pre-commit run --all-files
 ## Maintenance scripts
 
 ```bash
-# Refresh dotfiles
+# Refresh dotfiles (requires `gh auth login`)
 ./scripts/update-all.sh
 
 # Clean caches and old artifacts
