@@ -16,6 +16,16 @@ Personal macOS and shell setup managed with
 - `gh` authenticated (`gh auth login`) for update flows
   that need a GitHub token
 
+## Apply directly from repo
+
+Install chezmoi and apply dotfiles in one step, no clone needed:
+
+```bash
+sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply yxtay
+```
+
+The following commands require cloning the repo first.
+
 ## Bootstrap
 
 Run:
@@ -26,14 +36,6 @@ Run:
 
 This script installs `chezmoi` if missing, then initializes
 and applies this repo as the source.
-
-## Apply dotfiles directly from repo
-
-To install chezmoi and apply dotfiles in one step:
-
-```bash
-sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply yxtay
-```
 
 ## Apply dotfiles
 
