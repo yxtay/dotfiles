@@ -34,7 +34,7 @@
 {{- if ne .chezmoi.os "darwin" }}
 [".local/bin/eza"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "eza-community/eza" (printf "eza_%s-%s.zip" .arch .os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "eza-community/eza" (printf "eza_%s-%s.tar.gz" .arch .os) }}"
   path = "eza"
   executable = true
   refreshPeriod = "168h"
