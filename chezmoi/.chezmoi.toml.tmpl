@@ -1,6 +1,6 @@
 {{- $is_ci := eq (env "CI") "true" }}
-{{- $is_codespaces := or $is_ci (eq "true" (env "CODESPACES") (env "REMOTE_CONTAINERS")) }}
-{{- $is_ephemeral := or $is_codespaces (eq .chezmoi.username "debian" "root" "ubuntu" "user") }}
+{{- $is_ephemeral := or $is_ci (eq "true" (env "CODESPACES") (env "REMOTE_CONTAINERS")) }}
+{{- $is_ephemeral := or $is_ephemeral (eq .chezmoi.username "debian" "ubuntu" "user") }}
 {{- $interactive := stdinIsATTY }}
 
 {{- $arch := "x86_64" }}
@@ -25,7 +25,6 @@ git_email_work = "tay.yuxuan@gt.tech.gov.sg"
 arch = "{{ $arch }}"
 os = "{{ $os }}"
 is_ci = {{ $is_ci }}
-is_codespaces = {{ $is_codespaces }}
 is_ephemeral = {{ $is_ephemeral }}
 is_interactive = {{ $interactive }}
 

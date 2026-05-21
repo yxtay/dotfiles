@@ -31,13 +31,20 @@ chezmoi naming conventions (`private_dot_config/`, `dot_`,
 
 Key scripts:
 
-- `run_before_brew_bundle_install.sh.tmpl` — installs all Homebrew packages/casks
+- `run_once_before_00_install_homebrew.sh.tmpl` — installs Homebrew (runs once)
+- `run_once_before_rosetta.sh.tmpl` — installs Rosetta 2 (runs once)
+- `run_before_01_brew_bundle_install.sh.tmpl` — installs all Homebrew packages/casks
 - `run_onchange_macos_defaults.sh.tmpl` — applies macOS system settings
+- `run_onchange_setup_claude.sh` — configures Claude Code
+- `run_onchange_setup_gemini.sh.tmpl` — configures Gemini
 
 ### CI (`.github/workflows/`)
 
 - `ci.yml` — Tests chezmoi install
 - `pr.yml` — MegaLinter on PRs
+- `ossf.yml` — OpenSSF Scorecard security scan
+- `scans.yml` — Additional security scans
+- `automerge.yml` — Auto-merges passing Renovate/Dependabot PRs
 
 ### Dependency management
 
