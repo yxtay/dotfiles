@@ -1,46 +1,30 @@
+{{ if and (eq .chezmoi.os "darwin") (not .is_ci) -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
-{{ if eq .chezmoi.os "linux" -}}
-HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-{{ else if eq .chezmoi.arch "arm64" -}}
+{{- if eq .chezmoi.arch "arm64" }}
 HOMEBREW_PREFIX="/opt/homebrew"
-{{ else -}}
+{{- else }}
 HOMEBREW_PREFIX="/usr/local"
-{{ end -}}
+{{- end }}
 eval "$("${HOMEBREW_PREFIX}/bin/brew" shellenv)"
 
-brew bundle install \
-{{ if not .is_ci -}}
---cleanup --zap \
-{{ end -}}
---file=/dev/stdin <<EOF
-
-# codespaces
-brew "bat"
-brew "eza"
-brew "fd"
-brew "fzf"
-brew "git-delta"
-brew "jq"
-brew "ripgrep"
-brew "uv"
-brew "yq"
-brew "zoxide"
-brew "zsh"
-
-brew "gemini-cli"
-
-{{ if not .is_codespaces -}}
+brew bundle install --cleanup --zap --file=/dev/stdin <<EOF
 
 ###
 # cli utilities
 ###
 
+# text
+brew "bat"
+brew "jq"
+brew "ripgrep"
+brew "sd"
+brew "yq"
+
 # shell
+brew "atuin"
 brew "btop"
-brew "mcfly"
-brew "simonhammes/mcfly-fzf/mcfly-fzf"
 # brew "timescam/homebrew-tap/pay-respects"
 brew "procs"
 brew "tlrc"
@@ -49,6 +33,10 @@ brew "tlrc"
 brew "dtrx"
 brew "duf"
 brew "dust"
+brew "eza"
+brew "fd"
+brew "fzf"
+brew "zoxide"
 
 # security
 brew "gnupg"
@@ -61,6 +49,7 @@ brew "unison"
 
 # git
 brew "git"
+brew "git-delta"
 brew "git-extras"
 brew "git-lfs"
 brew "gh"
@@ -91,9 +80,10 @@ brew "terragrunt"
 brew "yarn"
 
 # python
-brew "pre-commit"
-brew "ruff"
-brew "ty"
+uv "uv"
+uv "pre-commit"
+uv "ruff"
+uv "ty"
 
 # work
 brew "awscli"
@@ -106,8 +96,6 @@ brew "docker-buildx"
 brew "docker-compose"
 brew "docker-credential-helper"
 brew "kubectl"
-
-{{ if eq .chezmoi.os "darwin" -}}
 
 brew "colima"
 
@@ -184,6 +172,5 @@ cask "cloudflare-warp"
 cask "intune-company-portal"
 cask "libreoffice"
 
-{{ end -}}
-{{ end -}}
 EOF
+{{ end -}}
