@@ -1,4 +1,4 @@
-{{- $is_ci :=eq (env "CI") "true" }}
+{{- $is_ci := eq (env "CI") "true" }}
 {{- $is_codespaces := or $is_ci (eq "true" (env "CODESPACES") (env "REMOTE_CONTAINERS")) }}
 {{- $is_ephemeral := or $is_codespaces (eq .chezmoi.username "debian" "root" "ubuntu" "user") }}
 {{- $interactive := stdinIsATTY }}
