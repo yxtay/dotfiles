@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
+if command -v colima >/dev/null; then colima prune --all --force || true; fi
 if command -v docker >/dev/null; then docker buildx prune --all --force || true; fi
 if command -v npm >/dev/null; then npm cache clean --force; fi
 if command -v podman >/dev/null; then podman system prune --all --force; fi
