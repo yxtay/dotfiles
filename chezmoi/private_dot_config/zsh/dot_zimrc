@@ -79,6 +79,7 @@ zmodule-custom() {
 
 comps=(
   atuin "atuin gen-completions --shell zsh"
+  bun "bun completions"
   bw "bw completion --shell zsh"
   chezmoi "chezmoi completion zsh"
   colima "colima completion zsh"
@@ -94,16 +95,19 @@ comps=(
   helm "helm completion zsh"
   kind "kind completion zsh"
   kubectl "kubectl completion zsh"
+  limactl "limactl completion zsh"
   mise "mise completion zsh"
   ollama "ollama completion zsh"
   pip "pip completion --zsh"
   pnpm "pnpm completion zsh"
+  procs "procs --gen-completion-out zsh"
   podman "podman completion zsh"
   poetry "poetry completions zsh"
   rclone "rclone completion zsh -"
   rg "rg --generate complete-zsh"
   ruff "ruff generate-shell-completion zsh"
   rustup "rustup completions zsh"
+  ty "ty generate-shell-completion zsh"
   uv "uv generate-shell-completion zsh"
   uvx "uvx --generate-shell-completion zsh"
   wezterm "wezterm shell-completion --shell zsh"
@@ -117,7 +121,6 @@ evals=(
   fzf "fzf --zsh"
   mise "mise activate zsh"
   pay-respects "pay-respects zsh --alias"
-  starship "starship init zsh"
   zoxide "zoxide init zsh"
 )
 
