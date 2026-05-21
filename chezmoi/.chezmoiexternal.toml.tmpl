@@ -89,7 +89,7 @@
 
 [".local/bin/zoxide"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-*-%s*.tar.gz" .arch .chezmoi.os) }}"
   path = "zoxide"
   executable = true
   refreshPeriod = "168h"
