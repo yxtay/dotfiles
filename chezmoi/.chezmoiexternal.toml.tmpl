@@ -36,6 +36,7 @@
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "eza-community/eza" (printf "eza_%s-%s.tar.gz" .arch .os) }}"
   path = "eza"
+  stripComponents = 1
   executable = true
   refreshPeriod = "168h"
 {{- end }}
