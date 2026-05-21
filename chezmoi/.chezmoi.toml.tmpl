@@ -1,5 +1,5 @@
-{{- $is_ci := eq (env "CI") "true" }}
-{{- $is_codespaces := or "false" $is_ci (env "CODESPACES") (env "REMOTE_CONTAINERS") }}
+{{- $is_ci := env "CI" | not | not }}
+{{- $is_codespaces := or $is_ci (env "CODESPACES") (env "REMOTE_CONTAINERS") | not | not }}
 {{- $is_ephemeral := or $is_codespaces (eq .chezmoi.username "codespaces" "debian" "devcontainer" "root" "ubuntu" "user" "vscode") }}
 {{- $interactive := stdinIsATTY }}
 
