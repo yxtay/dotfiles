@@ -1,4 +1,4 @@
-{{- if not .is_codespaces }}
+{{ if not .is_codespaces -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -177,5 +177,5 @@ cask "intune-company-portal"
 cask "libreoffice"
 
 {{- end }}
-{{- end }}
 EOF
+{{ end -}}
