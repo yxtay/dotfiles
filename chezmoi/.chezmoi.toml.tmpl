@@ -1,5 +1,5 @@
 {{- $is_ephemeral := eq "true" (env "CI") (env "CODESPACES") (env "REMOTE_CONTAINERS") }}
-{{- $is_ephemeral := or $is_ephemeral (eq .chezmoi.username "debian" "ubuntu" "user") }}
+{{- $is_ephemeral = or $is_ephemeral (eq .chezmoi.username "debian" "ubuntu" "user") }}
 {{- $interactive := stdinIsATTY }}
 
 {{- $arch := "x86_64" }}
