@@ -1,6 +1,6 @@
 {{- $is_ci := eq (env "CI") "true" }}
-{{- $is_codespaces := or "false" $is_ci (env "CODESPACES") (env "REMOTE_CONTAINERS") }}
-{{- $is_ephemeral := or $is_codespaces (eq .chezmoi.username "codespaces" "debian" "devcontainer" "root" "ubuntu" "user" "vscode") }}
+{{- $is_codespaces := or $is_ci (eq "true" (env "CODESPACES") (env "REMOTE_CONTAINERS")) }}
+{{- $is_ephemeral := or $is_codespaces (eq .chezmoi.username "debian" "root" "ubuntu" "user") }}
 {{- $interactive := stdinIsATTY }}
 
 {{- $arch := "x86_64" }}
