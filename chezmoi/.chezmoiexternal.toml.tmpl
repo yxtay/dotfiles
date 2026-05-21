@@ -65,7 +65,7 @@
 
 [".local/bin/sd"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "chmln/sd" (printf "sd-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "chmln/sd" (printf "sd-*-%s-*-%s*.tar.gz" .arch .chezmoi.os) }}"
   path = "sd"
   stripComponents = 1
   executable = true
