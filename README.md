@@ -41,8 +41,8 @@ This installs all Homebrew packages and applies config files.
 ## Development workflow
 
 ```bash
-# Run configured pre-commit hooks
-pre-commit run --all-files
+# Install pre-commit hooks
+pre-commit install
 ```
 
 ## Maintenance scripts

@@ -10,8 +10,8 @@ and [Homebrew](https://brew.sh/).
 ## Commands
 
 ```bash
-# Run pre-commit hooks locally
-pre-commit run --all-files
+# Install pre-commit hooks for development
+pre-commit install
 
 # Apply chezmoi dotfiles (installs packages + applies config)
 chezmoi apply
