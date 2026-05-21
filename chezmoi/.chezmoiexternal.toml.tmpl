@@ -17,7 +17,7 @@
 {{- if .is_codespaces }}
 [".local/bin/bat"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "bat-*-%s-*-%s-gnu.tar.gz" .arch .chezmoi.os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "bat-*-%s-%s.tar.gz" .arch .os) }}"
   path = "bat"
   stripComponents = 1
   executable = true
@@ -55,7 +55,7 @@
 
 [".local/bin/rg"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "BurntSushi/ripgrep" (printf "ripgrep-*-%s-%s.tar.gz" .arch .os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "BurntSushi/ripgrep" (printf "ripgrep-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
   path = "rg"
   stripComponents = 1
   executable = true
