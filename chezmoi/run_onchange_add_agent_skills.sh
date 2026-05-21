@@ -4,7 +4,6 @@ set -euo pipefail
 if command -v npx >/dev/null; then
   skills=(
     vercel-labs/skills
-    anthropics/skills
     JuliusBrussee/caveman
   )
   for entry in "${skills[@]}"; do
