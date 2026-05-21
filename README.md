@@ -9,12 +9,15 @@ Personal macOS and shell setup managed with
   (zsh, git, helix, wezterm, bat, etc.)
 - `scripts/`: convenience maintenance scripts (`update-all.sh`, `cleanup-all.sh`)
 
-## Prerequisites
+## Apply directly from repo
 
-- macOS
-- `git`
-- `gh` authenticated (`gh auth login`) for update flows
-  that need a GitHub token
+Install chezmoi and apply dotfiles in one step, no clone needed:
+
+```bash
+sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply yxtay
+```
+
+The following commands require cloning the repo first.
 
 ## Bootstrap
 
@@ -38,14 +41,14 @@ This installs all Homebrew packages and applies config files.
 ## Development workflow
 
 ```bash
-# Run configured pre-commit hooks
-pre-commit run --all-files
+# Install pre-commit hooks
+pre-commit install
 ```
 
 ## Maintenance scripts
 
 ```bash
-# Refresh dotfiles
+# Refresh dotfiles (requires `gh auth login`)
 ./scripts/update-all.sh
 
 # Clean caches and old artifacts
