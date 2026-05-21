@@ -14,7 +14,7 @@
 {{- end }}
   refreshPeriod = "168h"
 
-{{- if .is_codespaces }}
+{{- if .is_ephemeral }}
 [".local/bin/bat"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "sharkdp/bat" (printf "bat-*-%s-%s.tar.gz" .arch .os) }}"

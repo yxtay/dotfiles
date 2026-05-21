@@ -1,4 +1,4 @@
-{{ if and (eq .chezmoi.os "darwin") (not .is_ci) -}}
+{{ if and (eq .chezmoi.os "darwin") (not .is_ephemeral) -}}
 #!/usr/bin/env bash
 softwareupdate --install-rosetta --agree-to-license
 {{ end -}}

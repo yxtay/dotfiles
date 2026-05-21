@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-{{ if .is_codespaces -}}
+{{ if .is_ephemeral -}}
 if ! command -v gemini >/dev/null && command -v npm >/dev/null; then
   npm install -g @google/gemini-cli
 fi

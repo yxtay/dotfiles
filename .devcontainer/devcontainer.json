@@ -1,4 +1,0 @@
-{
-  "image": "mcr.microsoft.com/devcontainers/universal",
-  "runArgs": ["--platform=linux/amd64"]
-}
