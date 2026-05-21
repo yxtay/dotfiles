@@ -31,12 +31,14 @@
   executable = true
   refreshPeriod = "168h"
 
+{{- if ne .chezmoi.os "darwin" }}
 [".local/bin/eza"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "eza-community/eza" (printf "eza_%s-%s.zip" .arch .os) }}"
   path = "eza"
   executable = true
   refreshPeriod = "168h"
+{{- end }}
 
 [".local/bin/fd"]
   type = "archive-file"
@@ -63,7 +65,7 @@
 
 [".local/bin/sd"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "chmln/sd" (printf "sd-*-%s-%s.tar.gz" .arch .os) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "chmln/sd" (printf "sd-*-%s-*-%s-*.tar.gz" .arch .chezmoi.os) }}"
   path = "sd"
   executable = true
   refreshPeriod = "168h"
