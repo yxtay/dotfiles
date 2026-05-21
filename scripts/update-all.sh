@@ -6,5 +6,3 @@ export GITHUB_TOKEN
 trap 'unset GITHUB_TOKEN' EXIT
 
 chezmoi --refresh-externals apply
-zimfw upgrade
-zimfw update
