@@ -1,3 +1,4 @@
+{{ if and (eq .chezmoi.os "darwin") (not .is_ephemeral) -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -29,3 +30,4 @@ if command -v claude >/dev/null; then
     claude plugin install "${entry}"
   done
 fi
+{{ end -}}
