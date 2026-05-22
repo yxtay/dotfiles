@@ -1,0 +1,3 @@
+{
+    "dotfiles.installCommand": "./workspace/dotfiles/install.sh"
+}
