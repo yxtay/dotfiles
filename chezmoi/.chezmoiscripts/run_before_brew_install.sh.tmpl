@@ -20,17 +20,9 @@ brew bundle \
 {{- end }}
 --file=/dev/stdin <<EOF
 
-# text
-brew "jq"
-brew "ripgrep"
-brew "sd"
-brew "yq"
-
 brew "fzf"
-
-brew "opencode"
-
-uv "uv"
+brew "uv"
+brew "yq"
 
 {{- if not .is_ephemeral }}
 ###
@@ -43,6 +35,11 @@ brew "btop"
 # brew "timescam/homebrew-tap/pay-respects"
 brew "procs"
 brew "tlrc"
+
+# text
+brew "jq"
+brew "ripgrep"
+brew "sd"
 
 # files
 brew "bat"
@@ -111,6 +108,8 @@ brew "docker-buildx"
 brew "docker-compose"
 brew "docker-credential-helper"
 brew "kubectl"
+
+brew "opencode"
 
 {{- if eq .chezmoi.os "darwin" }}
 brew "colima"
