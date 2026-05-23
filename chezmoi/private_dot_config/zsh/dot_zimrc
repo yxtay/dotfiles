@@ -115,7 +115,7 @@ comps=(
 
 evals=(
   atuin "atuin init zsh"
-  brew "brew shellenv"
+  # brew "brew shellenv"  # not idempotent
   direnv "direnv hook zsh"
   fzf "fzf --zsh"
   mise "mise activate zsh"
