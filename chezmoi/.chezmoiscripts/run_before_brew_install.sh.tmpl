@@ -1,3 +1,4 @@
+{{ if not .is_ephemeral -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -15,16 +16,9 @@ if ! command -v brew >/dev/null; then
 fi
 
 brew bundle \
-{{- if not .is_ephemeral }}
 --cleanup --zap \
-{{- end }}
 --file=/dev/stdin <<EOF
 
-brew "fzf"
-brew "yq"
-uv "uv"
-
-{{- if not .is_ephemeral }}
 ###
 # cli utilities
 ###
@@ -40,6 +34,7 @@ brew "tlrc"
 brew "jq"
 brew "ripgrep"
 brew "sd"
+brew "yq"
 
 # files
 brew "bat"
@@ -48,6 +43,7 @@ brew "duf"
 brew "dust"
 brew "eza"
 brew "fd"
+brew "fzf"
 brew "zoxide"
 
 # security
@@ -95,6 +91,7 @@ brew "yarn"
 # python
 uv "pre-commit"
 uv "ruff"
+uv "uv"
 uv "ty"
 
 # work
@@ -189,7 +186,7 @@ cask "intune-company-portal"
 cask "libreoffice"
 
 {{- end }}
-{{- end }}
 EOF
 
 brew bundle dump --global --force
+{{ end -}}
