@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-{{ if .is_ephemeral -}}
-# install gemini with npm in ephemeral environments
-if ! command -v gemini >/dev/null && command -v npm >/dev/null; then
-  npm install -g @google/gemini-cli
-fi
-{{ end -}}
-
 if command -v gemini >/dev/null; then
   extensions=(
     superpowers=https://github.com/obra/superpowers
