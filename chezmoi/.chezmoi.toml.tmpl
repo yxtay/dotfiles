@@ -1,6 +1,6 @@
 {{- $is_ephemeral := eq "true" (env "CI") (env "CODESPACES") (env "REMOTE_CONTAINERS") }}
 {{- $is_ephemeral = or $is_ephemeral (eq .chezmoi.username "debian" "ubuntu" "user") }}
-{{- $interactive := stdinIsATTY }}
+{{- $is_interactive := stdinIsATTY }}
 
 {{- $arch := "x86_64" }}
 {{- if eq .chezmoi.arch "arm64" }}
@@ -16,15 +16,22 @@
 {{- $os = "pc-windows-msvc" }}
 {{- end }}
 
+{{- if lookPath "delta" }}
+pager = "delta"
+{{- end }}
+progress = true
+
 [data]
-username = "yuxuantay"
 git_user = "yxtay"
 git_email = "5795122+yxtay@users.noreply.github.com"
-git_email_work = "tay.yuxuan@gt.tech.gov.sg"
 arch = "{{ $arch }}"
 os = "{{ $os }}"
 is_ephemeral = {{ $is_ephemeral }}
-is_interactive = {{ $interactive }}
+is_interactive = {{ $is_interactive }}
+
+{{- if not $is_ephemeral }}
+git_email_work = "tay.yuxuan@gt.tech.gov.sg"
+{{- end }}
 
 [diff]
 {{- if lookPath "delta" }}
@@ -32,5 +39,18 @@ command = "delta"
 pager = "delta"
 {{- end }}
 
+[edit]
+apply = true
+
 [git]
 autoCommit = true
+autoPush = true
+
+[github]
+refreshPeriod = "1h"
+
+[scriptEnv]
+{{- if not $is_interactive }}
+DEBIAN_FRONTEND = "noninteractive"
+NONINTERACTIVE = "true"
+{{- end }}

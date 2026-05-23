@@ -1,3 +1,6 @@
+{{- if .is_ephemeral}}
+.config/git/work_config
+{{- end }}
 {{- if contains ".local/share/chezmoi" .chezmoi.workingTree }}
 .local/share/chezmoi
 {{- end }}
