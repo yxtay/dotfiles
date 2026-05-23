@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if command -v gemini >/dev/null; then
-  extensions=(
-    superpowers=https://github.com/obra/superpowers
-    claude-code-workflows=https://github.com/wshobson/agents
-    exa-mcp-server=https://github.com/exa-labs/exa-mcp-server
-    conductor=https://github.com/gemini-cli-extensions/conductor
-    gemini-cli-security=https://github.com/gemini-cli-extensions/security
-    code-review=https://github.com/gemini-cli-extensions/code-review
-    gemini-cli-jules=https://github.com/gemini-cli-extensions/jules
-  )
-  for entry in "${extensions[@]}"; do
-    ext_name="${entry%%=*}"
-    ext_url="${entry#*=}"
-    if [ ! -d "${HOME}/.gemini/extensions/${ext_name}" ]; then
-      gemini extensions install "${ext_url}" --auto-update --consent
-    fi
-  done
+if ! command -v gemini >/dev/null; then
+  exit
 fi
+
+extensions=(
+  superpowers=https://github.com/obra/superpowers
+  claude-code-workflows=https://github.com/wshobson/agents
+  exa-mcp-server=https://github.com/exa-labs/exa-mcp-server
+  conductor=https://github.com/gemini-cli-extensions/conductor
+  gemini-cli-security=https://github.com/gemini-cli-extensions/security
+  code-review=https://github.com/gemini-cli-extensions/code-review
+  gemini-cli-jules=https://github.com/gemini-cli-extensions/jules
+)
+for entry in "${extensions[@]}"; do
+  ext_name="${entry%%=*}"
+  ext_url="${entry#*=}"
+  if [ ! -d "${HOME}/.gemini/extensions/${ext_name}" ]; then
+    gemini extensions install "${ext_url}" --auto-update --consent
+  fi
+done

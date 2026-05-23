@@ -14,7 +14,6 @@ if ! command -v brew >/dev/null; then
   done
 fi
 
-
 brew bundle \
 {{- if not .is_ephemeral }}
 --cleanup --zap \
