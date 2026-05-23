@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v agy >/dev/null; then
+  curl -fsSL https://antigravity.google/cli/install.sh | bash
+fi
+
+extensions=(
+  https://github.com/obra/superpowers
+  https://github.com/JuliusBrussee/caveman
+  https://github.com/wshobson/agents
+  https://github.com/exa-labs/exa-mcp-server
+  https://github.com/gemini-cli-extensions/conductor
+  https://github.com/gemini-cli-extensions/security
+  https://github.com/gemini-cli-extensions/code-review
+  https://github.com/gemini-cli-extensions/jules
+)
+for entry in "${extensions[@]}"; do
+  agy plugins install "${entry}" --auto-update --consent
+done

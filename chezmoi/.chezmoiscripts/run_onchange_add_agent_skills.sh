@@ -5,10 +5,18 @@ if ! command -v npx >/dev/null; then
   exit
 fi
 
+agents=(
+  antigravity
+  opencode
+)
+agent_opt=()
+for agent in "${agents[@]}"; do
+  agent_opt+=(--agent "$agent")
+done
+
 skills=(
   vercel-labs/skills
-  JuliusBrussee/caveman
 )
 for entry in "${skills[@]}"; do
-  npx --yes skills add "${entry}" --global --agent universal --skill "*" --yes
+  npx --yes skills add "${entry}" --global "${agent_opt[@]}" --skill "*" --yes
 done

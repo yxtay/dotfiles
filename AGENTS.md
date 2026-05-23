@@ -37,7 +37,10 @@ Key scripts:
   then installs all packages/casks
 - `run_onchange_macos_defaults.sh.tmpl` — applies macOS system settings
 - `run_onchange_setup_claude.sh.tmpl` — configures Claude Code
-- `run_onchange_setup_gemini.sh.tmpl` — configures Gemini
+- `run_onchange_setup_antigravity.sh.tmpl` — configures Antigravity CLI,
+  installs extensions
+- `run_onchange_add_agent_skills.sh` — adds skills to AI agents
+  (antigravity, opencode)
 
 ### CI (`.github/workflows/`)
 
