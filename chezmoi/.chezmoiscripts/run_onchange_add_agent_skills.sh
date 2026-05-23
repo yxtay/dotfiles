@@ -9,12 +9,12 @@ agents=(
   antigravity
   opencode
 )
-agent_opt=${agents[@]/#/--agent }
+agent_opt=(${agents[@]/#/--agent })
 
 skills=(
   vercel-labs/skills
   JuliusBrussee/caveman
 )
 for entry in "${skills[@]}"; do
-  npx --yes skills add "${entry}" --global ${agent_opt} --skill "*" --yes
+  npx --yes skills add "${entry}" --global "${agent_opt[@]}" --skill "*" --yes
 done
