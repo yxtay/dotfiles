@@ -15,7 +15,11 @@ if ! command -v brew >/dev/null; then
 fi
 
 
-brew bundle install --cleanup --zap --file=/dev/stdin <<EOF
+brew bundle \
+{{- if not .is_ephemeral }}
+--cleanup --zap \
+{{- end }}
+--file=/dev/stdin <<EOF
 
 # text
 brew "bat"
@@ -187,3 +191,5 @@ cask "libreoffice"
 {{- end }}
 {{- end }}
 EOF
+
+brew bundle dump --global --force
