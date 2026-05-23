@@ -16,10 +16,10 @@
 {{- $os = "pc-windows-msvc" }}
 {{- end }}
 
-{{- if lookPath "delta" }}
-pager = "delta"
+{{- if lookPath "bat" }}
+pager = "bat"
 {{- end }}
-progress = true
+progress = {{ $is_interactive }}
 
 [data]
 git_user = "yxtay"
