@@ -9,7 +9,7 @@ agents=(
   antigravity
   opencode
 )
-agent_opt=(${agents[@]/#/--agent })
+agent_opt=("${agents[@]/#/--agent }")
 
 skills=(
   vercel-labs/skills
