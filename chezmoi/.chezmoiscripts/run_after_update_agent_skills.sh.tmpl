@@ -1,3 +1,4 @@
+{{ if not .is_ephemeral -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -6,3 +7,4 @@ if ! command -v npx >/dev/null; then
 fi
 
 npx --yes skills update --global
+{{ end -}}
