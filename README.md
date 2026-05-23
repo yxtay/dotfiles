@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal macOS and shell setup managed with
+Personal macOS and Linux shell setup managed with
 [chezmoi](https://chezmoi.io/) and [Homebrew](https://brew.sh/).
 
 ## What's in this repo

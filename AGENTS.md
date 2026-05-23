@@ -4,7 +4,7 @@ AI agent instructions for working with this repository.
 
 ## Overview
 
-Personal macOS dotfiles managed with [chezmoi](https://chezmoi.io/)
+Personal macOS and Linux dotfiles managed with [chezmoi](https://chezmoi.io/)
 and [Homebrew](https://brew.sh/).
 
 ## Commands
@@ -31,11 +31,12 @@ chezmoi naming conventions (`private_dot_config/`, `dot_`,
 
 Key scripts:
 
-- `run_once_before_00_install_homebrew.sh.tmpl` — installs Homebrew (runs once)
-- `run_once_before_rosetta.sh.tmpl` — installs Rosetta 2 (runs once)
-- `run_before_01_brew_bundle_install.sh.tmpl` — installs all Homebrew packages/casks
+- `run_once_before_rosetta.sh.tmpl` — installs Rosetta 2 on Apple Silicon
+  (runs once)
+- `run_before_brew_install.sh.tmpl` — installs Homebrew if missing,
+  then installs all packages/casks
 - `run_onchange_macos_defaults.sh.tmpl` — applies macOS system settings
-- `run_onchange_setup_claude.sh` — configures Claude Code
+- `run_onchange_setup_claude.sh.tmpl` — configures Claude Code
 - `run_onchange_setup_gemini.sh.tmpl` — configures Gemini
 
 ### CI (`.github/workflows/`)
