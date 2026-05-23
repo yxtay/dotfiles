@@ -50,9 +50,7 @@ autoPush = true
 refreshPeriod = "1h"
 
 [env]
-{{- if not (lookPath "brew") }}
-PATH = "/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/bin:/usr/local/bin:{{ env "PATH" }}"
-{{- end }}
+PATH = "{{ env "HOME" }}/.local/bin:/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/bin:/usr/local/bin:{{ env "PATH" }}"
 {{- if not $is_interactive }}
 DEBIAN_FRONTEND = "noninteractive"
 NONINTERACTIVE = "true"
