@@ -15,6 +15,24 @@
   refreshPeriod = "168h"
 
 {{- if .is_ephemeral }}
+{{- if ne .chezmoi.os "darwin" }}
+[".local/bin/eza"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "eza-community/eza" (printf "eza_%s-%s.tar.gz" .arch .os) }}"
+  path = "eza"
+  stripComponents = 1
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
+
+[".local/bin/fd"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "sharkdp/fd" (printf "fd-*-%s-%s.tar.gz" .arch .os) }}"
+  path = "fd"
+  stripComponents = 1
+  executable = true
+  refreshPeriod = "168h"
+
 [".local/bin/fzf"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) }}"
@@ -22,9 +40,32 @@
   executable = true
   refreshPeriod = "168h"
 
+[".local/bin/rg"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "BurntSushi/ripgrep" (printf "ripgrep-*-%s-*-%s*.tar.gz" .arch .chezmoi.os) }}"
+  path = "rg"
+  stripComponents = 1
+  executable = true
+  refreshPeriod = "168h"
+
+[".local/bin/sd"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "chmln/sd" (printf "sd-*-%s-*-%s*.tar.gz" .arch .chezmoi.os) }}"
+  path = "sd"
+  stripComponents = 1
+  executable = true
+  refreshPeriod = "168h"
+
 [".local/bin/yq"]
   type = "file"
   url = "{{ gitHubLatestReleaseAssetURL "mikefarah/yq" (printf "yq_%s_%s" .chezmoi.os .chezmoi.arch) }}"
+  executable = true
+  refreshPeriod = "168h"
+
+[".local/bin/zoxide"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "ajeetdsouza/zoxide" (printf "zoxide-*-%s-*-%s*.tar.gz" .arch .chezmoi.os) }}"
+  path = "zoxide"
   executable = true
   refreshPeriod = "168h"
 {{- end }}
