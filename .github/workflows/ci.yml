@@ -43,6 +43,9 @@ jobs:
       - run: chezmoi data
         shell: zsh {0}
 
+      - run: brew bundle dump --file -
+        shell: zsh {0}
+
       - run: |
           echo ${ZSH_NAME} ${ZSH_VERSION}
           echo path: ${path}
