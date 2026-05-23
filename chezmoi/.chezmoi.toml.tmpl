@@ -50,7 +50,7 @@ autoPush = true
 refreshPeriod = "1h"
 
 [scriptEnv]
-PATH = "/${HOME}/.local/bin:/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/bin:${PATH}"
+PATH = "/${HOME}/.local/bin:/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/bin:/usr/bin:/bin"
 {{- if not $is_interactive }}
 DEBIAN_FRONTEND = "noninteractive"
 NONINTERACTIVE = "true"
