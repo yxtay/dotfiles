@@ -89,10 +89,8 @@
   refreshPeriod = "168h"
 
 [".local/bin/yq"]
-  type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "mikefarah/yq" (printf "yq_%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) }}"
-  path = "{{ printf "yq_%s_%s.tar.gz" .chezmoi.os .chezmoi.arch }}"
-  stripComponents = 1
+  type = "file"
+  url = "{{ gitHubLatestReleaseAssetURL "mikefarah/yq" (printf "yq_%s_%s" .chezmoi.os .chezmoi.arch) }}"
   executable = true
   refreshPeriod = "168h"
 
