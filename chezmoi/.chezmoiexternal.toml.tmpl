@@ -91,7 +91,7 @@
 [".local/bin/yq"]
   type = "archive-file"
   url = "{{ gitHubLatestReleaseAssetURL "mikefarah/yq" (printf "yq_%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) }}"
-  path = "yq"
+  path = "{{ printf "yq_%s_%s.tar.gz" .chezmoi.os .chezmoi.arch }}"
   stripComponents = 1
   executable = true
   refreshPeriod = "168h"
