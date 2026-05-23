@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if command -v npx >/dev/null; then
-  npx --yes skills update --global
+if ! command -v npx >/dev/null; then
+  exit
 fi
+
+npx --yes skills update --global
