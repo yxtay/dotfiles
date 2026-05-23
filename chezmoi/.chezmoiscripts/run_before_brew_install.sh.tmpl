@@ -21,8 +21,8 @@ brew bundle \
 --file=/dev/stdin <<EOF
 
 brew "fzf"
-brew "uv"
 brew "yq"
+uv "uv"
 
 {{- if not .is_ephemeral }}
 ###
