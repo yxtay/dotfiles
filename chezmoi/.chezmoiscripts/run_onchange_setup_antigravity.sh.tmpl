@@ -6,18 +6,14 @@ if ! command -v agy >/dev/null; then
 fi
 
 extensions=(
-  superpowers=https://github.com/obra/superpowers
-  claude-code-workflows=https://github.com/wshobson/agents
-  exa-mcp-server=https://github.com/exa-labs/exa-mcp-server
-  conductor=https://github.com/gemini-cli-extensions/conductor
-  gemini-cli-security=https://github.com/gemini-cli-extensions/security
-  code-review=https://github.com/gemini-cli-extensions/code-review
-  gemini-cli-jules=https://github.com/gemini-cli-extensions/jules
+  https://github.com/obra/superpowers
+  https://github.com/wshobson/agents
+  https://github.com/exa-labs/exa-mcp-server
+  https://github.com/gemini-cli-extensions/conductor
+  https://github.com/gemini-cli-extensions/security
+  https://github.com/gemini-cli-extensions/code-review
+  https://github.com/gemini-cli-extensions/jules
 )
 for entry in "${extensions[@]}"; do
-  ext_name="${entry%%=*}"
-  ext_url="${entry#*=}"
-  if [ ! -d "${HOME}/.gemini/antigravity-cli/plugins/${ext_name}" ]; then
-    agy plugins install "${ext_url}" --auto-update --consent
-  fi
+  agy plugins install "${entry}" --auto-update --consent
 done
