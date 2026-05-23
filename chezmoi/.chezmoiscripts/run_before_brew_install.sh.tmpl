@@ -14,13 +14,8 @@ if ! command -v brew >/dev/null; then
   done
 fi
 
-{{- if and (eq .chezmoi.os "darwin") (not .is_ephemeral) }}
 
 brew bundle install --cleanup --zap --file=/dev/stdin <<EOF
-
-###
-# cli utilities
-###
 
 # text
 brew "bat"
@@ -28,6 +23,19 @@ brew "jq"
 brew "ripgrep"
 brew "sd"
 brew "yq"
+
+# files
+brew "eza"
+brew "fd"
+brew "fzf"
+brew "zoxide"
+
+uv "uv"
+
+{{- if not .is_ephemeral }}
+###
+# cli utilities
+###
 
 # shell
 brew "atuin"
@@ -40,10 +48,6 @@ brew "tlrc"
 brew "dtrx"
 brew "duf"
 brew "dust"
-brew "eza"
-brew "fd"
-brew "fzf"
-brew "zoxide"
 
 # security
 brew "gnupg"
@@ -88,7 +92,6 @@ brew "terragrunt"
 brew "yarn"
 
 # python
-uv "uv"
 uv "pre-commit"
 uv "ruff"
 uv "ty"
@@ -105,6 +108,7 @@ brew "docker-compose"
 brew "docker-credential-helper"
 brew "kubectl"
 
+{{- if eq .chezmoi.os "darwin" }}
 brew "colima"
 
 ###
@@ -180,5 +184,6 @@ cask "cloudflare-warp"
 cask "intune-company-portal"
 cask "libreoffice"
 
-EOF
 {{- end }}
+{{- end }}
+EOF
