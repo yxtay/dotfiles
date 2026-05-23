@@ -49,6 +49,9 @@ autoPush = true
 [github]
 refreshPeriod = "1h"
 
+[env]
+PATH = "/${HOME}/.local/bin:/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+
 [scriptEnv]
 PATH = "/${HOME}/.local/bin:/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
 {{- if not $is_interactive }}
