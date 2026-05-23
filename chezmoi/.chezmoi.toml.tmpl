@@ -40,6 +40,6 @@ autoCommit = true
 
 [scriptEnv]
 {{- if not $is_interactive }}
-DEBIAN_FRONTEND=noninteractive
-NONINTERACTIVE=true
+DEBIAN_FRONTEND = "noninteractive"
+NONINTERACTIVE = true
 {{- end }}
