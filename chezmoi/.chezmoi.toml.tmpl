@@ -16,6 +16,11 @@
 {{- $os = "pc-windows-msvc" }}
 {{- end }}
 
+{{- if lookPath "delta" }}
+pager = "delta"
+{{- end }}
+progress = true
+
 [data]
 git_user = "yxtay"
 git_email = "5795122+yxtay@users.noreply.github.com"
@@ -34,8 +39,15 @@ command = "delta"
 pager = "delta"
 {{- end }}
 
+[edit]
+apply = true
+
 [git]
 autoCommit = true
+autoPush = true
+
+[github]
+refreshPeriod = "1h"
 
 [scriptEnv]
 {{- if not $is_interactive }}
