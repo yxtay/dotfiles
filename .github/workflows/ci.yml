@@ -93,5 +93,6 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
 
-      - name: Dump environment variables
-        run: ${{ (runner.os == 'Windows') && 'gci env:' || 'env | sort' }}
+      - if: ${{ runner.os != 'Windows' }}
+        name: Dump environment variables
+        run: env | sort
