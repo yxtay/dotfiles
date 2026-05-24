@@ -2,7 +2,8 @@
 set -euo pipefail
 
 if ! command -v agy >/dev/null; then
-  curl -fsSL https://antigravity.google/cli/install.sh | bash  # nosemgrep
+  # nosemgrep
+  curl -fsSL https://antigravity.google/cli/install.sh | bash
 fi
 
 extensions=(
