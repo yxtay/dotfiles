@@ -10,8 +10,10 @@ extensions=(
   https://github.com/obra/superpowers
   https://github.com/JuliusBrussee/caveman
   https://github.com/exa-labs/exa-mcp-server
+  {{ if not .is_ephemeral -}}
   https://github.com/gemini-cli-extensions/conductor
   https://github.com/gemini-cli-extensions/security
+  {{ end -}}
   https://github.com/gemini-cli-extensions/jules
 )
 for entry in "${extensions[@]}"; do
