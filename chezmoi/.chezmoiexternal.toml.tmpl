@@ -25,7 +25,7 @@
 {{- if eq .chezmoi.os "linux" }}
 [".local/bin/opencode"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "anomalyco/opencode" (printf "opencode-%s-%s.tar.gz" .chezmoi.os .chezmoi.arch) }}"
+  url = "{{ gitHubLatestReleaseAssetURL "anomalyco/opencode" (printf "opencode-%s-%s.tar.gz" .chezmoi.os (if (eq .arch "x86_64") "x64" else .arch)) }}"
   path = "opencode"
   executable = true
   refreshPeriod = "168h"
