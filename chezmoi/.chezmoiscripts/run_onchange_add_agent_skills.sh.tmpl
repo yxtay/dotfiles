@@ -1,4 +1,5 @@
 {{ if not .is_ephemeral -}}
+
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -21,4 +22,5 @@ skills=(
 for entry in "${skills[@]}"; do
   npx --yes skills add "${entry}" --global "${agent_opt[@]}" --skill "*" --yes
 done
-{{ end -}}
+
+{{- end }}

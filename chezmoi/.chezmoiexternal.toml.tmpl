@@ -21,4 +21,13 @@
   path = "fzf"
   executable = true
   refreshPeriod = "168h"
+
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
+[".local/bin/opencode"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "anomalyco/opencode" (printf "opencode-%s-%s.tar.gz" .chezmoi.os "x64") }}"
+  path = "opencode"
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
 {{- end }}
