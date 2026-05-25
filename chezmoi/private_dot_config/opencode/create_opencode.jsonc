@@ -5,8 +5,8 @@
     "lsp": true,
     "model": "opencode/deepseek-v4-flash-free",
     "plugin": [
-        "oh-my-openagent",
-        "opencode-antigravity-auth@latest"
+        "opencode-antigravity-auth@latest",
+        "superpowers@git+https://github.com/obra/superpowers.git"
     ],
     "small_model": "opencode/deepseek-v4-flash-free"
 }
