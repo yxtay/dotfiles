@@ -119,6 +119,7 @@ evals=(
   direnv "direnv hook zsh"
   fzf "fzf --zsh"
   mise "mise activate zsh"
+  opencode "opencode completion"
   pay-respects "pay-respects zsh --alias"
   zoxide "zoxide init zsh"
 )
