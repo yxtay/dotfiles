@@ -1,5 +1,3 @@
-{{ if not .is_ephemeral -}}
-
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -18,9 +16,8 @@ done
 
 skills=(
   vercel-labs/skills
+  JuliusBrussee/caveman
 )
 for entry in "${skills[@]}"; do
   npx --yes skills add "${entry}" --global "${agent_opt[@]}" --skill "*" --yes
 done
-
-{{- end }}
