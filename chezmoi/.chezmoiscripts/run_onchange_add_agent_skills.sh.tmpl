@@ -6,10 +6,6 @@ if ! command -v npx >/dev/null; then
 fi
 
 agents=(
-  {{ if not .is_ephemeral -}}
-  antigravity
-  claude
-  {{ end -}}
   opencode
 )
 agent_opt=()
