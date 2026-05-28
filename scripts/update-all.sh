@@ -6,3 +6,4 @@ export GITHUB_TOKEN
 trap 'unset GITHUB_TOKEN' EXIT
 
 chezmoi --refresh-externals apply
+uv tool upgrade --all
