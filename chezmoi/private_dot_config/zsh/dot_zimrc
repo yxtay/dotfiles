@@ -118,6 +118,7 @@ evals=(
   # brew "brew shellenv"  # not idempotent
   direnv "direnv hook zsh"
   fzf "fzf --zsh"
+  gt "gt autocomplete script zsh"
   mise "mise activate zsh"
   opencode "opencode completion"
   pay-respects "pay-respects zsh --alias"
