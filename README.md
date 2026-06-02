@@ -7,7 +7,7 @@ Personal macOS and Linux shell setup managed with
 
 - `chezmoi/`: templated dotfiles for shell and tool config
   (zsh, git, helix, wezterm, bat, etc.)
-- `scripts/`: convenience maintenance scripts (`update-all.sh`, `cleanup-all.sh`)
+- `bin/`: convenience maintenance scripts (`update-all.sh`, `cleanup-all.sh`)
 
 ## Apply directly from repo
 
@@ -49,10 +49,10 @@ pre-commit install
 
 ```bash
 # Refresh dotfiles (requires `gh auth login`)
-./scripts/update-all.sh
+./bin/update-all.sh
 
 # Clean caches and old artifacts
-./scripts/cleanup-all.sh
+./bin/cleanup-all.sh
 ```
 
 ## License

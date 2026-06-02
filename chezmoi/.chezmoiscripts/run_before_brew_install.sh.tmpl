@@ -16,8 +16,8 @@ if ! command -v brew >/dev/null; then
   done
 fi
 
-brew bundle \
---cleanup --zap \
+brew bundle install \
+--force-cleanup --zap \
 --file=/dev/stdin <<EOF
 
 ###
@@ -27,7 +27,7 @@ brew bundle \
 # shell
 brew "atuin"
 brew "btop"
-# brew "timescam/homebrew-tap/pay-respects"
+brew "timescam/homebrew-tap/pay-respects"
 brew "procs"
 brew "tlrc"
 
@@ -95,10 +95,11 @@ brew "pre-commit"
 brew "ruff"
 brew "ty"
 
-# work
+# cloud
 brew "awscli"
 brew "azure-cli"
 brew "databricks/tap/databricks"
+brew "oci-cli"
 
 # container
 brew "docker"
@@ -182,6 +183,7 @@ cask "wezterm"
 cask "spotify"
 
 # work
+cask "1password"
 cask "cloudflare-warp"
 cask "intune-company-portal"
 cask "libreoffice"
