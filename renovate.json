@@ -26,7 +26,13 @@
       "automerge": false,
       "groupName": "python",
       "matchPackageNames": ["python"],
-      "matchUpdateTypes": ["minor"]
+      "matchUpdateTypes": ["major", "minor"]
+    },
+    {
+      "automerge": false,
+      "groupName": "java",
+      "matchPackageNames": ["java"],
+      "matchUpdateTypes": ["major"]
     }
   ]
 }
