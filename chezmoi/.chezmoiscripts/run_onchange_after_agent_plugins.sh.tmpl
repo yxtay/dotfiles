@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
+npm install --global @colbymchenry/codegraph
 npx --yes @colbymchenry/codegraph install --yes
 
 rtk telemetry disable
-if command -v claude >/dev/null; then rtk init -g --auto-patch --hook-only; fi
-if command -v opencode >/dev/null; then rtk init -g --opencode --auto-patch --hook-only; fi
+if command -v claude >/dev/null; then
+  rtk init --global --auto-patch --hook-only;
+fi
+if command -v opencode >/dev/null; then
+  rtk init --global --opencode --auto-patch --hook-only;
+fi
