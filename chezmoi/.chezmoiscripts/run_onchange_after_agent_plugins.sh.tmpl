@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v npm >/dev/null; then
+  npm install --global @colbymchenry/codegraph
+  npx --yes @colbymchenry/codegraph install --yes
+fi
+
+if command -v rtk >/dev/null; then
+  rtk telemetry disable
+  if command -v claude >/dev/null; then
+    rtk init --global --auto-patch --hook-only;
+  fi
+  if command -v opencode >/dev/null; then
+    rtk init --global --opencode --auto-patch --hook-only;
+  fi
+fi

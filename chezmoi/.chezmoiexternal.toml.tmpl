@@ -22,12 +22,14 @@
   executable = true
   refreshPeriod = "168h"
 
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
-[".local/bin/opencode"]
+[".local/bin/rtk"]
   type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "anomalyco/opencode" (printf "opencode-%s-%s.tar.gz" .chezmoi.os "x64") }}"
-  path = "opencode"
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
+  url = "{{ gitHubLatestReleaseAssetURL "rtk-ai/rtk" (printf "rtk-%s-%s.tar.gz" .arch "unknown-linux-musl") }}"
+{{- else }}
+  url = "{{ gitHubLatestReleaseAssetURL "rtk-ai/rtk" (printf "rtk-%s-%s.tar.gz" .arch .os) }}"
+{{- end }}
+  path = "rtk"
   executable = true
   refreshPeriod = "168h"
-{{- end }}
 {{- end }}

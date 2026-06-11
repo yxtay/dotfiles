@@ -10,6 +10,7 @@ fi
 marketplaces=(
   anthropics/claude-plugins-official
   JuliusBrussee/caveman
+  mksglu/context-mode
 )
 for entry in "${marketplaces[@]}"; do
   claude plugin marketplace add "${entry}"
@@ -29,6 +30,7 @@ plugins=(
   claude-code-setup@claude-plugins-official
   pr-review-toolkit@claude-plugins-official
   pyright-lsp@claude-plugins-official
+  context-mode@context-mode
 )
 for entry in "${plugins[@]}"; do
   claude plugin install "${entry}"
