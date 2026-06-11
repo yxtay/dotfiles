@@ -14,6 +14,13 @@
 {{- end }}
   refreshPeriod = "168h"
 
+[".local/bin/rtk"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "rtk-ai/rtk" (printf "rtk-%s-%s.tar.gz" .arch .os) }}"
+  path = "rtk"
+  executable = true
+  refreshPeriod = "168h"
+
 {{- if .is_ephemeral }}
 [".local/bin/fzf"]
   type = "archive-file"

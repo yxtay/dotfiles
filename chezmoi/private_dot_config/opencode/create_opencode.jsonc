@@ -1,12 +1,15 @@
 {
-    "$schema": "https://opencode.ai/config.json",
-    "autoupdate": true,
-    "formatter": true,
-    "lsp": true,
-    "model": "opencode/deepseek-v4-flash-free",
-    "plugin": [
-        "opencode-antigravity-auth@latest",
-        "superpowers@git+https://github.com/obra/superpowers.git"
-    ],
-    "small_model": "opencode/deepseek-v4-flash-free"
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": true,
+  "formatter": true,
+  "lsp": true,
+  "model": "opencode/deepseek-v4-flash-free",
+  "plugin": [
+    "opencode-antigravity-auth@latest",
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "@tarquinen/opencode-dcp@latest",
+    "context-mode",
+    "openslimedit@latest",
+  ],
+  "small_model": "opencode/deepseek-v4-flash-free",
 }
