@@ -14,6 +14,14 @@
 {{- end }}
   refreshPeriod = "168h"
 
+{{- if .is_ephemeral }}
+[".local/bin/fzf"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) }}"
+  path = "fzf"
+  executable = true
+  refreshPeriod = "168h"
+
 [".local/bin/rtk"]
   type = "archive-file"
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
@@ -22,14 +30,6 @@
   url = "{{ gitHubLatestReleaseAssetURL "rtk-ai/rtk" (printf "rtk-%s-%s.tar.gz" .arch .os) }}"
 {{- end }}
   path = "rtk"
-  executable = true
-  refreshPeriod = "168h"
-
-{{- if .is_ephemeral }}
-[".local/bin/fzf"]
-  type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) }}"
-  path = "fzf"
   executable = true
   refreshPeriod = "168h"
 {{- end }}
