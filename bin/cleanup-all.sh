@@ -18,6 +18,6 @@ find "${HOME}/.cache/huggingface/" -not \( -path "${HOME}/.cache/huggingface/hub
 
 for clear_dir in .cache/ Library/Caches/; do
   if [ ! -d "${HOME}/${clear_dir}/" ]; then continue; fi
-  find "${HOME}/${clear_dir}" -type f -not \( -path "*/com.apple.*" -prune \) -o -atime +90 -delete || true
-  find "${HOME}/${clear_dir}" -mindepth 1 -type d -not \( -path "*/com.apple.*" -prune \) -o -empty -delete || true
+  find "${HOME}/${clear_dir}" -path "*/com.apple.*" -prune -o -type f -atime +90 -delete || true
+  find "${HOME}/${clear_dir}" -path "*/com.apple.*" -prune -o -mindepth 1 -type d -empty -delete || true
 done
