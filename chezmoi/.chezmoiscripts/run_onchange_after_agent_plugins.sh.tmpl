@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+npx --yes @colbymchenry/codegraph install --yes
+
+rtk telemetry disable
+if command -v claude >/dev/null; then rtk init -g; fi
+if command -v opencode >/dev/null; then rtk init -g --opencode; fi
