@@ -3,5 +3,5 @@
 npx --yes @colbymchenry/codegraph install --yes
 
 rtk telemetry disable
-if command -v claude >/dev/null; then rtk init -g; fi
-if command -v opencode >/dev/null; then rtk init -g --opencode; fi
+if command -v claude >/dev/null; then rtk init -g --auto-patch --hook-only; fi
+if command -v opencode >/dev/null; then rtk init -g --opencode --auto-patch --hook-only; fi
