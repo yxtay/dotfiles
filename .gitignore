@@ -1,3 +1,4 @@
 *.log
+chezmoi/.chezmoidata/local.toml
 megalinter-reports
 settings.local.json
