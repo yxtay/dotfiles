@@ -19,14 +19,6 @@ pager = "bat"
 {{- end }}
 progress = {{ $is_interactive }}
 
-[data]
-git_user = "yxtay"
-git_email = "5795122+yxtay@users.noreply.github.com"
-arch = "{{ $arch }}"
-os = "{{ $os }}"
-is_ephemeral = {{ $is_ephemeral }}
-is_interactive = {{ $is_interactive }}
-
 [diff]
 {{- if lookPath "delta" }}
 command = "delta"
@@ -49,3 +41,11 @@ PATH = "{{ env "HOME" }}/.local/bin:/home/linuxbrew/.linuxbrew/bin:/opt/homebrew
 DEBIAN_FRONTEND = "noninteractive"
 NONINTERACTIVE = "true"
 {{- end }}
+
+[data]
+git_user = "yxtay"
+git_email = "5795122+yxtay@users.noreply.github.com"
+arch = "{{ $arch }}"
+os = "{{ $os }}"
+is_ephemeral = {{ $is_ephemeral }}
+is_interactive = {{ $is_interactive }}
