@@ -60,7 +60,7 @@ Backups.backupdb
 MobileBackups.trash
 tmbootpicker.efi
 
-{{ elif eq .chezmoi.os "windows" -}}
+{{ else if eq .chezmoi.os "windows" -}}
 
 # Windows thumbnail cache files
 Thumbs.db
