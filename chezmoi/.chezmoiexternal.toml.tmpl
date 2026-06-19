@@ -3,17 +3,6 @@
   url = "https://github.com/GitAlias/gitalias/raw/main/gitalias.txt"
   refreshPeriod = "168h"
 
-[".config/git/ignore"]
-  type = "file"
-{{- if eq .chezmoi.os "darwin" }}
-  url = "https://github.com/github/gitignore/raw/main/Global/macOS.gitignore"
-{{- else if eq .chezmoi.os "windows" }}
-  url = "https://github.com/github/gitignore/raw/main/Global/Windows.gitignore"
-{{- else }}
-  url = "https://github.com/github/gitignore/raw/main/Global/Linux.gitignore"
-{{- end }}
-  refreshPeriod = "168h"
-
 {{- if .is_ephemeral }}
 [".local/bin/fzf"]
   type = "archive-file"
