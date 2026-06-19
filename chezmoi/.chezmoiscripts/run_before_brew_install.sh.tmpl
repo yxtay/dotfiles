@@ -16,6 +16,20 @@ if ! command -v brew >/dev/null; then
   done
 fi
 
+brew update
+
+taps=(
+  oven-sh/bun
+  hashicorp/tap
+  atlassian/acli
+  databricks/tap
+)
+
+for tap in "${taps[@]}"; do
+  brew tap "$tap" 2>/dev/null || true
+  brew trust "$tap"
+done
+
 brew bundle install \
 --force-cleanup --zap \
 --file=/dev/stdin <<EOF
@@ -167,7 +181,7 @@ cask "rectangle"
 # web
 cask "adguard"
 cask "brave-browser"
-cask "firefox"
+cask "firefox", args: { force: true }
 # cask "microsoft-edge"  # seems to required sudo everytime...
 
 # communication
