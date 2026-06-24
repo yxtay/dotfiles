@@ -31,8 +31,9 @@ for tap in "${taps[@]}"; do
 done
 
 brew bundle install \
---force-cleanup --zap \
---file=/dev/stdin <<EOF
+  --upgrade --force \
+  --zap --force-cleanup \
+  --file=/dev/stdin <<EOF
 
 ###
 # cli utilities
@@ -181,7 +182,7 @@ cask "rectangle"
 # web
 cask "adguard"
 cask "brave-browser"
-cask "firefox", args: { force: true }
+cask "firefox"
 # cask "microsoft-edge"  # seems to required sudo everytime...
 
 # communication
