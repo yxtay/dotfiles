@@ -19,15 +19,14 @@ fi
 brew update
 
 taps=(
-  oven-sh/bun
-  hashicorp/tap
   atlassian/acli
   databricks/tap
+  hashicorp/tap
+  oven-sh/bun
 )
 
 for tap in "${taps[@]}"; do
-  brew tap "$tap" 2>/dev/null || true
-  brew trust "$tap"
+  brew trust "${tap}"
 done
 
 brew bundle install \
