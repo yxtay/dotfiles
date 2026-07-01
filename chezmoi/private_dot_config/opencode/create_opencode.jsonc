@@ -9,6 +9,7 @@
     "@tarquinen/opencode-dcp@latest",
     "openslimedit@latest",
     "context-mode",
+    "@zilliz/memsearch-opencode",
   ],
   "small_model": "opencode/deepseek-v4-flash-free",
 }

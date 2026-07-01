@@ -8,7 +8,7 @@ fi
 if command -v rtk >/dev/null; then
   rtk telemetry disable
   if command -v claude >/dev/null; then
-    rtk init --global --auto-patch --hook-only;
+    rtk init --global --auto-patch;
   fi
   if command -v opencode >/dev/null; then
     rtk init --global --opencode;

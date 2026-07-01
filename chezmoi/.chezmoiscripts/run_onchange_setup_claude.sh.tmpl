@@ -11,6 +11,7 @@ marketplaces=(
   anthropics/claude-plugins-official
   JuliusBrussee/caveman
   mksglu/context-mode
+  zilliztech/memsearch
 )
 for entry in "${marketplaces[@]}"; do
   claude plugin marketplace add "${entry}"
@@ -31,6 +32,7 @@ plugins=(
   pr-review-toolkit@claude-plugins-official
   pyright-lsp@claude-plugins-official
   context-mode@context-mode
+  memsearch@memsearch-plugins
 )
 for entry in "${plugins[@]}"; do
   claude plugin install "${entry}"
