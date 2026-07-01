@@ -3,6 +3,14 @@
   url = "https://github.com/GitAlias/gitalias/raw/main/gitalias.txt"
   refreshPeriod = "168h"
 
+{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")}}
+[".local/bin/mcp-cli"]
+  type = "file"
+  url = "{{ gitHubLatestReleaseAssetURL "philschmid/mcp-cli" (printf "mcp-cli-%s-%s" .chezmoi.os .chezmoi.arch) }}"
+  executable = true
+  refreshPeriod = "168h"
+{{- end }}
+
 {{- if .is_ephemeral }}
 [".local/bin/fzf"]
   type = "archive-file"
