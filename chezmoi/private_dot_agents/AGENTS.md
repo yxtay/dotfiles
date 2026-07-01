@@ -60,6 +60,16 @@
 - Minimize additions. Justify when necessary.
 - Pin versions explicitly.
 
+## MCP Servers
+
+- Access MCP servers via the `mcp-cli` CLI when
+  no native MCP integration is available.
+- Run `mcp-cli --help` for commands, config search
+  paths, and examples.
+- Inspect a tool's schema (`mcp-cli info <server> <tool>`)
+  before calling it.
+- Prefer native MCP tools over `mcp-cli` when both exist.
+
 ## Security
 
 - Never hardcode secrets, tokens, or credentials.
