@@ -66,8 +66,7 @@
   no native MCP integration is available.
 - Run `mcp-cli --help` for commands, config search
   paths, and examples.
-- Inspect a tool's schema (`mcp-cli info <server> <tool>`)
-  before calling it.
+- Inspect a tool's schema using `mcp-cli info <server> <tool>`.
 - Execute tools using `mcp-cli call <server> <tool> '<json_args>'`.
 - Prefer native MCP tools over `mcp-cli` when both exist.
 
