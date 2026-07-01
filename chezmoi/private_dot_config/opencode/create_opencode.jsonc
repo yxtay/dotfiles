@@ -12,4 +12,26 @@
     "@zilliz/memsearch-opencode",
   ],
   "small_model": "opencode/deepseek-v4-flash-free",
+  "mcp": {
+    "codegraph": {
+      "type": "local",
+      "command": ["npx", "--yes", "@colbymchenry/codegraph", "serve", "--mcp"],
+      "enabled": true,
+    },
+    "context-mode": {
+      "type": "local",
+      "command": ["npx", "--yes", "context-mode"],
+      "enabled": true,
+    },
+    "deepwiki": {
+      "type": "remote",
+      "url": "https://mcp.deepwiki.com/mcp",
+      "enabled": true,
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "--yes", "@playwright/mcp"],
+      "enabled": true,
+    },
+  },
 }
