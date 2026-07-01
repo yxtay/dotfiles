@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["--yes", "@modelcontextprotocol/server-filesystem", "."]
+    },
+    "deepwiki": {
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "context-mode": {
+      "command": "npx",
+      "args": ["--yes", "context-mode"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["--yes", "@playwright/mcp@latest"]
+    }
+  }
+}
