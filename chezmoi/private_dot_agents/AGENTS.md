@@ -68,6 +68,7 @@
   paths, and examples.
 - Inspect a tool's schema (`mcp-cli info <server> <tool>`)
   before calling it.
+- Execute tools using `mcp-cli call <server> <tool> '<json_args>'`.
 - Prefer native MCP tools over `mcp-cli` when both exist.
 
 ## Security
