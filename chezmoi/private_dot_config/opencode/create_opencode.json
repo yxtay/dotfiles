@@ -8,7 +8,8 @@
     "superpowers@git+https://github.com/obra/superpowers.git",
     "@tarquinen/opencode-dcp@latest",
     "openslimedit@latest",
-    "context-mode"
+    "context-mode",
+    "@zilliz/memsearch-opencode"
   ],
   "small_model": "opencode/deepseek-v4-flash-free",
   "mcp": {
