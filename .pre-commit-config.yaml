@@ -49,6 +49,7 @@ repos:
     hooks:
       - id: markdownlint-cli2
         args: [--fix]
+        exclude: ^chezmoi/(private_dot_claude/modify_CLAUDE|private_dot_config/opencode/modify_AGENTS)\.md$
 
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.13.1-1
