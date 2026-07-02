@@ -15,8 +15,10 @@
 ## Context Management
 
 - Clear context between unrelated tasks.
-- Use subagents for large investigations to keep main context
-  clean.
+- Delegate to subagents when a task risks large context pollution —
+  broad searches, multi-file investigations, log/output analysis,
+  or reading many files to extract a small answer. Return only the
+  conclusion to the main thread.
 - Don't let exploration fill context — scope it, summarize
   findings, move on.
 
