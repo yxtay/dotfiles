@@ -2,7 +2,7 @@
 {{- $currentContent := .chezmoi.stdin -}}
 {{- $marker := "<!-- CHEZMOI_END -->" -}}
 
-{{- printf "%s\n" "@AGENTS.md\n" -}}
+{{- printf "%s\n" "@AGENTS.md" -}}
 {{- printf "%s\n" $marker -}}
 
 {{- /*Extract and append only the plugin modifications */ -}}
