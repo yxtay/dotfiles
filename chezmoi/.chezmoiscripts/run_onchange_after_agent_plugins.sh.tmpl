@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if command -v npm >/dev/null; then
-  npx --yes @colbymchenry/codegraph install --yes --location global --target opencode
+curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash
+if command -v codebase-memory-mcp >/dev/null; then
+  codebase-memory-mcp config set auto_index true
 fi
 
 if command -v rtk >/dev/null; then

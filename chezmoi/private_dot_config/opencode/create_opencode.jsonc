@@ -13,9 +13,9 @@
   ],
   "small_model": "opencode/deepseek-v4-flash-free",
   "mcp": {
-    "codegraph": {
+    "codebase-memory-mcp": {
       "type": "local",
-      "command": ["npx", "--yes", "@colbymchenry/codegraph", "serve", "--mcp"],
+      "command": "codebase-memory-mcp",
       "enabled": true,
     },
     "context-mode": {
