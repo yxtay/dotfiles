@@ -1,9 +1,5 @@
 {
   "mcpServers": {
-    "codegraph": {
-      "command": "npx",
-      "args": ["--yes", "@colbymchenry/codegraph", "serve", "--mcp"]
-    },
     "context-mode": {
       "command": "npx",
       "args": ["--yes", "context-mode"]
