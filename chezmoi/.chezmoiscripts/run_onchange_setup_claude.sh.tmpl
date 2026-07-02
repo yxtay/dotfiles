@@ -22,10 +22,10 @@ plugins=(
   gopls-lsp@claude-plugins-official
   pyright-lsp@claude-plugins-official
   typescript-lsp@claude-plugins-official
-  superpowers@claude-plugins-official
   caveman@caveman
   context-mode@context-mode
   memsearch@memsearch
+  superpowers@claude-plugins-official
 )
 for entry in "${plugins[@]}"; do
   claude plugin install "${entry}"
