@@ -71,25 +71,20 @@
     "excludedCommands": ["docker"],
     "filesystem": {
       "allowWrite": [
+        "~/.cargo",
         "~/.gradle",
         "~/.m2",
         "~/.npm",
         "~/Library/pnpm",
+        "~/Library/Python",
         "~/.yarn",
         "~/.cache",
-        "~/Library/Caches"
+        "~/Library/Caches",
+        "~/go/pkg"
       ]
     },
     "network": {
-      "allowedDomains": [
-        "*.ai",
-        "*.com",
-        "*.dev",
-        "*.io",
-        "*.net",
-        "*.org",
-        "huggingface.co"
-      ]
+      "allowedDomains": ["*.ai", "*.co", "*.com", "*.dev", "*.io", "*.net", "*.org"]
     }
   },
   "statusLine": {
