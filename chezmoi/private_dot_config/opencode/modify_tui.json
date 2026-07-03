@@ -1,7 +1,8 @@
 {{- /* chezmoi:modify-template */ -}}
 {{- $current := dict -}}
-{{- if .chezmoi.stdin -}}
-{{-   $current = fromJson .chezmoi.stdin -}}
+{{- $stdin := .chezmoi.stdin | trim -}}
+{{- if $stdin -}}
+{{-   $current = fromJson $stdin -}}
 {{- end -}}
 {{- $chezmoi := includeTemplate "tui.json" . | fromJson -}}
 {{ mergeOverwrite $current $chezmoi | toPrettyJson }}
