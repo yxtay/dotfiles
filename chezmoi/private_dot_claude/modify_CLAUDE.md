@@ -1,13 +1,13 @@
 {{- /*chezmoi:modify-template*/ -}}
-{{- $currentContent := .chezmoi.stdin -}}
+{{- $current := .chezmoi.stdin -}}
 {{- $marker := "<!-- CHEZMOI_END -->" -}}
 
 {{- printf "%s\n" "@AGENTS.md" -}}
 {{- printf "%s\n" $marker -}}
 
 {{- /*Extract and append only the plugin modifications */ -}}
-{{- if contains $marker $currentContent -}}
+{{- if contains $marker $current -}}
 {{- /* Split the file by the marker and grab everything after it*/ -}}
-{{- $splitContent := splitList $marker $currentContent -}}
+{{- $splitContent := splitList $marker $current -}}
 {{- printf "%s" (index $splitContent 1 | trim) -}}
 {{- end -}}
