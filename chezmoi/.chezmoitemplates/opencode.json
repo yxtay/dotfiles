@@ -4,12 +4,6 @@
   "lsp": true,
   "model": "opencode/deepseek-v4-flash-free",
   "small_model": "opencode/deepseek-v4-flash-free",
-  "theme": "opencode",
-  "tui": {
-    "scroll_acceleration": {
-      "enabled": true
-    }
-  },
   "plugin": [
     "superpowers@git+https://github.com/obra/superpowers.git",
     "@tarquinen/opencode-dcp",
