@@ -22,3 +22,22 @@ if command -v rtk >/dev/null; then
     rtk init --global --opencode;
   fi
 fi
+
+agents=(
+{{- if not .is_ephemeral -}}
+  claude-code
+{{- end -}}
+  opencode
+)
+agent_opt=()
+for agent in "${agents[@]}"; do
+  agent_opt+=(--agent "$agent")
+done
+
+skills=(
+  vercel-labs/skills
+  philschmid/mcp-cli
+)
+for entry in "${skills[@]}"; do
+  npx --yes skills add "${entry}" --global "${agent_opt[@]}" --skill "*" --yes
+done
