@@ -38,7 +38,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "context-mode statusline"
+    "command": "npx --yes context-mode statusline"
   },
   "worktree": {
     "baseRef": "fresh"
