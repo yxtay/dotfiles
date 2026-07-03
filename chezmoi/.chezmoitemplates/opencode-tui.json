@@ -1,6 +1,11 @@
 {
   "$schema": "https://opencode.ai/tui.json",
-  "attention.enabled": true,
-  "scroll_acceleration.enabled": true,
-  "theme": "opencode"
+  "theme": "opencode",
+  "mouse": true,
+  "scroll_acceleration": {
+    "enabled": true
+  },
+  "attention": {
+    "enabled": true
+  }
 }
