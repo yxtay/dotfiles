@@ -24,9 +24,9 @@ if command -v rtk >/dev/null; then
 fi
 
 agents=(
-{{- if not .is_ephemeral -}}
+{{- if not .is_ephemeral }}
   claude-code
-{{- end -}}
+{{- end }}
   opencode
 )
 agent_opt=()
