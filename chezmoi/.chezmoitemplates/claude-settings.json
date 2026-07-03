@@ -35,8 +35,11 @@
       "Edit(**/secrets*)",
       "Edit(~/.aws/**)",
       "Edit(~/.azure/**)",
+      "Edit(~/.cargo/credentials*)",
+      "Edit(~/.config/gh/**)",
       "Edit(~/.docker/**)",
       "Edit(~/.gcp/**)",
+      "Edit(~/.gem/credentials)",
       "Edit(~/.git-credentials)",
       "Edit(~/.gnupg/**)",
       "Edit(~/.kube/**)",
@@ -48,8 +51,11 @@
       "Read(**/secrets*)",
       "Read(~/.aws/**)",
       "Read(~/.azure/**)",
+      "Read(~/.cargo/credentials*)",
+      "Read(~/.config/gh/**)",
       "Read(~/.docker/**)",
       "Read(~/.gcp/**)",
+      "Read(~/.gem/credentials)",
       "Read(~/.git-credentials)",
       "Read(~/.gnupg/**)",
       "Read(~/.kube/**)",
@@ -66,8 +72,12 @@
       "files": [
         { "path": "~/.aws", "mode": "deny" },
         { "path": "~/.azure", "mode": "deny" },
+        { "path": "~/.cargo/credentials", "mode": "deny" },
+        { "path": "~/.cargo/credentials.toml", "mode": "deny" },
+        { "path": "~/.config/gh", "mode": "deny" },
         { "path": "~/.docker", "mode": "deny" },
         { "path": "~/.gcp", "mode": "deny" },
+        { "path": "~/.gem/credentials", "mode": "deny" },
         { "path": "~/.git-credentials", "mode": "deny" },
         { "path": "~/.gnupg", "mode": "deny" },
         { "path": "~/.kube", "mode": "deny" },
@@ -75,9 +85,18 @@
         { "path": "~/.npmrc", "mode": "deny" },
         { "path": "~/.pypirc", "mode": "deny" },
         { "path": "~/.ssh", "mode": "deny" }
+      ],
+      "envVars": [
+        { "name": "AWS_ACCESS_KEY_ID", "mode": "deny" },
+        { "name": "AWS_SECRET_ACCESS_KEY", "mode": "deny" },
+        { "name": "AWS_SESSION_TOKEN", "mode": "deny" },
+        { "name": "GITHUB_TOKEN", "mode": "deny" },
+        { "name": "GH_TOKEN", "mode": "deny" },
+        { "name": "NPM_TOKEN", "mode": "deny" },
+        { "name": "PYPI_TOKEN", "mode": "deny" }
       ]
     },
-    "excludedCommands": ["docker"],
+    "excludedCommands": ["docker *"],
     "filesystem": {
       "allowWrite": [
         "~/.cache",
