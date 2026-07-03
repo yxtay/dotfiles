@@ -16,6 +16,7 @@
   "autoCompactEnabled": true,
   "awaySummaryEnabled": true,
   "fileCheckpointingEnabled": true,
+  "outputStyle": "Proactive",
   "preferredNotifChannel": "terminal_bell",
   "permissions": {
     "defaultMode": "auto",
