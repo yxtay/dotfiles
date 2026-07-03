@@ -55,12 +55,10 @@
       "Read(~/.gcp/**)",
       "Read(~/.gem/credentials)",
       "Read(~/.git-credentials)",
-      "Read(~/.gnupg/**)",
       "Read(~/.kube/**)",
       "Read(~/.netrc)",
       "Read(~/.npmrc)",
-      "Read(~/.pypirc)",
-      "Read(~/.ssh/**)"
+      "Read(~/.pypirc)"
     ]
   },
   "sandbox": {
@@ -77,12 +75,10 @@
         { "path": "~/.gcp", "mode": "deny" },
         { "path": "~/.gem/credentials", "mode": "deny" },
         { "path": "~/.git-credentials", "mode": "deny" },
-        { "path": "~/.gnupg", "mode": "deny" },
         { "path": "~/.kube", "mode": "deny" },
         { "path": "~/.netrc", "mode": "deny" },
         { "path": "~/.npmrc", "mode": "deny" },
-        { "path": "~/.pypirc", "mode": "deny" },
-        { "path": "~/.ssh", "mode": "deny" }
+        { "path": "~/.pypirc", "mode": "deny" }
       ],
       "envVars": [
         { "name": "AWS_ACCESS_KEY_ID", "mode": "deny" },
