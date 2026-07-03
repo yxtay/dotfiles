@@ -1,6 +1,6 @@
 {{- /*chezmoi:modify-template*/ -}}
 {{- $current := .chezmoi.stdin -}}
-{{- $marker := "<!-- CHEZMOI_END -->" -}}
+{{- $marker := "<!-- chezmoi:end -->" -}}
 
 {{- printf "%s\n" (includeTemplate "AGENTS.md") -}}
 {{- printf "%s\n" $marker -}}
