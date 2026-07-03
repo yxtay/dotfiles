@@ -84,7 +84,15 @@
       ]
     },
     "network": {
-      "allowedDomains": ["*.ai", "*.co", "*.com", "*.dev", "*.io", "*.net", "*.org"]
+      "allowedDomains": [
+        "*.ai",
+        "*.co",
+        "*.com",
+        "*.dev",
+        "*.io",
+        "*.net",
+        "*.org"
+      ]
     }
   },
   "statusLine": {
