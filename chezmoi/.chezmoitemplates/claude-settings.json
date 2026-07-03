@@ -20,11 +20,55 @@
   "preferredNotifChannel": "terminal_bell",
   "permissions": {
     "defaultMode": "auto",
-    "disableBypassPermissionsMode": "disable"
+    "disableBypassPermissionsMode": "disable",
+    "ask": [
+      "Edit(~/.claude/settings.json)",
+      "Edit(/.claude/settings.json)",
+      "Edit(/.claude/settings.local.json)",
+      "Read(**/.env)",
+      "Edit(**/.env)",
+      "Read(**/.env.*)",
+      "Edit(**/.env.*)"
+    ],
+    "deny": [
+      "Read(**/credentials*)",
+      "Edit(**/credentials*)",
+      "Read(**/secrets*)",
+      "Edit(**/secrets*)",
+      "Read(~/.aws/**)",
+      "Edit(~/.aws/**)",
+      "Read(~/.gcp/**)",
+      "Edit(~/.gcp/**)",
+      "Read(~/.azure/**)",
+      "Edit(~/.azure/**)",
+      "Read(~/.ssh/**)",
+      "Edit(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Edit(~/.gnupg/**)",
+      "Read(~/.netrc)",
+      "Edit(~/.netrc)",
+      "Read(~/.docker/config.json)",
+      "Edit(~/.docker/config.json)",
+      "Read(~/.kube/**)",
+      "Edit(~/.kube/**)"
+    ]
   },
   "sandbox": {
     "enabled": true,
     "enableWeakerNetworkIsolation": true,
+    "credentials": {
+      "files": [
+        { "path": "~/.aws", "mode": "deny" },
+        { "path": "~/.azure", "mode": "deny" },
+        { "path": "~/.docker/config.json", "mode": "deny" },
+        { "path": "~/.gcp", "mode": "deny" },
+        { "path": "~/.gnupg", "mode": "deny" },
+        { "path": "~/.kube", "mode": "deny" },
+        { "path": "~/.netrc", "mode": "deny" },
+        { "path": "~/.ssh", "mode": "deny" }
+      ]
+    },
+    "excludedCommands": ["docker"],
     "filesystem": {
       "allowWrite": [
         "~/.gradle",
@@ -34,6 +78,17 @@
         "~/.yarn",
         "~/.cache",
         "~/Library/Caches"
+      ]
+    },
+    "network": {
+      "allowedDomains": [
+        "*.ai",
+        "*.com",
+        "*.dev",
+        "*.io",
+        "*.net",
+        "*.org",
+        "huggingface.co"
       ]
     }
   },
