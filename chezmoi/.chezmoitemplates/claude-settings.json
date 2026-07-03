@@ -100,9 +100,9 @@
     "filesystem": {
       "allowWrite": [
         "~/.cache",
-        "~/.cargo",
+        "~/.cargo/registry",
         "~/.gradle",
-        "~/.local",
+        "~/.local/lib",
         "~/.m2",
         "~/.npm",
         "~/.yarn",
