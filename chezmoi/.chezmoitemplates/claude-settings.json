@@ -92,17 +92,6 @@
         "~/Library/pnpm",
         "~/go/pkg"
       ]
-    },
-    "network": {
-      "allowedDomains": [
-        "*.ai",
-        "*.co",
-        "*.com",
-        "*.dev",
-        "*.io",
-        "*.net",
-        "*.org"
-      ]
     }
   },
   "statusLine": {
