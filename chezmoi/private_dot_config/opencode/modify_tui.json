@@ -3,5 +3,5 @@
 {{- if .chezmoi.stdin | trim -}}
 {{-   $current = fromJson .chezmoi.stdin -}}
 {{- end -}}
-{{- $chezmoi := includeTemplate "tui.json" . | fromJson -}}
+{{- $chezmoi := includeTemplate "opencode-tui.json" . | fromJson -}}
 {{ mergeOverwrite $current $chezmoi | toPrettyJson }}
