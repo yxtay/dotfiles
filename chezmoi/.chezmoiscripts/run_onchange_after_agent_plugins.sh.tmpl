@@ -3,22 +3,41 @@ set -euo pipefail
 
 curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash
 if command -v codebase-memory-mcp >/dev/null; then
-  codebase-memory-mcp config set auto_index true;
+  codebase-memory-mcp config set auto_index true
 fi
 
 if command -v claude >/dev/null; then
-  npx --yes ctx7 setup --claude --cli --yes;
+  npx --yes ctx7 setup --claude --cli --yes
 fi
 if command -v opencode >/dev/null; then
-  npx --yes ctx7 setup --opencode --cli --yes;
+  npx --yes ctx7 setup --opencode --cli --yes
 fi
 
 if command -v rtk >/dev/null; then
   rtk telemetry disable
   if command -v claude >/dev/null; then
-    rtk init --global --auto-patch;
+    rtk init --global --auto-patch
   fi
   if command -v opencode >/dev/null; then
-    rtk init --global --opencode;
+    rtk init --global --opencode
   fi
 fi
+
+agents=(
+{{- if not .is_ephemeral }}
+  claude-code
+{{- end }}
+  opencode
+)
+agent_opt=()
+for agent in "${agents[@]}"; do
+  agent_opt+=(--agent "$agent")
+done
+
+skills=(
+  vercel-labs/skills
+  philschmid/mcp-cli
+)
+for entry in "${skills[@]}"; do
+  npx --yes skills add "${entry}" --global "${agent_opt[@]}" --skill "*" --yes
+done

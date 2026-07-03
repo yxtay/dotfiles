@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v npm >/dev/null; then
+  exit
+fi
+
+if ! command -v opencode >/dev/null; then
+  npm install --global opencode-ai
+fi
+
+npx --yes github:JuliusBrussee/caveman -- --only opencode
