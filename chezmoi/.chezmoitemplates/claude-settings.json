@@ -27,6 +27,7 @@
       "Edit(~/.claude/settings.json)",
       "Edit(**/.env)",
       "Edit(**/.env.*)",
+      "Edit(**/.mcp.json)",
       "Edit(~/.aws/**)",
       "Edit(~/.azure/**)",
       "Edit(~/.config/gh/**)",
