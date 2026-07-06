@@ -10,7 +10,6 @@
 
 ## Context Management
 
-- Clear context between unrelated tasks.
 - Delegate tool calls that pull raw content into context —
   WebSearch, WebFetch, Read, Grep, bash output/logs, LSP
   reference/symbol lookups, MCP tool results — to a subagent
