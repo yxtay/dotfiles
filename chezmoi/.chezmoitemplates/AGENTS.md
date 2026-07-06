@@ -2,7 +2,6 @@
 
 ## Task Workflow
 
-- Read README and related files before coding.
 - Confirm before destructive actions (delete, force-push,
   overwrite).
 - Scope searches narrowly. Don't read entire codebase — target
@@ -12,10 +11,18 @@
 ## Context Management
 
 - Clear context between unrelated tasks.
-- Delegate to subagents when a task risks large context pollution —
-  broad searches, multi-file investigations, log/output analysis,
-  or reading many files to extract a small answer. Return only the
-  conclusion to the main thread.
+- Delegate tool calls that pull raw content into context —
+  WebSearch, WebFetch, Read, Grep, bash output/logs, LSP
+  reference/symbol lookups, MCP tool results — to a subagent
+  unless the raw output is needed verbatim. Tell the subagent
+  exactly what information to return; it should reply with only
+  that summary or extracted answer, never the full raw output.
+  Default to a lighter model (e.g. haiku) unless the task needs
+  deeper reasoning.
+- Skip delegation for small, targeted reads (e.g. a file you're
+  about to edit, a grep with an already-known match), or when a
+  subagent's result was wrong or incomplete and fixing it would
+  need repeated round-trips — handle those directly.
 - Don't let exploration fill context — scope it, summarize
   findings, move on.
 
