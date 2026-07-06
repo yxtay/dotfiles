@@ -4,12 +4,13 @@
 
 - Confirm before destructive actions (delete, force-push,
   overwrite).
-- Scope searches narrowly. Don't read entire codebase — target
-  specific files and symbols.
 - Ask one concise question when unclear. Don't guess.
 
 ## Context Management
 
+- Scope searches narrowly. Don't read entire codebase — target
+  specific files and symbols. Don't let exploration fill context —
+  scope it, summarize findings, move on.
 - Delegate tool calls that pull raw content into context —
   WebSearch, WebFetch, Read, Grep, bash output/logs, LSP
   reference/symbol lookups, MCP tool results — to a subagent
@@ -22,8 +23,6 @@
   about to edit, a grep with an already-known match), or when a
   subagent's result was wrong or incomplete and fixing it would
   need repeated round-trips — handle those directly.
-- Don't let exploration fill context — scope it, summarize
-  findings, move on.
 
 ## Documentation
 
