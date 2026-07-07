@@ -23,20 +23,19 @@
     "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
     "ask": [
-      "Edit(/.claude/settings.json)",
-      "Edit(/.claude/settings.local.json)",
-      "Edit(~/.claude/settings.json)",
       "Edit(**/.env)",
       "Edit(**/.env.*)",
       "Edit(**/.mcp.json)",
+      "Edit(**/.claude/settings.json)",
+      "Edit(**/.claude/settings.local.json)",
       "Edit(~/.aws/**)",
       "Edit(~/.azure/**)",
       "Edit(~/.config/gh/**)",
       "Edit(~/.docker/**)",
       "Edit(~/.gcp/**)",
+      "Edit(~/.git-credentials)",
       "Edit(~/.gnupg/**)",
       "Edit(~/.kube/**)",
-      "Edit(~/.npmrc)",
       "Edit(~/.ssh/**)",
       "Read(**/.env)",
       "Read(**/.env.*)",
@@ -45,48 +44,15 @@
       "Read(~/.config/gh/**)",
       "Read(~/.docker/**)",
       "Read(~/.gcp/**)",
+      "Read(~/.git-credentials)",
       "Read(~/.gnupg/**)",
       "Read(~/.kube/**)",
-      "Read(~/.npmrc)",
       "Read(~/.ssh/**)"
-    ],
-    "deny": [
-      "Edit(~/.cargo/credentials)",
-      "Edit(~/.cargo/credentials.toml)",
-      "Edit(~/.gem/credentials)",
-      "Edit(~/.git-credentials)",
-      "Edit(~/.netrc)",
-      "Edit(~/.pypirc)",
-      "Read(~/.cargo/credentials)",
-      "Read(~/.cargo/credentials.toml)",
-      "Read(~/.gem/credentials)",
-      "Read(~/.git-credentials)",
-      "Read(~/.netrc)",
-      "Read(~/.pypirc)"
     ]
   },
   "sandbox": {
     "enabled": true,
     "enableWeakerNetworkIsolation": true,
-    "credentials": {
-      "files": [
-        { "path": "~/.cargo/credentials", "mode": "deny" },
-        { "path": "~/.cargo/credentials.toml", "mode": "deny" },
-        { "path": "~/.gem/credentials", "mode": "deny" },
-        { "path": "~/.git-credentials", "mode": "deny" },
-        { "path": "~/.netrc", "mode": "deny" },
-        { "path": "~/.pypirc", "mode": "deny" }
-      ],
-      "envVars": [
-        { "name": "AWS_ACCESS_KEY_ID", "mode": "deny" },
-        { "name": "AWS_SECRET_ACCESS_KEY", "mode": "deny" },
-        { "name": "AWS_SESSION_TOKEN", "mode": "deny" },
-        { "name": "GITHUB_TOKEN", "mode": "deny" },
-        { "name": "GH_TOKEN", "mode": "deny" },
-        { "name": "NPM_TOKEN", "mode": "deny" },
-        { "name": "PYPI_TOKEN", "mode": "deny" }
-      ]
-    },
     "excludedCommands": ["docker *"],
     "filesystem": {
       "allowWrite": [
