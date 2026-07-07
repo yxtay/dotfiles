@@ -8,7 +8,6 @@
     "prune": true
   },
   "plugin": [
-    "superpowers@git+https://github.com/obra/superpowers.git",
     "@tarquinen/opencode-dcp",
     "openslimedit",
     "context-mode",
