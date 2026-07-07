@@ -3,10 +3,10 @@
 {{- if .chezmoi.stdin | trim -}}
 {{-   $current = fromJson .chezmoi.stdin -}}
 {{- end -}}
-{{- $chezmoi := includeTemplate "claude-settings.json" . | fromJson -}}
-{{- $merged := mergeOverwrite $current $chezmoi -}}
-{{- if hasKey $current "extraKnownMarketplaces" -}}
-{{-   range $name, $marketplace := $current.extraKnownMarketplaces -}}
+{{- $template := includeTemplate "claude-settings.json" . | fromJson -}}
+{{- $merged := mergeOverwrite $current $template -}}
+{{- if hasKey $merged "extraKnownMarketplaces" -}}
+{{-   range $name, $marketplace := $merged.extraKnownMarketplaces -}}
 {{-     $merged = setValueAtPath (list "extraKnownMarketplaces" $name "autoUpdate") true $merged -}}
 {{-   end -}}
 {{- end -}}
