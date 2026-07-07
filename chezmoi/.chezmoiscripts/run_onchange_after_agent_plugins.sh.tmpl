@@ -23,21 +23,17 @@ if command -v rtk >/dev/null; then
   fi
 fi
 
-agents=(
+agents=(opencode)
 {{- if not .is_ephemeral }}
-  claude-code
+agents+=(claude-code)
 {{- end }}
-  opencode
-)
-agent_opt=()
-for agent in "${agents[@]}"; do
-  agent_opt+=(--agent "$agent")
-done
 
-skills=(
-  vercel-labs/skills
-  philschmid/mcp-cli
+repo_skills=(
+  philschmid/mcp-cli=mcp-cli
 )
-for entry in "${skills[@]}"; do
-  npx --yes skills add "${entry}" --global "${agent_opt[@]}" --skill "*" --yes
+for entry in "${repo_skills[@]}"; do
+  repo="${entry%%=*}"
+  skills_csv="${entry#*=}"
+  IFS=',' read -r -a skills <<<"${skills_csv}"
+  npx --yes skills add "${repo}" --skill "${skills[@]}" --global --agent "${agents[@]}" --yes
 done
