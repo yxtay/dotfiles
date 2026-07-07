@@ -3,5 +3,5 @@
 {{- if .chezmoi.stdin | trim -}}
 {{-   $current = fromJson .chezmoi.stdin -}}
 {{- end -}}
-{{- $chezmoi := includeTemplate "mcp_servers.json" . | fromJson -}}
-{{ mergeOverwrite $current $chezmoi | toPrettyJson }}
+{{- $template := includeTemplate "mcp_servers.json" . | fromJson -}}
+{{ mergeOverwrite $current $template | toPrettyJson }}
