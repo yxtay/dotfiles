@@ -4,4 +4,10 @@
 {{-   $current = fromJson .chezmoi.stdin -}}
 {{- end -}}
 {{- $chezmoi := includeTemplate "claude-settings.json" . | fromJson -}}
-{{ mergeOverwrite $current $chezmoi | toPrettyJson }}
+{{- $merged := mergeOverwrite $current $chezmoi -}}
+{{- if hasKey $current "extraKnownMarketplaces" -}}
+{{-   range $name, $marketplace := $current.extraKnownMarketplaces -}}
+{{-     $merged = setValueAtPath (list "extraKnownMarketplaces" $name "autoUpdate") true $merged -}}
+{{-   end -}}
+{{- end -}}
+{{ $merged | toPrettyJson }}
