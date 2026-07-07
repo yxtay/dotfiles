@@ -35,5 +35,5 @@ for entry in "${repo_skills[@]}"; do
   repo="${entry%%=*}"
   skills_csv="${entry#*=}"
   IFS=',' read -r -a skills <<<"${skills_csv}"
-  npx --yes skills add "${repo}" --skill "${skills[@]}" --agent "${agents[@]}" --yes
+  npx --yes skills add "${repo}" --skill "${skills[@]}" --global --agent "${agents[@]}" --yes
 done
