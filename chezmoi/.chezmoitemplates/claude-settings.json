@@ -74,7 +74,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "npx --yes context-mode statusline"
+    "command": "bash ~/.claude/hooks/caveman-statusline.sh"
   },
   "worktree": {
     "baseRef": "fresh"
