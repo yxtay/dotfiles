@@ -1,0 +1,8 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $current := dict -}}
+{{- if .chezmoi.stdin | trim -}}
+{{-   $current = fromToml .chezmoi.stdin -}}
+{{- end -}}
+{{- $template := includeTemplate "memsearch_config.toml" . | fromToml -}}
+{{- $merged := mergeOverwrite $current $template -}}
+{{ $merged | toToml }}

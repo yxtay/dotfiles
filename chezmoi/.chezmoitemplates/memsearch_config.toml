@@ -1,0 +1,13 @@
+[embedding]
+provider = "onnx"
+
+[reranker]
+model = "Alibaba-NLP/gte-reranker-modernbert-base"
+
+[plugins.claude-code.user_profile]
+enabled = true
+output_file = "~/.memsearch/USER.md"
+
+[plugins.opencode.user_profile]
+enabled = true
+output_file = "~/.memsearch/USER.md"
