@@ -14,4 +14,4 @@ its expected SLA. See the [orders table](/tables/orders.md).
 ## Steps
 
 1. Check the ingestion job dashboard.
-2. Confirm whether upstream `customers` is also lagging.
+2. Confirm whether upstream [customers](/tables/customers.md) is also lagging.

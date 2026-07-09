@@ -29,7 +29,7 @@ bundle, not just reading about one.
 
 ```text
 bundle/
-├── index.md            # optional, directory listing for progressive disclosure
+├── index.md             # optional, directory listing for progressive disclosure
 ├── log.md               # optional, chronological change history
 ├── <concept>.md         # a concept at bundle root
 └── <subdir>/            # groups concepts by topic
