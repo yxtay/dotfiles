@@ -2,10 +2,10 @@
 name: okf
 description: >-
   Create and maintain knowledge bundles in Open Knowledge Format (OKF) —
-  markdown + YAML-frontmatter concept files for durable, cross-project or
-  cross-team knowledge. Use when the user wants to write, structure, or
-  validate an OKF bundle (e.g. `~/.okf/`), add a "concept" document, build an
-  `index.md`/`log.md`, cross-link concepts, or asks "is this OKF-conformant".
+  markdown + YAML-frontmatter concept files for durable knowledge. Use when
+  the user wants to write, structure, or validate an OKF bundle, add a
+  "concept" document, build an `index.md`/`log.md`, cross-link concepts, or
+  asks "is this OKF-conformant".
 ---
 
 # Open Knowledge Format (OKF)
