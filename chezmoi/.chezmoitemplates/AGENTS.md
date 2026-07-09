@@ -36,10 +36,9 @@
 - Do not duplicate information between the two files. Reference
   `README.md` for project context.
 
-## Global Memory
+## Global Knowledge
 
-Durable knowledge — spanning any project, team, or none in
-particular — lives under `~/.okf/`, as an Open Knowledge Format
+Durable knowledge lives under `~/.okf/`, as an Open Knowledge Format
 (OKF) bundle. Use the `okf` skill for the format and bundle-
 maintenance conventions.
 
