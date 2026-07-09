@@ -4,10 +4,22 @@ provider = "onnx"
 [reranker]
 model = "Alibaba-NLP/gte-reranker-modernbert-base"
 
+[plugins.claude-code.project_review]
+enabled = true
+
 [plugins.claude-code.user_profile]
 enabled = true
 output_file = "~/.memsearch/USER.md"
 
+[plugins.claude-code.memory_to_skill]
+enabled = true
+
+[plugins.opencode.project_review]
+enabled = true
+
 [plugins.opencode.user_profile]
 enabled = true
 output_file = "~/.memsearch/USER.md"
+
+[plugins.opencode.memory_to_skill]
+enabled = true
