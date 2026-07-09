@@ -48,12 +48,12 @@ Rules:
   only when relevant.
 - Organize by topic freely, no fixed taxonomy. Split files that
   grow unwieldy or unfocused.
-- `~/.memsearch/USER.md` is a related, read-only reference
-  maintained by memsearch — don't edit it or merge it into
-  `~/.okf/`.
 - Maintain as you go: when editing a topic file, fix or remove
   entries you find stale, wrong, or superseded. Keep `index.md` in
   sync with what actually exists on disk.
+- `~/.memsearch/USER.md` is a related, read-only reference
+  maintained by memsearch — don't edit it or merge it into
+  `~/.okf/`.
 
 ## Code Quality
 
