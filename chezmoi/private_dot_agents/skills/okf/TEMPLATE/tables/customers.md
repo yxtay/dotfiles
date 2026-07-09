@@ -9,9 +9,9 @@ timestamp: 2026-05-28T00:00:00Z
 
 ## Schema
 
-| Column | Type | Description |
-| --- | --- | --- |
-| `customer_id` | STRING | Globally unique customer id. |
+| Column         | Type      | Description                   |
+|----------------|-----------|-------------------------------|
+| `customer_id`  | STRING    | Globally unique customer id.  |
 | `signed_up_at` | TIMESTAMP | When the account was created. |
 
 Referenced by [orders](orders.md) via `customer_id`.

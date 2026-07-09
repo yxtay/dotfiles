@@ -48,14 +48,14 @@ Every concept MUST open with a frontmatter block carrying a non-empty
 `type`. Recommended fields, in priority order when trimming: `title`,
 `description`, `resource`, `tags`, `timestamp`.
 
-| Field | Required | Meaning |
-| --- | --- | --- |
-| `type` | **yes** | Free-text kind. Not centrally registered. |
-| `title` | no | Display name; derives from filename if omitted. |
-| `description` | no | One sentence; feeds index entries and search. |
-| `resource` | no | Canonical URI of the underlying asset. |
-| `tags` | no | List for cross-cutting categorization. |
-| `timestamp` | no | ISO 8601 datetime of last meaningful change. |
+| Field         | Required | Meaning                                         |
+|---------------|----------|-------------------------------------------------|
+| `type`        | **yes**  | Free-text kind. Not centrally registered.       |
+| `title`       | no       | Display name; derives from filename if omitted. |
+| `description` | no       | One sentence; feeds index entries and search.   |
+| `resource`    | no       | Canonical URI of the underlying asset.          |
+| `tags`        | no       | List for cross-cutting categorization.          |
+| `timestamp`   | no       | ISO 8601 datetime of last meaningful change.    |
 
 `type` examples: `Playbook`, `API Endpoint`, `Metric`. Pick a
 self-explanatory value; tolerate unknown ones you encounter. `resource` is
