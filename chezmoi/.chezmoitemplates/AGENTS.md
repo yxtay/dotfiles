@@ -38,7 +38,7 @@
 
 ## Global Memory
 
-Durable, cross-project knowledge lives under `~/.memory/`, separate
+Durable, cross-project knowledge lives under `~/.okf/`, separate
 from per-project automemory.
 Structured as an [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
 bundle: `index.md` lists topic files; every other `.md` file needs
@@ -46,16 +46,16 @@ YAML frontmatter (at least `type`).
 
 Rules:
 
-- At session start, read `~/.memory/index.md`; load topic files
+- At session start, read `~/.okf/index.md`; load topic files
   only when relevant.
 - Write durable, cross-project learnings to a matching topic file
   with frontmatter (create one if none fits) and add it to
   `index.md`. Project-specific info belongs in automemory instead.
 - Organize by topic freely, no fixed taxonomy. Split files that
   grow unwieldy or unfocused.
-- `~/.memsearch/USER.md` is a related, read-only reference
+- `~/.okf/USER.md` is a related, read-only reference
   maintained by memsearch — don't edit it or merge it into
-  `~/.memory/`.
+  `~/.okf/`.
 - Maintain as you go: when editing a topic file, fix or remove
   entries you find stale, wrong, or superseded. Keep `index.md` in
   sync with what actually exists on disk.
