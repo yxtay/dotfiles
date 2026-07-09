@@ -59,13 +59,6 @@ Rules:
 - Maintain as you go: when editing a topic file, fix or remove
   entries you find stale, wrong, or superseded. Keep `index.md` in
   sync with what actually exists on disk.
-- Re-index after edits so search stays current:
-
-  ```sh
-  uvx --from 'memsearch[onnx]' memsearch index ~/.memory \
-    --collection global-memory \
-    --description "global cross-project memory"
-  ```
 
 ## Code Quality
 
