@@ -38,18 +38,15 @@
 
 ## Global Memory
 
-Durable, cross-project, cross-team knowledge lives under `~/.okf/`,
-separate from per-project automemory, as an Open Knowledge Format
-(OKF) bundle. Use the `okf` skill for the format spec and bundle
-conventions.
+Durable knowledge — spanning any project, team, or none in
+particular — lives under `~/.okf/`, as an Open Knowledge Format
+(OKF) bundle. Use the `okf` skill for the format and bundle-
+maintenance conventions.
 
 Rules:
 
 - At session start, read `~/.okf/index.md`; load topic files
   only when relevant.
-- Write durable, cross-project, cross-team learnings to a matching
-  topic file (create one if none fits) and add it to `index.md`.
-  Project-specific info belongs in automemory instead.
 - Organize by topic freely, no fixed taxonomy. Split files that
   grow unwieldy or unfocused.
 - `~/.memsearch/USER.md` is a related, read-only reference
