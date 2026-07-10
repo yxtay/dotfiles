@@ -10,7 +10,7 @@ timestamp: 2026-05-28T14:30:00Z
 ## Schema
 
 | Column        | Type    | Description                        |
-| ------------- | ------- | ---------------------------------- |
+|---------------|---------|------------------------------------|
 | `order_id`    | STRING  | Globally unique order identifier.  |
 | `customer_id` | STRING  | FK to [customers](./customers.md). |
 | `total_usd`   | NUMERIC | Order total in US dollars.         |

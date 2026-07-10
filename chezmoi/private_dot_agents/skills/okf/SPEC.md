@@ -8,7 +8,7 @@ Field-level detail for [SKILL.md](SKILL.md). Source: OKF v0.1 (Draft,
 Recommended fields, in priority order when trimming:
 
 | Field         | Required | Meaning                                         |
-| ------------- | -------- | ----------------------------------------------- |
+|---------------|----------|-------------------------------------------------|
 | `type`        | **yes**  | Free-text kind. Not centrally registered.       |
 | `title`       | no       | Display name; derives from filename if omitted. |
 | `description` | no       | One sentence; feeds index entries and search.   |
