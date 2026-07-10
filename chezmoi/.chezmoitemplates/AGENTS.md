@@ -33,6 +33,9 @@ maintenance conventions.
   entries you find stale, wrong, or superseded. Keep `index.md` in
   sync with what actually exists on disk, and add a `log.md` entry
   at that directory level if one exists.
+- **Sweep periodically**: don't rely only on the reactive rule
+  above — occasionally scan concept files you haven't touched for
+  staleness against current code/decisions.
 - `~/.memsearch/USER.md` is a related, read-only reference
   maintained by memsearch — don't edit it or merge it into
   `~/wiki/`.
@@ -54,6 +57,9 @@ maintenance conventions.
   about to edit, a grep with an already-known match), or when a
   subagent's result was wrong or incomplete and fixing it would
   need repeated round-trips — handle those directly.
+- If a subagent needs the full prior conversation (not a fresh
+  scoped task) but its own tool noise still shouldn't return to the
+  parent, use a fork instead of a plain subagent.
 
 ## Git Workflow
 
