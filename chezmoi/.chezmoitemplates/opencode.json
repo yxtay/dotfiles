@@ -7,6 +7,14 @@
   "compaction": {
     "prune": true
   },
+  "permission": {
+    "edit": {
+      "~/wiki/**": "allow"
+    },
+    "external_directory": {
+      "~/wiki/**": "allow"
+    }
+  },
   "plugin": [
     "@tarquinen/opencode-dcp",
     "openslimedit",

@@ -42,15 +42,25 @@ Durable knowledge lives under `~/wiki/`, as an Open Knowledge Format
 (OKF) bundle. Use the `\okf` skill for the format and bundle-
 maintenance conventions.
 
-Rules:
-
-- At session start, read `~/wiki/index.md`; load topic files
-  only when relevant.
-- Organize by topic freely, no fixed taxonomy. Split files that
+- **Read**: at session start, read `~/wiki/index.md`; load topic
+  files only when relevant.
+- **Write**: when a task surfaces a durable fact, decision, or
+  gotcha — a library quirk, a config value and why it's set that
+  way, an architectural tradeoff, a fix for a problem likely to
+  recur — write it to the matching concept file immediately, before
+  moving on. Don't wait to be asked, and don't batch it for session
+  end. Example: fixing a flaky test because a library needs
+  `retry=true` is wiki-worthy; a one-off typo fix is not.
+- **Search before writing**: check whether an existing concept
+  already covers the topic; amend it in place rather than creating
+  a near-duplicate. Only create a new concept file for a genuinely
+  new topic.
+- **Organize** by topic freely, no fixed taxonomy. Split files that
   grow unwieldy or unfocused.
-- Maintain as you go: when editing a topic file, fix or remove
+- **Maintain as you go**: when editing a topic file, fix or remove
   entries you find stale, wrong, or superseded. Keep `index.md` in
-  sync with what actually exists on disk.
+  sync with what actually exists on disk, and add a `log.md` entry
+  at that directory level if one exists.
 - `~/.memsearch/USER.md` is a related, read-only reference
   maintained by memsearch — don't edit it or merge it into
   `~/wiki/`.
