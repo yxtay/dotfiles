@@ -3,7 +3,7 @@
 ## Task Workflow
 
 - Autonomy scales with reversibility: read freely; edit
-  autonomously if reversible; confirm before push or delete.
+  autonomously if reversible; confirm before force-push or delete.
 - Stop and ask only when: multiple valid approaches exist, code
   would be deleted or restructured, or the request is ambiguous.
 - Push back on bad ideas with reasoning. Don't agree just to be
