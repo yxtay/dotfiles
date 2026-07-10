@@ -39,7 +39,7 @@
 ## Knowledge Wiki
 
 Durable knowledge lives under `~/wiki/`, as an Open Knowledge Format
-(OKF) bundle. Use the `\okf` skill for the format and bundle-
+(OKF) bundle. Use the `okf` skill for the format and bundle-
 maintenance conventions.
 
 - **Read**: at session start, read `~/wiki/index.md`; load topic
