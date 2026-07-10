@@ -1,5 +1,14 @@
 # AI Agent Instructions
 
+## Task Workflow
+
+- Autonomy scales with reversibility: read freely; edit
+  autonomously if reversible; confirm before push or delete.
+- Stop and ask only when: multiple valid approaches exist, code
+  would be deleted or restructured, or the request is ambiguous.
+- Push back on bad ideas with reasoning. Don't agree just to be
+  agreeable.
+
 ## Documentation
 
 - Read the project's `README.md` at the start of every task.
@@ -60,6 +69,14 @@ maintenance conventions.
 - If a subagent needs the full prior conversation (not a fresh
   scoped task) but its own tool noise still shouldn't return to the
   parent, use a fork instead of a plain subagent.
+
+## Engineering Practice
+
+- Before writing new code, check for existing reusable code or an
+  extractable abstraction. If copying >20% of a file, extract
+  instead.
+- A manual task done twice is technical debt — script it, with
+  help text, before a third.
 
 ## Git Workflow
 
