@@ -4,8 +4,8 @@ AI agent instructions for working with this repository.
 
 ## Overview
 
-Personal macOS and Linux dotfiles managed with [chezmoi](https://chezmoi.io/)
-and [Homebrew](https://brew.sh/).
+Personal macOS and Linux dotfiles managed with [chezmoi](https://chezmoi.io/) and
+[Homebrew](https://brew.sh/).
 
 ## Commands
 
@@ -24,17 +24,13 @@ chezmoi apply
 
 ### Chezmoi (`chezmoi/`)
 
-`.chezmoiroot` sets `chezmoi/` as the source directory. Files use
-chezmoi naming conventions (`private_dot_config/`, `dot_`,
-`symlink_`, `.tmpl`). Templates get data from
-`.chezmoi.toml.tmpl`.
+`.chezmoiroot` sets `chezmoi/` as the source directory. Files use chezmoi naming conventions
+(`private_dot_config/`, `dot_`, `symlink_`, `.tmpl`). Templates get data from `.chezmoi.toml.tmpl`.
 
 Key scripts:
 
-- `run_once_before_rosetta.sh.tmpl` — installs Rosetta 2 on Apple Silicon
-  (runs once)
-- `run_before_brew_install.sh.tmpl` — installs Homebrew if missing,
-  then installs all packages/casks
+- `run_once_before_rosetta.sh.tmpl` — installs Rosetta 2 on Apple Silicon (runs once)
+- `run_before_brew_install.sh.tmpl` — installs Homebrew if missing, then installs all packages/casks
 - `run_onchange_macos_defaults.sh.tmpl` — applies macOS system settings
 - `run_onchange_setup_claude.sh.tmpl` — configures Claude Code
 - `run_onchange_add_agent_skills.sh.tmpl` — adds skills to AI agents (opencode)
@@ -55,6 +51,5 @@ Key scripts:
 ## Conventions
 
 - Shell scripts exclude `.zsh` files from shellcheck/shfmt (zsh-specific syntax)
-- Pre-commit hooks enforce formatting on commit;
-  CI verifies no uncommitted formatting changes
+- Pre-commit hooks enforce formatting on commit; CI verifies no uncommitted formatting changes
 - Commits follow conventional commits style (see git log)
