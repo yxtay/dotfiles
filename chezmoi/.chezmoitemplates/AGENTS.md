@@ -36,15 +36,15 @@
 - Do not duplicate information between the two files. Reference
   `README.md` for project context.
 
-## Global Knowledge
+## Knowledge Wiki
 
-Durable knowledge lives under `~/.okf/`, as an Open Knowledge Format
-(OKF) bundle. Use the `okf` skill for the format and bundle-
+Durable knowledge lives under `~/wiki/`, as an Open Knowledge Format
+(OKF) bundle. Use the `\okf` skill for the format and bundle-
 maintenance conventions.
 
 Rules:
 
-- At session start, read `~/.okf/index.md`; load topic files
+- At session start, read `~/wiki/index.md`; load topic files
   only when relevant.
 - Organize by topic freely, no fixed taxonomy. Split files that
   grow unwieldy or unfocused.
@@ -53,7 +53,7 @@ Rules:
   sync with what actually exists on disk.
 - `~/.memsearch/USER.md` is a related, read-only reference
   maintained by memsearch — don't edit it or merge it into
-  `~/.okf/`.
+  `~/wiki/`.
 
 ## Code Quality
 
