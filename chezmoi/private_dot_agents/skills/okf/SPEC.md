@@ -16,45 +16,39 @@ Recommended fields, in priority order when trimming:
 | `tags`        | no       | List for cross-cutting categorization.          |
 | `timestamp`   | no       | ISO 8601 datetime of last meaningful change.    |
 
-`resource` is omitted for abstract concepts (playbooks, decisions, notes) —
-it exists for concepts describing a concrete addressable asset (a table, an
-endpoint).
+`resource` is omitted for abstract concepts (playbooks, decisions, notes) — it exists for concepts
+describing a concrete addressable asset (a table, an endpoint).
 
-Extra producer-defined keys are always allowed — preserve them, never strip
-an unrecognized key.
+Extra producer-defined keys are always allowed — preserve them, never strip an unrecognized key.
 
-Conventional body headings: `# Schema` (columns/fields of a data asset),
-`# Examples` (usage), `# Citations` (see below).
+Conventional body headings: `# Schema` (columns/fields of a data asset), `# Examples` (usage),
+`# Citations` (see below).
 
 ## `index.md`
 
-Progressive disclosure for a directory: a flat, headed list of links to its
-concepts and subdirectories, each with a short description pulled from the
-linked concept's frontmatter. May exist at any directory level, including
-bundle root.
+Progressive disclosure for a directory: a flat, headed list of links to its concepts and
+subdirectories, each with a short description pulled from the linked concept's frontmatter. May
+exist at any directory level, including bundle root.
 
-No frontmatter — **except** the bundle-root `index.md`, which may carry a
-frontmatter block containing only `okf_version` (see Versioning below).
-That is the one place frontmatter is permitted in an `index.md`.
+No frontmatter — **except** the bundle-root `index.md`, which may carry a frontmatter block
+containing only `okf_version` (see Versioning below). That is the one place frontmatter is permitted
+in an `index.md`.
 
 ## `log.md`
 
-Optional at any directory level; records that scope's change history as a
-flat, date-grouped list, **newest date first**, headings in `## YYYY-MM-DD`
-form. The leading bold word per entry (`**Update**`, `**Creation**`,
-`**Deprecation**`) is convention, not required structure.
+Optional at any directory level; records that scope's change history as a flat, date-grouped list,
+**newest date first**, headings in `## YYYY-MM-DD` form. The leading bold word per entry
+(`**Update**`, `**Creation**`, `**Deprecation**`) is convention, not required structure.
 
 ## Citations
 
-When a concept's body makes claims sourced from external material, list
-them under a trailing `# Citations` heading, numbered. Targets may be
-external URLs, bundle-relative paths, or paths into a `references/`
-subdirectory that mirrors external material as first-class concepts.
+When a concept's body makes claims sourced from external material, list them under a trailing
+`# Citations` heading, numbered. Targets may be external URLs, bundle-relative paths, or paths into
+a `references/` subdirectory that mirrors external material as first-class concepts.
 
 ## Versioning
 
-Format `<major>.<minor>`; this spec is `0.1`. Minor bump =
-backward-compatible addition (new optional field, new conventional
-heading). Major bump = breaking (renamed required field, changed reserved
-filename). Declare a bundle's target version only via `okf_version` in the
-bundle-root `index.md` frontmatter — see [SAMPLE/index.md](SAMPLE/index.md).
+Format `<major>.<minor>`; this spec is `0.1`. Minor bump = backward-compatible addition (new
+optional field, new conventional heading). Major bump = breaking (renamed required field, changed
+reserved filename). Declare a bundle's target version only via `okf_version` in the bundle-root
+`index.md` frontmatter — see [SAMPLE/index.md](SAMPLE/index.md).

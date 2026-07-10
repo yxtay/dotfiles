@@ -1,12 +1,11 @@
 # dotfiles
 
-Personal macOS and Linux shell setup managed with
-[chezmoi](https://chezmoi.io/) and [Homebrew](https://brew.sh/).
+Personal macOS and Linux shell setup managed with [chezmoi](https://chezmoi.io/) and
+[Homebrew](https://brew.sh/).
 
 ## What's in this repo
 
-- `chezmoi/`: templated dotfiles for shell and tool config
-  (zsh, git, helix, wezterm, bat, etc.)
+- `chezmoi/`: templated dotfiles for shell and tool config (zsh, git, helix, wezterm, bat, etc.)
 - `bin/`: convenience maintenance scripts (`update-all.sh`, `cleanup-all.sh`)
 
 ## Apply directly from repo
@@ -27,8 +26,7 @@ Run:
 ./install.sh
 ```
 
-This script installs `chezmoi` if missing, then initializes
-and applies this repo as the source.
+This script installs `chezmoi` if missing, then initializes and applies this repo as the source.
 
 ## Apply dotfiles
 

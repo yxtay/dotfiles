@@ -8,8 +8,8 @@ timestamp: 2026-04-12T09:00:00Z
 
 ## Trigger
 
-A freshness alert fires when `orders` lags more than 30 minutes behind
-its expected SLA. See the [orders table](../tables/orders.md).
+A freshness alert fires when `orders` lags more than 30 minutes behind its expected SLA. See the
+[orders table](../tables/orders.md).
 
 ## Steps
 
