@@ -73,7 +73,7 @@ maintenance conventions.
 ## Engineering Practice
 
 - Before writing new code, check for existing reusable code or an
-  extractable abstraction. If copying >20% of a file, extract
+  extractable abstraction. If duplicating significant logic, extract
   instead.
 - A manual task done twice is technical debt — script it, with
   help text, before a third.
