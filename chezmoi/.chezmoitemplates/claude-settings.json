@@ -68,7 +68,8 @@
         "~/Library/Caches",
         "~/Library/Python",
         "~/Library/pnpm",
-        "~/go/pkg"
+        "~/go/pkg",
+        "~/wiki"
       ]
     }
   },

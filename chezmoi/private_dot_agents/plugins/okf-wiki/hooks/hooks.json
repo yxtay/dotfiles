@@ -1,19 +1,7 @@
 {
-  "description": "OKF wiki maintenance — distill memsearch journals into ~/wiki at session end and before context compaction",
+  "description": "OKF wiki maintenance — distill memsearch journals into ~/wiki at session end",
   "hooks": {
     "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/okf-wiki-maintenance.sh",
-            "async": true,
-            "timeout": 300
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
       {
         "hooks": [
           {
