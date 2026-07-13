@@ -40,8 +40,14 @@ fi
 
 date +%s >"$STATE_FILE"
 
+# Include memsearch-synthesized summaries if present (higher-signal than raw journals).
+extra_context=""
+[ -f "$MEMSEARCH_DIR/PROJECT.md" ] && extra_context="$extra_context\nProject summary: $MEMSEARCH_DIR/PROJECT.md"
+[ -f "$MEMSEARCH_DIR/USER.md" ] && extra_context="$extra_context\nUser profile:    $MEMSEARCH_DIR/USER.md"
+
 export MEMSEARCH_DISABLE=1
 export MEMSEARCH_NO_WATCH=1
+export OKF_WIKI_DISABLE=1
 export CLAUDECODE=
 
 claude -p \
@@ -50,11 +56,13 @@ claude -p \
   --allowed-tools "Skill,Read,Write,Edit,Glob,Grep" \
   --add-dir "$WIKI_DIR" \
   --add-dir "$JOURNAL_DIR" \
+  --add-dir "$MEMSEARCH_DIR" \
   --system-prompt "$(cat "$PROMPT_FILE")" \
   "Journal directory: $JOURNAL_DIR
 Wiki directory: $WIKI_DIR
 Recently changed journal files:
-$recent_journals" \
+$recent_journals${extra_context:+
+$extra_context}" \
   >/dev/null 2>&1 || true
 
 exit 0
