@@ -22,8 +22,9 @@ mkdir -p "$WIKI_DIR"
 command -v claude &>/dev/null || exit 0
 
 # Acquire exclusive lock — prevents concurrent SessionEnd + PreCompact runs.
+# fd 9 is opened on LOCK_FILE; flock holds it for this process's lifetime.
 exec 9>"$LOCK_FILE"
-flock -n 9 || exit 0
+flock -n 9 || exit 0 # -n = non-blocking: exit immediately if already locked
 
 # Skip if last run was within MIN_INTERVAL_HOURS.
 if [ -f "$STATE_FILE" ]; then
@@ -54,7 +55,7 @@ extra_context=""
 export MEMSEARCH_DISABLE=1
 export MEMSEARCH_NO_WATCH=1
 export OKF_WIKI_DISABLE=1
-export CLAUDECODE=
+export CLAUDECODE= # clear CLAUDECODE so the child session doesn't inherit hook context
 
 # hook runs with async:true — Claude Code does not block on this script.
 # Run claude -p synchronously so flock holds for the full duration, preventing

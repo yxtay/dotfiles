@@ -32,8 +32,10 @@ Key scripts:
 - `run_once_before_rosetta.sh.tmpl` — installs Rosetta 2 on Apple Silicon (runs once)
 - `run_before_brew_install.sh.tmpl` — installs Homebrew if missing, then installs all packages/casks
 - `run_onchange_macos_defaults.sh.tmpl` — applies macOS system settings
-- `run_onchange_setup_claude.sh.tmpl` — configures Claude Code
-- `run_onchange_add_agent_skills.sh.tmpl` — adds skills to AI agents (opencode)
+- `run_onchange_after_setup_claude.sh.tmpl` — installs Claude Code plugins and local marketplace
+- `run_onchange_after_setup_opencode.sh.tmpl` — installs OpenCode and agent skills
+- `run_onchange_after_agent_plugins.sh.tmpl` — installs agent plugins (opencode)
+- `run_after_update_agent_skills.sh.tmpl` — updates agent skills
 
 ### CI (`.github/workflows/`)
 
