@@ -6,74 +6,84 @@ description: >-
   the user wants to write, structure, or validate an OKF bundle, add a
   "concept" document, build an `index.md`/`log.md`, cross-link concepts, or
   asks "is this OKF-conformant".
+user-invocable: true
+argument-hint: "[produce|maintain|consume] [bundle-path]"
 ---
 
-# Open Knowledge Format (OKF)
+# Open Knowledge Format (OKF) skill
 
-OKF is a spec for knowledge as a directory of markdown files with YAML frontmatter — readable by
-humans, parseable by agents, diffable in git. No SDK, schema registry, or central authority
-required.
+OKF represents knowledge as a directory of markdown files with YAML frontmatter.
+Minimal by design: no schema registry, no runtime, no SDK. Produce, maintain, and
+consume OKF bundles **conformant with the spec**, not memory of it.
 
-[SAMPLE/](SAMPLE/) is a small worked bundle — every file kind in one directory tree — copy from it
-when actually writing a bundle, not just reading about one. [SPEC.md](SPEC.md) holds the full
-field-level spec (frontmatter fields, citations, versioning); load it only when a rule below doesn't
-answer the question in front of you.
+**Before non-trivial work, read:** [SPEC.md](SPEC.md) — verbatim OKF v0.1 spec,
+source of truth for every rule below.
 
-## Terminology
+## The one hard rule
 
-- **Bundle** — the directory tree of knowledge (unit of distribution).
-- **Concept** — one unit of knowledge = one markdown file in the bundle.
-- **Concept ID** — the file's path minus `.md` (e.g. `tables/orders.md` → `tables/orders`).
-- **Frontmatter** — the `---`-delimited YAML block at the top of a file.
+A bundle is conformant (§9) iff: every non-reserved `.md` file has a parseable
+YAML frontmatter block, and every such block has a **non-empty `type`** field.
+Everything else is soft guidance — never reject a bundle for missing optional
+fields, unknown types, or broken links.
 
-## Bundle layout
+## Conventions
 
-```text
-bundle/
-├── index.md             # optional, directory listing for progressive disclosure
-├── log.md               # optional, chronological change history
-├── <concept>.md         # a concept at bundle root
-└── <subdir>/            # groups concepts by topic
-    ├── index.md
-    ├── <concept>.md
-    └── ...
-```
+- **One concept = one file.** File path minus `.md` is the concept ID.
+- **Frontmatter:** `type` required. Add `title`, `description`, `tags`,
+  `timestamp` (ISO 8601) when useful; add `resource` (canonical URI) only for
+  concepts bound to a real asset — omit for abstract concepts.
+- **Body:** prefer structural markdown (headings, tables, lists, fenced code).
+  Conventional headings: `# Schema`, `# Examples`, `# Citations`.
+- **Cross-links:** standard markdown links; prefer absolute bundle-relative form
+  (`/services/auth-api.md`). Relationship kind lives in surrounding prose, not
+  the link syntax.
+- **Reserved files:** `index.md` (directory listing, no frontmatter — except
+  bundle-root index may carry only `okf_version`) and `log.md` (ISO-dated change
+  history, newest first). Never use these names for concepts.
 
-`index.md` and `log.md` are **reserved filenames** — never use them for a concept document. Every
-other `.md` file is a concept.
+Templates to copy: [concept](templates/concept.md), [index](templates/index.md),
+[log](templates/log.md).
 
-Every concept opens with a frontmatter block carrying a non-empty `type` (free-text, not centrally
-registered — e.g. `Playbook`, `API Endpoint`, `Metric`). Body has no required sections; prefer
-structural markdown (tables, lists, fenced code) over prose. See [SPEC.md](SPEC.md) for the full
-recommended-field list and citation conventions.
+## Bundle location
 
-Cross-link concepts with standard markdown links, relative to the linking file, e.g.
-`[customers table](../tables/customers.md)`. A link only asserts "these are related"; the
-relationship kind belongs in surrounding prose, never in link syntax. A broken link is tolerated,
-not an error — it may name knowledge not yet written. Never "fix" a dangling link by deleting it
-without first checking whether the target should simply be created.
+The bundle path is always caller-supplied or already known from context (e.g.
+`~/wiki` for the personal wiki, `.okf/` for a project bundle). Never assume a
+fixed path — use what the task specifies.
 
-## Conformance — the only hard rules
+## Modes
 
-A bundle is OKF-conformant iff:
+### produce — create or extend a bundle
 
-1. Every non-reserved `.md` file has parseable YAML frontmatter.
-2. Every frontmatter block has a non-empty `type`.
-3. `index.md`/`log.md`, where present, follow the structures in [SPEC.md](SPEC.md).
+1. Read [SPEC.md](SPEC.md).
+2. Pick sources: **code** (source, READMEs, docstrings, config), **docs/wiki**
+   (distill into concepts, link originals under `# Citations`), **manual**
+   (decisions, playbooks, metrics).
+3. Choose directory layout by domain (`services/`, `datasets/`, `decisions/`).
+   One concept per file.
+4. Write each concept from [templates/concept.md](templates/concept.md): set a
+   descriptive `type`, fill recommended fields, cross-link related concepts.
+5. Add/refresh `index.md` per directory (and `okf_version: "0.1"` in root
+   index). Append a dated entry to `log.md`.
 
-Everything else is soft guidance. Never reject or "fix" a bundle for: missing optional fields,
-unknown `type` values, unknown extra frontmatter keys, broken links, or a missing `index.md`. This
-permissiveness is intentional — it supports partial, incremental, agent-driven growth. Before
-treating a bundle as broken, check it against these three rules only — never invent stricter ones.
+### maintain — keep a bundle in sync with reality
 
-## Maintaining a bundle
+1. Identify affected concepts (search by `resource`, path, or topic). Touch
+   every affected file in one pass.
+2. Update body and `timestamp`; fix or add cross-links; create new concepts for
+   new assets; mark removed assets (`**Deprecation**`) rather than deleting.
+3. Update relevant `index.md` files and append a dated `log.md` entry.
 
-1. **New concept** — pick the right subdirectory (create one if the topic is new), model the file on
-   the closest match in [SAMPLE/](SAMPLE/) with `type` + recommended fields (see
-   [SPEC.md](SPEC.md)), link it from related concepts and from the nearest `index.md`.
-2. **Update a concept** — edit body/frontmatter in place, bump `timestamp`, add a `log.md` entry at
-   the relevant directory level if the bundle maintains one.
-3. **Reorganize** — moving a file breaks relative links pointing to or from it; update those links
-   and the old and new directories' `index.md` entries.
-4. **New subdirectory** — add its `index.md`, and add one line linking to `subdir/` from the parent
-   `index.md`.
+### consume — use a bundle as context
+
+1. Read the bundle-root `index.md` first for progressive disclosure, then follow
+   links into relevant concepts only.
+2. Treat broken links as not-yet-written knowledge, not errors.
+3. If you learn something durable while working, switch to **maintain** and write
+   it back.
+
+## Before declaring done
+
+- Every concept file written or touched has parseable YAML frontmatter with
+  non-empty `type`.
+- `index.md` updated for any new concept files.
+- `log.md` entry appended if the bundle maintains one.
