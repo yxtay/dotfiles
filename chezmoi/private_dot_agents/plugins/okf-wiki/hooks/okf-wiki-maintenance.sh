@@ -13,12 +13,12 @@ MIN_INTERVAL_HOURS="${OKF_WIKI_MIN_INTERVAL_HOURS:-24}"
 MEMSEARCH_DIR="${MEMSEARCH_DIR:-$HOME/.memsearch}"
 JOURNAL_DIR="$MEMSEARCH_DIR/memory"
 WIKI_DIR="${OKF_WIKI_DIR:-$HOME/wiki}"
-STATE_FILE="$MEMSEARCH_DIR/.okf-wiki-last-run"
-LOCK_FILE="$MEMSEARCH_DIR/.okf-wiki-maintenance.lock"
+STATE_FILE="$WIKI_DIR/.okf-wiki-last-run"
+LOCK_FILE="$WIKI_DIR/.okf-wiki-maintenance.lock"
 PROMPT_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/okf-wiki-review.txt"
 
 [ -d "$JOURNAL_DIR" ] || exit 0
-[ -d "$WIKI_DIR" ] || exit 0
+mkdir -p "$WIKI_DIR"
 command -v claude &>/dev/null || exit 0
 
 # Acquire exclusive lock — prevents concurrent SessionEnd + PreCompact runs.
