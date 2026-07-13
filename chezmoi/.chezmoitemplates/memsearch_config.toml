@@ -6,6 +6,7 @@ model = "Alibaba-NLP/gte-reranker-modernbert-base"
 
 [plugins.claude-code.project_review]
 enabled = true
+output_file = "~/.memsearch/PROJECT.md"
 
 [plugins.claude-code.user_profile]
 enabled = true
@@ -16,6 +17,7 @@ enabled = true
 
 [plugins.opencode.project_review]
 enabled = true
+output_file = "~/.memsearch/PROJECT.md"
 
 [plugins.opencode.user_profile]
 enabled = true
