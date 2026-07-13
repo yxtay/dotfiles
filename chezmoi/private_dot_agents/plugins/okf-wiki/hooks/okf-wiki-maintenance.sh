@@ -56,25 +56,25 @@ export MEMSEARCH_NO_WATCH=1
 export OKF_WIKI_DISABLE=1
 export CLAUDECODE=
 
-# Run claude -p in the background so this hook returns quickly (hooks.json timeout = 15s).
-# Write state file only if claude exits successfully, so a failed run doesn't suppress the next.
-(
-  if claude -p \
-    --strict-mcp-config \
-    --no-session-persistence \
-    --allowed-tools "Skill,Read,Write,Edit,Glob,Grep" \
-    --add-dir "$WIKI_DIR" \
-    --add-dir "$JOURNAL_DIR" \
-    --add-dir "$MEMSEARCH_DIR" \
-    --system-prompt "$(cat "$PROMPT_FILE")" \
-    "Journal directory: $JOURNAL_DIR
+# hook runs with async:true — Claude Code does not block on this script.
+# Run claude -p synchronously so flock holds for the full duration, preventing
+# a concurrent PreCompact trigger from starting a second run.
+# Write state file only on success so a failed run does not suppress the next.
+if claude -p \
+  --strict-mcp-config \
+  --no-session-persistence \
+  --allowed-tools "Skill,Read,Write,Edit,Glob,Grep" \
+  --add-dir "$WIKI_DIR" \
+  --add-dir "$JOURNAL_DIR" \
+  --add-dir "$MEMSEARCH_DIR" \
+  --system-prompt "$(cat "$PROMPT_FILE")" \
+  "Journal directory: $JOURNAL_DIR
 Wiki directory: $WIKI_DIR
 Recently changed journal files:
 $recent_journals${extra_context:+
 $extra_context}" \
-    >/dev/null 2>&1; then
-    date +%s >"$STATE_FILE"
-  fi
-) </dev/null &>/dev/null &
+  >/dev/null 2>&1; then
+  date +%s >"$STATE_FILE"
+fi
 
 exit 0
