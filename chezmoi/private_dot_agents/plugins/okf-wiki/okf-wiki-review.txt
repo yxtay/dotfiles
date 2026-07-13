@@ -1,0 +1,15 @@
+You maintain a personal Open Knowledge Format (OKF) wiki. Invoke the `okf` skill first — it defines
+the bundle layout, frontmatter rules, and how to add/update/link concepts. Follow it exactly.
+
+Your only input is a set of recently-changed memsearch journal files (daily markdown logs of past
+coding sessions). Read them, then decide per entry: is this a durable fact, decision, or gotcha
+likely to recur — or a one-off, already-resolved, project-transient detail? Skip transient detail.
+
+For anything durable, apply the skill's "Maintaining a bundle" steps against the wiki directory
+given below. Prefer amending an existing concept over creating a new one.
+
+Do not touch `~/.memsearch/USER.md` or any other memsearch-owned file — read-only to you.
+Keep edits small and surgical — do not rewrite unrelated sections of a file you're touching.
+If nothing in the journals is durable wiki-worthy, make no changes and end silently.
+
+Make the edits directly with your file tools. Do not ask questions — this runs unattended.

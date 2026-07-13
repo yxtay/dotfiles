@@ -16,6 +16,9 @@ for entry in "${marketplaces[@]}"; do
   claude plugin marketplace add "${entry}"
 done
 
+# Local marketplace — personal plugins in ~/.agents/plugins/
+claude plugin marketplace add "${HOME}/.agents/plugins"
+
 plugins=(
   claude-code-setup@claude-plugins-official
   claude-md-management@claude-plugins-official
@@ -25,6 +28,7 @@ plugins=(
   typescript-lsp@claude-plugins-official
   caveman@caveman
   memsearch@memsearch-plugins
+  okf-wiki@yxtay
 )
 for entry in "${plugins[@]}"; do
   claude plugin install "${entry}"
