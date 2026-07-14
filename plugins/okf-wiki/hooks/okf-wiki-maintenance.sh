@@ -17,6 +17,7 @@ LOCK_FILE="${WIKI_DIR}/.okf-wiki-maintenance.lock"
 PROMPT_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/prompts/okf-wiki-review.txt"
 
 [ -d "${JOURNAL_DIR}" ] || exit 0
+[ -f "${PROMPT_FILE}" ] || exit 0
 mkdir -p "${WIKI_DIR}"
 command -v claude &>/dev/null || exit 0
 
@@ -45,13 +46,13 @@ fi
 
 # Include memsearch-synthesized summaries if present (higher-signal than raw journals).
 extra_context=""
-[ -f "${MEMSEARCH_DIR}/PROJECT.md" ] && extra_context="${extra_context}\nProject summary: ${MEMSEARCH_DIR}/PROJECT.md"
-[ -f "${MEMSEARCH_DIR}/USER.md" ] && extra_context="${extra_context}\nUser profile:    ${MEMSEARCH_DIR}/USER.md"
+[ -f "${MEMSEARCH_DIR}/PROJECT.md" ] && extra_context="${extra_context}"$'\n'"Project summary: ${MEMSEARCH_DIR}/PROJECT.md"
+[ -f "${MEMSEARCH_DIR}/USER.md" ] && extra_context="${extra_context}"$'\n'"User profile:    ${MEMSEARCH_DIR}/USER.md"
 
 export MEMSEARCH_DISABLE=1
 export MEMSEARCH_NO_WATCH=1
 export OKF_WIKI_DISABLE=1
-export CLAUDECODE= # clear CLAUDECODE so the child session doesn't inherit hook context
+unset CLAUDECODE # clear CLAUDECODE so the child session doesn't inherit hook context
 
 # hook runs with async:true — Claude Code does not block on this script.
 # Run claude -p synchronously so flock holds for the full duration, preventing
@@ -62,7 +63,7 @@ if claude -p \
   --no-session-persistence \
   --model haiku \
   --effort low \
-  --allowed-tools "Read,Write,Edit,Glob,Grep" \
+  --allowed-tools "Skill,Read,Write,Edit,Glob,Grep" \
   --append-system-prompt-file "${PROMPT_FILE}" \
   --add-dir "${WIKI_DIR}" \
   --add-dir "${MEMSEARCH_DIR}" \
