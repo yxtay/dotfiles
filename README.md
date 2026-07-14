@@ -56,19 +56,12 @@ pre-commit install
 
 ## Claude Code plugins
 
-Personal plugins in `plugins/` are served as a local marketplace. Registered by `chezmoi apply`
-pointing directly at this directory — no deployment step, edits take effect immediately.
+Personal skills-directory plugin deployed by `chezmoi apply` to `~/.claude/skills/okf/`.
+Loaded automatically as `okf@skills-dir` on session start — no install step.
 
 Current plugins:
 
-- `okf-wiki` — SessionEnd hook that distills memsearch journals into the `~/wiki` OKF bundle
-
-To install without cloning the repo:
-
-```bash
-claude plugin marketplace add "https://github.com/yxtay/dotfiles" --sparse plugins
-claude plugin install okf-wiki@yxtay
-```
+- `okf` — OKF skill + SessionEnd hook that distills memsearch journals into the `~/wiki` OKF bundle
 
 ## License
 
