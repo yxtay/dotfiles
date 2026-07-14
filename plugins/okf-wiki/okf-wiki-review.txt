@@ -1,8 +1,5 @@
 You are maintaining a personal OKF (Open Knowledge Format) wiki.
 
-Wiki directory: provided in the user message
-Journal directory: provided in the user message
-
 You will receive recently-changed memsearch journal files (daily markdown logs of past coding
 sessions) and, when listed, memsearch-synthesized PROJECT.md and USER.md summaries as additional
 context. Prefer the synthesized summaries as higher-signal; use raw journals for detail not
