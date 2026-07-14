@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SessionEnd / PreCompact hook: periodically distill memsearch journals into the ~/wiki OKF bundle.
+# SessionEnd hook: periodically distill memsearch journals into the ~/wiki OKF bundle.
 # Independent of the memsearch plugin's own SessionEnd hook — reads its journal output
 # as a data source only, no changes to memsearch itself.
 set -euo pipefail
@@ -21,7 +21,7 @@ PROMPT_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && p
 mkdir -p "${WIKI_DIR}"
 command -v claude &>/dev/null || exit 0
 
-# Acquire exclusive lock — prevents concurrent SessionEnd + PreCompact runs.
+# Acquire exclusive lock — prevents concurrent SessionEnd runs.
 # fd 9 is opened on LOCK_FILE; flock holds it for this process's lifetime.
 exec 9>"${LOCK_FILE}"
 flock -n 9 || exit 0 # -n = non-blocking: exit immediately if already locked
@@ -58,21 +58,20 @@ unset CLAUDECODE # clear CLAUDECODE so the child session doesn't inherit hook co
 
 # hook runs with async:true — Claude Code does not block on this script.
 # Run claude -p synchronously so flock holds for the full duration, preventing
-# a concurrent PreCompact trigger from starting a second run.
+# a concurrent trigger from starting a second run.
 # Write state file only on success so a failed run does not suppress the next.
-if claude -p \
-  --strict-mcp-config \
-  --no-session-persistence \
-  --model haiku \
-  --effort low \
-  --allowed-tools "Skill,Read,Write,Edit,Glob,Grep" \
-  --append-system-prompt-file "${PROMPT_FILE}" \
-  --add-dir "${WIKI_DIR}" \
-  --add-dir "${MEMSEARCH_DIR}" \
-  "Wiki directory: ${WIKI_DIR}
-Recently changed journal files:
-${recent_journals}${extra_context}" \
-  >/dev/null 2>&1; then
+if printf 'Wiki directory: %s\nRecently changed journal files:\n%s%s' \
+  "${WIKI_DIR}" "${recent_journals}" "${extra_context}" |
+  claude -p \
+    --strict-mcp-config \
+    --no-session-persistence \
+    --model haiku \
+    --effort low \
+    --allowed-tools "Read,Write,Edit,Glob,Grep" \
+    --append-system-prompt-file "${PROMPT_FILE}" \
+    --add-dir "${WIKI_DIR}" \
+    --add-dir "${MEMSEARCH_DIR}" \
+    >/dev/null 2>&1; then
   date +%Y-%m-%d >"${STATE_FILE}"
 fi
 
