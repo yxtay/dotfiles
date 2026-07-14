@@ -16,8 +16,8 @@ for entry in "${marketplaces[@]}"; do
   claude plugin marketplace add "${entry}"
 done
 
-# Local marketplace — personal plugins in ~/.agents/plugins/
-claude plugin marketplace add "${HOME}/.agents/plugins"
+# Local marketplace — personal plugins in this repo, installed directly.
+claude plugin marketplace add "{{ .chezmoi.sourceDir }}/../plugins"
 
 plugins=(
   claude-code-setup@claude-plugins-official

@@ -6,6 +6,7 @@ Personal macOS and Linux shell setup managed with [chezmoi](https://chezmoi.io/)
 ## What's in this repo
 
 - `chezmoi/`: templated dotfiles for shell and tool config (zsh, git, helix, wezterm, bat, etc.)
+- `plugins/`: personal Claude Code plugins — a local marketplace installed via `chezmoi apply`
 - `bin/`: convenience maintenance scripts (`update-all.sh`, `cleanup-all.sh`)
 
 ## Apply directly from repo
@@ -51,6 +52,22 @@ pre-commit install
 
 # Clean caches and old artifacts
 ./bin/cleanup-all.sh
+```
+
+## Claude Code plugins
+
+Personal plugins in `plugins/` are served as a local marketplace. Registered by `chezmoi apply`
+pointing directly at this directory — no deployment step, edits take effect immediately.
+
+Current plugins:
+
+- `okf-wiki` — SessionEnd hook that distills memsearch journals into the `~/wiki` OKF bundle
+
+To install without cloning the repo:
+
+```bash
+claude plugin marketplace add "https://github.com/yxtay/dotfiles" --sparse plugins
+claude plugin install okf-wiki@yxtay
 ```
 
 ## License
