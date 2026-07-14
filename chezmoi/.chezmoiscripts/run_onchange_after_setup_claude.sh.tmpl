@@ -30,8 +30,4 @@ for entry in "${plugins[@]}"; do
   claude plugin install "${entry}"
 done
 
-# Cleanup: remove local marketplace and okf-wiki plugin (now deployed via chezmoi dot_claude).
-claude plugin uninstall okf-wiki@yxtay 2>/dev/null || true
-claude plugin marketplace remove yxtay 2>/dev/null || true
-
 {{- end }}
