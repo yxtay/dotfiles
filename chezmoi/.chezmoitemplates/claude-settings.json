@@ -5,14 +5,14 @@
   "modelOverrides": {
     "claude-haiku-4-5": "bedrock.claude-haiku-4-5",
     "claude-sonnet-4-5": "bedrock.claude-sonnet-4-5",
-    "claude-sonnet-4-6": "bedrock.claude-sonnet-4-6[1m]",
-    "claude-sonnet-5": "bedrock.claude-sonnet-5[1m]",
-    "claude-opus-4-8": "bedrock.claude-opus-4-8[1m]"
+    "claude-sonnet-4-6": "bedrock.claude-sonnet-4-6",
+    "claude-sonnet-5": "bedrock.claude-sonnet-5",
+    "claude-opus-4-8": "bedrock.claude-opus-4-8"
   },
   "env": {
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "bedrock.claude-haiku-4-5",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "bedrock.claude-opus-4-8[1m]",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "bedrock.claude-sonnet-4-6[1m]"
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "bedrock.claude-opus-4-8",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "bedrock.claude-sonnet-4-6"
   },
   "autoCompactEnabled": true,
   "awaySummaryEnabled": true,
