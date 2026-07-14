@@ -21,11 +21,11 @@ PROMPT_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && p
 mkdir -p "${WIKI_DIR}"
 command -v claude &>/dev/null || exit 0
 
-# Acquire exclusive lock — prevents concurrent SessionEnd runs.
-# shlock is macOS-native (no flock); writes PID and auto-breaks stale locks.
-command -v shlock &>/dev/null || exit 0
-shlock -f "${LOCK_FILE}" -p $$ || exit 0
-trap 'rm -f "${LOCK_FILE}"' EXIT
+# Acquire exclusive lock via atomic mkdir — POSIX portable, no flock/shlock needed.
+if ! mkdir "${LOCK_FILE}" 2>/dev/null; then
+  exit 0
+fi
+trap 'rmdir "${LOCK_FILE}"' EXIT
 
 # Skip if already ran today (same calendar date).
 if [ -f "${STATE_FILE}" ]; then
