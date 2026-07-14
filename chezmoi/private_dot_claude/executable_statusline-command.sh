@@ -2,27 +2,29 @@
 
 input=$(cat)
 
+eval "$(echo "$input" | jq -r '
+  "cwd=\(.cwd // .workspace.current_dir // "" | @sh)
+model=\(.model?.display_name // "" | @sh)
+effort=\(.effort?.level // "" | @sh)
+total_input=\(.context_window?.total_input_tokens // "" | @sh)
+ctx_size=\(.context_window?.context_window_size // "" | @sh)
+cost=\(.cost?.total_cost_usd // "" | @sh)
+dur_ms=\(.cost?.total_duration_ms // "" | @sh)"
+')"
+
 # --- Line 1: model | effort | context | cost | duration ---
 line1=""
-
-model=$(echo "$input" | jq -r '.model.display_name // empty')
 [ -n "$model" ] && line1="$model"
-
-effort=$(echo "$input" | jq -r '.effort.level // empty')
 [ -n "$effort" ] && line1="${line1:+$line1 | }$effort"
 
-total_input=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
-ctx_size=$(echo "$input" | jq -r '.context_window.context_window_size // empty')
 if [ -n "$total_input" ] && [ -n "$ctx_size" ] && [ "$ctx_size" -gt 0 ] 2>/dev/null; then
   line1="${line1:+$line1 | }$((total_input / 1000))k/$((ctx_size / 1000))k"
 fi
 
-cost=$(echo "$input" | jq -r '.cost.total_cost_usd // empty')
 if [ -n "$cost" ] && [ "$cost" != "0" ]; then
   line1="${line1:+$line1 | }$(printf '$%.4f' "$cost")"
 fi
 
-dur_ms=$(echo "$input" | jq -r '.cost.total_duration_ms // empty')
 if [ -n "$dur_ms" ] && [ "$dur_ms" -gt 0 ] 2>/dev/null; then
   dur_min=$((dur_ms / 60000))
   if [ "$dur_min" -ge 60 ]; then
@@ -39,7 +41,6 @@ printf '%s' "$line1"
 printf '\n'
 
 line2=""
-cwd=$(echo "$input" | jq -r '.cwd // .workspace.current_dir // empty')
 if [ -n "$cwd" ]; then
   if [[ "$cwd" == "$HOME"* ]]; then
     line2="~${cwd#"$HOME"}"
