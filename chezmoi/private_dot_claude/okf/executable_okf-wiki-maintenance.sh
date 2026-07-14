@@ -14,7 +14,7 @@ JOURNAL_DIR="${MEMSEARCH_DIR}/memory"
 WIKI_DIR="${OKF_WIKI_DIR:-${HOME}/wiki}"
 STATE_FILE="${WIKI_DIR}/.okf-wiki-last-run"
 LOCK_FILE="${WIKI_DIR}/.okf-wiki-maintenance.lock"
-PROMPT_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/prompts/okf-wiki-review.txt"
+PROMPT_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/okf-wiki-review.txt"
 
 [ -d "${JOURNAL_DIR}" ] || exit 0
 [ -f "${PROMPT_FILE}" ] || exit 0
@@ -51,8 +51,8 @@ export OKF_WIKI_DISABLE=1
 unset CLAUDECODE # clear CLAUDECODE so the child session doesn't inherit hook context
 
 # hook runs with async:true — Claude Code does not block on this script.
-# Run claude -p synchronously so shlock holds for the full duration, preventing
-# a concurrent trigger from starting a second run.
+# Run claude -p synchronously so mkdir lock holds for the full duration,
+# preventing a concurrent trigger from starting a second run.
 # Write state file only on success so a failed run does not suppress the next.
 prompt="$(
   printf 'Wiki directory: %s\n' "${WIKI_DIR}"
