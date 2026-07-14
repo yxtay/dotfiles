@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# SessionEnd hook: periodically distill memsearch journals into the ~/wiki OKF bundle.
-# Independent of the memsearch plugin's own SessionEnd hook — reads its journal output
+# SessionEnd hook: periodically distill memsearch memories into the ~/wiki OKF bundle.
+# Independent of the memsearch plugin's own SessionEnd hook — reads its memory output
 # as a data source only, no changes to memsearch itself.
 set -euo pipefail
 
@@ -36,14 +36,14 @@ if [ -f "${STATE_FILE}" ]; then
   fi
 fi
 
-# Journals since last run, or last 3 days on first run. Always include yesterday (-mtime -1 = <24h).
+# Memories since last run, or last 3 days on first run. Always include yesterday (-mtime -1 = <24h).
 if [ -f "${STATE_FILE}" ]; then
-  recent_journals="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' \( -newer "${STATE_FILE}" -o -mtime -1 \) 2>/dev/null)"
+  recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' \( -newer "${STATE_FILE}" -o -mtime -1 \) 2>/dev/null)"
 else
-  recent_journals="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' -mtime -3 2>/dev/null)"
+  recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' -mtime -3 2>/dev/null)"
 fi
 
-[ -n "${recent_journals}" ] || exit 0
+[ -n "${recent_memories}" ] || exit 0
 
 export MEMSEARCH_DISABLE=1
 export MEMSEARCH_NO_WATCH=1
@@ -56,9 +56,9 @@ unset CLAUDECODE # clear CLAUDECODE so the child session doesn't inherit hook co
 # Write state file only on success so a failed run does not suppress the next.
 prompt="$(
   printf 'Wiki directory: %s\n' "${WIKI_DIR}"
-  [ -f "${MEMSEARCH_DIR}/USER.md" ] && printf 'User summary: %s\n' "${MEMSEARCH_DIR}/USER.md"
-  [ -f "${MEMSEARCH_DIR}/PROJECT.md" ] && printf 'Project summary: %s\n' "${MEMSEARCH_DIR}/PROJECT.md"
-  printf 'Recently changed journal files:\n%s\n' "${recent_journals}"
+  [ -f "${MEMSEARCH_DIR}/USER.md" ] && printf 'User profile: %s\n' "${MEMSEARCH_DIR}/USER.md"
+  [ -f "${MEMSEARCH_DIR}/PROJECT.md" ] && printf 'Project review: %s\n' "${MEMSEARCH_DIR}/PROJECT.md"
+  printf 'Recent memory:\n%s\n' "${recent_memories}"
 )"
 if printf '%s' "${prompt}" | claude -p \
   --strict-mcp-config \
