@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/skills/okf/scripts/okf-wiki-maintenance.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/okf-wiki-maintenance.sh",
             "async": true,
             "timeout": 300
           }
