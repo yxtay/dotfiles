@@ -75,7 +75,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash ~/.claude/hooks/caveman-statusline.sh"
+    "command": "bash ~/.claude/statusline-command.sh"
   },
   "worktree": {
     "baseRef": "fresh"
