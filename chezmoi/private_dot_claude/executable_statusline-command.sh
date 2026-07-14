@@ -1,77 +1,109 @@
 #!/bin/bash
-# Claude Code statusline script
-# Shows: cwd, git branch, git changes, model, context tokens, cost, caveman badge
+# Claude Code statusline — styled to match powerlevel10k
 
 input=$(cat)
 
-# --- Directory ---
+C_RESET='\033[0m'
+C_SEP='\033[38;5;244m'
+C_BRANCH_CLEAN='\033[38;5;76m'
+C_BRANCH_DIRTY='\033[38;5;178m'
+C_BRANCH_UNTRACKED='\033[38;5;39m'
+C_BRANCH_CONFLICT='\033[38;5;196m'
+SEP=" ${C_SEP}|${C_RESET} "
+
 cwd=$(echo "$input" | jq -r '.cwd // .workspace.current_dir // empty')
-if [ -n "$cwd" ]; then
-  # Collapse $HOME to ~
-  short_cwd="${cwd/#$HOME/~}"
-  printf '\033[34m%s\033[0m' "$short_cwd"
-fi
 
-# --- Git branch + changes ---
-if [ -n "$cwd" ] && [ -d "$cwd/.git" ] || git -C "$cwd" rev-parse --git-dir >/dev/null 2>&1; then
-  branch=$(git -C "$cwd" symbolic-ref --short HEAD 2>/dev/null ||
-    git -C "$cwd" rev-parse --short HEAD 2>/dev/null)
-  if [ -n "$branch" ]; then
-    printf ' \033[32m(%s)\033[0m' "$branch"
-    # Count staged + unstaged changes (skip untracked for brevity)
-    changes=$(git -C "$cwd" status --porcelain 2>/dev/null | grep -c '^')
-    if [ "$changes" -gt 0 ] 2>/dev/null; then
-      printf ' \033[33m*%s\033[0m' "$changes"
-    fi
-  fi
-fi
+# --- Line 1: Model | effort | context | cost | duration ---
+line1=""
 
-# --- Model ---
 model=$(echo "$input" | jq -r '.model.display_name // empty')
-if [ -n "$model" ]; then
-  printf ' \033[36m[%s]\033[0m' "$model"
+[ -n "$model" ] && line1+="\033[36m${model}\033[0m"
+
+effort=$(echo "$input" | jq -r '.effort.level // empty')
+if [ -n "$effort" ]; then
+  case "$effort" in
+  max | xhigh) ec='\033[38;5;196m' ;;
+  high) ec='\033[38;5;178m' ;;
+  *) ec='\033[38;5;244m' ;;
+  esac
+  [ -n "$line1" ] && line1+="$SEP"
+  line1+="${ec}${effort}\033[0m"
 fi
 
-# --- Context: tokens used + percentage ---
 total_input=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
 ctx_size=$(echo "$input" | jq -r '.context_window.context_window_size // empty')
-used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
-
 if [ -n "$total_input" ] && [ -n "$ctx_size" ] && [ "$ctx_size" -gt 0 ] 2>/dev/null; then
-  printf ' \033[35m%sk/%sk' "$((total_input / 1000))" "$((ctx_size / 1000))"
-  if [ -n "$used_pct" ]; then
-    printf ' (%.0f%%)' "$used_pct"
-  fi
-  printf '\033[0m'
+  [ -n "$line1" ] && line1+="$SEP"
+  line1+="\033[35m$((total_input / 1000))k/$((ctx_size / 1000))k\033[0m"
 fi
 
-# --- Cost ---
 cost=$(echo "$input" | jq -r '.cost.total_cost_usd // empty')
 if [ -n "$cost" ] && [ "$cost" != "0" ]; then
-  printf ' \033[33m$%.4f\033[0m' "$cost"
+  cost_fmt=$(printf '$%.4f' "$cost")
+  [ -n "$line1" ] && line1+="$SEP"
+  line1+="\033[33m${cost_fmt}\033[0m"
 fi
 
-# --- Caveman badge (preserved from existing script) ---
-FLAG="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.caveman-active"
-if [ -f "$FLAG" ] && [ ! -L "$FLAG" ]; then
-  MODE=$(head -c 64 "$FLAG" 2>/dev/null | tr -d '\n\r' | tr '[:upper:]' '[:lower:]')
-  MODE=$(printf '%s' "$MODE" | tr -cd 'a-z0-9-')
-  case "$MODE" in
-  off | lite | full | ultra | wenyan-lite | wenyan | wenyan-full | wenyan-ultra | commit | review | compress)
-    printf ' '
-    if [ -z "$MODE" ] || [ "$MODE" = "full" ]; then
-      printf '\033[38;5;172m[CAVEMAN]\033[0m'
-    else
-      SUFFIX=$(printf '%s' "$MODE" | tr '[:lower:]' '[:upper:]')
-      printf '\033[38;5;172m[CAVEMAN:%s]\033[0m' "$SUFFIX"
-    fi
-    if [ "${CAVEMAN_STATUSLINE_SAVINGS:-1}" != "0" ]; then
-      SAVINGS_FILE="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.caveman-statusline-suffix"
-      if [ -f "$SAVINGS_FILE" ] && [ ! -L "$SAVINGS_FILE" ]; then
-        SAVINGS=$(head -c 64 "$SAVINGS_FILE" 2>/dev/null | tr -d '\000-\037')
-        [ -n "$SAVINGS" ] && printf ' \033[38;5;172m%s\033[0m' "$SAVINGS"
-      fi
-    fi
-    ;;
-  esac
+dur_ms=$(echo "$input" | jq -r '.cost.total_duration_ms // empty')
+if [ -n "$dur_ms" ] && [ "$dur_ms" -gt 0 ] 2>/dev/null; then
+  dur_min=$((dur_ms / 60000))
+  if [ "$dur_min" -ge 60 ]; then
+    dur_fmt="$((dur_min / 60))h$((dur_min % 60))m"
+  else
+    dur_fmt="${dur_min}m"
+  fi
+  [ -n "$line1" ] && line1+="$SEP"
+  line1+="\033[38;5;244m${dur_fmt}\033[0m"
 fi
+
+printf '%b' "$line1"
+
+# --- Line 2: dir | branch + markers | PR ---
+printf '\n'
+
+line2=""
+if [ -n "$cwd" ]; then
+  if [[ "$cwd" == "$HOME"* ]]; then
+    short_cwd="~${cwd#"$HOME"}"
+  else
+    short_cwd="$cwd"
+  fi
+  line2+="\033[34m${short_cwd}\033[0m"
+fi
+
+if [ -n "$cwd" ] && git -C "$cwd" rev-parse --git-dir >/dev/null 2>&1; then
+  branch=$(git -C "$cwd" symbolic-ref --short HEAD 2>/dev/null ||
+    git -C "$cwd" rev-parse --short HEAD 2>/dev/null)
+
+  if [ -n "$branch" ]; then
+    [ ${#branch} -gt 32 ] && branch="${branch:0:12}..${branch: -12}"
+
+    git_status=$(git -C "$cwd" status --porcelain 2>/dev/null)
+    staged=$(printf '%s' "$git_status" | grep -c '^[MADRC]')
+    unstaged=$(printf '%s' "$git_status" | grep -c '^.[MD]')
+    untracked=$(printf '%s' "$git_status" | grep -c '^??')
+    conflicts=$(printf '%s' "$git_status" | grep -cE '^(UU|AA|DD)')
+
+    if [ "$conflicts" -gt 0 ]; then
+      color="$C_BRANCH_CONFLICT"
+    elif [ "$staged" -gt 0 ] || [ "$unstaged" -gt 0 ]; then
+      color="$C_BRANCH_DIRTY"
+    elif [ "$untracked" -gt 0 ]; then
+      color="$C_BRANCH_UNTRACKED"
+    else
+      color="$C_BRANCH_CLEAN"
+    fi
+
+    markers=""
+    [ "$staged" -gt 0 ] && markers="${markers}+"
+    [ "$unstaged" -gt 0 ] && markers="${markers}!"
+    [ "$untracked" -gt 0 ] && markers="${markers}?"
+    [ "$conflicts" -gt 0 ] && markers="${markers}~"
+
+    [ -n "$line2" ] && line2+="$SEP"
+    line2+="${color}${branch}${C_RESET}"
+    [ -n "$markers" ] && line2+=" ${markers}"
+  fi
+fi
+
+printf '%b' "$line2"
