@@ -46,8 +46,10 @@ fi
 
 # Include memsearch-synthesized summaries if present (higher-signal than raw journals).
 extra_context=""
-[ -f "${MEMSEARCH_DIR}/PROJECT.md" ] && extra_context="${extra_context}"$'\n'"Project summary: ${MEMSEARCH_DIR}/PROJECT.md"
-[ -f "${MEMSEARCH_DIR}/USER.md" ] && extra_context="${extra_context}"$'\n'"User profile:    ${MEMSEARCH_DIR}/USER.md"
+[ -f "${MEMSEARCH_DIR}/PROJECT.md" ] && extra_context="${extra_context}
+Project summary: ${MEMSEARCH_DIR}/PROJECT.md"
+[ -f "${MEMSEARCH_DIR}/USER.md" ] && extra_context="${extra_context}
+User profile:    ${MEMSEARCH_DIR}/USER.md"
 
 export MEMSEARCH_DISABLE=1
 export MEMSEARCH_NO_WATCH=1
@@ -69,8 +71,7 @@ if claude -p \
   --add-dir "${MEMSEARCH_DIR}" \
   "Wiki directory: ${WIKI_DIR}
 Recently changed journal files:
-${recent_journals}${extra_context:+
-${extra_context}}" \
+${recent_journals}${extra_context}" \
   >/dev/null 2>&1; then
   date +%Y-%m-%d >"${STATE_FILE}"
 fi
