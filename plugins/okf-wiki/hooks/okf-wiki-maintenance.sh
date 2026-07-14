@@ -14,7 +14,7 @@ JOURNAL_DIR="${MEMSEARCH_DIR}/memory"
 WIKI_DIR="${OKF_WIKI_DIR:-${HOME}/wiki}"
 STATE_FILE="${WIKI_DIR}/.okf-wiki-last-run"
 LOCK_FILE="${WIKI_DIR}/.okf-wiki-maintenance.lock"
-PROMPT_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/okf-wiki-review.txt"
+PROMPT_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/prompts/okf-wiki-review.txt"
 
 [ -d "${JOURNAL_DIR}" ] || exit 0
 mkdir -p "${WIKI_DIR}"
