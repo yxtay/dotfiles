@@ -23,17 +23,17 @@ line1=""
 [ -n "$effort" ] && line1="${line1:+$line1 | }$effort"
 
 # context tokens
-if [ -n "$total_input" ] && [ -n "$ctx_size" ] && [ "$ctx_size" -gt 0 ] 2>/dev/null; then
+if [ -n "$total_input" ] && [ -n "$ctx_size" ]; then
   line1="${line1:+$line1 | }$((total_input / 1000))k/$((ctx_size / 1000))k"
 fi
 
 # cost
-if [ -n "$cost" ] && [ "$cost" != "0" ]; then
+if [ -n "$cost" ]; then
   line1="${line1:+$line1 | }$(printf '$%.4f' "$cost")"
 fi
 
 # session duration
-if [ -n "$dur_ms" ] && [ "$dur_ms" -gt 0 ] 2>/dev/null; then
+if [ -n "$dur_ms" ]; then
   dur_min=$((dur_ms / 60000))
   if [ "$dur_min" -ge 60 ]; then
     dur_fmt="$((dur_min / 60))h$((dur_min % 60))m"
