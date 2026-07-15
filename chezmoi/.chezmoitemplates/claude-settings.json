@@ -64,6 +64,7 @@
         "~/.local/share/uv",
         "~/.m2",
         "~/.mempalace",
+        "~/.memsearch",
         "~/.npm",
         "~/.yarn",
         "~/Library/Caches",
