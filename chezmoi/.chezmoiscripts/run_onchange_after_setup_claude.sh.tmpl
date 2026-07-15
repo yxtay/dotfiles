@@ -10,6 +10,7 @@ fi
 marketplaces=(
   anthropics/claude-plugins-official
   JuliusBrussee/caveman
+  mattpocock/skills
   zilliztech/memsearch
 )
 for entry in "${marketplaces[@]}"; do
@@ -19,11 +20,11 @@ done
 plugins=(
   claude-code-setup@claude-plugins-official
   claude-md-management@claude-plugins-official
-  commit-commands@claude-plugins-official
   gopls-lsp@claude-plugins-official
   pyright-lsp@claude-plugins-official
   typescript-lsp@claude-plugins-official
   caveman@caveman
+  mattpocock-skills@mattpocock
   memsearch@memsearch-plugins
 )
 for entry in "${plugins[@]}"; do
