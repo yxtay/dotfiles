@@ -1,6 +1,23 @@
 {{- template "gitignore" . }}
 
+.env
+.env.*
+!.env.example
+.envrc
+
+# python
+.venv
+__pycache__
+
+# node
+node_modules
+
+# claude
+**/.claude/.cc-writes/
 **/.claude/settings.local.json
 .codebase-memory
 .memsearch
 .scratch
+
+entities.json
+mempalace.yaml
