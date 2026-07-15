@@ -1,6 +1,29 @@
 {{- template "gitignore" . }}
 
+.env
+.env.*
+!.env.example
+.envrc
+
+*.bak
+.cache
+*.lock
+.tmp
+
+# python
+__pycache__
+*.py[codz]
+.venv
+
+# node
+node_modules
+
+# claude
+**/.claude/.cc-writes/
 **/.claude/settings.local.json
 .codebase-memory
 .memsearch
 .scratch
+
+entities.json
+mempalace.yaml
