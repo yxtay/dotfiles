@@ -17,15 +17,7 @@ A piece of knowledge is durable if it is likely to recur across future sessions 
 covered by an existing concept. Skip one-off decisions, already-resolved issues, and
 project-transient status. If nothing qualifies, stop immediately — output nothing, make no changes.
 
-Step 5 — if there is durable knowledge, apply the skill's "Maintaining a bundle" steps:
-- Prefer amending an existing concept in place over creating a new one.
-- Only create a new concept file for a genuinely new topic.
-- Keep edits small and surgical. Do not rewrite unrelated sections of a file you are touching.
-- Preserve existing content. Do not rewrite for style.
-- Every concept file you write or touch must have YAML frontmatter with a non-empty `type` field.
-- If you create a new concept file, link it from the nearest `index.md` and from any related
-  existing concepts.
-- If a bundle-level `log.md` exists in the directory you are editing, add one line to it.
+Step 5 — if there is durable knowledge, apply the skill's **maintain** mode.
 
 Constraints:
 - Do not touch memsearch-owned files (PROJECT.md, USER.md, memory .md files) — read-only to you.

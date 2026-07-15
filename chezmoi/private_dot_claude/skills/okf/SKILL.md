@@ -59,7 +59,9 @@ Templates: [concept](templates/concept.md), [index](templates/index.md),
 1. Triage affected concepts by `resource`, path, or topic — cover every one.
 2. Update body and `timestamp`; add or fix cross-links; create concepts for new
    assets; mark removed assets with `**Deprecation**` to preserve context.
-3. Update `index.md` entries and append to `log.md`.
+3. Update `index.md` entries and append to `log.md`. Done when every
+   triage-listed concept has an updated `timestamp`, `index.md` reflects all
+   changes, and `log.md` has an entry.
 
 ### consume — use a bundle as context
 
@@ -70,6 +72,5 @@ Templates: [concept](templates/concept.md), [index](templates/index.md),
 
 ## Before declaring done
 
-- Every concept written or touched: parseable frontmatter, non-empty `type`.
 - `index.md` updated for any new concepts.
 - `log.md` entry appended if the bundle has one.
