@@ -24,14 +24,12 @@ if command -v rtk >/dev/null; then
 fi
 
 agents=(opencode)
-{{- if not .is_ephemeral }}
-agents+=(claude-code)
-{{- end }}
 
 repo_skills=(
-  mattpocock/skills=wayfinder,grill-with-docs,to-spec,to-tickets,implement,diagnosing-bugs
-  mattpocock/skills=grilling,domain-modeling,research,prototype,codebase-design,tdd,triage,handoff
-  mattpocock/skills=setup-matt-pocock-skills,improve-codebase-architecture,writing-great-skills
+  mattpocock/skills=wayfinder,grill-with-docs,to-spec,to-tickets,triage,handoff,implement
+  mattpocock/skills=grilling,domain-modeling,research,prototype,codebase-design,tdd,diagnosing-bugs
+  mattpocock/skills=resolving-merge-conflicts,improve-codebase-architecture
+  mattpocock/skills=ask-matt,setup-matt-pocock-skills,writing-great-skills,teach,grill-me
   philschmid/mcp-cli=mcp-cli
 )
 for entry in "${repo_skills[@]}"; do
