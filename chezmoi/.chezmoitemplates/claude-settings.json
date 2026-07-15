@@ -22,7 +22,7 @@
   "permissions": {
     "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
-    "additionalDirectories": ["~/.memsearch", "~/wiki"],
+    "additionalDirectories": ["~/.memsearch", "~/.mempalace", "~/wiki"],
     "ask": [
       "Edit(**/.env)",
       "Edit(**/.env.*)",
@@ -63,6 +63,7 @@
         "~/.local/lib",
         "~/.local/share/uv",
         "~/.m2",
+        "~/.mempalace",
         "~/.npm",
         "~/.yarn",
         "~/Library/Caches",
