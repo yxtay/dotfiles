@@ -2,10 +2,9 @@
 name: okf
 description: >-
   Create and maintain knowledge bundles in Open Knowledge Format (OKF) —
-  markdown + YAML-frontmatter concept files for durable knowledge. Use when
-  the user wants to write, structure, or validate an OKF bundle, add a
-  "concept" document, build an `index.md`/`log.md`, cross-link concepts, or
-  asks "is this OKF-conformant".
+  markdown + YAML-frontmatter concept files for durable knowledge. Invoke to
+  write, structure, or validate an OKF bundle; add concept documents; build
+  `index.md`/`log.md`; cross-link concepts; or check OKF conformance.
 user-invocable: true
 argument-hint: "[produce|maintain|consume] [bundle-path]"
 ---
@@ -39,7 +38,7 @@ missing optional fields, unknown types, and broken links.
 Templates: [concept](templates/concept.md), [index](templates/index.md),
 [log](templates/log.md).
 
-## Modes
+## Task types
 
 ### produce — create or extend a bundle
 
@@ -51,8 +50,7 @@ Templates: [concept](templates/concept.md), [index](templates/index.md),
 4. Write each concept from [templates/concept.md](templates/concept.md): set a
    descriptive `type`, fill recommended fields, cross-link related concepts.
 5. Add/refresh `index.md` per directory (`okf_version: "0.1"` in root index)
-   and append to `log.md`. Done when every new or changed concept has an
-   `index.md` entry.
+   and append to `log.md`.
 
 ### maintain — sync a bundle with reality
 
@@ -70,6 +68,5 @@ Templates: [concept](templates/concept.md), [index](templates/index.md),
 
 ## Before declaring done
 
-- Every concept written or touched: parseable frontmatter, non-empty `type`.
 - `index.md` updated for any new concepts.
 - `log.md` entry appended if the bundle has one.
