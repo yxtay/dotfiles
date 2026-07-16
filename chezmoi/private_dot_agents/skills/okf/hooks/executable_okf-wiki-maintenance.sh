@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# SessionEnd hook: periodically distill memsearch memories into the ~/wiki OKF bundle.
-# Independent of the memsearch plugin's own SessionEnd hook — reads its memory output
-# as a data source only, no changes to memsearch itself.
+# SessionStart/SessionEnd hook: once per calendar day, distill memsearch memories into
+# the ~/wiki OKF bundle. Runs on both events so it fires whether a session starts fresh
+# or ends normally. Independent of the memsearch plugin — reads its memory output as a
+# data source only, no changes to memsearch itself.
 set -euo pipefail
 
 # Avoid recursing into our own hooks when the nested `claude -p` below exits.
