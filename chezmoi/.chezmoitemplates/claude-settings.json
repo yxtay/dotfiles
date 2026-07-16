@@ -54,26 +54,7 @@
   "sandbox": {
     "enabled": true,
     "enableWeakerNetworkIsolation": true,
-    "excludedCommands": ["docker *"],
-    "filesystem": {
-      "allowWrite": [
-        "~/.cache",
-        "~/.cargo/registry",
-        "~/.gradle",
-        "~/.local/lib",
-        "~/.local/share/uv",
-        "~/.m2",
-        "~/.mempalace",
-        "~/.memsearch",
-        "~/.npm",
-        "~/.yarn",
-        "~/Library/Caches",
-        "~/Library/Python",
-        "~/Library/pnpm",
-        "~/go/pkg",
-        "~/wiki"
-      ]
-    }
+    "excludedCommands": ["docker *", "git *", "ssh *"]
   },
   "statusLine": {
     "type": "command",
