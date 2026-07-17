@@ -22,7 +22,7 @@
   "permissions": {
     "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
-    "additionalDirectories": ["~/.mempalace", "~/.memsearch", "~/wiki"],
+    "additionalDirectories": ["~/.memsearch", "~/wiki"],
     "ask": [
       "Edit(**/.env)",
       "Edit(**/.env.*)",
