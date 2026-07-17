@@ -1,4 +1,4 @@
-{{ if and (eq .chezmoi.os "darwin") (not .is_ephemeral) -}}
+{{ if lookpath "claude" -}}
 
 #!/usr/bin/env bash
 set -euo pipefail
@@ -28,5 +28,9 @@ plugins=(
 for entry in "${plugins[@]}"; do
   claude plugin install "${entry}"
 done
+
+if command -v atuin >/dev/null; then
+  atuin hook install claude-code
+fi
 
 {{- end }}
