@@ -12,10 +12,10 @@ the memsearch memory log for the requested date.
 
 ## Steps
 
-1. **Date** — use `$ARGUMENTS` if provided; default to yesterday in the local
-   timezone if omitted. Validate the value is a calendar-valid `YYYY-MM-DD`
-   (digits only, no path separators or other characters). Reject and report any
-   malformed input before proceeding.
+1. **Date** — use `$ARGUMENTS` if provided and non-empty; treat absent or
+   empty as omitted and default to yesterday. Validate the value is a
+   calendar-valid `YYYY-MM-DD`. Reject and report any malformed input before
+   proceeding.
 
 2. **Load** — read `~/.memsearch/memory/<date>.md`. Stop and tell the user if the file is missing.
 
@@ -25,9 +25,10 @@ the memsearch memory log for the requested date.
    task is assigned.
 
 4. **Output** the standup in a fenced code block. No preamble. One bullet per
-   distinct task. Each bullet ≤10 words. Under each repo, nest sub-tasks (one
-   level deep) only when they are genuinely distinct steps of the parent, not
-   just elaborations. Skip sessions with no substantive outcome.
+   distinct task. Each bullet ≤12 words. Under each task, nest sub-tasks one
+   level deep only when they are genuinely distinct steps of the parent, not
+   just elaborations. Skip sessions where all entries are reads, searches, or
+   investigations with no resulting change or decision.
 
 ````text
 ```

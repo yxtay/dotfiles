@@ -62,6 +62,7 @@ Loaded automatically as `okf@skills-dir` on session start — no install step.
 Current plugins:
 
 - `okf` — OKF skill + SessionEnd hook that distills memsearch journals into the `~/wiki` OKF bundle
+- `daily-summary` — standup digest skill that groups the day's memsearch activity log by repository
 
 ## License
 
