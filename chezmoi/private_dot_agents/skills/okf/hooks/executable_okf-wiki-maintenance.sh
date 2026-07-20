@@ -58,7 +58,7 @@ if printf '%s' "${prompt}" | claude -p \
   --bare \
   --strict-mcp-config \
   --no-session-persistence \
-  --model haiku \
+  --model sonnet \
   --effort medium \
   --permission-mode acceptEdits \
   --allowed-tools "Read,Write,Edit,Glob,Grep" \
