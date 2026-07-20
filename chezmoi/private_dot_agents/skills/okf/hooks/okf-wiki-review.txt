@@ -29,3 +29,5 @@ all topics before finishing — do not stop after the first document. Process ev
 Constraints:
 - Do not touch memsearch-owned files (PROJECT.md, USER.md, memory .md files) — read-only to you.
 - Do not ask questions. This runs unattended.
+- When updating log.md: check if today's date section already exists and append entries to it —
+  do not create a new section for the same date. One section per calendar date.
