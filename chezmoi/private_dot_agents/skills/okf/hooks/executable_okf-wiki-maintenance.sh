@@ -5,7 +5,7 @@
 # data source only, no changes to memsearch itself.
 set -euo pipefail
 
-OKF_PLUGIN="${HOME}/.claude/skills/okf"
+OKF_PLUGIN="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 MEMSEARCH_DIR="${MEMSEARCH_DIR:-${HOME}/.memsearch}"
 JOURNAL_DIR="${MEMSEARCH_DIR}/memory"
 WIKI_DIR="${OKF_WIKI_DIR:-${HOME}/wiki}"
