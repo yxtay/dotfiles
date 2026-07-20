@@ -5,20 +5,18 @@
 # data source only, no changes to memsearch itself.
 set -euo pipefail
 
-# Avoid recursing into our own hooks when the nested `claude -p` below exits.
-if [ "${MEMSEARCH_DISABLE:-}" = "1" ] || [ "${OKF_WIKI_DISABLE:-}" = "1" ]; then
-  exit 0
-fi
-
+OKF_PLUGIN="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 MEMSEARCH_DIR="${MEMSEARCH_DIR:-${HOME}/.memsearch}"
 JOURNAL_DIR="${MEMSEARCH_DIR}/memory"
 WIKI_DIR="${OKF_WIKI_DIR:-${HOME}/wiki}"
 STATE_FILE="${WIKI_DIR}/.okf-wiki-last-run"
 LOCK_FILE="${WIKI_DIR}/.okf-wiki-maintenance.lock"
+LOG_FILE="${WIKI_DIR}/.okf-wiki-maintenance.log"
 PROMPT_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/okf-wiki-review.txt"
 
 [ -d "${JOURNAL_DIR}" ] || exit 0
 [ -f "${PROMPT_FILE}" ] || exit 0
+[ -d "${OKF_PLUGIN}" ] || exit 0
 mkdir -p "${WIKI_DIR}"
 command -v claude &>/dev/null || exit 0
 
@@ -37,7 +35,7 @@ if [ -f "${STATE_FILE}" ]; then
   fi
 fi
 
-# Memories since last run, or last 3 days on first run. Always include yesterday (-mtime -1 = <24h).
+# Memories since last run, or last 3 days on first run.
 if [ -f "${STATE_FILE}" ]; then
   recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' \( -newer "${STATE_FILE}" -o -mtime -1 \) 2>/dev/null)"
 else
@@ -45,11 +43,6 @@ else
 fi
 
 [ -n "${recent_memories}" ] || exit 0
-
-export MEMSEARCH_DISABLE=1
-export MEMSEARCH_NO_WATCH=1
-export OKF_WIKI_DISABLE=1
-unset CLAUDECODE # clear CLAUDECODE so the child session doesn't inherit hook context
 
 # hook runs with async:true — Claude Code does not block on this script.
 # Run claude -p synchronously so mkdir lock holds for the full duration,
@@ -62,16 +55,22 @@ prompt="$(
   printf 'Recent memory:\n%s\n' "${recent_memories}"
 )"
 if printf '%s' "${prompt}" | claude -p \
+  --bare \
   --strict-mcp-config \
   --no-session-persistence \
-  --model haiku \
-  --effort low \
+  --model sonnet \
+  --effort medium \
+  --permission-mode acceptEdits \
   --allowed-tools "Read,Write,Edit,Glob,Grep" \
+  --plugin-dir "${OKF_PLUGIN}" \
+  --exclude-dynamic-system-prompt-sections \
   --append-system-prompt-file "${PROMPT_FILE}" \
   --add-dir "${WIKI_DIR}" \
   --add-dir "${MEMSEARCH_DIR}" \
-  >/dev/null 2>&1; then
+  >>"${LOG_FILE}" 2>&1; then
   date +%Y-%m-%d >"${STATE_FILE}"
+else
+  printf '%s okf-wiki-maintenance failed (exit %s)\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$?" >>"${LOG_FILE}"
 fi
 
 exit 0

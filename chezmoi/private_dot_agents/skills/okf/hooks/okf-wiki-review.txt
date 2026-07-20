@@ -12,19 +12,19 @@ Step 2 — read `<wiki>/index.md` to understand the bundle's current structure.
 
 Step 3 — read the files listed under "Recent memory:" in the user message, plus any user profile and project review files listed.
 
-Step 4 — decide: is there anything worth adding or updating in the wiki?
-Lean toward capturing. Capture any of:
+Step 4 — extract every distinct topic worth capturing from the memory files. For each topic ask:
 - How something works — tools, systems, integrations, flags, invocation patterns
 - How something was set up or configured — steps, sequences, decisions made
 - Why something was done — rationale, tradeoffs, constraints
 - What was found — investigation results, things ruled out, gotchas
 - What worked or didn't — patterns, failure modes, workarounds
 
-Only skip if the knowledge is already fully covered by an existing concept, or if it is truly
-ephemeral (e.g. a one-line typo fix with no transferable lesson). When in doubt, add it.
+Only skip a topic if it is already fully covered by an existing concept, or if it is truly
+ephemeral (e.g. a one-line typo fix with no transferable lesson). When in doubt, include it.
 Prefer amending an existing concept over creating a new one for incremental additions.
 
-Step 5 — if there is durable knowledge, apply the skill's **maintain** mode.
+Step 5 — for each topic identified in Step 4, apply the skill's **maintain** mode. Work through
+all topics before finishing — do not stop after the first document. Process every topic.
 
 Constraints:
 - Do not touch memsearch-owned files (PROJECT.md, USER.md, memory .md files) — read-only to you.
