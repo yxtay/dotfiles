@@ -5,11 +5,6 @@
 # data source only, no changes to memsearch itself.
 set -euo pipefail
 
-# Avoid recursing into our own hooks when the nested `claude -p` below exits.
-if [ "${MEMSEARCH_DISABLE:-}" = "1" ] || [ "${OKF_WIKI_DISABLE:-}" = "1" ]; then
-  exit 0
-fi
-
 MEMSEARCH_DIR="${MEMSEARCH_DIR:-${HOME}/.memsearch}"
 JOURNAL_DIR="${MEMSEARCH_DIR}/memory"
 WIKI_DIR="${OKF_WIKI_DIR:-${HOME}/wiki}"
@@ -37,19 +32,14 @@ if [ -f "${STATE_FILE}" ]; then
   fi
 fi
 
-# Memories since last run, or last 3 days on first run. Always include yesterday (-mtime -1 = <24h).
+# Memories since last run, or past day on first run.
 if [ -f "${STATE_FILE}" ]; then
   recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' \( -newer "${STATE_FILE}" -o -mtime -1 \) 2>/dev/null)"
 else
-  recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' -mtime -3 2>/dev/null)"
+  recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' -mtime -1 2>/dev/null)"
 fi
 
 [ -n "${recent_memories}" ] || exit 0
-
-export MEMSEARCH_DISABLE=1
-export MEMSEARCH_NO_WATCH=1
-export OKF_WIKI_DISABLE=1
-unset CLAUDECODE # clear CLAUDECODE so the child session doesn't inherit hook context
 
 # hook runs with async:true — Claude Code does not block on this script.
 # Run claude -p synchronously so mkdir lock holds for the full duration,
@@ -62,11 +52,14 @@ prompt="$(
   printf 'Recent memory:\n%s\n' "${recent_memories}"
 )"
 if printf '%s' "${prompt}" | claude -p \
-  --strict-mcp-config \
+  --bare \
   --no-session-persistence \
   --model haiku \
   --effort low \
+  --permission-mode acceptEdits \
   --allowed-tools "Read,Write,Edit,Glob,Grep" \
+  --plugin-dir "${HOME}/.claude/skills/okf" \
+  --exclude-dynamic-system-prompt-sections \
   --append-system-prompt-file "${PROMPT_FILE}" \
   --add-dir "${WIKI_DIR}" \
   --add-dir "${MEMSEARCH_DIR}" \
