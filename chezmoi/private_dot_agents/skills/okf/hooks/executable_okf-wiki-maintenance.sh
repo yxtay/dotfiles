@@ -5,15 +5,18 @@
 # data source only, no changes to memsearch itself.
 set -euo pipefail
 
+OKF_PLUGIN="${HOME}/.claude/skills/okf"
 MEMSEARCH_DIR="${MEMSEARCH_DIR:-${HOME}/.memsearch}"
 JOURNAL_DIR="${MEMSEARCH_DIR}/memory"
 WIKI_DIR="${OKF_WIKI_DIR:-${HOME}/wiki}"
 STATE_FILE="${WIKI_DIR}/.okf-wiki-last-run"
 LOCK_FILE="${WIKI_DIR}/.okf-wiki-maintenance.lock"
+LOG_FILE="${WIKI_DIR}/.okf-wiki-maintenance.log"
 PROMPT_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/okf-wiki-review.txt"
 
 [ -d "${JOURNAL_DIR}" ] || exit 0
 [ -f "${PROMPT_FILE}" ] || exit 0
+[ -d "${OKF_PLUGIN}" ] || exit 0
 mkdir -p "${WIKI_DIR}"
 command -v claude &>/dev/null || exit 0
 
@@ -32,11 +35,11 @@ if [ -f "${STATE_FILE}" ]; then
   fi
 fi
 
-# Memories since last run, or past day on first run.
+# Memories since last run, or last 3 days on first run.
 if [ -f "${STATE_FILE}" ]; then
   recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' \( -newer "${STATE_FILE}" -o -mtime -1 \) 2>/dev/null)"
 else
-  recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' -mtime -1 2>/dev/null)"
+  recent_memories="$(find "${JOURNAL_DIR}" -maxdepth 1 -name '*.md' -mtime -3 2>/dev/null)"
 fi
 
 [ -n "${recent_memories}" ] || exit 0
@@ -53,18 +56,21 @@ prompt="$(
 )"
 if printf '%s' "${prompt}" | claude -p \
   --bare \
+  --strict-mcp-config \
   --no-session-persistence \
   --model haiku \
-  --effort low \
+  --effort medium \
   --permission-mode acceptEdits \
   --allowed-tools "Read,Write,Edit,Glob,Grep" \
-  --plugin-dir "${HOME}/.claude/skills/okf" \
+  --plugin-dir "${OKF_PLUGIN}" \
   --exclude-dynamic-system-prompt-sections \
   --append-system-prompt-file "${PROMPT_FILE}" \
   --add-dir "${WIKI_DIR}" \
   --add-dir "${MEMSEARCH_DIR}" \
-  >/dev/null 2>&1; then
+  >>"${LOG_FILE}" 2>&1; then
   date +%Y-%m-%d >"${STATE_FILE}"
+else
+  printf '%s okf-wiki-maintenance failed (exit %s)\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$?" >>"${LOG_FILE}"
 fi
 
 exit 0
