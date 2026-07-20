@@ -59,7 +59,7 @@ if printf '%s' "${prompt}" | claude -p \
   --strict-mcp-config \
   --no-session-persistence \
   --model sonnet \
-  --effort medium \
+  --effort low \
   --permission-mode acceptEdits \
   --allowed-tools "Read,Write,Edit,Glob,Grep" \
   --plugin-dir "${OKF_PLUGIN}" \
