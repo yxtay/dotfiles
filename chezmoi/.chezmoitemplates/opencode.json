@@ -22,11 +22,6 @@
     "@zilliz/memsearch-opencode"
   ],
   "mcp": {
-    "codebase-memory-mcp": {
-      "command": "codebase-memory-mcp",
-      "enabled": true,
-      "type": "local"
-    },
     "context-mode": {
       "type": "local",
       "command": ["npx", "--yes", "context-mode"],
