@@ -2,7 +2,7 @@
 name: update-summary
 description: Standup digest from memsearch activity logs, grouped by repo. Supports date ranges and project filters.
 disable-model-invocation: true
-argument-hint: "[YYYY-MM-DD | YYYY-MM-DD:YYYY-MM-DD] [--project <pattern>]"
+argument-hint: "[<date-or-range>] [--project <pattern>]"
 ---
 
 # Update Summary
@@ -46,7 +46,7 @@ Examples:
 3. **Load shell history** — run a single atuin query spanning the full range:
 
    ```sh
-   atuin search --after "<start-date> 00:00:00" --before "<end-date+1> 00:00:00" \
+   atuin search --after "<start-date> 00:00:00" --before "<end-date> 23:59:59" \
      --format "{time} {directory} {command}" --limit 5000 2>/dev/null
    ```
 
