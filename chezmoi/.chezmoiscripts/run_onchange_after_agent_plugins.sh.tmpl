@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash
 if command -v codebase-memory-mcp >/dev/null; then
+  codebase-memory-mcp install --yes
   codebase-memory-mcp config set auto_index true
 fi
 
