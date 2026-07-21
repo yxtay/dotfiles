@@ -9,7 +9,7 @@ steps for adding, updating, and linking concepts. Follow it exactly for any edit
 
 Step 2 — read `<wiki>/index.md` to understand the bundle's current structure.
 
-Step 3 — read the files listed under "Recent memory:" in the user message, plus any user profile and project review files listed.
+Step 3 — read the files listed under "Recent memory:" in the user message, plus any user profile file listed.
 
 Step 4 — extract every distinct topic worth capturing from the memory files. For each topic ask:
 - How something works — tools, systems, integrations, flags, invocation patterns
