@@ -1,3 +1,10 @@
+[".local/bin/codebase-memory-mcp"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "DeusData/codebase-memory-mcp" (printf "codebase-memory-mcp-%s-%s.tar.gz" .chezmoi.os .chezmoi.arch) }}"
+  path = "codebase-memory-mcp"
+  executable = true
+  refreshPeriod = "168h"
+
 [".local/bin/mcp-cli"]
   type = "file"
 {{- if (eq .chezmoi.arch "amd64") }}
