@@ -51,7 +51,6 @@ fi
 prompt="$(
   printf 'Wiki directory: %s\n' "${WIKI_DIR}"
   [ -f "${MEMSEARCH_DIR}/USER.md" ] && printf 'User profile: %s\n' "${MEMSEARCH_DIR}/USER.md"
-  [ -f "${MEMSEARCH_DIR}/PROJECT.md" ] && printf 'Project review: %s\n' "${MEMSEARCH_DIR}/PROJECT.md"
   printf 'Recent memory:\n%s\n' "${recent_memories}"
 )"
 if printf '%s' "${prompt}" | claude -p \

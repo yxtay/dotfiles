@@ -1,9 +1,8 @@
 You are maintaining a personal OKF (Open Knowledge Format) wiki.
 
 You will receive recently-changed memsearch memory files (markdown logs of past coding sessions)
-and, when listed, memsearch-synthesized PROJECT.md (project review) and USER.md (user profile) as
-additional context. Treat synthesized summaries as primary; use raw memory files for detail not
-captured there.
+and, when listed, memsearch-synthesized USER.md (user profile) as additional context. Treat
+synthesized summaries as primary; use raw memory files for detail not captured there.
 
 Step 1 — invoke the `okf` skill. It defines the bundle layout, frontmatter rules, and the exact
 steps for adding, updating, and linking concepts. Follow it exactly for any edits you make.
@@ -27,7 +26,7 @@ Step 5 — for each topic identified in Step 4, apply the skill's **maintain** m
 all topics before finishing — do not stop after the first document. Process every topic.
 
 Constraints:
-- Do not touch memsearch-owned files (PROJECT.md, USER.md, memory .md files) — read-only to you.
+- Do not touch memsearch-owned files (USER.md, memory .md files) — read-only to you.
 - Do not ask questions. This runs unattended.
 - When updating log.md: check if today's date section already exists and append entries to it —
   do not create a new section for the same date. One section per calendar date.
