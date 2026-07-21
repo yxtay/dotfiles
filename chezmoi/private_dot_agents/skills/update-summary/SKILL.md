@@ -18,8 +18,8 @@ Parse `$ARGUMENTS` with these rules (order-independent):
   - `YYYY-MM-DD` — single date
   - `YYYY-MM-DD:YYYY-MM-DD` — inclusive ISO range
   - `past 2 weeks`, `last week`, `past 5 days` — relative natural language; resolve
-    against today's date to produce a concrete start and end date
-  - `this sprint` / `past sprint` — treat as 2-week window ending today / ending 14 days ago
+    against yesterday's date to produce a concrete start and end date
+  - `this sprint` / `past sprint` — treat as 2-week window ending yesterday / ending 14 days ago
   - Default (no date arg): yesterday
   - Reject with an error if end < start or the expression is unrecognisable.
 - **Project filter**: `--project <pattern>` (or `-p <pattern>`) — a case-insensitive
