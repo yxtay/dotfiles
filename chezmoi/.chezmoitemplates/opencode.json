@@ -23,7 +23,9 @@
   ],
   "mcp": {
     "codebase-memory-mcp": {
-      "command": "codebase-memory-mcp"
+      "command": "codebase-memory-mcp",
+      "enabled": true,
+      "type": "local"
     },
     "context-mode": {
       "type": "local",
