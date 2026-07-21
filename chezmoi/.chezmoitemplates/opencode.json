@@ -22,14 +22,12 @@
     "@zilliz/memsearch-opencode"
   ],
   "mcp": {
+    "codebase-memory-mcp": {
+      "command": "codebase-memory-mcp"
+    },
     "context-mode": {
       "type": "local",
       "command": ["npx", "--yes", "context-mode"],
-      "enabled": true
-    },
-    "deepwiki": {
-      "type": "remote",
-      "url": "https://mcp.deepwiki.com/mcp",
       "enabled": true
     },
     "playwright": {
