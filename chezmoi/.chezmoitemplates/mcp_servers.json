@@ -3,13 +3,6 @@
     "codebase-memory-mcp": {
       "command": "codebase-memory-mcp"
     },
-    "context-mode": {
-      "command": "npx",
-      "args": ["--yes", "context-mode"]
-    },
-    "deepwiki": {
-      "url": "https://mcp.deepwiki.com/mcp"
-    },
     "playwright": {
       "command": "npx",
       "args": ["--yes", "@playwright/mcp"]
