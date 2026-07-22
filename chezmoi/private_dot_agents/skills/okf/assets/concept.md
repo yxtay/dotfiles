@@ -6,6 +6,9 @@ description: Single sentence summarizing the concept.
 tags: [TAG]
 timestamp: 2026-07-16T09:30:00Z
 ---
+<!-- markdownlint-disable MD025 MD041 -->
+
+# DISPLAY_NAME
 
 ## Overview
 

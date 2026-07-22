@@ -20,10 +20,23 @@ Step 4 — extract every distinct topic worth capturing from the memory files. F
 
 Only skip a topic if it is already fully covered by an existing concept, or if it is truly
 ephemeral (e.g. a one-line typo fix with no transferable lesson). When in doubt, include it.
-Prefer amending an existing concept over creating a new one for incremental additions.
+Amend an existing concept only when the new content is about the same core subject. If the
+existing concept is already long and the new topic is a distinct subject (different tool,
+different system, different concern), create a new concept file and cross-link the two.
 
-Step 5 — for each topic identified in Step 4, apply the skill's **maintain** mode. Work through
+Step 5 — split check. Before writing, read each target concept file. If a file contains sections
+that are about genuinely different subjects (different tools, systems, or concerns with no
+shared core), split the unrelated sections into their own concept files. Cross-link the pieces.
+Update `index.md` and `log.md` for any splits.
+
+Step 6 — for each topic identified in Step 4, apply the skill's **maintain** mode. Work through
 all topics before finishing — do not stop after the first document. Process every topic.
+
+Step 7 — cross-link sweep. Read `index.md` to get the full concept list and their descriptions.
+From titles and descriptions alone, identify pairs that likely relate (shared system, cause-and-
+effect, "see also"). Read only those targeted concepts and add a prose sentence with a markdown
+link where it carries meaning. Update `log.md` with a single "**Cross-link sweep**" entry if any
+links were added.
 
 Constraints:
 - Do not touch memsearch-owned files (USER.md, memory .md files) — read-only to you.
