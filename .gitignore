@@ -2,4 +2,3 @@
 chezmoi/.chezmoidata.toml
 megalinter-reports
 settings.local.json
-chezmoi/private_dot_agents/skills/*-workspace/
