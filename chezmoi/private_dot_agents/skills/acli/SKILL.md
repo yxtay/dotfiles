@@ -2,7 +2,7 @@
 name: acli
 description: >-
   Use when the user asks about Jira issues, JQL searches, sprints, boards,
-  or Confluence pages/spaces — or says "use acli" or "no MCP".
+  or Confluence pages/spaces, or says "use acli".
   Covers reading, creating, editing, transitioning, and commenting on Jira work
   items; listing sprints and boards; reading Confluence pages, spaces, and blogs.
 argument-hint: "[jira|confluence] <action> [args]"
@@ -52,7 +52,8 @@ acli jira workitem comment create --key "KEY-123" --body "Comment text"
 
 ```bash
 # Projects
-acli jira project list --json
+acli jira project list --limit 50 --json    # use --paginate for all pages
+acli jira project list --paginate --json
 acli jira project view --json   # prompts for project key
 
 # Boards

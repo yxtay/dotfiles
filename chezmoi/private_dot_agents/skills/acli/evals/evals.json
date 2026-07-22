@@ -1,0 +1,39 @@
+{
+  "skill_name": "acli",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "List all my Jira projects that I have access to. Show the results as JSON.",
+      "expected_output": "Runs `acli jira project list --json` and outputs the project list",
+      "files": [],
+      "expectations": [
+        "Used `acli jira project list` command",
+        "Included `--json` flag or produced JSON-formatted output",
+        "Did not use curl or a REST API URL"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Search for any open Jira issues assigned to me that are currently in an active sprint. Show the key, summary, and status for each.",
+      "expected_output": "Runs `acli jira workitem search` with JQL using `assignee = currentUser() AND sprint in openSprints()` and appropriate fields",
+      "files": [],
+      "expectations": [
+        "Used `acli jira workitem search` command",
+        "JQL includes `sprint in openSprints()`",
+        "JQL includes `assignee = currentUser()`",
+        "Fields requested include key, summary, and status"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "List all Confluence spaces I have access to. Show results as JSON.",
+      "expected_output": "Runs `acli confluence space list --json` and outputs the space list",
+      "files": [],
+      "expectations": [
+        "Used `acli confluence space list` command",
+        "Included `--json` flag or produced JSON-formatted output",
+        "Did not use curl or a REST API URL"
+      ]
+    }
+  ]
+}
