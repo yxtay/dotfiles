@@ -16,9 +16,9 @@
     }
   },
   "plugin": [
-    "@tarquinen/opencode-dcp",
     "openslimedit",
     "context-mode",
+    "@dietrichgebert/ponytail",
     "@zilliz/memsearch-opencode"
   ],
   "mcp": {

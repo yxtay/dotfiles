@@ -9,6 +9,7 @@ fi
 
 marketplaces=(
   anthropics/claude-plugins-official
+  DietrichGebert/ponytail
   JuliusBrussee/caveman
   zilliztech/memsearch
 )
@@ -24,6 +25,7 @@ plugins=(
   typescript-lsp@claude-plugins-official
   caveman@caveman
   memsearch@memsearch-plugins
+  ponytail@ponytail
 )
 for entry in "${plugins[@]}"; do
   claude plugin install "${entry}"
