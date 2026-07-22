@@ -1,19 +1,14 @@
 ---
 name: acli
-description: Interact with Jira and Confluence via the acli CLI. Use for reading/writing Jira issues, searching with JQL, managing sprints, and reading Confluence pages/spaces — without MCP.
+description: >-
+  Use when the user asks about Jira issues, JQL searches, sprints, boards,
+  or Confluence pages/spaces — or says "use acli" or "no MCP".
+  Covers reading, creating, editing, transitioning, and commenting on Jira work
+  items; listing sprints and boards; reading Confluence pages, spaces, and blogs.
 argument-hint: "[jira|confluence] <action> [args]"
 ---
 
 # acli — Atlassian CLI
-
-Interact with **Jira** and **Confluence** via the `acli` CLI. No MCP required.
-
-## When to use
-
-- Read or update Jira work items (view, search, create, edit, transition, comment)
-- Query sprints, boards, projects
-- Read Confluence pages, spaces, blog posts
-- User says "use acli", "no MCP", or references Jira/Confluence tasks
 
 ## Core commands
 
@@ -160,20 +155,20 @@ issueType = Epic
 issuetype in (Story, Task, Bug)
 ```
 
-## Output tips
+## Flags
 
-- Prefer `--json` for parsing; default output is human-readable tables
-- `--fields '*all'` returns every field; `--fields 'key,summary,status'` for minimal output
-- `--paginate` fetches all pages of results (search/list commands)
-- `--limit N` caps results
-- `--yes` / `-y` skips confirmation prompts on edit/transition/delete
+| Flag | Effect |
+| ---- | ------ |
+| `--json` | Machine-readable output (prefer for parsing) |
+| `--fields '*all'` | All fields; `--fields 'key,summary,status'` for minimal |
+| `--paginate` | Fetch all pages |
+| `--limit N` | Cap results |
+| `--yes` / `-y` | Skip confirmation on edit/transition/delete |
 
 ## Auth
 
 ```bash
-acli jira auth    # authenticate Jira (OAuth or API token)
-acli confluence auth    # authenticate Confluence
-acli auth    # top-level auth for all products
+acli jira auth        # Jira (OAuth or API token)
+acli confluence auth  # Confluence
+acli auth             # all products
 ```
-
-If commands fail with auth errors, run the appropriate `auth` command first.
