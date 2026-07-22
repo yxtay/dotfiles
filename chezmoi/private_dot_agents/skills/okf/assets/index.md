@@ -1,8 +1,9 @@
+<!-- markdownlint-disable MD025 -->
 # Group Heading
 
 - [Title](relative-url) - short description from the concept's frontmatter
 - [Title](relative-url) - short description
 
-## Another Group
+# Another Group
 
 - [Subdirectory](subdir/) - short description of the subdirectory

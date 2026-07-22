@@ -1,18 +1,19 @@
 ---
 name: okf
 description: >-
-  Create and maintain knowledge bundles in Open Knowledge Format (OKF) —
-  markdown + YAML-frontmatter concept files for durable knowledge. Invoke to
-  write, structure, or validate an OKF bundle; add concept documents; build
-  `index.md`/`log.md`; cross-link concepts; or check OKF conformance.
-user-invocable: true
-argument-hint: "[produce|maintain|consume] [bundle-path]"
+  OKF skill — create, extend, or sync knowledge bundles in Open Knowledge
+  Format (markdown + YAML-frontmatter concept files). Use when producing a new
+  bundle from code, docs, or decisions; maintaining (syncing) an existing
+  bundle; consuming a bundle as context; or when another skill needs OKF format
+  conventions.
+metadata:
+  argument-hint: "[produce|maintain|consume] [bundle-path]"
 ---
 
 # Open Knowledge Format (OKF) skill
 
 OKF is a directory of markdown files with YAML frontmatter. Work from the spec —
-[SPEC.md](SPEC.md) is the source of truth.
+[references/SPEC.md](references/SPEC.md) is the source of truth.
 
 ## The one hard rule
 
@@ -35,19 +36,19 @@ missing optional fields, unknown types, and broken links.
 - **Reserved:** `index.md` (directory listing) and `log.md` (ISO-dated history,
   newest first) — concepts never use these names.
 
-Templates: [concept](templates/concept.md), [index](templates/index.md),
-[log](templates/log.md).
+Templates: [concept](assets/concept.md), [index](assets/index.md),
+[log](assets/log.md).
 
 ## Task types
 
 ### produce — create or extend a bundle
 
-1. Read [SPEC.md](SPEC.md).
+1. Read [references/SPEC.md](references/SPEC.md).
 2. Choose sources: **code** (source, READMEs, docstrings, config), **docs/wiki**
    (distill into concepts; cite originals under `# Citations`), **manual**
    (decisions, playbooks, metrics).
 3. Lay out directories by domain (`services/`, `datasets/`, `decisions/`).
-4. Write each concept from [templates/concept.md](templates/concept.md): set a
+4. Write each concept from [assets/concept.md](assets/concept.md): set a
    descriptive `type`, fill recommended fields, cross-link related concepts.
 5. Add/refresh `index.md` per directory (`okf_version: "0.1"` in root index)
    and append to `log.md`.
@@ -55,9 +56,12 @@ Templates: [concept](templates/concept.md), [index](templates/index.md),
 ### maintain — sync a bundle with reality
 
 1. Triage affected concepts by `resource`, path, or topic — cover every one.
-2. Update body and `timestamp`; add or fix cross-links; create concepts for new
+2. Read each target concept. If it mixes genuinely different subjects (different
+   tool, system, or concern), split the unrelated sections into their own files
+   and cross-link them.
+3. Update body and `timestamp`; add or fix cross-links; create concepts for new
    assets; mark removed assets with `**Deprecation**` to preserve context.
-3. Update `index.md` entries and append to `log.md`.
+4. Update `index.md` entries and append to `log.md`.
 
 ### consume — use a bundle as context
 
