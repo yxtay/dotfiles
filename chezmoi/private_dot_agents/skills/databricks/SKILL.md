@@ -166,13 +166,13 @@ databricks fs cp dbfs:/tmp/result.csv ./result.csv
 
 ## Flags
 
-| Flag | Effect |
-| ---- | ------ |
+| Flag            | Effect                                       |
+|-----------------|----------------------------------------------|
 | `--output json` | Machine-readable output (prefer for parsing) |
-| `-p <profile>` | Use named profile from `~/.databrickscfg` |
-| `-t <target>` | Bundle target (e.g. `dev`, `prod`) |
-| `--debug` | Verbose debug logging |
-| `--var "k=v"` | Override bundle variable |
+| `-p <profile>`  | Use named profile from `~/.databrickscfg`    |
+| `-t <target>`   | Bundle target (e.g. `dev`, `prod`)           |
+| `--debug`       | Verbose debug logging                        |
+| `--var "k=v"`   | Override bundle variable                     |
 
 ## Auth
 
