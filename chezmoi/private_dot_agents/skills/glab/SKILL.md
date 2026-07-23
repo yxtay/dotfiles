@@ -186,20 +186,20 @@ glab mr list -g my-group --state all --assignee @me --output json
 
 ## Flags
 
-| Flag | Effect |
-| ---- | ------ |
-| `--output json` | Machine-readable output (prefer for parsing) |
-| `--assignee @me` | Filter to current authenticated user |
-| `--state all\|opened\|closed\|merged` | Filter by state |
-| `--label <name>` | Filter by label (repeatable) |
-| `--milestone <name>` | Filter by milestone |
-| `--search <str>` | Full-text search in title/description |
-| `--jq <expr>` | Apply jq filter to JSON output |
-| `--paginate` | Fetch all pages |
-| `-R <owner/repo>` | Target a different project |
-| `-g <group>` | Target a group instead of a project |
-| `--web` | Open result in browser |
-| `-y / --yes` | Skip confirmation prompts |
+| Flag                                  | Effect                                       |
+|---------------------------------------|----------------------------------------------|
+| `--output json`                       | Machine-readable output (prefer for parsing) |
+| `--assignee @me`                      | Filter to current authenticated user         |
+| `--state all\|opened\|closed\|merged` | Filter by state                              |
+| `--label <name>`                      | Filter by label (repeatable)                 |
+| `--milestone <name>`                  | Filter by milestone                          |
+| `--search <str>`                      | Full-text search in title/description        |
+| `--jq <expr>`                         | Apply jq filter to JSON output               |
+| `--paginate`                          | Fetch all pages                              |
+| `-R <owner/repo>`                     | Target a different project                   |
+| `-g <group>`                          | Target a group instead of a project          |
+| `--web`                               | Open result in browser                       |
+| `-y / --yes`                          | Skip confirmation prompts                    |
 
 ## Auth
 

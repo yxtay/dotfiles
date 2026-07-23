@@ -156,13 +156,13 @@ issuetype in (Story, Task, Bug)
 
 ## Flags
 
-| Flag | Effect |
-| ---- | ------ |
-| `--json` | Machine-readable output (prefer for parsing) |
+| Flag              | Effect                                                  |
+|-------------------|---------------------------------------------------------|
+| `--json`          | Machine-readable output (prefer for parsing)            |
 | `--fields '*all'` | All fields; `--fields 'key,summary,status'` for minimal |
-| `--paginate` | Fetch all pages |
-| `--limit N` | Cap results |
-| `--yes` / `-y` | Skip confirmation on edit/transition/delete |
+| `--paginate`      | Fetch all pages                                         |
+| `--limit N`       | Cap results                                             |
+| `--yes` / `-y`    | Skip confirmation on edit/transition/delete             |
 
 ## Auth
 
