@@ -3,8 +3,6 @@ name: acli
 description: >-
   Use when the user asks about Jira issues, JQL searches, sprints, boards,
   or Confluence pages/spaces, or says "use acli".
-  Covers reading, creating, editing, transitioning, and commenting on Jira work
-  items; listing sprints and boards; reading Confluence pages, spaces, and blogs.
 argument-hint: "[jira|confluence] <action> [args]"
 ---
 
