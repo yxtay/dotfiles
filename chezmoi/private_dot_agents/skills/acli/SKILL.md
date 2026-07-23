@@ -3,8 +3,6 @@ name: acli
 description: >-
   Use when the user asks about Jira issues, JQL searches, sprints, boards,
   or Confluence pages/spaces, or says "use acli".
-  Covers reading, creating, editing, transitioning, and commenting on Jira work
-  items; listing sprints and boards; reading Confluence pages, spaces, and blogs.
 argument-hint: "[jira|confluence] <action> [args]"
 ---
 
@@ -158,13 +156,13 @@ issuetype in (Story, Task, Bug)
 
 ## Flags
 
-| Flag | Effect |
-| ---- | ------ |
-| `--json` | Machine-readable output (prefer for parsing) |
+| Flag              | Effect                                                  |
+|-------------------|---------------------------------------------------------|
+| `--json`          | Machine-readable output (prefer for parsing)            |
 | `--fields '*all'` | All fields; `--fields 'key,summary,status'` for minimal |
-| `--paginate` | Fetch all pages |
-| `--limit N` | Cap results |
-| `--yes` / `-y` | Skip confirmation on edit/transition/delete |
+| `--paginate`      | Fetch all pages                                         |
+| `--limit N`       | Cap results                                             |
+| `--yes` / `-y`    | Skip confirmation on edit/transition/delete             |
 
 ## Auth
 

@@ -2,7 +2,8 @@
 set -euo pipefail
 
 if command -v gh >/dev/null; then
-  export GITHUB_TOKEN=$(gh auth token)
+  GITHUB_TOKEN=$(gh auth token)
+  export GITHUB_TOKEN
   trap 'unset GITHUB_TOKEN' EXIT
 fi
 
