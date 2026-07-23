@@ -73,13 +73,13 @@ old file (removed `-` or context). Set one or both for context lines.
 
 `type`: `"new"` for added lines, `"old"` for removed lines.
 
-| Gotcha | Symptom | Fix |
-| --- | --- | --- |
-| `-f new_line=15` sends string | Silent DiscussionNote fallback | Use `--input json_file` |
-| Missing `Content-Type` | HTTP 415 | Add `-H "Content-Type: application/json"` |
-| Renamed file, no `line_code` | HTTP 400 `line_code can't be blank` | `sha1(new_path)_old_new` |
-| Line outside diff hunk | HTTP 400 or silent fallback | Verify line is in hunk range |
-| Used `git rev-parse HEAD` | Silent fallback | Fetch `diff_refs` from MR API |
+| Gotcha                        | Symptom                             | Fix                                       |
+|-------------------------------|-------------------------------------|-------------------------------------------|
+| `-f new_line=15` sends string | Silent DiscussionNote fallback      | Use `--input json_file`                   |
+| Missing `Content-Type`        | HTTP 415                            | Add `-H "Content-Type: application/json"` |
+| Renamed file, no `line_code`  | HTTP 400 `line_code can't be blank` | `sha1(new_path)_old_new`                  |
+| Line outside diff hunk        | HTTP 400 or silent fallback         | Verify line is in hunk range              |
+| Used `git rev-parse HEAD`     | Silent fallback                     | Fetch `diff_refs` from MR API             |
 
 ## Suggestions
 
