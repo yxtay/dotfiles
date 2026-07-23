@@ -54,15 +54,19 @@ pre-commit install
 ./bin/cleanup-all.sh
 ```
 
-## Claude Code plugins
+## Agent skills
 
-Personal skills-directory plugin deployed by `chezmoi apply` to `~/.claude/skills/okf/`.
-Loaded automatically as `okf@skills-dir` on session start — no install step.
+Personal agent skills deployed by `chezmoi apply` to `~/.agents/skills/` and symlinked into `~/.claude/skills/`.
 
-Current plugins:
+Current skills:
 
+- `acli` — Jira issues, JQL searches, sprints, boards, and Confluence pages/spaces
+- `databricks` — Databricks jobs, clusters, pipelines, bundles, SQL warehouses, DBFS/volumes,
+  and workspace objects
+- `glab` — GitLab merge requests, issues, CI/CD pipelines, pipeline jobs, and repositories
 - `okf` — OKF skill + SessionEnd hook that distills memsearch journals into the `~/wiki` OKF bundle
-- `daily-summary` — standup digest skill that groups the day's memsearch activity log by repository
+- `update-summary` — standup digest from memsearch activity logs, grouped by repo;
+  supports date ranges and project filters
 
 ## License
 
