@@ -154,7 +154,8 @@ glab mr merge 123 --squash --remove-source-branch
 ```
 
 For inline diff comments (DiffNotes), review comments, line comments, and suggestions via `glab api`:
-use `--input <json-file>` not `-f` flags (integers vs strings) — see [references/diffnotes.md](references/diffnotes.md).
+use `--input <json-file>` not `-f` flags (`-f` can't build the nested `position` object) — see
+[references/diffnotes.md](references/diffnotes.md).
 
 ### Find and fix a failing pipeline
 

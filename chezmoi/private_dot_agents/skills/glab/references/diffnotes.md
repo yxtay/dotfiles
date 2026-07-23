@@ -2,21 +2,21 @@
 
 ## DiffNotes via API
 
-`glab api -f` sends strings; GitLab position validation needs integers → silently falls back to
-plain DiscussionNote. Always use `--input` + explicit Content-Type.
+`glab api -f` sends flat key=value form fields — it cannot build the nested `position` object at
+all. Always use `--input` with a JSON file + explicit Content-Type header.
 
 ```bash
 # 1. Get diff_refs (base_sha, start_sha, head_sha)
-glab api "projects/<id>/merge_requests/<iid>" 2>/dev/null \
+glab api "projects/<id>/merge_requests/<iid>" \
   | jq '.diff_refs'
 
 # 2. Inspect file paths (old_path / new_path for renamed files)
-glab api "projects/<id>/merge_requests/<iid>/diffs?per_page=100" 2>/dev/null \
+glab api "projects/<id>/merge_requests/<iid>/diffs?per_page=100" --paginate \
   | jq -r '.[] | "\(.old_path) -> \(.new_path) | renamed: \(.renamed_file)"'
 
 # 3. Verify a line is inside a diff hunk (lines outside hunks → 400)
 #    Show hunk headers for a specific file
-glab api "projects/<id>/merge_requests/<iid>/diffs?per_page=100" 2>/dev/null \
+glab api "projects/<id>/merge_requests/<iid>/diffs?per_page=100" --paginate \
   | jq -r '.[] | select(.new_path == "path/to/file.ts") | .diff' \
   | grep '^@@'
 
@@ -42,7 +42,7 @@ glab api "projects/<id>/merge_requests/<iid>/discussions" \
   -X POST -H "Content-Type: application/json" --input /tmp/note.json
 
 # 6. Confirm it landed as DiffNote (not DiscussionNote)
-glab api "projects/<id>/merge_requests/<iid>/discussions?per_page=100" 2>/dev/null \
+glab api "projects/<id>/merge_requests/<iid>/discussions?per_page=100" --paginate \
   | jq -r '.[] | .notes[] | select(.type == "DiffNote") |
       "id=\(.id) \(.position.new_path):\(.position.new_line) \(.body[:50])"'
 ```
@@ -73,13 +73,13 @@ old file (removed `-` or context). Set one or both for context lines.
 
 `type`: `"new"` for added lines, `"old"` for removed lines.
 
-| Gotcha                        | Symptom                             | Fix                                       |
-|-------------------------------|-------------------------------------|-------------------------------------------|
-| `-f new_line=15` sends string | Silent DiscussionNote fallback      | Use `--input json_file`                   |
-| Missing `Content-Type`        | HTTP 415                            | Add `-H "Content-Type: application/json"` |
-| Renamed file, no `line_code`  | HTTP 400 `line_code can't be blank` | `sha1(new_path)_old_new`                  |
-| Line outside diff hunk        | HTTP 400 or silent fallback         | Verify line is in hunk range              |
-| Used `git rev-parse HEAD`     | Silent fallback                     | Fetch `diff_refs` from MR API             |
+| Gotcha                            | Symptom                             | Fix                                       |
+|-----------------------------------|-------------------------------------|-------------------------------------------|
+| `-f` can't nest `position` object | API rejects or ignores position     | Use `--input json_file`                   |
+| Missing `Content-Type`            | HTTP 415                            | Add `-H "Content-Type: application/json"` |
+| Renamed file, no `line_code`      | HTTP 400 `line_code can't be blank` | `sha1(new_path)_old_new`                  |
+| Line outside diff hunk            | HTTP 400 or silent fallback         | Verify line is in hunk range              |
+| Used `git rev-parse HEAD`         | Silent fallback                     | Fetch `diff_refs` from MR API             |
 
 ## Suggestions
 
