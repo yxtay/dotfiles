@@ -8,10 +8,10 @@
 
 {{- if lookPath "gh" }}
 [credential "https://gist.github.com"]
-  helper = "gh auth git-credential"
+  helper = "!gh auth git-credential"
 
 [credential "https://github.com"]
-  helper = "gh auth git-credential"
+  helper = "!gh auth git-credential"
 {{- end }}
 
 [delta]
@@ -90,6 +90,9 @@
 
 {{- if not .is_ephemeral }}
 [includeIf "gitdir:~/work/"]
+  path = "~/.config/git/work_config"
+
+[includeIf "hasconfig:remote.*.url:https://sgts.gitlab-dedicated.com/**"]
   path = "~/.config/git/work_config"
 
 [includeIf "hasconfig:remote.*.url:git@sgts.gitlab-dedicated.com:**"]

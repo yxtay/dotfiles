@@ -54,7 +54,7 @@
   "sandbox": {
     "enabled": true,
     "enableWeakerNetworkIsolation": true,
-    "excludedCommands": ["atuin *", "docker *", "git *", "ssh *"]
+    "excludedCommands": ["atuin *", "docker *", "ssh *"]
   },
   "statusLine": {
     "type": "command",
