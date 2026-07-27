@@ -1,14 +1,14 @@
 ---
 name: acli
 description: >-
-  Use when the user asks about Jira issues, JQL searches, sprints, boards,
-  or Confluence pages/spaces, or says "use acli".
+  Use when the user asks about Jira tickets, issues, JQL searches, sprints,
+  boards, or Confluence pages/spaces, or says "use acli".
 argument-hint: "[jira|confluence] <action> [args]"
 ---
 
-# acli — Atlassian CLI
+# acli
 
-## Core commands
+## Commands
 
 ### Jira — work items
 
@@ -95,7 +95,15 @@ acli confluence blog view --id 98765 --json
 acli confluence blog view --id 98765 --body-format storage
 ```
 
-## Common patterns
+## Atlassian Document Format (ADF)
+
+Jira `--description` and `--description-file` accept plain text or ADF JSON.
+Markdown is NOT rendered — use ADF for rich formatting.
+
+When writing or editing a description, see [references/ADF.md](references/ADF.md)
+for node types, marks, and a full example.
+
+## Recipes
 
 ### Find and read a Jira issue
 
@@ -135,24 +143,9 @@ acli jira workitem transition --key "KEY-123" --status "In Progress" --yes
 acli jira workitem comment create --key "KEY-123" --body "Investigated — root cause is X. Fix in KEY-124."
 ```
 
-### JQL reference (common patterns)
+### JQL reference
 
-```text
-project = PROJ                              # by project
-assignee = currentUser()                    # my issues
-status = "In Progress"                      # by status
-status in ("To Do", "In Progress")          # multiple statuses
-sprint in openSprints()                     # active sprint
-sprint in openSprints() AND assignee = currentUser()
-priority = High
-text ~ "keyword"                            # full-text search
-labels = "my-label"
-created >= -7d                              # last 7 days
-updated >= "2026-07-01"
-parent = PROJ-10                            # subtasks of epic
-issueType = Epic
-issuetype in (Story, Task, Bug)
-```
+When constructing queries, see [references/JQL.md](references/JQL.md) for operators and common patterns.
 
 ## Flags
 
