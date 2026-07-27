@@ -95,6 +95,13 @@ acli confluence blog view --id 98765 --json
 acli confluence blog view --id 98765 --body-format storage
 ```
 
+## Atlassian Document Format (ADF)
+
+Jira `--description` and `--description-file` accept plain text or ADF JSON.
+Markdown is NOT rendered — use ADF for rich formatting.
+
+See [references/ADF.md](references/ADF.md) for node types, marks, and a full example.
+
 ## Common patterns
 
 ### Find and read a Jira issue
@@ -135,24 +142,9 @@ acli jira workitem transition --key "KEY-123" --status "In Progress" --yes
 acli jira workitem comment create --key "KEY-123" --body "Investigated — root cause is X. Fix in KEY-124."
 ```
 
-### JQL reference (common patterns)
+### JQL reference
 
-```text
-project = PROJ                              # by project
-assignee = currentUser()                    # my issues
-status = "In Progress"                      # by status
-status in ("To Do", "In Progress")          # multiple statuses
-sprint in openSprints()                     # active sprint
-sprint in openSprints() AND assignee = currentUser()
-priority = High
-text ~ "keyword"                            # full-text search
-labels = "my-label"
-created >= -7d                              # last 7 days
-updated >= "2026-07-01"
-parent = PROJ-10                            # subtasks of epic
-issueType = Epic
-issuetype in (Story, Task, Bug)
-```
+See [references/JQL.md](references/JQL.md) for common patterns.
 
 ## Flags
 
