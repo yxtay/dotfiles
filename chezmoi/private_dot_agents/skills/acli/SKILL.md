@@ -1,14 +1,14 @@
 ---
 name: acli
 description: >-
-  Use when the user asks about Jira issues, JQL searches, sprints, boards,
-  or Confluence pages/spaces, or says "use acli".
+  Use when the user asks about Jira tickets, issues, JQL searches, sprints,
+  boards, or Confluence pages/spaces, or says "use acli".
 argument-hint: "[jira|confluence] <action> [args]"
 ---
 
-# acli — Atlassian CLI
+# acli
 
-## Core commands
+## Commands
 
 ### Jira — work items
 
@@ -100,9 +100,10 @@ acli confluence blog view --id 98765 --body-format storage
 Jira `--description` and `--description-file` accept plain text or ADF JSON.
 Markdown is NOT rendered — use ADF for rich formatting.
 
-See [references/ADF.md](references/ADF.md) for node types, marks, and a full example.
+When writing or editing a description, see [references/ADF.md](references/ADF.md)
+for node types, marks, and a full example.
 
-## Common patterns
+## Recipes
 
 ### Find and read a Jira issue
 
@@ -144,7 +145,7 @@ acli jira workitem comment create --key "KEY-123" --body "Investigated — root 
 
 ### JQL reference
 
-See [references/JQL.md](references/JQL.md) for common patterns.
+When constructing queries, see [references/JQL.md](references/JQL.md) for operators and common patterns.
 
 ## Flags
 
