@@ -27,6 +27,11 @@
       "groupName": "python",
       "matchPackageNames": ["python"],
       "matchUpdateTypes": ["major", "minor"]
+    },
+    {
+      "matchPackageNames": ["java"],
+      "matchUpdateTypes": ["patch"],
+      "enabled": false
     }
   ]
 }
