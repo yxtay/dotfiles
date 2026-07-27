@@ -14,7 +14,8 @@ text ~ "keyword"                            # full-text search
 labels = "my-label"
 created >= -7d                              # last 7 days
 updated >= "2026-07-01"
-parent = PROJ-10                            # subtasks of epic
+parent = PROJ-10                            # direct children of issue
+parentEpic = PROJ-10                        # children and subtasks of epic
 issueType = Epic
 issuetype in (Story, Task, Bug)
 ```

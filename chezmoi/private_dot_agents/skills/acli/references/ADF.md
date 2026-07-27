@@ -16,14 +16,21 @@ Markdown is NOT rendered — pass ADF instead.
 
 ## Block node types
 
+Heading (level 1–6):
+
 ```json
-// Heading (level 1–6)
 { "type": "heading", "attrs": { "level": 2 }, "content": [{ "type": "text", "text": "Section" }] }
+```
 
-// Paragraph
+Paragraph:
+
+```json
 { "type": "paragraph", "content": [{ "type": "text", "text": "Body text." }] }
+```
 
-// Bullet list
+Bullet list (ordered list: same shape, `"type": "orderedList"`):
+
+```json
 {
   "type": "bulletList",
   "content": [
@@ -33,10 +40,11 @@ Markdown is NOT rendered — pass ADF instead.
     }
   ]
 }
+```
 
-// Ordered list — same shape, type "orderedList"
+Code block:
 
-// Code block
+```json
 {
   "type": "codeBlock",
   "attrs": { "language": "bash" },
@@ -46,11 +54,16 @@ Markdown is NOT rendered — pass ADF instead.
 
 ## Text marks (inline formatting)
 
+Bold: `"marks": [{ "type": "strong" }]`
+
+Italic: `"marks": [{ "type": "em" }]`
+
+Inline code: `"marks": [{ "type": "code" }]`
+
+Link:
+
 ```json
-{ "type": "text", "text": "bold",   "marks": [{ "type": "strong" }] }
-{ "type": "text", "text": "italic", "marks": [{ "type": "em" }] }
-{ "type": "text", "text": "code",   "marks": [{ "type": "code" }] }
-{ "type": "text", "text": "link",
+{ "type": "text", "text": "click here",
   "marks": [{ "type": "link", "attrs": { "href": "https://example.com" } }] }
 ```
 
@@ -85,5 +98,5 @@ cat > /tmp/desc.json <<'EOF'
 }
 EOF
 acli jira workitem create --summary "Title" --project "PROJ" --type "Task" --description-file /tmp/desc.json
-acli jira workitem edit --key "KEY-123" --description-file /tmp/desc.json --yes
+acli jira workitem edit --key "KEY-123" --description-file /tmp/desc.json
 ```
