@@ -30,12 +30,13 @@
     },
     {
       "groupName": "java",
-      "matchPackageNames": ["java"]
+      "matchPackageNames": ["java"],
+      "enabled": false
     },
     {
       "matchPackageNames": ["java"],
-      "matchUpdateTypes": ["major", "patch", "digest"],
-      "enabled": false
+      "matchUpdateTypes": ["minor"],
+      "enabled": true
     }
   ]
 }
