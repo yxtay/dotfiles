@@ -31,8 +31,12 @@
     {
       "groupName": "java",
       "matchPackageNames": ["java"],
-      "matchUpdateTypes": ["patch", "digest"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["java"],
+      "matchUpdateTypes": ["minor"],
+      "enabled": true
     }
   ]
 }
