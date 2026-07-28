@@ -30,6 +30,9 @@
     },
     {
       "groupName": "java",
+      "matchPackageNames": ["java"]
+    },
+    {
       "matchPackageNames": ["java"],
       "matchUpdateTypes": ["major", "patch", "digest"],
       "enabled": false
