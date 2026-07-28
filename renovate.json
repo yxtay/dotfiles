@@ -29,8 +29,9 @@
       "matchUpdateTypes": ["major", "minor"]
     },
     {
+      "groupName": "java",
       "matchPackageNames": ["java"],
-      "matchUpdateTypes": ["patch"],
+      "matchUpdateTypes": ["patch", "digest"],
       "enabled": false
     }
   ]
