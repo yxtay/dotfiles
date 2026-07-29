@@ -16,23 +16,19 @@ if ! command -v brew >/dev/null; then
   done
 fi
 
-brew update
-
-taps=(
-  atlassian/acli
-  databricks/tap
-  hashicorp/tap
-  oven-sh/bun
-)
-
-for tap in "${taps[@]}"; do
-  brew trust "${tap}"
-done
-
 brew bundle install \
   --upgrade --force \
   --zap --force-cleanup \
   --file=/dev/stdin <<EOF
+
+###
+# tap
+###
+
+tap "atlassian/acli", trusted: true
+tap "databricks/tap", trusted: true
+tap "hashicorp/tap", trusted: true
+tap "oven-sh/bun", trusted: true
 
 ###
 # cli utilities
@@ -93,7 +89,6 @@ brew "bitwarden-cli"
 brew "oven-sh/bun/bun"
 brew "deno"
 brew "direnv"
-brew "temurin@17"
 brew "go"
 brew "libomp"
 brew "mise"
@@ -195,6 +190,7 @@ cask "zoom"
 # dev
 cask "claude-code"
 cask "github"
+cask "temurin@17"
 cask "visual-studio-code"
 cask "wezterm"
 
