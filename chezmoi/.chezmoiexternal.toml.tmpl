@@ -5,16 +5,6 @@
   executable = true
   refreshPeriod = "168h"
 
-[".local/bin/mcp-cli"]
-  type = "file"
-{{- if (eq .chezmoi.arch "amd64") }}
-  url = "{{ gitHubLatestReleaseAssetURL "philschmid/mcp-cli" (printf "mcp-cli-%s-%s" .chezmoi.os "x64") }}"
-{{- else }}
-  url = "{{ gitHubLatestReleaseAssetURL "philschmid/mcp-cli" (printf "mcp-cli-%s-%s" .chezmoi.os .chezmoi.arch) }}"
-{{- end }}
-  executable = true
-  refreshPeriod = "168h"
-
 {{- if .is_ephemeral }}
 [".local/bin/fzf"]
   type = "archive-file"
