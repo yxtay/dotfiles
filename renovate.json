@@ -37,6 +37,10 @@
       "matchPackageNames": ["java"],
       "matchUpdateTypes": ["minor"],
       "enabled": true
+    },
+    {
+      "matchDepNames": ["gitleaks/gitleaks"],
+      "allowedVersions": ">8.30.1"
     }
   ]
 }
