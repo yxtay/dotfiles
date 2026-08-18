@@ -28,7 +28,7 @@
       "groupName": "python",
       "matchPackageNames": ["python"],
       "matchUpdateTypes": ["major", "minor"],
-      "minimumReleaseAge": "3 days"
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "java",
@@ -39,12 +39,12 @@
       "matchPackageNames": ["java"],
       "matchUpdateTypes": ["minor"],
       "enabled": true,
-      "minimumReleaseAge": "3 days"
+      "minimumReleaseAge": "7 days"
     },
     {
       "matchDepNames": ["gitleaks/gitleaks"],
       "allowedVersions": ">8.30.1",
-      "minimumReleaseAge": "3 days"
+      "minimumReleaseAge": "7 days"
     }
   ]
 }
