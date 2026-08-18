@@ -13,12 +13,11 @@
   ],
   "dependencyDashboardOSVVulnerabilitySummary": "all",
   "osvVulnerabilityAlerts": true,
-  "minimumReleaseAge": "3 days",
   "vulnerabilityAlerts": {
     "enabled": true,
     "automerge": true,
     "labels": ["security"],
-    "minimumReleaseAge": false
+    "minimumReleaseAge": "0 days"
   },
   "pre-commit": {
     "enabled": true
@@ -28,7 +27,8 @@
       "automerge": false,
       "groupName": "python",
       "matchPackageNames": ["python"],
-      "matchUpdateTypes": ["major", "minor"]
+      "matchUpdateTypes": ["major", "minor"],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "java",
@@ -38,11 +38,13 @@
     {
       "matchPackageNames": ["java"],
       "matchUpdateTypes": ["minor"],
-      "enabled": true
+      "enabled": true,
+      "minimumReleaseAge": "7 days"
     },
     {
       "matchDepNames": ["gitleaks/gitleaks"],
-      "allowedVersions": ">8.30.1"
+      "allowedVersions": ">8.30.1",
+      "minimumReleaseAge": "7 days"
     }
   ]
 }
