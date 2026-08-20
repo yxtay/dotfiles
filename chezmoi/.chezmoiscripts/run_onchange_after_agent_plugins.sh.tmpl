@@ -24,9 +24,6 @@ if command -v rtk >/dev/null; then
   if command -v opencode >/dev/null; then
     rtk init --global --opencode
   fi
-  if command -v omp >/dev/null; then
-    rtk init --global --agent pi
-  fi
 fi
 
 agents=(opencode)
