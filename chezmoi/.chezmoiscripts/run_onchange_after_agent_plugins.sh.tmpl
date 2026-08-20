@@ -9,10 +9,12 @@ if command -v codebase-memory-mcp >/dev/null; then
   codebase-memory-mcp config set auto_index true
 fi
 
+{{- if not .is_ci }}
 npx --yes ctx7 setup --cli --opencode --yes
 if command -v claude >/dev/null; then
   npx --yes ctx7 setup --cli --claude --yes
 fi
+{{- end }}
 
 if command -v rtk >/dev/null; then
   rtk telemetry disable
