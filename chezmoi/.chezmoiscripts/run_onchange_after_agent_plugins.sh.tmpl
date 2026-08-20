@@ -9,11 +9,9 @@ if command -v codebase-memory-mcp >/dev/null; then
   codebase-memory-mcp config set auto_index true
 fi
 
+npx --yes ctx7 setup --cli --universal --yes
 if command -v claude >/dev/null; then
-  npx --yes ctx7 setup --claude --cli --yes
-fi
-if command -v opencode >/dev/null; then
-  npx --yes ctx7 setup --opencode --cli --yes
+  npx --yes ctx7 setup --cli --claude --yes
 fi
 
 if command -v rtk >/dev/null; then
@@ -23,6 +21,9 @@ if command -v rtk >/dev/null; then
   fi
   if command -v opencode >/dev/null; then
     rtk init --global --opencode
+  fi
+  if command -v omp >/dev/null; then
+    rtk init --global --agent pi
   fi
 fi
 
