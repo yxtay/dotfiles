@@ -16,13 +16,12 @@ if command -v claude >/dev/null; then
 fi
 {{- end }}
 
-if command -v rtk >/dev/null; then
-  rtk telemetry disable
+if command -v lean-ctx >/dev/null; then
   if command -v claude >/dev/null; then
-    rtk init --global --auto-patch
+    lean-ctx wrap claude
   fi
   if command -v opencode >/dev/null; then
-    rtk init --global --opencode
+    lean-ctx wrap opencode
   fi
 fi
 
