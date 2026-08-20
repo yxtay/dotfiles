@@ -9,12 +9,12 @@ if command -v codebase-memory-mcp >/dev/null; then
   codebase-memory-mcp config set auto_index true
 fi
 
+{{- if not .is_ci }}
+npx --yes ctx7 setup --cli --opencode --yes
 if command -v claude >/dev/null; then
-  npx --yes ctx7 setup --claude --cli --yes
+  npx --yes ctx7 setup --cli --claude --yes
 fi
-if command -v opencode >/dev/null; then
-  npx --yes ctx7 setup --opencode --cli --yes
-fi
+{{- end }}
 
 if command -v rtk >/dev/null; then
   rtk telemetry disable
@@ -26,7 +26,7 @@ if command -v rtk >/dev/null; then
   fi
 fi
 
-agents=(opencode)
+agents=(universal)
 if command -v claude >/dev/null; then
   agents+=(claude-code)
 fi
