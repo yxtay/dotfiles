@@ -9,7 +9,7 @@ if command -v codebase-memory-mcp >/dev/null; then
   codebase-memory-mcp config set auto_index true
 fi
 
-npx --yes ctx7 setup --cli --universal --yes
+npx --yes ctx7 setup --cli --opencode --yes
 if command -v claude >/dev/null; then
   npx --yes ctx7 setup --cli --claude --yes
 fi
