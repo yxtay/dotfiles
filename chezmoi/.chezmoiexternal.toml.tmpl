@@ -12,15 +12,11 @@
   path = "fzf"
   executable = true
   refreshPeriod = "168h"
-
-[".local/bin/rtk"]
-  type = "archive-file"
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
-  url = "{{ gitHubLatestReleaseAssetURL "rtk-ai/rtk" (printf "rtk-%s-%s.tar.gz" .arch "unknown-linux-musl") }}"
-{{- else }}
-  url = "{{ gitHubLatestReleaseAssetURL "rtk-ai/rtk" (printf "rtk-%s-%s.tar.gz" .arch .os) }}"
 {{- end }}
-  path = "rtk"
+
+[".local/bin/lean-ctx"]
+  type = "archive-file"
+  url = "{{ gitHubLatestReleaseAssetURL "yvgude/lean-ctx" (printf "lean-ctx-%s-%s.tar.gz" .arch .os) }}"
+  path = "lean-ctx"
   executable = true
   refreshPeriod = "168h"
-{{- end }}
