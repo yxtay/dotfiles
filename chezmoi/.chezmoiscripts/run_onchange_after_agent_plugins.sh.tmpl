@@ -16,12 +16,6 @@ if command -v claude >/dev/null; then
 fi
 {{- end }}
 
-if command -v lean-ctx >/dev/null; then
-  if command -v opencode >/dev/null; then
-    lean-ctx wrap opencode
-  fi
-fi
-
 agents=(universal)
 if command -v claude >/dev/null; then
   agents+=(claude-code)
