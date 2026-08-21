@@ -13,10 +13,3 @@
   executable = true
   refreshPeriod = "168h"
 {{- end }}
-
-[".local/bin/lean-ctx"]
-  type = "archive-file"
-  url = "{{ gitHubLatestReleaseAssetURL "yvgude/lean-ctx" (printf "lean-ctx-%s-%s.tar.gz" .arch .os) }}"
-  path = "lean-ctx"
-  executable = true
-  refreshPeriod = "168h"

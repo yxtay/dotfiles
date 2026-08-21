@@ -17,20 +17,19 @@
   },
   "plugin": [
     "openslimedit",
-    "context-mode",
     "@dietrichgebert/ponytail",
     "@zilliz/memsearch-opencode"
   ],
   "mcp": {
-    "context-mode": {
-      "type": "local",
-      "command": ["npx", "--yes", "context-mode"],
-      "enabled": true
+    "codebase-memory-mcp": {
+      "command": ["codebase-memory-mcp"],
+      "enabled": true,
+      "type": "local"
     },
     "playwright": {
-      "type": "local",
       "command": ["npx", "--yes", "@playwright/mcp"],
-      "enabled": true
+      "enabled": true,
+      "type": "local"
     }
   }
 }
