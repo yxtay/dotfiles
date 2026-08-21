@@ -15,7 +15,11 @@
       "~/wiki/**": "allow"
     }
   },
-  "plugin": ["openslimedit", "@dietrichgebert/ponytail", "@zilliz/memsearch-opencode"],
+  "plugin": [
+    "openslimedit",
+    "@dietrichgebert/ponytail",
+    "@zilliz/memsearch-opencode"
+  ],
   "mcp": {
     "playwright": {
       "type": "local",
