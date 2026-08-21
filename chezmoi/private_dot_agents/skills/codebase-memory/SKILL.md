@@ -23,17 +23,17 @@ echo '<json>' | codebase-memory-mcp cli <tool>
 
 ## Quick Decision Matrix
 
-| Question | Tool call |
-| ---------- | ---------- |
-| Who calls X? | `trace_path` with `"direction":"inbound"` |
-| What does X call? | `trace_path` with `"direction":"outbound"` |
-| Full call context | `trace_path` with `"direction":"both"` |
-| Find by name pattern | `search_graph` with `"name_pattern":"..."` |
-| Dead code | `search_graph` with `"max_degree":0,"exclude_entry_points":true` |
-| Cross-service edges | `query_graph` with Cypher |
-| Impact of local changes | `detect_changes` |
-| Risk-classified trace | `trace_path` with `"risk_labels":true` |
-| Text search | `search_code` or Grep |
+| Question                | Tool call                                                        |
+|-------------------------|------------------------------------------------------------------|
+| Who calls X?            | `trace_path` with `"direction":"inbound"`                        |
+| What does X call?       | `trace_path` with `"direction":"outbound"`                       |
+| Full call context       | `trace_path` with `"direction":"both"`                           |
+| Find by name pattern    | `search_graph` with `"name_pattern":"..."`                       |
+| Dead code               | `search_graph` with `"max_degree":0,"exclude_entry_points":true` |
+| Cross-service edges     | `query_graph` with Cypher                                        |
+| Impact of local changes | `detect_changes`                                                 |
+| Risk-classified trace   | `trace_path` with `"risk_labels":true`                           |
+| Text search             | `search_code` or Grep                                            |
 
 ## Exploration Workflow
 
