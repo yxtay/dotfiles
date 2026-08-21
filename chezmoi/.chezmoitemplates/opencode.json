@@ -21,10 +21,15 @@
     "@zilliz/memsearch-opencode"
   ],
   "mcp": {
+    "codebase-memory-mcp": {
+      "command": ["codebase-memory-mcp"],
+      "enabled": true,
+      "type": "local"
+    },
     "playwright": {
-      "type": "local",
       "command": ["npx", "--yes", "@playwright/mcp"],
-      "enabled": true
+      "enabled": true,
+      "type": "local"
     }
   }
 }
