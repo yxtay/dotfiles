@@ -17,9 +17,6 @@ fi
 {{- end }}
 
 if command -v lean-ctx >/dev/null; then
-  if command -v claude >/dev/null; then
-    lean-ctx wrap claude
-  fi
   if command -v opencode >/dev/null; then
     lean-ctx wrap opencode
   fi
