@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-npm install -g @caveman-ai/cli
-caveman setup --install
-
 if command -v codebase-memory-mcp >/dev/null; then
   codebase-memory-mcp install --yes
   codebase-memory-mcp config set auto_index true
