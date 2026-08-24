@@ -1,0 +1,8 @@
+symbolPreset: unicode
+theme:
+  dark: titanium
+  light: light
+setupVersion: 2
+defaultThinkingLevel: auto
+composer:
+  shape: box

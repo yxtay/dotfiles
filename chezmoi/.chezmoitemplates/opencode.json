@@ -2,8 +2,6 @@
   "$schema": "https://opencode.ai/config.json",
   "formatter": true,
   "lsp": true,
-  "model": "opencode/deepseek-v4-flash-free",
-  "small_model": "opencode/deepseek-v4-flash-free",
   "compaction": {
     "prune": true
   },
@@ -15,19 +13,10 @@
       "~/wiki/**": "allow"
     }
   },
-  "plugin": [
-    "openslimedit",
-    "@dietrichgebert/ponytail",
-    "@zilliz/memsearch-opencode"
-  ],
+  "plugin": ["@dietrichgebert/ponytail", "@zilliz/memsearch-opencode"],
   "mcp": {
     "codebase-memory-mcp": {
       "command": ["codebase-memory-mcp"],
-      "enabled": true,
-      "type": "local"
-    },
-    "playwright": {
-      "command": ["npx", "--yes", "@playwright/mcp"],
       "enabled": true,
       "type": "local"
     }
