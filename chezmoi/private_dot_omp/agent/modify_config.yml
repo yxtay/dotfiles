@@ -1,0 +1,7 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $current := dict -}}
+{{- if .chezmoi.stdin | trim -}}
+{{-   $current = fromJson .chezmoi.stdin -}}
+{{- end -}}
+{{- $template := includeTemplate "omp-config.yml" . | fromJson -}}
+{{ mergeOverwrite $current $template | toYaml }}

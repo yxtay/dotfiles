@@ -1,0 +1,11 @@
+modelRoles:
+  default: opencode-go/deepseek-v4-flash
+  vision: opencode-go/mimo-v2.5
+symbolPreset: unicode
+theme:
+  dark: titanium
+  light: light
+setupVersion: 2
+defaultThinkingLevel: auto
+composer:
+  shape: box
