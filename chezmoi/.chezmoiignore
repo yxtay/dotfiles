@@ -1,0 +1,2 @@
+# local secrets — never track
+.env

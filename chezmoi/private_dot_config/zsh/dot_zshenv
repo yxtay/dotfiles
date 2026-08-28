@@ -31,3 +31,6 @@ if [[ -f "${cert_file}" ]]; then
 fi
 
 export MEMSEARCH_DIR=${HOME}/.memsearch
+
+# local secrets (not tracked by chezmoi)
+[[ -f "${HOME}/.env" ]] && source "${HOME}/.env" || true
