@@ -13,7 +13,11 @@
       "~/wiki/**": "allow"
     }
   },
-  "plugin": ["@dietrichgebert/ponytail", "@zilliz/memsearch-opencode", "@devtheops/opencode-plugin-otel"],
+  "plugin": [
+    "@dietrichgebert/ponytail",
+    "@zilliz/memsearch-opencode",
+    "@devtheops/opencode-plugin-otel"
+  ],
   "mcp": {
     "codebase-memory-mcp": {
       "command": ["codebase-memory-mcp"],
