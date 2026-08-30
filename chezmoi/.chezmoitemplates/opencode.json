@@ -28,6 +28,7 @@
       "**/.env": "ask",
       "**/.env.example": "allow",
       "**/.env.*": "ask",
+      "**/opencode/**": "allow",
       "~/.ssh/**": "ask",
       "~/.aws/**": "ask",
       "~/.kube/**": "ask",
@@ -35,10 +36,10 @@
     }
   },
   "plugin": [
-    "opencode-mem",
     "opencode-models-discovery",
     "@devtheops/opencode-plugin-otel",
-    "@dietrichgebert/ponytail"
+    "@dietrichgebert/ponytail",
+    "@zilliz/memsearch-opencode"
   ],
   "mcp": {
     "codebase-memory-mcp": {
