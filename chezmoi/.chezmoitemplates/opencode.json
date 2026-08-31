@@ -7,17 +7,6 @@
   },
   "permission": {
     "bash": {
-      "git status*": "allow",
-      "git log*": "allow",
-      "git diff*": "allow",
-      "git show*": "allow",
-      "git branch*": "allow",
-      "git remote*": "allow",
-      "git stash list*": "allow",
-      "ls*": "allow",
-      "pwd": "allow",
-      "which *": "allow",
-      "echo *": "allow",
       "*": "ask"
     },
     "edit": {
@@ -41,7 +30,6 @@
       "**/.env.*": "ask",
       "**/opencode/**": "allow",
       "~/.ssh/id_*": "deny",
-      "~/.ssh/**": "allow",
       "~/.aws/**": "ask",
       "~/.kube/**": "ask",
       "~/.gnupg/**": "ask"
