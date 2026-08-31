@@ -39,15 +39,14 @@
     },
     "external_directory": {
       "~/.agentmemory/**": "allow",
-      "~/.claude/**": "allow",
       "~/.config/opencode/**": "allow",
+      "~/.memsearch/**": "allow",
       "~/wiki/**": "allow"
     },
     "read": {
       "**/.env": "ask",
       "**/.env.example": "allow",
       "**/.env.*": "ask",
-      "**/opencode/**": "allow",
       "~/.ssh/id_*": "deny",
       "~/.aws/**": "ask",
       "~/.kube/**": "ask",
@@ -57,11 +56,11 @@
     "grep": "allow",
     "list": "allow",
     "lsp": "allow",
+    "question": "allow",
     "skill": "allow",
-    "webfetch": "allow",
-    "websearch": "allow",
     "todowrite": "allow",
-    "question": "allow"
+    "webfetch": "allow",
+    "websearch": "allow"
   },
   "plugin": [
     "opencode-models-discovery",
