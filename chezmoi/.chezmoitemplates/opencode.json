@@ -21,7 +21,6 @@
     },
     "external_directory": {
       "~/.config/opencode/**": "allow",
-      "~/.opencode-mem/**": "allow",
       "~/wiki/**": "allow"
     },
     "read": {
@@ -39,9 +38,14 @@
     "opencode-models-discovery",
     "@devtheops/opencode-plugin-otel",
     "@dietrichgebert/ponytail",
-    "@zilliz/memsearch-opencode"
+    "./plugins/agentmemory-capture.ts"
   ],
   "mcp": {
+    "agentmemory": {
+      "command": ["npx", "-y", "@agentmemory/mcp"],
+      "enabled": true,
+      "type": "local"
+    },
     "codebase-memory-mcp": {
       "command": ["codebase-memory-mcp"],
       "enabled": true,
