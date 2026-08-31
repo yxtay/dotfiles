@@ -45,7 +45,7 @@
       "**/.env": "ask",
       "**/.env.example": "allow",
       "**/.env.*": "ask",
-      "~/.ssh/id_*": "deny",
+      "~/.ssh/**": "ask",
       "~/.aws/**": "ask",
       "~/.kube/**": "ask",
       "~/.gnupg/**": "ask"
