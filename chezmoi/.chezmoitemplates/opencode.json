@@ -6,17 +6,40 @@
     "prune": true
   },
   "permission": {
+    "bash": {
+      "*": "ask"
+    },
     "edit": {
+      "**/.env": "ask",
+      "**/.env.example": "allow",
+      "**/.env.*": "ask",
+      "~/.ssh/**": "deny",
+      "~/.aws/**": "deny",
+      "~/.kube/**": "deny",
+      "~/.gnupg/**": "deny",
       "~/wiki/**": "allow"
     },
     "external_directory": {
+      "~/.config/opencode/**": "allow",
+      "~/.opencode-mem/**": "allow",
       "~/wiki/**": "allow"
+    },
+    "read": {
+      "**/.env": "ask",
+      "**/.env.example": "allow",
+      "**/.env.*": "ask",
+      "**/opencode/**": "allow",
+      "~/.ssh/**": "ask",
+      "~/.aws/**": "ask",
+      "~/.kube/**": "ask",
+      "~/.gnupg/**": "ask"
     }
   },
   "plugin": [
+    "opencode-models-discovery",
+    "@devtheops/opencode-plugin-otel",
     "@dietrichgebert/ponytail",
-    "@zilliz/memsearch-opencode",
-    "@devtheops/opencode-plugin-otel"
+    "@zilliz/memsearch-opencode"
   ],
   "mcp": {
     "codebase-memory-mcp": {
