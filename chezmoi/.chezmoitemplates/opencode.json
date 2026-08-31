@@ -30,7 +30,6 @@
       "**/.env": "ask",
       "**/.env.example": "allow",
       "**/.env.*": "ask",
-      "**/opencode/**": "allow",
       "~/.ssh/**": "deny",
       "~/.aws/**": "deny",
       "~/.kube/**": "deny",
