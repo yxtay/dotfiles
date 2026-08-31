@@ -6,6 +6,7 @@
   refreshPeriod = "168h"
 
 {{- $agentmemoryTag := toString (gitHubLatestRelease "rohitg00/agentmemory").TagName }}
+# path verified against plugin/opencode/agentmemory-capture.ts in the source tarball
 [".config/opencode/plugins/agentmemory-capture.ts"]
   type = "archive-file"
   url = "{{ printf "https://github.com/rohitg00/agentmemory/archive/refs/tags/%s.tar.gz" $agentmemoryTag }}"
