@@ -32,7 +32,8 @@ Parse `$ARGUMENTS` (order-independent):
    curl -s "http://localhost:3111/agentmemory/sessions?since=<start>&until=<end>" \
      | jq '[.sessions[]
          | select(.observationCount > 0)
-         | {cwd,
+         | {id,
+            cwd,
             title: .summary.title,
             narrative: .summary.narrative,
             keyDecisions: .summary.keyDecisions,
@@ -42,7 +43,22 @@ Parse `$ARGUMENTS` (order-independent):
 
    If the request fails or returns `[]`, output: "No agentmemory sessions found for `<range>`."
 
-3. **Load shell history** — run:
+2b. **Fallback for sparse summaries** — for any session where `title` is null/empty, fetch raw observations:
+
+   ```sh
+   curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>&limit=100" \
+     | jq '[.observations[] | {type, narrative}]'
+   ```
+
+   Observation schema: `type` is `"command_run"` or `"conversation"`. `narrative` is the raw payload:
+
+- `"conversation"` — plain user message text; use directly to infer intent.
+- `"command_run"` — JSON blob `{command,...} | {stdout,stderr,...}`; grep for
+  `git`, file paths, and tool names to infer tasks.
+
+   Prefer `"conversation"` observations for intent; use `"command_run"` to confirm concrete actions.
+
+1. **Load shell history** — run:
 
    ```sh
    atuin search --after "<start-date> 00:00:00" --before "<end-date> 23:59:59" \
@@ -54,20 +70,20 @@ Parse `$ARGUMENTS` (order-independent):
    Drop: bare `ls`, `cat`, `cd`, `echo`, `pwd`, `which`, `man`, `history`.
    Deduplicate: one entry per logical action, last successful variant when retried.
 
-4. **Extract tasks** — for each session: repo/dir = `cwd`; derive tasks in priority order:
+2. **Extract tasks** — for each session: repo/dir = `cwd`; derive tasks in priority order:
    1. `title` — top-level bullet
    2. `keyDecisions` — concrete decisions, use as sub-bullets
    3. `narrative` — synthesize to fill gaps keyDecisions leaves
    4. `filesModified` — sub-bullets when keyDecisions absent
    5. `concepts` — thematic fallback when all above absent
 
-5. **Merge** — combine session tasks with shell history. Shell fills gaps;
+3. **Merge** — combine session tasks with shell history. Shell fills gaps;
    session summaries supply intent. One bullet per logical task, deduplicated across sources.
 
-6. **Filter** — apply `--project`: drop repos whose path doesn't contain the pattern.
+4. **Filter** — apply `--project`: drop repos whose path doesn't contain the pattern.
    Drop `Other` bucket when filter is active.
 
-7. **Output** — fenced code block, no preamble. One bullet per task ≤12 words.
+5. **Output** — fenced code block, no preamble. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
 
 ````text
