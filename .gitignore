@@ -2,6 +2,3 @@
 chezmoi/.chezmoidata.toml
 megalinter-reports
 settings.local.json
-.agents/
-.claude/skills/
-skills-lock.json
