@@ -7,6 +7,17 @@
   },
   "permission": {
     "bash": {
+      "git status*": "allow",
+      "git log*": "allow",
+      "git diff*": "allow",
+      "git show*": "allow",
+      "git branch*": "allow",
+      "git remote*": "allow",
+      "git stash list*": "allow",
+      "ls*": "allow",
+      "pwd": "allow",
+      "which *": "allow",
+      "echo *": "allow",
       "*": "ask"
     },
     "edit": {
@@ -20,6 +31,7 @@
       "~/wiki/**": "allow"
     },
     "external_directory": {
+      "~/.agentmemory/**": "allow",
       "~/.config/opencode/**": "allow",
       "~/wiki/**": "allow"
     },
@@ -28,11 +40,16 @@
       "**/.env.example": "allow",
       "**/.env.*": "ask",
       "**/opencode/**": "allow",
-      "~/.ssh/**": "ask",
+      "~/.ssh/id_*": "deny",
+      "~/.ssh/**": "allow",
       "~/.aws/**": "ask",
       "~/.kube/**": "ask",
       "~/.gnupg/**": "ask"
-    }
+    },
+    "webfetch": "allow",
+    "websearch": "allow",
+    "todowrite": "allow",
+    "question": "allow"
   },
   "plugin": [
     "opencode-models-discovery",
