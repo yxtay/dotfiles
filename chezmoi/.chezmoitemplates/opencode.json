@@ -30,6 +30,7 @@
       "**/.env": "ask",
       "**/.env.example": "allow",
       "**/.env.*": "ask",
+      "**/opencode/**": "allow",
       "~/.ssh/**": "deny",
       "~/.aws/**": "deny",
       "~/.kube/**": "deny",
@@ -38,6 +39,7 @@
     },
     "external_directory": {
       "~/.agentmemory/**": "allow",
+      "~/.claude/**": "allow",
       "~/.config/opencode/**": "allow",
       "~/wiki/**": "allow"
     },
@@ -51,6 +53,11 @@
       "~/.kube/**": "ask",
       "~/.gnupg/**": "ask"
     },
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "lsp": "allow",
+    "skill": "allow",
     "webfetch": "allow",
     "websearch": "allow",
     "todowrite": "allow",
