@@ -69,10 +69,10 @@ every consolidation when `OBSIDIAN_AUTO_EXPORT=true`.
 
 ## Source field mapping
 
-| Source | Frontmatter field | Wiki usage |
-| --- | --- | --- |
-| lesson | `body` | Rule/gotcha under relevant heading |
-| lesson | `concepts` | `tags` + cross-link hints |
-| crystal | `content` | Fact under relevant heading |
-| memory | `content` | Supporting detail |
-| memory | `concepts` | Tags and cross-link hints |
+| Source  | Frontmatter field | Wiki usage                         |
+|---------|-------------------|------------------------------------|
+| lesson  | `body`            | Rule/gotcha under relevant heading |
+| lesson  | `concepts`        | `tags` + cross-link hints          |
+| crystal | `content`         | Fact under relevant heading        |
+| memory  | `content`         | Supporting detail                  |
+| memory  | `concepts`        | Tags and cross-link hints          |
