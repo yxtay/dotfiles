@@ -5,6 +5,13 @@
   executable = true
   refreshPeriod = "168h"
 
+{{- $agentmemoryTag := toString (gitHubLatestRelease "rohitg00/agentmemory").TagName }}
+[".config/opencode/plugins/agentmemory-capture.ts"]
+  type = "archive-file"
+  url = "{{ printf "https://github.com/rohitg00/agentmemory/archive/refs/tags/%s.tar.gz" $agentmemoryTag }}"
+  path = "{{ printf "agentmemory-%s/plugin/opencode/agentmemory-capture.ts" (trimPrefix "v" $agentmemoryTag) }}"
+  refreshPeriod = "168h"
+
 {{- if .is_ephemeral }}
 [".local/bin/fzf"]
   type = "archive-file"
