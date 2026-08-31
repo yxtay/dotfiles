@@ -45,10 +45,10 @@
       "**/.env": "ask",
       "**/.env.example": "allow",
       "**/.env.*": "ask",
-      "~/.ssh/**": "ask",
       "~/.aws/**": "ask",
       "~/.kube/**": "ask",
-      "~/.gnupg/**": "ask"
+      "~/.gnupg/**": "ask",
+      "~/.ssh/**": "ask"
     },
     "glob": "allow",
     "grep": "allow",
