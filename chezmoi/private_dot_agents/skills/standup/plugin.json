@@ -1,6 +1,7 @@
 {
-  "name": "agentmemory-autostart",
-  "description": "Auto-start agentmemory server on session start if not already running",
+  "name": "standup",
+  "description": "Daily standup skill with agentmemory server auto-start",
+  "skills": "./",
   "hooks": {
     "SessionStart": [
       {
