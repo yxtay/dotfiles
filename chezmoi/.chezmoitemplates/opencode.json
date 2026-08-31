@@ -7,7 +7,6 @@
   },
   "permission": {
     "bash": {
-      "*": "ask",
       "cat *": "allow",
       "diff *": "allow",
       "echo *": "allow",
