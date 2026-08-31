@@ -1,4 +1,18 @@
 {
   "name": "okf",
-  "description": "Open Knowledge Format (OKF) skill and wiki maintenance hook — distills memsearch journals into ~/wiki"
+  "description": "Open Knowledge Format (OKF) skill and wiki maintenance hook — distills memsearch journals into ~/wiki",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/okf-wiki-maintenance.sh",
+            "async": true,
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  }
 }
