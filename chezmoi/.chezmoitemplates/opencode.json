@@ -38,7 +38,6 @@
     "opencode-models-discovery",
     "@devtheops/opencode-plugin-otel",
     "@dietrichgebert/ponytail",
-    "@zilliz/memsearch-opencode",
     "./plugins/agentmemory-capture.ts"
   ],
   "mcp": {
