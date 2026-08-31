@@ -7,7 +7,23 @@
   },
   "permission": {
     "bash": {
-      "*": "ask"
+      "cat *": "allow",
+      "diff *": "allow",
+      "echo *": "allow",
+      "fd *": "allow",
+      "file *": "allow",
+      "find *": "allow",
+      "grep *": "allow",
+      "head *": "allow",
+      "jq *": "allow",
+      "ls *": "allow",
+      "rg *": "allow",
+      "stat *": "allow",
+      "tail *": "allow",
+      "type *": "allow",
+      "wc *": "allow",
+      "which *": "allow",
+      "yq *": "allow"
     },
     "edit": {
       "**/.env": "ask",
@@ -20,19 +36,29 @@
       "~/wiki/**": "allow"
     },
     "external_directory": {
+      "~/.agentmemory/**": "allow",
       "~/.config/opencode/**": "allow",
+      "~/.memsearch/**": "allow",
       "~/wiki/**": "allow"
     },
     "read": {
       "**/.env": "ask",
       "**/.env.example": "allow",
       "**/.env.*": "ask",
-      "**/opencode/**": "allow",
-      "~/.ssh/**": "ask",
       "~/.aws/**": "ask",
       "~/.kube/**": "ask",
-      "~/.gnupg/**": "ask"
-    }
+      "~/.gnupg/**": "ask",
+      "~/.ssh/**": "ask"
+    },
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "lsp": "allow",
+    "question": "allow",
+    "skill": "allow",
+    "todowrite": "allow",
+    "webfetch": "allow",
+    "websearch": "allow"
   },
   "plugin": [
     "opencode-models-discovery",
