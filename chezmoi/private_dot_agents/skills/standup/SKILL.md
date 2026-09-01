@@ -26,38 +26,21 @@ Parse `$ARGUMENTS` (order-independent):
 
 1. **Resolve dates** — produce `start = <start-date>T00:00:00Z` and `end = <end-date>T23:59:59Z`.
 
-2. **Load sessions** — fetch and reduce to standup fields only:
+2. **Load sessions via MCP** — call the `mcp__agentmemory__memory_sessions` tool (no arguments).
+   Filter the returned sessions to those where `createdAt` or `updatedAt` falls within the date
+   range, and `observationCount > 0`. Extract per session:
+   `{id, cwd, title, narrative, keyDecisions, filesModified, concepts}` from the summary fields.
 
-   ```sh
-   curl -s "http://localhost:3111/agentmemory/sessions?since=<start>&until=<end>" \
-     | jq '[.sessions[]
-         | select(.observationCount > 0)
-         | {id,
-            cwd,
-            title: .summary.title,
-            narrative: .summary.narrative,
-            keyDecisions: .summary.keyDecisions,
-            filesModified: .summary.filesModified,
-            concepts: .summary.concepts}]'
-   ```
-
-   If the request fails or returns `[]`, output: "No agentmemory sessions found for `<range>`."
+   If the MCP tool is unavailable or returns no sessions, skip to step 4 and use shell history only.
 
 3. **Fallback for sparse summaries** — for any session where `title` is null/empty,
-   fetch raw observations:
+   call `mcp__agentmemory__memory_recall` with:
+   - `query`: `"work done <date> <cwd basename>"`
+   - `limit`: 20
+   - `format`: `"compact"`
 
-   ```sh
-   curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>&limit=100" \
-     | jq '[.observations[] | {type, narrative}]'
-   ```
-
-   Observation schema: `type` is `"command_run"` or `"conversation"`. `narrative` is the raw payload:
-
-   - `"conversation"` — plain user message text; use directly to infer intent.
-   - `"command_run"` — JSON blob `{command,...} | {stdout,stderr,...}`; grep for
-     `git`, file paths, and tool names to infer tasks.
-
-   Prefer `"conversation"` observations for intent; use `"command_run"` to confirm concrete actions.
+   Use returned observations to infer tasks: prefer `conversation` type for intent,
+   `command_run` type for concrete actions (look for `git`, file paths, tool names).
 
 4. **Load shell history** — run:
 
