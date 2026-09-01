@@ -33,14 +33,8 @@ Parse `$ARGUMENTS` (order-independent):
 
    If the MCP tool is unavailable or returns no sessions, skip to step 4 and use shell history only.
 
-3. **Fallback for sparse summaries** — for any session where `title` is null/empty,
-   call `mcp__agentmemory__memory_recall` with:
-   - `query`: `"work done <date> <cwd basename>"`
-   - `limit`: 20
-   - `format`: `"compact"`
-
-   Use returned observations to infer tasks: prefer `conversation` type for intent,
-   `command_run` type for concrete actions (look for `git`, file paths, tool names).
+3. **Sparse summaries** — for any session where `title` is null/empty, skip it.
+   Atuin shell history (step 4) provides date-precise coverage for those gaps.
 
 4. **Load shell history** — run:
 
