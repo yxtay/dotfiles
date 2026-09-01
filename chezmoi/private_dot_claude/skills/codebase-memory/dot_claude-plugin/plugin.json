@@ -1,6 +1,6 @@
 {
-  "name": "standup",
-  "description": "Daily standup skill with agentmemory server auto-start",
+  "name": "codebase-memory",
+  "description": "Codebase knowledge graph skill with daemon auto-start",
   "skills": "./",
   "hooks": {
     "SessionStart": [
@@ -8,7 +8,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/start-agentmemory.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/start-cbm-daemon.sh",
             "timeout": 10
           }
         ]

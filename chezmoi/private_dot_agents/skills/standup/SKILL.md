@@ -7,9 +7,6 @@ argument-hint: "[<date-or-range>] [--project <pattern>]"
 
 # Standup
 
-Produce a standup from agentmemory session history for the requested date or date range,
-optionally filtered to a project pattern.
-
 ## Argument parsing
 
 Parse `$ARGUMENTS` (order-independent):
@@ -26,7 +23,8 @@ Parse `$ARGUMENTS` (order-independent):
 
 1. **Resolve dates** — produce `start = <start-date>T00:00:00Z` and `end = <end-date>T23:59:59Z`.
 
-2. **Load sessions** — fetch and reduce to standup fields only:
+2. **Load sessions** — fetch and reduce to standup fields only. Use
+   `dangerouslyDisableSandbox: true` (sandbox blocks localhost TCP):
 
    ```sh
    curl -s "http://localhost:3111/agentmemory/sessions?since=<start>&until=<end>" \
@@ -34,17 +32,13 @@ Parse `$ARGUMENTS` (order-independent):
          | select(.observationCount > 0)
          | {id,
             cwd,
-            title: .summary.title,
-            narrative: .summary.narrative,
-            keyDecisions: .summary.keyDecisions,
-            filesModified: .summary.filesModified,
-            concepts: .summary.concepts}]'
+            narrative: .summary.narrative}]'
    ```
 
    If the request fails or returns `[]`, output: "No agentmemory sessions found for `<range>`."
 
-3. **Fallback for sparse summaries** — for any session where `title` is null/empty,
-   fetch raw observations:
+3. **Fallback for sparse summaries** — for any session where `narrative` is null/empty,
+   fetch raw observations (use `dangerouslyDisableSandbox: true`):
 
    ```sh
    curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>&limit=100" \
@@ -71,21 +65,14 @@ Parse `$ARGUMENTS` (order-independent):
    Drop: bare `ls`, `cat`, `cd`, `echo`, `pwd`, `which`, `man`, `history`.
    Deduplicate: one entry per logical action, last successful variant when retried.
 
-5. **Extract tasks** — for each session: repo/dir = `cwd`; derive tasks in priority order:
-   1. `title` — top-level bullet
-   2. `keyDecisions` — concrete decisions, use as sub-bullets
-   3. `narrative` — synthesize to fill gaps keyDecisions leaves
-   4. `filesModified` — sub-bullets when keyDecisions absent
-   5. `concepts` — thematic fallback when all above absent
+5. **Synthesize** — group all sessions by `cwd`. For each repo, read all narratives as a
+   single body and extract every distinct concrete task or change. Shell history fills gaps;
+   narratives supply intent. One bullet per logical task, deduplicated across both sources.
 
-6. **Merge** — combine session tasks with shell history. Shell fills gaps;
-   session summaries supply intent. One bullet per logical task, deduplicated across sources.
-
-7. **Filter** — apply `--project`: drop repos whose path doesn't contain the pattern.
-   Drop `Other` bucket when filter is active.
-
-8. **Output** — fenced code block, no preamble. One bullet per task ≤12 words.
+6. **Output** — fenced code block, no preamble. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
+   Apply `--project` filter: drop repos whose path doesn't contain the pattern;
+   omit `Other` when filter is active.
 
 ````text
 ```
