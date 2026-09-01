@@ -102,7 +102,7 @@ codebase-memory-mcp cli query_graph --project <id> \
 
 ## Gotchas
 
-1. `search_graph(relationship="HTTP_CALLS")` filters nodes by degree — use `query_graph` for edges.
+1. `search_graph --relationship HTTP_CALLS` filters nodes by degree — use `query_graph` for edges.
 2. `query_graph` has a 100k row ceiling — add a Cypher `LIMIT` for broad queries or use
    `search_graph` pagination.
 3. `trace_path` needs exact names — use `search_graph --name-pattern` first.
