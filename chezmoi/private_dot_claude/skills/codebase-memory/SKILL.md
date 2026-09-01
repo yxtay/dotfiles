@@ -14,11 +14,6 @@ description: >-
 
 Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 
-All tools run via CLI (no MCP server required):
-`codebase-memory-mcp cli <tool> --flag value` or `echo '<json>' | codebase-memory-mcp cli <tool>`
-
-Raw JSON positional args (`cli <tool> '<json>'`) still work but are deprecated.
-
 ## Quick Decision Matrix
 
 | Question                | Tool call                                                 |
