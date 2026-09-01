@@ -13,13 +13,7 @@ description: >-
 
 Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 
-**All tools run via CLI** (no MCP server required). Daemon must be running:
-
-```bash
-codebase-memory-mcp daemon start   # keep daemon warm (survives session ends)
-```
-
-Preferred CLI syntax (flags):
+**All tools run via CLI** (no MCP server required):
 
 ```bash
 codebase-memory-mcp cli <tool> --flag value [--flag2 value2 ...]
@@ -101,11 +95,9 @@ codebase-memory-mcp cli query_graph --project <id> \
 
 ## Gotchas
 
-1. CLI requires daemon running — `codebase-memory-mcp daemon start` once in a terminal.
-   Daemon is permanent; sandbox blocks `nice()` so run from terminal, not from within Claude Code.
-2. `"relationship":"HTTP_CALLS"` in `search_graph` filters by degree — use `query_graph` for edges.
-3. `query_graph` has a 200-row cap — use `search_graph` with degree filters for counting.
-4. `trace_path` needs exact names — use `search_graph` with `--name-pattern` first.
-5. `"direction":"outbound"` misses cross-service callers — use `"direction":"both"`.
-6. Results default to 10 per page — check `has_more` and use `--offset`.
-7. `--semantic-query` requires ARRAY of strings, not a single string.
+1. `"relationship":"HTTP_CALLS"` in `search_graph` filters by degree — use `query_graph` for edges.
+2. `query_graph` has a 200-row cap — use `search_graph` with degree filters for counting.
+3. `trace_path` needs exact names — use `search_graph` with `--name-pattern` first.
+4. `"direction":"outbound"` misses cross-service callers — use `"direction":"both"`.
+5. Results default to 10 per page — check `has_more` and use `--offset`.
+6. `--semantic-query` requires an array of strings, not a single string.
