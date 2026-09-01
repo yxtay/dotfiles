@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "codebase-memory-mcp": {
+      "command": "codebase-memory-mcp"
+    },
+    "agentmemory": {
+      "command": "npx",
+      "args": ["-y", "@agentmemory/mcp"],
+      "env": {
+        "AGENTMEMORY_URL": "{{ env "AGENTMEMORY_URL" | default "http://localhost:3111" }}",
+        "AGENTMEMORY_SECRET": "{{ env "AGENTMEMORY_SECRET" | default "" }}",
+        "AGENTMEMORY_TOOLS": "{{ env "AGENTMEMORY_TOOLS" | default "all" }}"
+      }
+    }
+  }
+}
