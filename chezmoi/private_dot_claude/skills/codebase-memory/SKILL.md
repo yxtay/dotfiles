@@ -31,18 +31,18 @@ Raw JSON positional args (`cli <tool> '<json>'`) still work but are deprecated.
 
 ## Quick Decision Matrix
 
-| Question                | Tool call                                                               |
-|-------------------------|-------------------------------------------------------------------------|
-| Who calls X?            | `trace_path --direction inbound`                                        |
-| What does X call?       | `trace_path --direction outbound`                                       |
-| Full call context       | `trace_path --direction both`                                           |
-| Find by name pattern    | `search_graph --name-pattern '...'`                                     |
-| NL keyword search       | `search_graph --query 'words'`                                          |
-| Dead code               | `search_graph --max-degree 0 --exclude-entry-points true`               |
-| Cross-service edges     | `query_graph` with Cypher                                               |
-| Impact of local changes | `detect_changes`                                                        |
-| Risk-classified trace   | `trace_path --risk-labels true`                                         |
-| Text search             | `search_code` or Grep                                                   |
+| Question                | Tool call                                                 |
+|-------------------------|-----------------------------------------------------------|
+| Who calls X?            | `trace_path --direction inbound`                          |
+| What does X call?       | `trace_path --direction outbound`                         |
+| Full call context       | `trace_path --direction both`                             |
+| Find by name pattern    | `search_graph --name-pattern '...'`                       |
+| NL keyword search       | `search_graph --query 'words'`                            |
+| Dead code               | `search_graph --max-degree 0 --exclude-entry-points true` |
+| Cross-service edges     | `query_graph` with Cypher                                 |
+| Impact of local changes | `detect_changes`                                          |
+| Risk-classified trace   | `trace_path --risk-labels true`                           |
+| Text search             | `search_code` or Grep                                     |
 
 ## Exploration Workflow
 
@@ -59,17 +59,17 @@ Raw JSON positional args (`cli <tool> '<json>'`) still work but are deprecated.
 
 ## search_graph Key Flags
 
-| Flag | Purpose |
-| ------ | --------- |
-| `--query <text>` | BM25 NL search (camelCase split, noise labels filtered); overrides `--name-pattern` |
-| `--name-pattern <regex>` | Regex match on node name |
-| `--qn-pattern <regex>` | Regex match on qualified name |
-| `--file-pattern <regex>` | Regex match on file path |
-| `--label <string>` | Filter by node type (Function, Class, etc.) |
-| `--min-degree / --max-degree` | Degree filter |
-| `--fields <array>` | Extra columns: complexity, signature, docstring, return_type, is_test, lines |
-| `--format json` | Structured JSON output instead of tree text |
-| `--semantic-query <array>` | Keyword array for vector search (requires full index mode) |
+| Flag                          | Purpose                                                                             |
+|-------------------------------|-------------------------------------------------------------------------------------|
+| `--query <text>`              | BM25 NL search (camelCase split, noise labels filtered); overrides `--name-pattern` |
+| `--name-pattern <regex>`      | Regex match on node name                                                            |
+| `--qn-pattern <regex>`        | Regex match on qualified name                                                       |
+| `--file-pattern <regex>`      | Regex match on file path                                                            |
+| `--label <string>`            | Filter by node type (Function, Class, etc.)                                         |
+| `--min-degree / --max-degree` | Degree filter                                                                       |
+| `--fields <array>`            | Extra columns: complexity, signature, docstring, return_type, is_test, lines        |
+| `--format json`               | Structured JSON output instead of tree text                                         |
+| `--semantic-query <array>`    | Keyword array for vector search (requires full index mode)                          |
 
 ## Quality Analysis
 
