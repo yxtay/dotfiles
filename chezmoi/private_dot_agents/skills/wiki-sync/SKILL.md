@@ -9,12 +9,6 @@ argument-hint: "[--date <YYYY-MM-DD>]"
 
 # Wiki Sync
 
-Read agentmemory's Obsidian export and merge durable knowledge into `~/wiki/`
-following OKF conventions (via the `okf` skill).
-
-Export path: `~/.agentmemory/obsidian_export/` — populated automatically on
-every consolidation when `OBSIDIAN_AUTO_EXPORT=true`.
-
 ## Arguments
 
 - `--date <YYYY-MM-DD>` / `-d <YYYY-MM-DD>` — only include files modified on or

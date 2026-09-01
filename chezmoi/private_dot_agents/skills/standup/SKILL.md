@@ -7,9 +7,6 @@ argument-hint: "[<date-or-range>] [--project <pattern>]"
 
 # Standup
 
-Produce a standup from agentmemory session history for the requested date or date range,
-optionally filtered to a project pattern.
-
 ## Argument parsing
 
 Parse `$ARGUMENTS` (order-independent):
@@ -68,19 +65,14 @@ Parse `$ARGUMENTS` (order-independent):
    Drop: bare `ls`, `cat`, `cd`, `echo`, `pwd`, `which`, `man`, `history`.
    Deduplicate: one entry per logical action, last successful variant when retried.
 
-5. **Extract tasks** — group all sessions by `cwd`. For each repo, treat all narratives
-   together as a single body of text. Read across them and extract every distinct concrete
-   task or change — do not reduce to one bullet per session. Use `narrative` as the primary
-   source of detail.
+5. **Synthesize** — group all sessions by `cwd`. For each repo, read all narratives as a
+   single body and extract every distinct concrete task or change. Shell history fills gaps;
+   narratives supply intent. One bullet per logical task, deduplicated across both sources.
 
-6. **Merge** — combine session tasks with shell history. Shell fills gaps;
-   session summaries supply intent. One bullet per logical task, deduplicated across sources.
-
-7. **Filter** — apply `--project`: drop repos whose path doesn't contain the pattern.
-   Drop `Other` bucket when filter is active.
-
-8. **Output** — fenced code block, no preamble. One bullet per task ≤12 words.
+6. **Output** — fenced code block, no preamble. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
+   Apply `--project` filter: drop repos whose path doesn't contain the pattern;
+   omit `Other` when filter is active.
 
 ````text
 ```
