@@ -26,7 +26,8 @@ Parse `$ARGUMENTS` (order-independent):
 
 1. **Resolve dates** — produce `start = <start-date>T00:00:00Z` and `end = <end-date>T23:59:59Z`.
 
-2. **Load sessions** — fetch and reduce to standup fields only:
+2. **Load sessions** — fetch and reduce to standup fields only. Use
+   `dangerouslyDisableSandbox: true` (sandbox blocks localhost TCP):
 
    ```sh
    curl -s "http://localhost:3111/agentmemory/sessions?since=<start>&until=<end>" \
@@ -44,7 +45,7 @@ Parse `$ARGUMENTS` (order-independent):
    If the request fails or returns `[]`, output: "No agentmemory sessions found for `<range>`."
 
 3. **Fallback for sparse summaries** — for any session where `title` is null/empty,
-   fetch raw observations:
+   fetch raw observations (use `dangerouslyDisableSandbox: true`):
 
    ```sh
    curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>&limit=100" \
