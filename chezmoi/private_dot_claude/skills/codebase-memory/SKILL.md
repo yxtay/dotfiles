@@ -14,20 +14,10 @@ description: >-
 
 Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 
-**All tools run via CLI** (no MCP server required):
-
-```bash
-codebase-memory-mcp cli <tool> --flag value [--flag2 value2 ...]
-# or pipe JSON (also accepted):
-echo '<json>' | codebase-memory-mcp cli <tool>
-```
-
-Raw JSON positional args (`cli <tool> '<json>'`) still work but are deprecated.
-
 ## Quick Decision Matrix
 
 | Question                | Tool call                                                 |
-|-------------------------|-----------------------------------------------------------|
+| ----------------------- | --------------------------------------------------------- |
 | Who calls X?            | `trace_path --direction inbound`                          |
 | What does X call?       | `trace_path --direction outbound`                         |
 | Full call context       | `trace_path --direction both`                             |
@@ -69,7 +59,7 @@ Raw JSON positional args (`cli <tool> '<json>'`) still work but are deprecated.
 ## search_graph Key Flags
 
 | Flag                          | Purpose                                                                             |
-|-------------------------------|-------------------------------------------------------------------------------------|
+| ----------------------------- | ----------------------------------------------------------------------------------- |
 | `--query <text>`              | BM25 NL search (camelCase split, noise labels filtered); overrides `--name-pattern` |
 | `--name-pattern <regex>`      | Regex match on node name                                                            |
 | `--qn-pattern <regex>`        | Regex match on qualified name                                                       |
