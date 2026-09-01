@@ -14,6 +14,11 @@ description: >-
 
 Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 
+All tools run via CLI (no MCP server required):
+`codebase-memory-mcp cli <tool> --flag value` or `echo '<json>' | codebase-memory-mcp cli <tool>`
+
+Raw JSON positional args (`cli <tool> '<json>'`) still work but are deprecated.
+
 ## Quick Decision Matrix
 
 | Question                | Tool call                                                 |
@@ -33,14 +38,18 @@ Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 
 1. `codebase-memory-mcp cli list_projects` — check if project is indexed
 2. `codebase-memory-mcp cli get_graph_schema --project <id>` — understand node/edge types
-3. `codebase-memory-mcp cli search_graph --project <id> --label Function --name-pattern '.*'`
-4. `codebase-memory-mcp cli get_code_snippet --project <id> --qualified-name path.FuncName`
+3. `codebase-memory-mcp cli search_graph --project <id> --label Function --name-pattern '.*Pattern.*'`
+   — find code
+4. `codebase-memory-mcp cli get_code_snippet --project <id> --qualified-name project.path.FuncName`
+   — read source
 
 ## Tracing Workflow
 
 1. `codebase-memory-mcp cli search_graph --project <id> --name-pattern '.*FuncName.*'`
+   — discover exact name
 2. `codebase-memory-mcp cli trace_path --project <id> --function-name FuncName --direction both`
-3. `codebase-memory-mcp cli detect_changes --project <id>` — map git diff to symbols
+   `--depth 3` — trace
+3. `codebase-memory-mcp cli detect_changes --project <id>` — map git diff to affected symbols
 
 ## Evidence Tiers
 
@@ -55,6 +64,17 @@ Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
   evidence path. For negative or exhaustive claims also include the relevant scopes. A clean result
   means no recorded gap, not proof of completeness. For partial, skipped, excluded, stale, pending,
   or unknown coverage, read/grep the reported ranges or scope before relying on the graph.
+
+## Sessions and Subagents
+
+- At session start or after compaction, run `list_projects`/`index_status` before structural
+  exploration, then choose Scout, Verify, or Auditor for the task.
+- Before delegating to a subagent, query the graph and coverage in the parent. Pass the tier, exact
+  project, generation/freshness, bounded scope, queries and pagination state, qualified symbols,
+  paths, call-chain findings, coverage ranges/reasons, source fallback already performed, and
+  unresolved questions to the child.
+- A child without CLI access must not call or claim CLI access. It should work from the supplied
+  evidence and use read/grep on exact source, especially every reported missed-coverage range.
 
 ## search_graph Key Flags
 
@@ -81,7 +101,7 @@ Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 `index_repository`, `index_status`, `list_projects`, `delete_project`,
 `search_graph`, `search_code`, `trace_path`, `detect_changes`,
 `query_graph`, `get_graph_schema`, `get_code_snippet`, `get_architecture`,
-`manage_adr`, `ingest_traces`, `check_index_coverage`
+`check_index_coverage`, `manage_adr`, `ingest_traces`
 
 ## Edge Types
 
@@ -89,7 +109,7 @@ CALLS, HTTP_CALLS, ASYNC_CALLS, DATA_FLOWS, IMPORTS, DEFINES, DEFINES_METHOD,
 HANDLES, IMPLEMENTS, OVERRIDE, USAGE, CALL_REFERENCE, CONFIGURES, FILE_CHANGES_WITH,
 SIMILAR_TO, SEMANTICALLY_RELATED, CONTAINS_FILE, CONTAINS_FOLDER, CONTAINS_PACKAGE
 
-## Cypher Examples
+## Cypher Examples (for query_graph)
 
 ```bash
 codebase-memory-mcp cli query_graph --project <id> \
@@ -102,7 +122,8 @@ codebase-memory-mcp cli query_graph --project <id> \
 
 ## Gotchas
 
-1. `search_graph --relationship HTTP_CALLS` filters nodes by degree — use `query_graph` for edges.
+1. `search_graph --relationship HTTP_CALLS` filters nodes by degree — use `query_graph` with Cypher
+   to see actual edges.
 2. `query_graph` has a 100k row ceiling — add a Cypher `LIMIT` for broad queries or use
    `search_graph` pagination.
 3. `trace_path` needs exact names — use `search_graph --name-pattern` first.
