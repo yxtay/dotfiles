@@ -24,7 +24,7 @@ echo '<json>' | codebase-memory-mcp cli <tool>
 ## Quick Decision Matrix
 
 | Question                | Tool call                                                 |
-| ----------------------- | --------------------------------------------------------- |
+|-------------------------|-----------------------------------------------------------|
 | Who calls X?            | `trace_path --direction inbound`                          |
 | What does X call?       | `trace_path --direction outbound`                         |
 | Full call context       | `trace_path --direction both`                             |
@@ -52,7 +52,7 @@ echo '<json>' | codebase-memory-mcp cli <tool>
 ## search_graph Key Flags
 
 | Flag                          | Purpose                                                                             |
-| ----------------------------- | ----------------------------------------------------------------------------------- |
+|-------------------------------|-------------------------------------------------------------------------------------|
 | `--query <text>`              | BM25 NL search (camelCase split, noise labels filtered); overrides `--name-pattern` |
 | `--name-pattern <regex>`      | Regex match on node name                                                            |
 | `--qn-pattern <regex>`        | Regex match on qualified name                                                       |
