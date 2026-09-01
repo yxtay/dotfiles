@@ -17,7 +17,7 @@ Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 
 ```bash
 codebase-memory-mcp cli <tool> --flag value [--flag2 value2 ...]
-# or pipe JSON (also accepted):
+# or pipe JSON:
 echo '<json>' | codebase-memory-mcp cli <tool>
 ```
 
