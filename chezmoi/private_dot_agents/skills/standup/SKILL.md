@@ -35,16 +35,12 @@ Parse `$ARGUMENTS` (order-independent):
          | select(.observationCount > 0)
          | {id,
             cwd,
-            title: .summary.title,
-            narrative: .summary.narrative,
-            keyDecisions: .summary.keyDecisions,
-            filesModified: .summary.filesModified,
-            concepts: .summary.concepts}]'
+            narrative: .summary.narrative}]'
    ```
 
    If the request fails or returns `[]`, output: "No agentmemory sessions found for `<range>`."
 
-3. **Fallback for sparse summaries** — for any session where `title` is null/empty,
+3. **Fallback for sparse summaries** — for any session where `narrative` is null/empty,
    fetch raw observations (use `dangerouslyDisableSandbox: true`):
 
    ```sh
@@ -72,12 +68,10 @@ Parse `$ARGUMENTS` (order-independent):
    Drop: bare `ls`, `cat`, `cd`, `echo`, `pwd`, `which`, `man`, `history`.
    Deduplicate: one entry per logical action, last successful variant when retried.
 
-5. **Extract tasks** — for each session: repo/dir = `cwd`; derive tasks in priority order:
-   1. `title` — top-level bullet
-   2. `keyDecisions` — concrete decisions, use as sub-bullets
-   3. `narrative` — synthesize to fill gaps keyDecisions leaves
-   4. `filesModified` — sub-bullets when keyDecisions absent
-   5. `concepts` — thematic fallback when all above absent
+5. **Extract tasks** — group all sessions by `cwd`. For each repo, treat all narratives
+   together as a single body of text. Read across them and extract every distinct concrete
+   task or change — do not reduce to one bullet per session. Use `narrative` as the primary
+   source of detail.
 
 6. **Merge** — combine session tasks with shell history. Shell fills gaps;
    session summaries supply intent. One bullet per logical task, deduplicated across sources.
