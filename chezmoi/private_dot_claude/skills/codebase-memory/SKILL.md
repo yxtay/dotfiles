@@ -6,18 +6,23 @@ description: >-
   show me the structure, who calls this function, what does X call,
   trace the call chain, find callers of, show dependencies, impact analysis,
   dead code, unused functions, high fan-out, refactor candidates,
-  code quality audit, graph query syntax, Cypher examples, edge types.
+  code quality audit, graph query syntax, Cypher query examples, edge types,
+  how to use search_graph.
 ---
 
 # Codebase Memory — Knowledge Graph Tools
 
 Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 
-**All tools run via CLI**:
+**All tools run via CLI** (no MCP server required):
 
 ```bash
 codebase-memory-mcp cli <tool> --flag value [--flag2 value2 ...]
+# or pipe JSON (also accepted):
+echo '<json>' | codebase-memory-mcp cli <tool>
 ```
+
+Raw JSON positional args (`cli <tool> '<json>'`) still work but are deprecated.
 
 ## Quick Decision Matrix
 
@@ -46,6 +51,20 @@ codebase-memory-mcp cli <tool> --flag value [--flag2 value2 ...]
 1. `codebase-memory-mcp cli search_graph --project <id> --name-pattern '.*FuncName.*'`
 2. `codebase-memory-mcp cli trace_path --project <id> --function-name FuncName --direction both`
 3. `codebase-memory-mcp cli detect_changes --project <id>` — map git diff to symbols
+
+## Evidence Tiers
+
+- **Scout (Tier 1):** fast positive lookup with few graph calls and targeted source checks. Treat
+  results as provisional; never make absence, exhaustive, dead-code, or complete-impact claims.
+- **Verify (Tier 2, default):** task-directed searches, relevant trace directions, exact snippets
+  for material claims, and all relevant result pages.
+- **Auditor (Tier 3):** bounded-scope full verification with a current graph generation, complete
+  relevant pagination, both call directions and broader relationships when material, plus explicit
+  unresolved limitations.
+- **Every tier:** after candidate paths are known, call `check_index_coverage` once with every
+  evidence path. For negative or exhaustive claims also include the relevant scopes. A clean result
+  means no recorded gap, not proof of completeness. For partial, skipped, excluded, stale, pending,
+  or unknown coverage, read/grep the reported ranges or scope before relying on the graph.
 
 ## search_graph Key Flags
 
@@ -76,24 +95,27 @@ codebase-memory-mcp cli <tool> --flag value [--flag2 value2 ...]
 
 ## Edge Types
 
-CALLS, HTTP_CALLS, ASYNC_CALLS, IMPORTS, DEFINES, DEFINES_METHOD,
-HANDLES, IMPLEMENTS, OVERRIDE, USAGE, FILE_CHANGES_WITH,
-CONTAINS_FILE, CONTAINS_FOLDER, CONTAINS_PACKAGE
+CALLS, HTTP_CALLS, ASYNC_CALLS, DATA_FLOWS, IMPORTS, DEFINES, DEFINES_METHOD,
+HANDLES, IMPLEMENTS, OVERRIDE, USAGE, CALL_REFERENCE, CONFIGURES, FILE_CHANGES_WITH,
+SIMILAR_TO, SEMANTICALLY_RELATED, CONTAINS_FILE, CONTAINS_FOLDER, CONTAINS_PACKAGE
 
 ## Cypher Examples
 
 ```bash
 codebase-memory-mcp cli query_graph --project <id> \
-  --query 'MATCH (a)-[r:HTTP_CALLS]->(b) RETURN a.name, b.name LIMIT 20'
+  --query 'MATCH (a)-[r:HTTP_CALLS]->(b) RETURN a.name, b.name, r.url_path, r.confidence LIMIT 20'
 codebase-memory-mcp cli query_graph --project <id> \
-  --query 'MATCH (f:Function) WHERE f.name =~ ".*Handler.*" RETURN f.name'
+  --query 'MATCH (f:Function) WHERE f.name =~ ".*Handler.*" RETURN f.name, f.file_path'
+codebase-memory-mcp cli query_graph --project <id> \
+  --query 'MATCH (a)-[r:CALLS]->(b) WHERE a.name = "main" RETURN b.name'
 ```
 
 ## Gotchas
 
-1. `"relationship":"HTTP_CALLS"` in `search_graph` filters by degree — use `query_graph` for edges.
-2. `query_graph` has a 200-row cap — use `search_graph` with degree filters for counting.
-3. `trace_path` needs exact names — use `search_graph` with `--name-pattern` first.
-4. `"direction":"outbound"` misses cross-service callers — use `"direction":"both"`.
-5. Results default to 10 per page — check `has_more` and use `--offset`.
+1. `search_graph(relationship="HTTP_CALLS")` filters nodes by degree — use `query_graph` for edges.
+2. `query_graph` has a 100k row ceiling — add a Cypher `LIMIT` for broad queries or use
+   `search_graph` pagination.
+3. `trace_path` needs exact names — use `search_graph --name-pattern` first.
+4. `--direction outbound` misses cross-service callers — use `--direction both`.
+5. `search_graph` results default to 50 per page — check `has_more` and use `--offset`.
 6. `--semantic-query` requires an array of strings, not a single string.
