@@ -1,6 +1,6 @@
 ---
 name: standup
-description: Standup digest from agentmemory sessions + atuin, grouped by repo. Args: [date-or-range] [--project pattern]
+description: Standup digest from agentmemory sessions + atuin, grouped by repo. Supports date ranges and project filters.
 disable-model-invocation: true
 argument-hint: "[<date-or-range>] [--project <pattern>]"
 ---
@@ -13,9 +13,11 @@ Parse `$ARGUMENTS` (order-independent):
 
 - **Date / range**:
   - `YYYY-MM-DD` — single date
-  - `YYYY-MM-DD:YYYY-MM-DD` — inclusive range
-  - `past N days/weeks`, `last week`, `this sprint`, `past sprint` — resolve relative to today
+  - `YYYY-MM-DD:YYYY-MM-DD` — inclusive ISO range
+  - `past N days/weeks`, `last week` — relative natural language; resolve against yesterday's date
+  - `this sprint` / `past sprint` — 2-week window ending yesterday / ending 14 days ago
   - Default (no date arg): yesterday
+  - Reject with an error if end < start or the expression is unrecognisable.
 - **Project filter**: `--project <pattern>` or `-p <pattern>` —
   case-insensitive substring matched against `cwd`.
 
@@ -61,17 +63,19 @@ Parse `$ARGUMENTS` (order-independent):
      --format "{time} {directory} {command}" --limit 5000 2>/dev/null
    ```
 
-   Keep: `git`, `brew`, `gh`, `ssh`, `docker`, `uv`, `npx`, `databricks`, `aws`, `az`,
-   `claude`, `pre-commit`, `chezmoi`, and any command with file paths or flags.
-   Drop: bare `ls`, `cat`, `cd`, `echo`, `pwd`, `which`, `man`, `history`.
-   Deduplicate: one entry per logical action, last successful variant when retried.
+   - **Keep**: `git`, `brew`, `gh`, `ssh`, `docker`, `uv`, `npx`, `databricks`, `aws`, `az`,
+     `claude`, `pre-commit`, `chezmoi`, and any command with file paths or flags.
+   - **Drop**: bare `ls`, `cat`, `cd`, `echo`, `pwd`, `which`, `man`, `history`, `atuin` with no args.
+   - **Deduplicate**: collapse repeated identical or near-identical commands; keep only the last
+     successful variant when a command was retried.
 
 5. **Synthesize** — group all sessions by `cwd`. For each repo, read all narratives as a
    single body and extract every distinct concrete task or change. Shell history fills gaps;
    narratives supply intent. One bullet per logical task, deduplicated across both sources.
 
-6. **Output** — fenced code block, no preamble. One bullet per task ≤12 words.
+6. **Output** — fenced code block only. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
+   Aggregate all tasks across the entire date range — do not split or label by date.
    Apply `--project` filter: drop repos whose path doesn't contain the pattern;
    omit `Other` when filter is active.
 
