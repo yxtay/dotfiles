@@ -20,6 +20,7 @@
   "autoCompactEnabled": true,
   "autoMemoryEnabled": true,
   "awaySummaryEnabled": true,
+  "editorMode": "normal",
   "fileCheckpointingEnabled": true,
   "outputStyle": "Concise",
   "preferredNotifChannel": "terminal_bell",
