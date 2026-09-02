@@ -33,4 +33,7 @@ fi
 export MEMSEARCH_DIR=${HOME}/.memsearch
 
 # local secrets (not tracked by chezmoi)
-[[ -f "${HOME}/.env" ]] && source "${HOME}/.env" || true
+[[ -f "${ZDOTDIR}/.zshenv.local" ]] && source "${ZDOTDIR}/.zshenv.local" || true
+set -a
+[[ -f "${HOME}/.agentmemory/.env" ]] && source "${HOME}/.agentmemory/.env" || true
+set +a
