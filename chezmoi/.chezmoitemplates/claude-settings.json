@@ -22,7 +22,7 @@
   "permissions": {
     "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
-    "additionalDirectories": ["~/wiki"],
+    "additionalDirectories": ["~/.agentmemory/vault", "~/wiki"],
     "ask": [
       "Edit(**/.env)",
       "Edit(**/.env.*)",
