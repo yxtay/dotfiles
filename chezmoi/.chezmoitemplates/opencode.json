@@ -38,7 +38,6 @@
     "external_directory": {
       "~/.agentmemory/**": "allow",
       "~/.config/opencode/**": "allow",
-      "~/.memsearch/**": "allow",
       "~/wiki/**": "allow"
     },
     "read": {

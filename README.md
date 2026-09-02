@@ -64,8 +64,8 @@ Current skills:
 - `databricks` — Databricks jobs, clusters, pipelines, bundles, SQL warehouses, DBFS/volumes,
   and workspace objects
 - `glab` — GitLab merge requests, issues, CI/CD pipelines, pipeline jobs, and repositories
-- `okf` — OKF skill + SessionEnd hook that distills memsearch journals into the `~/wiki` OKF bundle
-- `update-summary` — standup digest from memsearch activity logs, grouped by repo;
+- `okf` — OKF skill + wiki maintenance hook for the `~/wiki` OKF bundle
+- `update-summary` — standup digest from agentmemory memory logs, grouped by repo;
   supports date ranges and project filters
 
 ## License
