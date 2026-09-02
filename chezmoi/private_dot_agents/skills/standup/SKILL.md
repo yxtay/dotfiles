@@ -27,9 +27,10 @@ Parse `$ARGUMENTS` (order-independent):
    `dangerouslyDisableSandbox: true` (sandbox blocks localhost TCP):
 
    ```sh
-   curl -s "http://localhost:3111/agentmemory/sessions?since=<start>&until=<end>" \
+   curl -s "http://localhost:3111/agentmemory/sessions" \
      | jq '[.sessions[]
          | select(.observationCount > 0)
+         | select(.startedAt >= "<start>" and .startedAt <= "<end>")
          | {id,
             cwd,
             narrative: .summary.narrative}]'
@@ -41,7 +42,7 @@ Parse `$ARGUMENTS` (order-independent):
    fetch raw observations (use `dangerouslyDisableSandbox: true`):
 
    ```sh
-   curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>&limit=100" \
+   curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>" \
      | jq '[.observations[] | {type, narrative}]'
    ```
 
@@ -56,7 +57,7 @@ Parse `$ARGUMENTS` (order-independent):
 4. **Load shell history** — run:
 
    ```sh
-   atuin search --after "<start-date> 00:00:00" --before "<end-date> 23:59:59" \
+   atuin search --after "<start>" --before "<end>" \
      --format "{time} {directory} {command}" --limit 5000 2>/dev/null
    ```
 
