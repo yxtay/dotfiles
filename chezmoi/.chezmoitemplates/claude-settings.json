@@ -18,6 +18,7 @@
     "CLAUDE_CODE_EFFORT_LEVEL": "auto"
   },
   "autoCompactEnabled": true,
+  "autoMemoryEnabled": true,
   "awaySummaryEnabled": true,
   "fileCheckpointingEnabled": true,
   "outputStyle": "Concise",
