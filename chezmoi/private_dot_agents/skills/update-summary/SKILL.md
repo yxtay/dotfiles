@@ -7,14 +7,11 @@ argument-hint: "[<date-or-range>] [--project <pattern>]"
 
 # Update Summary
 
-Produce a **standup** from the memsearch memory log for the requested date or date range,
-optionally filtered to a project pattern.
-
 ## Argument parsing
 
-Parse `$ARGUMENTS` with these rules (order-independent):
+Parse `$ARGUMENTS` (order-independent):
 
-- **Date / range**: accepts either ISO dates or natural language. Examples:
+- **Date / range**:
   - `YYYY-MM-DD` — single date
   - `YYYY-MM-DD:YYYY-MM-DD` — inclusive ISO range
   - `past 2 weeks`, `last week`, `past 5 days` — relative natural language; resolve
@@ -22,10 +19,8 @@ Parse `$ARGUMENTS` with these rules (order-independent):
   - `this sprint` / `past sprint` — treat as 2-week window ending yesterday / ending 14 days ago
   - Default (no date arg): yesterday
   - Reject with an error if end < start or the expression is unrecognisable.
-- **Project filter**: `--project <pattern>` (or `-p <pattern>`) — a case-insensitive
-  substring matched against the repo/directory path. When present, only tasks whose
-  path contains the pattern are included. Example: `--project aiap` keeps only repos
-  under any path containing "aiap".
+- **Project filter**: `--project <pattern>` (or `-p <pattern>`) — case-insensitive
+  substring matched against the repo/directory path. Example: `--project aiap`.
 
 Examples:
 
@@ -67,15 +62,11 @@ Examples:
 5. **Map** — assign each task to the repo/dir where the change happened. Tasks
    with no repo go under `Other`.
 
-6. **Filter** — if `--project` was given, drop all repos whose path does not
-   contain the pattern (case-insensitive). Also drop the `Other` bucket unless
-   no project filter is active.
-
-7. **Output** the standup in a fenced code block. No preamble. One bullet per
-   task, ≤12 words. Under each task, nest sub-tasks one level deep only when
-   they are genuinely distinct steps, not elaborations. Skip sessions with only
-   exploration and no resulting change or decision. Aggregate all tasks across
-   the entire date range — do not split or label by date.
+6. **Output** — fenced code block only. One bullet per task ≤12 words.
+   Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
+   Aggregate all tasks across the entire date range — do not split or label by date.
+   Apply `--project` filter: drop repos whose path doesn't contain the pattern;
+   omit `Other` when filter is active.
 
 ````text
 ```
