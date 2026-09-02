@@ -1,6 +1,6 @@
 ---
 name: update-summary
-description: Standup digest from memsearch activity logs, grouped by repo. Supports date ranges and project filters.
+description: Standup digest from activity logs, grouped by repo. Supports date ranges and project filters.
 disable-model-invocation: true
 argument-hint: "[<date-or-range>] [--project <pattern>]"
 ---

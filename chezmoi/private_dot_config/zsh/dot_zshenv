@@ -30,8 +30,6 @@ if [[ -f "${cert_file}" ]]; then
   export SSL_CERT_FILE=${cert_file}
 fi
 
-export MEMSEARCH_DIR=${HOME}/.memsearch
-
 # local secrets (not tracked by chezmoi)
 [[ -f "${ZDOTDIR}/.zshenv.local" ]] && source "${ZDOTDIR}/.zshenv.local" || true
 set -a
