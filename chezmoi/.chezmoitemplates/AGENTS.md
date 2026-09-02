@@ -12,9 +12,9 @@
 ## Documentation
 
 - Read the project's `README.md` at the start of every task.
-- Keep it and the agent instruction file updated when changes affect them.
+- Keep it and `AGENTS.md` updated when changes affect them.
 - `README.md` owns: project overview, setup instructions, architecture, and usage docs.
-- Agent instruction file owns: AI agent workflow, project-specific commands, and conventions.
+- `AGENTS.md` owns: AI agent workflow, project-specific commands, and conventions.
 - Do not duplicate information between the two files. Reference `README.md` for project context.
 
 ## Knowledge Management
@@ -34,8 +34,6 @@ skill for the format and bundle-maintenance conventions.
   that directory level if one exists.
 - **Sweep periodically**: don't rely only on the reactive rule above — occasionally scan concept
   files you haven't touched for staleness against current code/decisions.
-- `~/.memsearch/USER.md` is a related, read-only reference maintained by memsearch — don't edit it
-  or merge it into `~/wiki/`.
 
 ## Context Management
 
