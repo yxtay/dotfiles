@@ -15,7 +15,6 @@
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "bedrock.claude-opus-4-8[1m]",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "bedrock.claude-sonnet-4-6[1m]",
     "ANTHROPIC_MODEL": "opusplan",
-    "ANTHROPIC_SMALL_FAST_MODEL": "bedrock.claude-haiku-4-5",
     "CLAUDE_CODE_EFFORT_LEVEL": "auto"
   },
   "autoCompactEnabled": true,
