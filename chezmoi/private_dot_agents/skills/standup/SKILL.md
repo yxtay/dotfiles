@@ -69,28 +69,34 @@ Parse `$ARGUMENTS` (order-independent):
    - **Deduplicate**: collapse repeated identical or near-identical commands; keep only the last
      successful variant when a command was retried.
 
-5. **Load GitLab MRs** — skip entire step if `glab` is not installed. For each unique `cwd`
-   from sessions, run both queries (each may fail silently — wrap in `2>/dev/null || true`):
+5. **Load GitLab MRs** — skip entire step if `glab` is not installed. Detect the GitLab
+   hostname from the first session `cwd` that has a GitLab remote:
+
+   ```sh
+   host=$(cd "<first-session-cwd>" && \
+     git remote get-url origin 2>/dev/null \
+     | sed 's|.*@\([^:]*\):.*|\1|; s|https\?://\([^/]*\)/.*|\1|')
+   ```
+
+   Then run two global queries against that host (no cwd needed):
 
    ```sh
    # MRs authored by me
-   cd "<cwd>" && glab mr list --author=@me --state=all \
-     --created-after="<start-date>" --created-before="<end-date>" \
-     --output json 2>/dev/null \
-     | jq '[.[] | {iid, title, web_url, state, role: "author"}]'
+   glab api --hostname "$host" /merge_requests \
+     -f scope=created_by_me -f state=all \
+     -f created_after="<start>" -f created_before="<end>" 2>/dev/null \
+     | jq '[.[] | {iid, title, web_url, project_path: .references.full, state, role: "author"}]'
 
-   # MRs approved by me — requires user ID
-   me_id=$(cd "<cwd>" && glab api /user 2>/dev/null | jq -r '.id')
-   cd "<cwd>" && glab api /merge_requests \
-     -f "approved_by_ids[]=$me_id" \
-     -f state=merged \
-     -f created_after="<start>" \
-     -f created_before="<end>" 2>/dev/null \
-     | jq '[.[] | {iid, title: .title, web_url, state, role: "approved"}]'
+   # MRs approved by me
+   me_id=$(glab api --hostname "$host" /user 2>/dev/null | jq -r '.id')
+   glab api --hostname "$host" /merge_requests \
+     -f "approved_by_ids[]=$me_id" -f state=merged \
+     -f created_after="<start>" -f created_before="<end>" 2>/dev/null \
+     | jq '[.[] | {iid, title, web_url, project_path: .references.full, state, role: "approved"}]'
    ```
 
-   Deduplicate by `iid` across both result sets (an authored MR may also appear in approved).
-   Group results by `cwd` for use in synthesis.
+   Deduplicate by `(host, iid, project_path)`. Use `project_path` to match MRs to session `cwd`s
+   during synthesis; unmatched MRs go under `Other`.
 
 6. **Synthesize** — group all sessions by `cwd`. For each repo, read all narratives as a
    single body and extract every distinct concrete task or change. Shell history fills gaps;
