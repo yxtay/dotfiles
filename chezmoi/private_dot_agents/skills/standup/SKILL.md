@@ -69,27 +69,19 @@ Parse `$ARGUMENTS` (order-independent):
    - **Deduplicate**: collapse repeated identical or near-identical commands; keep only the last
      successful variant when a command was retried.
 
-5. **Load GitLab MRs** — skip entire step if `glab` is not installed. Detect the GitLab
-   hostname from the first session `cwd` that has a GitLab remote:
-
-   ```sh
-   host=$(cd "<first-session-cwd>" && \
-     git remote get-url origin 2>/dev/null \
-     | sed 's|.*@\([^:]*\):.*|\1|; s|https\?://\([^/]*\)/.*|\1|')
-   ```
-
-   Then run two global queries against that host (no cwd needed):
+5. **Load GitLab MRs** — skip entire step if `glab` is not installed. Use the pinned
+   hostname `sgts.gitlab-dedicated.com`. Run two global queries (no cwd needed):
 
    ```sh
    # MRs authored by me
-   glab api --hostname "$host" /merge_requests \
+   glab api --hostname sgts.gitlab-dedicated.com /merge_requests \
      -f scope=created_by_me -f state=all \
      -f created_after="<start>" -f created_before="<end>" 2>/dev/null \
      | jq '[.[] | {iid, title, web_url, project_path: .references.full, state, role: "author"}]'
 
    # MRs approved by me
-   me_id=$(glab api --hostname "$host" /user 2>/dev/null | jq -r '.id')
-   glab api --hostname "$host" /merge_requests \
+   me_id=$(glab api --hostname sgts.gitlab-dedicated.com /user 2>/dev/null | jq -r '.id')
+   glab api --hostname sgts.gitlab-dedicated.com /merge_requests \
      -f "approved_by_ids[]=$me_id" -f state=merged \
      -f created_after="<start>" -f created_before="<end>" 2>/dev/null \
      | jq '[.[] | {iid, title, web_url, project_path: .references.full, state, role: "approved"}]'
