@@ -18,4 +18,4 @@ for _ in 1 2 3 4 5; do
     exit 0
   fi
 done
-echo "WARNING: agentmemory failed to start. Check $HOME/.agentmemory/server.log" >&2
+echo "WARNING: agentmemory failed to start. Check ~/.agentmemory/server.log" >&2
