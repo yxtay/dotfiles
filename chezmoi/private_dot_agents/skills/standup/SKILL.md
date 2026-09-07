@@ -69,11 +69,35 @@ Parse `$ARGUMENTS` (order-independent):
    - **Deduplicate**: collapse repeated identical or near-identical commands; keep only the last
      successful variant when a command was retried.
 
-5. **Synthesize** — group all sessions by `cwd`. For each repo, read all narratives as a
-   single body and extract every distinct concrete task or change. Shell history fills gaps;
-   narratives supply intent. One bullet per logical task, deduplicated across both sources.
+5. **Load GitLab MRs** — skip entire step if `glab` is not installed. For each unique `cwd`
+   from sessions, run both queries (each may fail silently — wrap in `2>/dev/null || true`):
 
-6. **Output** — fenced code block only. One bullet per task ≤12 words.
+   ```sh
+   # MRs authored by me
+   cd "<cwd>" && glab mr list --author=@me --state=all \
+     --created-after="<start-date>" --created-before="<end-date>" \
+     --output json 2>/dev/null \
+     | jq '[.[] | {iid, title, web_url, state, role: "author"}]'
+
+   # MRs approved by me — requires user ID
+   me_id=$(cd "<cwd>" && glab api /user 2>/dev/null | jq -r '.id')
+   cd "<cwd>" && glab api /merge_requests \
+     -f "approved_by_ids[]=$me_id" \
+     -f state=merged \
+     -f created_after="<start>" \
+     -f created_before="<end>" 2>/dev/null \
+     | jq '[.[] | {iid, title: .title, web_url, state, role: "approved"}]'
+   ```
+
+   Deduplicate by `iid` across both result sets (an authored MR may also appear in approved).
+   Group results by `cwd` for use in synthesis.
+
+6. **Synthesize** — group all sessions by `cwd`. For each repo, read all narratives as a
+   single body and extract every distinct concrete task or change. Shell history fills gaps;
+   narratives supply intent. MR data from step 5 adds concrete merge/review activity.
+   One bullet per logical task, deduplicated across all sources.
+
+7. **Output** — fenced code block only. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
    Aggregate all tasks across the entire date range — do not split or label by date.
    Apply `--project` filter: drop repos whose path doesn't contain the pattern;
