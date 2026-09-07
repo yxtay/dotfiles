@@ -7,6 +7,6 @@ if npx --yes @agentmemory/agentmemory status >/dev/null 2>&1; then
 fi
 
 # Kill stale process occupying the port before starting fresh.
-stale_pid=$(lsof -ti :3111 2>/dev/null) && kill "$stale_pid" 2>/dev/null || true
+stale_pid=$(lsof -ti :3111 2>/dev/null) && kill -9 "$stale_pid" 2>/dev/null || true
 
 npx -y @agentmemory/agentmemory >>"$HOME/.agentmemory/server.log" 2>&1 &
