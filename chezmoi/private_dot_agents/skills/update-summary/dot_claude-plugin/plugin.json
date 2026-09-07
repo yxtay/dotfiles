@@ -1,6 +1,6 @@
 {
-  "name": "standup",
-  "description": "Daily standup skill with agentmemory server auto-start",
+  "name": "update-summary",
+  "description": "Update summary skill with agentmemory server auto-start",
   "skills": "./",
   "hooks": {
     "SessionStart": [
