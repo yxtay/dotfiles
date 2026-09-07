@@ -73,17 +73,18 @@ Parse `$ARGUMENTS` (order-independent):
    hostname `sgts.gitlab-dedicated.com`. Run two global queries (no cwd needed):
 
    ```sh
+   # Note: -f flags force POST (404); embed params in URL for GET.
    # MRs authored by me
-   glab api --hostname sgts.gitlab-dedicated.com /merge_requests \
-     -f scope=created_by_me -f state=all \
-     -f created_after="<start>" -f created_before="<end>" 2>/dev/null \
+   HOST=sgts.gitlab-dedicated.com
+   glab api --hostname "$HOST" \
+     "/merge_requests?scope=created_by_me&state=all&created_after=<start>&created_before=<end>" \
+     2>/dev/null \
      | jq '[.[] | {iid, title, web_url, project_path: .references.full, state, role: "author"}]'
 
    # MRs approved by me
-   me_id=$(glab api --hostname sgts.gitlab-dedicated.com /user 2>/dev/null | jq -r '.id')
-   glab api --hostname sgts.gitlab-dedicated.com /merge_requests \
-     -f "approved_by_ids[]=$me_id" -f state=merged \
-     -f created_after="<start>" -f created_before="<end>" 2>/dev/null \
+   me_id=$(glab api --hostname "$HOST" /user 2>/dev/null | jq -r '.id')
+   q="approved_by_ids[]=$me_id&state=merged&created_after=<start>&created_before=<end>"
+   glab api --hostname "$HOST" "/merge_requests?$q" 2>/dev/null \
      | jq '[.[] | {iid, title, web_url, project_path: .references.full, state, role: "approved"}]'
    ```
 
