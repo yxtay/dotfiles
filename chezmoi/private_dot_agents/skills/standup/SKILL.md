@@ -25,8 +25,18 @@ Parse `$ARGUMENTS` (order-independent):
 
 1. **Resolve dates** — produce `start = <start-date>T00:00:00Z` and `end = <end-date>T23:59:59Z`.
 
-2. **Load sessions** — fetch and reduce to standup fields only. Use
-   `dangerouslyDisableSandbox: true` (sandbox blocks localhost TCP):
+2. **Load sessions** — first verify agentmemory is healthy
+   (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
+
+   ```sh
+   npx --yes @agentmemory/agentmemory status 2>/dev/null
+   ```
+
+   If exit code is non-zero, output a warning:
+   `"agentmemory is not running — session data unavailable. Start with: npx @agentmemory/agentmemory"`
+   and skip steps 2–3 (continue with shell history and MRs only).
+
+   If healthy, fetch sessions:
 
    ```sh
    curl -s "http://localhost:3111/agentmemory/sessions" \
@@ -38,7 +48,8 @@ Parse `$ARGUMENTS` (order-independent):
             narrative: .summary.narrative}]'
    ```
 
-   If the request fails or returns `[]`, output: "No agentmemory sessions found for `<range>`."
+   If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
+   and continue.
 
 3. **Fallback for sparse summaries** — for any session where `narrative` is null/empty,
    fetch raw observations (use `dangerouslyDisableSandbox: true`):
