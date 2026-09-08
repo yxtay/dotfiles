@@ -45,27 +45,32 @@ Parse `$ARGUMENTS` (order-independent):
          | select(.startedAt >= "<start>" and .startedAt <= "<end>")
          | {id,
             cwd,
-            narrative: .summary.narrative}]'
+            narrative: .summary.narrative,
+            keyDecisions: .summary.keyDecisions}]'
    ```
 
    If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
    and continue.
 
-3. **Fallback for sparse summaries** — for any session where `narrative` is null/empty,
-   fetch raw observations (use `dangerouslyDisableSandbox: true`):
+3. **Fallback for sparse summaries** — for any session where both `narrative` and `keyDecisions`
+   are null/empty, fetch raw observations (use `dangerouslyDisableSandbox: true`):
 
    ```sh
    curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>" \
-     | jq '[.observations[] | {type, narrative}]'
+     | jq '[.observations[] | {
+         type: .hookType,
+         narrative: (.userPrompt // .toolInput.command // .raw.prompt)
+       }]'
    ```
 
-   Observation schema: `type` is `"command_run"` or `"conversation"`. `narrative` is the raw payload:
+   Observation schema: `hookType` is `"prompt_submit"` (user message) or `"post_tool_use"` (tool call).
+   Extracted `narrative` is the user prompt text or the bash command run.
 
-   - `"conversation"` — plain user message text; use directly to infer intent.
-   - `"command_run"` — JSON blob `{command,...} | {stdout,stderr,...}`; grep for
+   - `"prompt_submit"` — plain user message text; use directly to infer intent.
+   - `"post_tool_use"` — bash command or tool input; grep for
      `git`, file paths, and tool names to infer tasks.
 
-   Prefer `"conversation"` observations for intent; use `"command_run"` to confirm concrete actions.
+   Prefer `"prompt_submit"` observations for intent; use `"post_tool_use"` to confirm concrete actions.
 
 4. **Load shell history** — run:
 
