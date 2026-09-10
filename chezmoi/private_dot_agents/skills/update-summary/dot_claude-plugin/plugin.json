@@ -9,7 +9,8 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/start-agentmemory.sh",
-            "timeout": 10
+            "timeout": 10,
+            "async": true
           }
         ]
       }
