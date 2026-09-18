@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
-# SessionStart hook: auto-start agentmemory server if not already running.
+# SessionStart hook: auto-start agentmemory server if not already running,
+# then backfill JSONL transcripts.
 set -euo pipefail
 
-if npx --yes @agentmemory/agentmemory status >/dev/null 2>&1; then
+healthy() {
+  curl -sf --max-time 2 "http://localhost:3111/agentmemory/sessions" >/dev/null 2>&1
+}
+
+import_jsonl() {
+  npx @agentmemory/agentmemory import-jsonl \
+    >>"$HOME/.agentmemory/server.log" 2>&1
+}
+
+if healthy; then
   exit 0
 fi
 
@@ -14,10 +24,11 @@ stale_pid=$(lsof -ti :3111 2>/dev/null) && kill -9 "$stale_pid" 2>/dev/null || t
 unset ANTHROPIC_MODEL
 npx -y @agentmemory/agentmemory >>"$HOME/.agentmemory/server.log" 2>&1 &
 
-# Wait for server to become ready (up to 10s).
+# Wait for server to become ready (up to 10s), then backfill.
 for _ in 1 2 3 4 5; do
   sleep 2
-  if npx --yes @agentmemory/agentmemory status >/dev/null 2>&1; then
+  if healthy; then
+    import_jsonl &
     exit 0
   fi
 done
