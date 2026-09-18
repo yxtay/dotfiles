@@ -4,7 +4,7 @@
 set -euo pipefail
 
 healthy() {
-  curl -sf --max-time 2 "http://localhost:3111/agentmemory/sessions" >/dev/null 2>&1
+  curl -sf --max-time 1 "http://localhost:3111/agentmemory/sessions" >/dev/null 2>&1
 }
 
 import_jsonl() {
@@ -26,7 +26,6 @@ npx -y @agentmemory/agentmemory >>"$HOME/.agentmemory/server.log" 2>&1 &
 
 # Wait for server to become ready (up to 10s), then backfill.
 for _ in 1 2 3 4 5; do
-  sleep 2
   if healthy; then
     import_jsonl &
     exit 0
