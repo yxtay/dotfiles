@@ -23,7 +23,16 @@ Parse `$ARGUMENTS` (order-independent):
 
 ## Steps
 
-1. **Resolve dates** — produce `start = <start-date>T00:00:00Z` and `end = <end-date>T23:59:59Z`.
+1. **Resolve dates** — interpret dates in the local timezone. Get the offset with:
+
+   ```sh
+   date +%z   # e.g. +0800
+   ```
+
+   Then produce UTC equivalents for midnight-to-midnight of the resolved date(s):
+   `start = <start-date>T00:00:00<offset>` converted to UTC
+   `end   = <end-date>T23:59:59<offset>` converted to UTC
+   Use these UTC values in all subsequent queries.
 
 2. **Load sessions** — first verify agentmemory is healthy
    (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
@@ -39,14 +48,11 @@ Parse `$ARGUMENTS` (order-independent):
    If healthy, fetch sessions:
 
    ```sh
-   curl -s "http://localhost:3111/agentmemory/sessions" \
+   curl -s --max-time 30 "http://localhost:3111/agentmemory/sessions" \
      | jq '[.sessions[]
          | select(.observationCount > 0)
          | select(.startedAt >= "<start>" and .startedAt <= "<end>")
-         | {id,
-            cwd,
-            narrative: .summary.narrative,
-            keyDecisions: .summary.keyDecisions}]'
+         | {id, cwd, startedAt, narrative: .summary.narrative, keyDecisions: .summary.keyDecisions}]'
    ```
 
    If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
@@ -107,10 +113,10 @@ Parse `$ARGUMENTS` (order-independent):
    Deduplicate by `(host, iid, project_path)`. Use `project_path` to match MRs to session `cwd`s
    during synthesis; unmatched MRs go under `Other`.
 
-6. **Synthesize** — group all sessions by `cwd`. For each repo, read all narratives as a
-   single body and extract every distinct concrete task or change. Shell history fills gaps;
-   narratives supply intent. MR data from step 5 adds concrete merge/review activity.
-   One bullet per logical task, deduplicated across all sources.
+6. **Synthesize** — sessions are returned in chronological order. Group by `cwd` yourself during
+   synthesis; preserve that chronological order within each group. Extract every distinct concrete
+   task or change per repo. Shell history fills gaps; narratives supply intent. MR data from step 5
+   adds concrete merge/review activity. One bullet per logical task, deduplicated across all sources.
 
 7. **Output** — fenced code block only. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
