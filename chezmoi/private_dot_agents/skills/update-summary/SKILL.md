@@ -23,6 +23,12 @@ Parse `$ARGUMENTS` (order-independent):
 
 ## Steps
 
+Execution order: `[1 ‖ 2] → [3 ‖ 4 ‖ 5] → 6 → 7`
+
+**Chunking**: if the range spans more than 7 days, split into weekly sub-ranges and run
+`[3 ‖ 4 ‖ 5] → 6` independently for each week, then merge all per-week syntheses before step 7.
+For ranges ≤ 7 days, process in a single pass.
+
 1. **Resolve dates** — interpret dates in the local timezone. Get the offset with:
 
    ```sh
@@ -34,18 +40,17 @@ Parse `$ARGUMENTS` (order-independent):
    `end   = <end-date>T23:59:59<offset>` converted to UTC
    Use these UTC values in all subsequent queries.
 
-2. **Load sessions** — first verify agentmemory is healthy
-   (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
+2. **Start agentmemory** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
 
    ```sh
-   npx --yes @agentmemory/agentmemory status 2>/dev/null
+   bash "$HOME/.claude/skills/update-summary/hooks/start-agentmemory.sh"
    ```
 
-   If exit code is non-zero, output a warning:
-   `"agentmemory is not running — session data unavailable. Start with: npx @agentmemory/agentmemory"`
-   and skip steps 2–3 (continue with shell history and MRs only).
+   If it exits non-zero or agentmemory is still unreachable, report:
+   `"agentmemory failed to start. Check ~/.agentmemory/server.log or run: npx @agentmemory/agentmemory"`
+   and stop.
 
-   If healthy, fetch sessions:
+3. **Load sessions** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
 
    ```sh
    curl -s --max-time 30 "http://localhost:3111/agentmemory/sessions" \
@@ -57,26 +62,6 @@ Parse `$ARGUMENTS` (order-independent):
 
    If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
    and continue.
-
-3. **Fallback for sparse summaries** — for any session where both `narrative` and `keyDecisions`
-   are null/empty, fetch raw observations (use `dangerouslyDisableSandbox: true`):
-
-   ```sh
-   curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>" \
-     | jq '[.observations[] | {
-         type: .hookType,
-         narrative: (.userPrompt // .toolInput.command // .raw.prompt)
-       }]'
-   ```
-
-   Observation schema: `hookType` is `"prompt_submit"` (user message) or `"post_tool_use"` (tool call).
-   Extracted `narrative` is the user prompt text or the bash command run.
-
-   - `"prompt_submit"` — plain user message text; use directly to infer intent.
-   - `"post_tool_use"` — bash command or tool input; grep for
-     `git`, file paths, and tool names to infer tasks.
-
-   Prefer `"prompt_submit"` observations for intent; use `"post_tool_use"` to confirm concrete actions.
 
 4. **Load shell history** — run:
 
