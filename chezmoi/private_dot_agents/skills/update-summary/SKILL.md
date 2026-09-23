@@ -109,14 +109,14 @@ For ranges ≤ 7 days, process in a single pass.
    Apply `--project` filter: drop repos whose path doesn't contain the pattern;
    omit `Other` when filter is active.
 
-````text
-```
-- `<repo-path>`
-  - <task>
-    - <sub-task if distinct>
-- `<repo-path-2>`
-  - <task>
-- Other                ← omitted when --project filter active
-  - <task not tied to a repo>
-```
-````
+  ````text
+  ```
+  - `<repo-path>`
+    - <task>
+      - <sub-task if distinct>
+  - `<repo-path-2>`
+    - <task>
+  - Other                ← omitted when --project filter active
+    - <task not tied to a repo>
+  ```
+  ````
