@@ -23,6 +23,12 @@ Parse `$ARGUMENTS` (order-independent):
 
 ## Steps
 
+Execution order: `[1 ‖ 2] → [3 ‖ 4 ‖ 5] → 6 → 7`
+
+**Chunking**: if the range spans more than 7 days, split into weekly sub-ranges and run
+`[3 ‖ 4 ‖ 5] → 6` independently for each week, then merge all per-week syntheses before step 7.
+For ranges ≤ 7 days, process in a single pass.
+
 1. **Resolve dates** — interpret dates in the local timezone. Get the offset with:
 
    ```sh
@@ -34,19 +40,17 @@ Parse `$ARGUMENTS` (order-independent):
    `end   = <end-date>T23:59:59<offset>` converted to UTC
    Use these UTC values in all subsequent queries.
 
-2. **Load sessions** — ensure agentmemory is running
-   (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
+2. **Start agentmemory** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
 
    ```sh
    bash "$HOME/.claude/skills/update-summary/hooks/start-agentmemory.sh"
    ```
 
-   This script is a no-op if already healthy, otherwise starts the server and waits.
    If it exits non-zero or agentmemory is still unreachable, report:
    `"agentmemory failed to start. Check ~/.agentmemory/server.log or run: npx @agentmemory/agentmemory"`
    and stop.
 
-   If healthy, fetch sessions:
+3. **Load sessions** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
 
    ```sh
    curl -s --max-time 30 "http://localhost:3111/agentmemory/sessions" \
@@ -59,7 +63,7 @@ Parse `$ARGUMENTS` (order-independent):
    If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
    and continue.
 
-3. **Load shell history** — run:
+4. **Load shell history** — run:
 
    ```sh
    atuin search --after "<start>" --before "<end>" \
@@ -72,7 +76,7 @@ Parse `$ARGUMENTS` (order-independent):
    - **Deduplicate**: collapse repeated identical or near-identical commands; keep only the last
      successful variant when a command was retried.
 
-4. **Load GitLab MRs** — skip entire step if `glab` is not installed. Use the pinned
+5. **Load GitLab MRs** — skip entire step if `glab` is not installed. Use the pinned
    hostname `sgts.gitlab-dedicated.com`. Run two global queries (no cwd needed):
 
    ```sh
@@ -94,12 +98,12 @@ Parse `$ARGUMENTS` (order-independent):
    Deduplicate by `(host, iid, project_path)`. Use `project_path` to match MRs to session `cwd`s
    during synthesis; unmatched MRs go under `Other`.
 
-5. **Synthesize** — sessions are returned in chronological order. Group by `cwd` yourself during
+6. **Synthesize** — sessions are returned in chronological order. Group by `cwd` yourself during
    synthesis; preserve that chronological order within each group. Extract every distinct concrete
    task or change per repo. Shell history fills gaps; narratives supply intent. MR data from step 5
    adds concrete merge/review activity. One bullet per logical task, deduplicated across all sources.
 
-6. **Output** — fenced code block only. One bullet per task ≤12 words.
+7. **Output** — fenced code block only. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
    Aggregate all tasks across the entire date range — do not split or label by date.
    Apply `--project` filter: drop repos whose path doesn't contain the pattern;
