@@ -34,16 +34,17 @@ Parse `$ARGUMENTS` (order-independent):
    `end   = <end-date>T23:59:59<offset>` converted to UTC
    Use these UTC values in all subsequent queries.
 
-2. **Load sessions** — first verify agentmemory is healthy
+2. **Load sessions** — ensure agentmemory is running
    (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
 
    ```sh
-   npx --yes @agentmemory/agentmemory status 2>/dev/null
+   bash "$HOME/.claude/skills/update-summary/hooks/start-agentmemory.sh"
    ```
 
-   If exit code is non-zero, output a warning:
-   `"agentmemory is not running — session data unavailable. Start with: npx @agentmemory/agentmemory"`
-   and skip steps 2–3 (continue with shell history and MRs only).
+   This script is a no-op if already healthy, otherwise starts the server and waits.
+   If it exits non-zero or agentmemory is still unreachable, report:
+   `"agentmemory failed to start. Check ~/.agentmemory/server.log or run: npx @agentmemory/agentmemory"`
+   and stop.
 
    If healthy, fetch sessions:
 
@@ -58,27 +59,7 @@ Parse `$ARGUMENTS` (order-independent):
    If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
    and continue.
 
-3. **Fallback for sparse summaries** — for any session where both `narrative` and `keyDecisions`
-   are null/empty, fetch raw observations (use `dangerouslyDisableSandbox: true`):
-
-   ```sh
-   curl -s "http://localhost:3111/agentmemory/observations?sessionId=<id>" \
-     | jq '[.observations[] | {
-         type: .hookType,
-         narrative: (.userPrompt // .toolInput.command // .raw.prompt)
-       }]'
-   ```
-
-   Observation schema: `hookType` is `"prompt_submit"` (user message) or `"post_tool_use"` (tool call).
-   Extracted `narrative` is the user prompt text or the bash command run.
-
-   - `"prompt_submit"` — plain user message text; use directly to infer intent.
-   - `"post_tool_use"` — bash command or tool input; grep for
-     `git`, file paths, and tool names to infer tasks.
-
-   Prefer `"prompt_submit"` observations for intent; use `"post_tool_use"` to confirm concrete actions.
-
-4. **Load shell history** — run:
+3. **Load shell history** — run:
 
    ```sh
    atuin search --after "<start>" --before "<end>" \
@@ -91,7 +72,7 @@ Parse `$ARGUMENTS` (order-independent):
    - **Deduplicate**: collapse repeated identical or near-identical commands; keep only the last
      successful variant when a command was retried.
 
-5. **Load GitLab MRs** — skip entire step if `glab` is not installed. Use the pinned
+4. **Load GitLab MRs** — skip entire step if `glab` is not installed. Use the pinned
    hostname `sgts.gitlab-dedicated.com`. Run two global queries (no cwd needed):
 
    ```sh
@@ -113,12 +94,12 @@ Parse `$ARGUMENTS` (order-independent):
    Deduplicate by `(host, iid, project_path)`. Use `project_path` to match MRs to session `cwd`s
    during synthesis; unmatched MRs go under `Other`.
 
-6. **Synthesize** — sessions are returned in chronological order. Group by `cwd` yourself during
+5. **Synthesize** — sessions are returned in chronological order. Group by `cwd` yourself during
    synthesis; preserve that chronological order within each group. Extract every distinct concrete
    task or change per repo. Shell history fills gaps; narratives supply intent. MR data from step 5
    adds concrete merge/review activity. One bullet per logical task, deduplicated across all sources.
 
-7. **Output** — fenced code block only. One bullet per task ≤12 words.
+6. **Output** — fenced code block only. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
    Aggregate all tasks across the entire date range — do not split or label by date.
    Apply `--project` filter: drop repos whose path doesn't contain the pattern;
