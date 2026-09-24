@@ -11,8 +11,10 @@ import_jsonl() {
   local projects_dir="$HOME/.claude/projects"
   find "$projects_dir" -name "*.jsonl" -mtime -7 -not -path "*/subagents/*" -print 2>/dev/null |
     while IFS= read -r f; do
-      npx @agentmemory/agentmemory import-jsonl "$f" \
-        >>"$HOME/.agentmemory/server.log" 2>&1 || true
+      if grep -qF '"type":"assistant"' "$f"; then
+        npx @agentmemory/agentmemory import-jsonl "$f" \
+          >>"$HOME/.agentmemory/server.log" 2>&1 || true
+      fi
     done
 }
 
