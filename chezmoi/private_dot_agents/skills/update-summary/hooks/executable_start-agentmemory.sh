@@ -23,6 +23,10 @@ if healthy; then
   exit 0
 fi
 
+# Trim log to last 1000 lines to prevent unbounded growth.
+log="$HOME/.agentmemory/server.log"
+[ -f "$log" ] && tail -n 1000 "$log" >"${log}.tmp" && mv "${log}.tmp" "$log"
+
 # Kill stale process occupying the port before starting fresh.
 stale_pid=$(lsof -ti :3111 2>/dev/null) && kill -9 $stale_pid 2>/dev/null || true
 
