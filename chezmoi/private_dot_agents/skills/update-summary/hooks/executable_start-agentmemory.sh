@@ -9,10 +9,13 @@ healthy() {
 
 import_jsonl() {
   local projects_dir="$HOME/.claude/projects"
-  # import-jsonl skips already-imported sessions internally, so no pre-filtering needed.
-  # Only skip files with no assistant turns (empty/aborted sessions).
+  local summarized_ids
+  summarized_ids=$(curl -sf --max-time 5 "http://localhost:3111/agentmemory/sessions" |
+    jq -r '.sessions[] | select(.summary.narrative != null and .summary.narrative != "") | .id' 2>/dev/null || true)
   find "$projects_dir" -name "*.jsonl" -mtime -7 -not -path "*/subagents/*" -print 2>/dev/null |
     while IFS= read -r f; do
+      id=$(basename "$f" .jsonl)
+      if echo "$summarized_ids" | grep -qF "$id"; then continue; fi
       if grep -qF '"type":"assistant"' "$f"; then
         npx @agentmemory/agentmemory import-jsonl "$f" \
           >>"$HOME/.agentmemory/server.log" 2>&1 || true
