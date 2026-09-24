@@ -9,15 +9,11 @@ healthy() {
 
 import_jsonl() {
   local projects_dir="$HOME/.claude/projects"
-  local imported_ids
-  imported_ids=$(curl -sf --max-time 5 "http://localhost:3111/agentmemory/sessions" |
-    jq -r '.sessions[] | select(.summary.narrative != null and .summary.narrative != "") | .id' 2>/dev/null || true)
-  # Import each recently modified JSONL file not already in agentmemory.
-  # Pre-filtering by session ID avoids the per-file scan that causes timeouts.
+  # import-jsonl skips already-imported sessions internally, so no pre-filtering needed.
+  # Only skip files with no assistant turns (empty/aborted sessions).
   find "$projects_dir" -name "*.jsonl" -mtime -7 -not -path "*/subagents/*" -print 2>/dev/null |
     while IFS= read -r f; do
-      id=$(basename "$f" .jsonl)
-      if ! echo "$imported_ids" | grep -qF "$id" && grep -qF '"type":"assistant"' "$f"; then
+      if grep -qF '"type":"assistant"' "$f"; then
         npx @agentmemory/agentmemory import-jsonl "$f" \
           >>"$HOME/.agentmemory/server.log" 2>&1 || true
       fi
@@ -25,6 +21,7 @@ import_jsonl() {
 }
 
 if healthy; then
+  import_jsonl &
   exit 0
 fi
 
