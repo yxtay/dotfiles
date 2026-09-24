@@ -3,6 +3,8 @@
 # then backfill JSONL transcripts.
 set -euo pipefail
 
+log_file="$HOME/.agentmemory/server.log"
+
 healthy() {
   curl -sf --max-time 1 "http://localhost:3111/agentmemory/sessions" >/dev/null 2>&1
 }
@@ -13,7 +15,7 @@ import_jsonl() {
     while IFS= read -r f; do
       if grep -qF '"type":"assistant"' "$f"; then
         npx @agentmemory/agentmemory import-jsonl "$f" \
-          >>"$HOME/.agentmemory/server.log" 2>&1 || true
+          >>"$log_file" 2>&1 || true
       fi
     done
 }
@@ -24,8 +26,7 @@ if healthy; then
 fi
 
 # Trim log to last 1000 lines to prevent unbounded growth.
-log="$HOME/.agentmemory/server.log"
-[ -f "$log" ] && tail -n 1000 "$log" >"${log}.tmp" && mv "${log}.tmp" "$log"
+[ -f "$log_file" ] && tail -n 1000 "$log_file" >"${log_file}.tmp" && mv "${log_file}.tmp" "$log_file"
 
 # Kill stale process occupying the port before starting fresh.
 stale_pid=$(lsof -ti :3111 2>/dev/null) && kill -9 $stale_pid 2>/dev/null || true
@@ -39,7 +40,7 @@ done
 # Unset ANTHROPIC_MODEL so agentmemory reads the correct model from ~/.agentmemory/.env
 # rather than inheriting Claude Code's internal model alias (e.g. opusplan)
 unset ANTHROPIC_MODEL
-npx -y @agentmemory/agentmemory >>"$HOME/.agentmemory/server.log" 2>&1 &
+npx -y @agentmemory/agentmemory >>"$log_file" 2>&1 &
 
 # Wait for server to become ready (up to 10s), then backfill.
 for _ in 1 2 3 4 5; do
@@ -49,4 +50,4 @@ for _ in 1 2 3 4 5; do
     exit 0
   fi
 done
-echo "WARNING: agentmemory failed to start. Check ~/.agentmemory/server.log" >&2
+echo "WARNING: agentmemory failed to start. Check $log_file" >&2
