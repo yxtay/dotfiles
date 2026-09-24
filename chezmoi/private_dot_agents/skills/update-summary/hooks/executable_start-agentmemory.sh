@@ -17,7 +17,7 @@ import_jsonl() {
   find "$projects_dir" -name "*.jsonl" -mtime -7 -not -path "*/subagents/*" -print 2>/dev/null |
     while IFS= read -r f; do
       id=$(basename "$f" .jsonl)
-      if ! echo "$imported_ids" | grep -qF "$id"; then
+      if ! echo "$imported_ids" | grep -qF "$id" && grep -qF '"type":"assistant"' "$f"; then
         npx @agentmemory/agentmemory import-jsonl "$f" \
           >>"$HOME/.agentmemory/server.log" 2>&1
       fi
