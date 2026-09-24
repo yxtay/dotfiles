@@ -15,9 +15,8 @@ import_jsonl() {
     sed "s|$projects_dir/||" | cut -d'/' -f1 | sort -u |
     while IFS= read -r proj; do
       npx @agentmemory/agentmemory import-jsonl "$projects_dir/$proj" \
-        >>"$HOME/.agentmemory/server.log" 2>&1 &
+        >>"$HOME/.agentmemory/server.log" 2>&1
     done
-  wait
 }
 
 if healthy; then
