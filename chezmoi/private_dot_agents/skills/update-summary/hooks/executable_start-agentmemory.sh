@@ -19,7 +19,7 @@ import_jsonl() {
       id=$(basename "$f" .jsonl)
       if ! echo "$imported_ids" | grep -qF "$id" && grep -qF '"type":"assistant"' "$f"; then
         npx @agentmemory/agentmemory import-jsonl "$f" \
-          >>"$HOME/.agentmemory/server.log" 2>&1
+          >>"$HOME/.agentmemory/server.log" 2>&1 || true
       fi
     done
 }
