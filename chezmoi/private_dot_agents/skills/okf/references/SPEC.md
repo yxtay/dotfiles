@@ -1,6 +1,6 @@
 # Open Knowledge Format (OKF)
 
-**Version 0.2**
+Version 0.2
 
 OKF is an open, human- and agent-friendly format for representing
 *knowledge*: the metadata, context, and curated insight that surrounds
@@ -112,7 +112,7 @@ A bundle is a directory tree of markdown files. The directory structure
 is independent of the domain: producers organize concepts however makes
 sense for the knowledge being captured.
 
-```
+```text
 path/to/bundle/
   index.md                      # Optional. Directory listing for progressive disclosure.
   log.md                        # Optional. Chronological history of updates.
@@ -215,11 +215,11 @@ structure aids both human reading and agent retrieval.
 There are no required body sections. The following headings have
 **conventional** meaning and SHOULD be used when applicable:
 
-| Heading         | Purpose                                                |
-|-----------------|--------------------------------------------------------|
-| `# Schema`      | Structured description of an asset's columns/fields.   |
-| `# Examples`    | Concrete usage examples, often as fenced code blocks.  |
-| `# Computation` | The sanctioned computation of an Attested Computation. See §10. |
+| Heading         | Purpose                                                          |
+|-----------------|------------------------------------------------------------------|
+| `# Schema`      | Structured description of an asset's columns/fields.             |
+| `# Examples`    | Concrete usage examples, often as fenced code blocks.            |
+| `# Computation` | The sanctioned computation of an Attested Computation. See §10.  |
 
 Per-claim attribution to external sources uses markdown footnotes keyed to
 `sources` entries rather than a body citations list (§5.1).
@@ -879,7 +879,7 @@ The two figures split into attested computations linked from a narrative
 concept. Every family is populated, and the two computations sit in
 deliberately different states so one consumer reaches two verdicts.
 
-```
+```text
 bundles/finance/
   metrics/income-statement.md      type: Metric  (narrates, links both)
   computations/revenue.md          type: Attested Computation  (runtime: bigquery)
