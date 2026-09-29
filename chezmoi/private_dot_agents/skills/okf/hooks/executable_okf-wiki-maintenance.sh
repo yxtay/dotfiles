@@ -30,17 +30,16 @@ trap 'rmdir "${LOCK_FILE}"' EXIT
 
 # Skip if already ran today (same calendar date).
 today="$(date +%Y-%m-%d)"
-if [ -f "${STATE_FILE}" ]; then
-  last_run_date="$(cat "${STATE_FILE}" 2>/dev/null)"
-  if [ "${last_run_date}" = "${today}" ]; then
-    exit 0
-  fi
+last_run_date="$(cat "${STATE_FILE}" 2>/dev/null || true)"
+if [ "${last_run_date}" = "${today}" ]; then
+  exit 0
 fi
 
 # Sessions since last run (or last 3 days on first run). since/until params are
 # silently ignored by agentmemory, so filter client-side with jq.
-if [ -f "${STATE_FILE}" ]; then
-  since_date="$(cat "${STATE_FILE}" 2>/dev/null)"
+# Reuse last_run_date already read above; fall back to 3 days if empty/missing.
+if [ -n "${last_run_date:-}" ] && [[ "${last_run_date}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+  since_date="${last_run_date}"
 else
   since_date="$(date -v-3d +%Y-%m-%d 2>/dev/null || date -d '3 days ago' +%Y-%m-%d)"
 fi
@@ -48,7 +47,7 @@ fi
 recent_sessions="$(
   curl -sf "${AGENTMEMORY_URL}/agentmemory/sessions" 2>/dev/null |
     jq --arg since "${since_date}" \
-      '[.sessions[] | select(.observationCount > 0) | select((.startedAt // "") >= $since) | {id, cwd, narrative: .summary.narrative}] | select(length > 0)' \
+      '[.sessions[] | select(.observationCount > 0) | select((.startedAt // "") >= $since) | select(.summary.narrative != null) | {id, cwd, narrative: .summary.narrative}] | select(length > 0)' \
       2>/dev/null || true
 )"
 
