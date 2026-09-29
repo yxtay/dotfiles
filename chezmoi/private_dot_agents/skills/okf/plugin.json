@@ -1,17 +1,11 @@
 {
   "name": "okf",
-  "description": "OKF skill + agentmemory autostart + wiki maintenance from session narratives",
+  "description": "OKF skill + wiki maintenance from session narratives",
   "skills": "./",
   "hooks": {
     "SessionStart": [
       {
         "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/start-agentmemory.sh",
-            "timeout": 60,
-            "async": true
-          },
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/okf-wiki-maintenance.sh",
