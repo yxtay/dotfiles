@@ -1,0 +1,19 @@
+{
+  "name": "update-summary",
+  "description": "Standup digest skill with agentmemory autostart",
+  "skills": "./",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/start-agentmemory.sh",
+            "timeout": 60,
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}
