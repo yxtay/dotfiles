@@ -6,10 +6,11 @@ set -euo pipefail
 log_file="$HOME/.agentmemory/server.log"
 
 healthy() {
-  curl -sf --max-time 1 "http://localhost:3111/agentmemory/sessions" >/dev/null 2>&1
+  curl -sf --max-time 5 "http://localhost:3111/agentmemory/sessions" >/dev/null 2>&1
 }
 
 import_jsonl() {
+  pgrep -f "agentmemory import-jsonl" >/dev/null 2>&1 && return 0
   local projects_dir="$HOME/.claude/projects"
   find "$projects_dir" -name "*.jsonl" -mtime -7 -not -path "*/subagents/*" -print 2>/dev/null |
     while IFS= read -r f; do
