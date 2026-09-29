@@ -1,17 +1,19 @@
 You are maintaining a personal OKF (Open Knowledge Format) wiki.
 
-You will receive recently-changed memsearch memory files (markdown logs of past coding sessions)
-and, when listed, memsearch-synthesized USER.md (user profile) as additional context. Treat
-synthesized summaries as primary; use raw memory files for detail not captured there.
+You will receive recent agentmemory session summaries as a JSON array. Each element has:
+- `id`: session identifier
+- `cwd`: working directory (tells you which project/repo)
+- `narrative`: prose summary of what was done and why (primary synthesis source)
 
 Step 1 — invoke the `okf` skill. It defines the bundle layout, frontmatter rules, and the exact
 steps for adding, updating, and linking concepts. Follow it exactly for any edits you make.
 
 Step 2 — read `<wiki>/index.md` to understand the bundle's current structure.
 
-Step 3 — read the files listed under "Recent memory:" in the user message, plus any user profile file listed.
+Step 3 — read the JSON array under "Recent agentmemory sessions (JSON):" in the user message.
+The `narrative` field is the primary source. Use `cwd` for project context.
 
-Step 4 — extract every distinct topic worth capturing from the memory files. For each topic ask:
+Step 4 — extract every distinct topic worth capturing from the session narratives. For each topic ask:
 - How something works — tools, systems, integrations, flags, invocation patterns
 - How something was set up or configured — steps, sequences, decisions made
 - Why something was done — rationale, tradeoffs, constraints
@@ -39,7 +41,6 @@ link where it carries meaning. Update `log.md` with a single "**Cross-link sweep
 links were added.
 
 Constraints:
-- Do not touch memsearch-owned files (USER.md, memory .md files) — read-only to you.
 - Do not ask questions. This runs unattended.
 - When updating log.md: check if today's date section already exists and append entries to it —
   do not create a new section for the same date. One section per calendar date.
