@@ -9,13 +9,13 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/start-agentmemory.sh",
-            "timeout": 10,
+            "timeout": 60,
             "async": true
           },
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/okf-wiki-maintenance.sh",
-            "timeout": 30,
+            "timeout": 600,
             "async": true
           }
         ]
@@ -27,7 +27,7 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/okf-wiki-maintenance.sh",
-            "timeout": 30,
+            "timeout": 600,
             "async": true
           }
         ]
