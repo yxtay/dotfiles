@@ -136,10 +136,10 @@ A bundle MAY be distributed as:
 The following filenames have defined meaning at any level of the
 hierarchy and MUST NOT be used for concept documents:
 
-| Filename   | Purpose                          |
-|------------|----------------------------------|
-| `index.md` | Directory listing. See §8.       |
-| `log.md`   | Update history. See §9.          |
+| Filename   | Purpose                    |
+|------------|----------------------------|
+| `index.md` | Directory listing. See §8. |
+| `log.md`   | Update history. See §9.    |
 
 All other `.md` files are concept documents.
 
@@ -215,11 +215,11 @@ structure aids both human reading and agent retrieval.
 There are no required body sections. The following headings have
 **conventional** meaning and SHOULD be used when applicable:
 
-| Heading         | Purpose                                                          |
-|-----------------|------------------------------------------------------------------|
-| `# Schema`      | Structured description of an asset's columns/fields.             |
-| `# Examples`    | Concrete usage examples, often as fenced code blocks.            |
-| `# Computation` | The sanctioned computation of an Attested Computation. See §10.  |
+| Heading         | Purpose                                                         |
+|-----------------|-----------------------------------------------------------------|
+| `# Schema`      | Structured description of an asset's columns/fields.            |
+| `# Examples`    | Concrete usage examples, often as fenced code blocks.           |
+| `# Computation` | The sanctioned computation of an Attested Computation. See §10. |
 
 Per-claim attribution to external sources uses markdown footnotes keyed to
 `sources` entries rather than a body citations list (§5.1).
@@ -238,12 +238,12 @@ generated: { by: reference_agent/gemini-2.5-pro, at: 2026-05-28T14:30:00Z }
 
 # Schema
 
-| Column        | Type      | Description                              |
-|---------------|-----------|------------------------------------------|
-| `order_id`    | STRING    | Globally unique order identifier.        |
+| Column        | Type      | Description                                         |
+|---------------|-----------|-----------------------------------------------------|
+| `order_id`    | STRING    | Globally unique order identifier.                   |
 | `customer_id` | STRING    | Foreign key into [customers](/tables/customers.md). |
-| `total_usd`   | NUMERIC   | Order total in US dollars.               |
-| `placed_at`   | TIMESTAMP | When the customer submitted the order.   |
+| `total_usd`   | NUMERIC   | Order total in US dollars.                          |
+| `placed_at`   | TIMESTAMP | When the customer submitted the order.              |
 
 # Joins
 
