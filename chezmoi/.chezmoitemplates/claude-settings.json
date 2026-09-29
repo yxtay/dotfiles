@@ -18,7 +18,7 @@
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "bedrock.claude-sonnet-4-6"
   },
   "autoCompactEnabled": true,
-  "autoCompactWindow": 200000,
+  "autoCompactWindow": 250000,
   "autoMemoryEnabled": true,
   "awaySummaryEnabled": true,
   "editorMode": "normal",
