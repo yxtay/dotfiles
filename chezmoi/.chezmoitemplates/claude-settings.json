@@ -29,12 +29,7 @@
   "permissions": {
     "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
-    "additionalDirectories": [
-      "~/.agents",
-      "~/.agentmemory",
-      "~/.claude",
-      "~/wiki"
-    ],
+    "additionalDirectories": ["~/.agentmemory", "~/.agents", "~/.claude", "~/wiki"],
     "ask": [
       "Edit(**/.env)",
       "Edit(**/.env.*)",
