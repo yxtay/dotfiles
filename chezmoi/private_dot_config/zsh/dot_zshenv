@@ -32,6 +32,3 @@ fi
 
 # local secrets (not tracked by chezmoi)
 [[ -f "${ZDOTDIR}/.zshenv.local" ]] && source "${ZDOTDIR}/.zshenv.local" || true
-set -a
-[[ -f "${HOME}/.agentmemory/.env" ]] && source "${HOME}/.agentmemory/.env" || true
-set +a
