@@ -7,7 +7,7 @@
     "claude-haiku-4-5": "bedrock.claude-haiku-4-5",
     "claude-sonnet-5": "bedrock.claude-sonnet-5",
     "claude-sonnet-5-5": "bedrock.claude-sonnet-5-5",
-    "claude-opus-4-8": "bedrock.claude-opus-4-8",
+    "claude-opus-5": "bedrock.claude-opus-5",
     "claude-opus-5-5": "bedrock.claude-opus-5-5"
   },
   "env": {
