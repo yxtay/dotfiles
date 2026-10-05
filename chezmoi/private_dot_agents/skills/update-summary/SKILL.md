@@ -46,9 +46,12 @@ For ranges ≤ 7 days, process in a single pass.
    bash "$HOME/.claude/skills/update-summary/hooks/start-agentmemory.sh"
    ```
 
-   If it exits non-zero or agentmemory is still unreachable, report:
-   `"agentmemory failed to start. Check ~/.agentmemory/server.log or run: npx @agentmemory/agentmemory"`
-   and stop.
+   Capture stderr: `bash "$HOME/.claude/skills/update-summary/hooks/start-agentmemory.sh" 2>&1 >/dev/null`
+
+   If it exits non-zero or agentmemory is still unreachable, the hook's stderr already contains
+   the port status and last 20 log lines. Read that output, diagnose the likely cause, attempt
+   a fix (e.g. `kill -9 $(lsof -ti :3111)` for a stale process, then re-run the hook), and
+   only stop if agentmemory is still unreachable after the fix attempt.
 
 3. **Load sessions** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
 

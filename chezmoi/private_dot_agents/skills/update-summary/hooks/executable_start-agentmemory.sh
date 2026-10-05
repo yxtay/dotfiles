@@ -43,12 +43,15 @@ done
 unset ANTHROPIC_MODEL
 npx -y @agentmemory/agentmemory >>"$log_file" 2>&1 &
 
-# Wait for server to become ready (up to 10s), then backfill.
-for _ in 1 2 3 4 5; do
-  sleep 1
+# Wait for server to become ready (up to 30s), then backfill.
+for _ in $(seq 1 15); do
+  sleep 2
   if healthy; then
     import_jsonl &
     exit 0
   fi
 done
-echo "WARNING: agentmemory failed to start. Check $log_file" >&2
+echo "--- port 3111 status ---" >&2
+lsof -ti :3111 2>/dev/null | xargs -I{} echo "  PID {} still on port 3111" >&2 || echo "  port 3111 is free" >&2
+echo "--- last 20 lines of $log_file ---" >&2
+tail -20 "$log_file" 2>/dev/null >&2 || echo "  (no log file)" >&2
