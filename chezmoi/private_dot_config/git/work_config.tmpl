@@ -11,6 +11,10 @@
 
 {{- if lookPath "glab" }}
 [credential "https://sgts.gitlab-dedicated.com"]
+  helper =
   helper = "!glab auth git-credential"
+
+[url "https://sgts.gitlab-dedicated.com/"]
+  insteadOf = git@sgts.gitlab-dedicated.com:
 {{- end }}
 {{- end }}

@@ -8,10 +8,15 @@
 
 {{- if lookPath "gh" }}
 [credential "https://gist.github.com"]
+  helper =
   helper = "!gh auth git-credential"
 
 [credential "https://github.com"]
+  helper =
   helper = "!gh auth git-credential"
+
+[url "https://github.com/"]
+  insteadOf = git@github.com:
 {{- end }}
 
 [delta]
