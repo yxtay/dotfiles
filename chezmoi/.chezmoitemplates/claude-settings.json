@@ -60,12 +60,12 @@
       "Read(~/.gnupg/**)",
       "Read(~/.kube/**)",
       "Read(~/.ssh/**)"
-    ]
+    ],
+    "deny": ["WebSearch"]
   },
   "sandbox": {
     "enabled": true,
-    "enableWeakerNetworkIsolation": true,
-    "excludedCommands": ["atuin *", "docker *", "git *", "ssh *"]
+    "enableWeakerNetworkIsolation": true
   },
   "statusLine": {
     "type": "command",
