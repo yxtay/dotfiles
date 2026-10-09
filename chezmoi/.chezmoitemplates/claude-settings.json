@@ -61,7 +61,7 @@
       "Read(~/.kube/**)",
       "Read(~/.ssh/**)"
     ],
-    "deny": ["WebSearch"]
+    "deny": []
   },
   "sandbox": {
     "enabled": true,
