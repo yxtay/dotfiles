@@ -66,7 +66,8 @@ For ranges ≤ 7 days, process in a single pass.
    If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
    and continue.
 
-4. **Load shell history** — run:
+4. **Load shell history** (`dangerouslyDisableSandbox: true` — sandbox blocks atuin's sqlite
+   permission fix) — run:
 
    ```sh
    atuin search --after "<start>" --before "<end>" \

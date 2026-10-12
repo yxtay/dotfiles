@@ -31,6 +31,8 @@ fi
 
 # Kill stale process occupying the port before starting fresh.
 stale_pid=$(lsof -ti :3111 2>/dev/null) && kill -9 $stale_pid 2>/dev/null || true
+# Also reap orphaned agentmemory/iii processes that no longer hold the port.
+pkill -f "@agentmemory/agentmemory|bin/agentmemory|\.agentmemory/bin/iii" 2>/dev/null || true
 
 # Wait for port to actually free (up to 5s) before binding a new process.
 for _ in 1 2 3 4 5; do
