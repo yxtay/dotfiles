@@ -15,7 +15,11 @@ healthy() {
 }
 
 # import-jsonl is additive: re-importing a transcript duplicates its observations.
-# So only import transcripts modified since the last run, one importer at a time.
+# So only import transcripts idle for 2h (finished, not still being written), modified
+# since the last run, one importer at a time. The marker is set to the idle cutoff, not
+# "now", so files skipped as too recent are picked up by the next run.
+idle_minutes=120
+
 import_jsonl() {
   # mkdir is atomic (macOS has no flock); a lock whose owner died is reclaimed.
   if ! mkdir "$lock_dir" 2>/dev/null; then
@@ -29,8 +33,12 @@ import_jsonl() {
   local since=(-mtime -7) next
   [ -f "$marker" ] && since=(-newer "$marker")
   next=$(mktemp "$am_dir/last-import.XXXXXX")
+  # BSD date (macOS) first, then GNU date (Linux).
+  touch -t "$(date -v-"${idle_minutes}"M +%Y%m%d%H%M.%S 2>/dev/null ||
+    date -d "$idle_minutes minutes ago" +%Y%m%d%H%M.%S)" "$next"
 
-  find "$HOME/.claude/projects" -name "*.jsonl" "${since[@]}" -not -path "*/subagents/*" -print 2>/dev/null |
+  find "$HOME/.claude/projects" -name "*.jsonl" "${since[@]}" -mmin +"$idle_minutes" \
+    -not -path "*/subagents/*" -print 2>/dev/null |
     while IFS= read -r f; do
       grep -qF '"type":"assistant"' "$f" || continue
       # A failed import must be retried next run, so keep the marker where it was.
