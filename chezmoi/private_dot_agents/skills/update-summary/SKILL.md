@@ -56,7 +56,8 @@ For ranges ≤ 7 days, process in a single pass.
 3. **Load sessions** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
 
    ```sh
-   curl -s --max-time 30 "http://localhost:3111/agentmemory/sessions" \
+   curl -s --max-time 30 -H "Authorization: Bearer $(cat ~/.agentmemory/secret 2>/dev/null)" \
+     "http://localhost:3111/agentmemory/sessions" \
      | jq '[.sessions[]
          | select(.observationCount > 0)
          | select(.startedAt >= "<start>" and .startedAt <= "<end>")

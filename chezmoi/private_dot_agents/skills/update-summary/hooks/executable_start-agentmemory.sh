@@ -6,7 +6,11 @@ set -euo pipefail
 log_file="$HOME/.agentmemory/server.log"
 
 healthy() {
-  curl -sf --max-time 5 "http://localhost:3111/agentmemory/sessions" >/dev/null 2>&1
+  # agentmemory >=0.9.30 auto-generates a bearer secret here (empty if absent: old servers ignore it)
+  local secret
+  secret=$(cat "$HOME/.agentmemory/secret" 2>/dev/null || true)
+  curl -sf --max-time 5 -H "Authorization: Bearer $secret" \
+    "http://localhost:3111/agentmemory/sessions" >/dev/null 2>&1
 }
 
 import_jsonl() {
