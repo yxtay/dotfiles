@@ -56,7 +56,8 @@ For ranges ≤ 7 days, process in a single pass.
 3. **Load sessions** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
 
    ```sh
-   curl -s --max-time 30 "http://localhost:3111/agentmemory/sessions" \
+   curl -s --max-time 30 -H "Authorization: Bearer $(cat ~/.agentmemory/secret 2>/dev/null)" \
+     "http://localhost:3111/agentmemory/sessions" \
      | jq '[.sessions[]
          | select(.observationCount > 0)
          | select(.startedAt >= "<start>" and .startedAt <= "<end>")
@@ -66,7 +67,8 @@ For ranges ≤ 7 days, process in a single pass.
    If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
    and continue.
 
-4. **Load shell history** — run:
+4. **Load shell history** (`dangerouslyDisableSandbox: true` — sandbox blocks atuin's sqlite
+   permission fix) — run:
 
    ```sh
    atuin search --after "<start>" --before "<end>" \
