@@ -44,7 +44,9 @@ import_jsonl() {
       # A failed import must be retried next run, so keep the marker where it was.
       npx -y @agentmemory/agentmemory import-jsonl "$f" >>"$log_file" 2>&1 || rm -f "$next"
     done
-  [ -f "$next" ] && mv "$next" "$marker" || rm -f "$next"
+  if [ -f "$next" ]; then
+    mv "$next" "$marker"
+  fi
 }
 
 # Detached from the hook's stdio so a slow import can never hold the session start open.
