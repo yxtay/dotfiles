@@ -36,7 +36,6 @@
       "~/wiki/**": "allow"
     },
     "external_directory": {
-      "~/.agentmemory/**": "allow",
       "~/.config/opencode/**": "allow",
       "~/wiki/**": "allow"
     },
@@ -63,15 +62,9 @@
     "opencode-models-discovery",
     "@devtheops/opencode-plugin-otel",
     "@dietrichgebert/ponytail",
-    "./plugins/agentmemory-capture.ts",
     "./plugins/cbm-augment.ts"
   ],
   "mcp": {
-    "agentmemory": {
-      "command": ["npx", "-y", "@agentmemory/mcp"],
-      "enabled": true,
-      "type": "local"
-    },
     "codebase-memory-mcp": {
       "command": ["codebase-memory-mcp"],
       "enabled": true,

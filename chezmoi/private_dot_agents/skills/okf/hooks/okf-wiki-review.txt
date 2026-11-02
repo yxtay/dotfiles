@@ -1,19 +1,21 @@
 You are maintaining a personal OKF (Open Knowledge Format) wiki.
 
-You will receive recent agentmemory session summaries as a JSON array. Each element has:
-- `id`: session identifier
-- `cwd`: working directory (tells you which project/repo)
-- `narrative`: prose summary of what was done and why (primary synthesis source)
+You will receive recent coding-agent sessions as a JSON array. Each element has:
+- `path`: transcript file
+- `workspace`: working directory (tells you which project/repo)
+- `title`: first user prompt only, not a summary
+- `modified`: last activity timestamp
 
 Step 1 — invoke the `okf` skill. It defines the bundle layout, frontmatter rules, and the exact
 steps for adding, updating, and linking concepts. Follow it exactly for any edits you make.
 
 Step 2 — read `<wiki>/index.md` to understand the bundle's current structure.
 
-Step 3 — read the JSON array under "Recent agentmemory sessions (JSON):" in the user message.
-The `narrative` field is the primary source. Use `cwd` for project context.
+Step 3 — read the JSON array under "Recent sessions (JSON):" in the user message. For each
+session, run `cass export <path> --format text` to read its content; that is the primary source.
+Skip sessions with no transferable content. Use `workspace` for project context.
 
-Step 4 — extract every distinct topic worth capturing from the session narratives. For each topic ask:
+Step 4 — extract every distinct topic worth capturing from the session transcripts. For each topic ask:
 - How something works — tools, systems, integrations, flags, invocation patterns
 - How something was set up or configured — steps, sequences, decisions made
 - Why something was done — rationale, tradeoffs, constraints

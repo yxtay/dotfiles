@@ -1,6 +1,6 @@
 ---
 name: update-summary
-description: Standup digest from agentmemory sessions + atuin + GitLab MRs, grouped by repo. Supports date ranges and project filters.
+description: Standup digest from cass session index + atuin + GitLab MRs, grouped by repo. Supports date ranges and project filters.
 disable-model-invocation: true
 argument-hint: "[<date-or-range>] [--project <pattern>]"
 ---
@@ -19,7 +19,7 @@ Parse `$ARGUMENTS` (order-independent):
   - Default (no date arg): yesterday
   - Reject with an error if end < start or the expression is unrecognisable.
 - **Project filter**: `--project <pattern>` or `-p <pattern>` —
-  case-insensitive substring matched against `cwd`.
+  case-insensitive substring matched against `workspace`.
 
 ## Steps
 
@@ -40,32 +40,34 @@ For ranges ≤ 7 days, process in a single pass.
    `end   = <end-date>T23:59:59<offset>` converted to UTC
    Use these UTC values in all subsequent queries.
 
-2. **Start agentmemory** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
+2. **Refresh cass index**:
 
    ```sh
-   bash "$HOME/.claude/skills/update-summary/hooks/start-agentmemory.sh"
+   cass index --json --no-progress-events >/dev/null
    ```
 
-   Capture stderr: `bash "$HOME/.claude/skills/update-summary/hooks/start-agentmemory.sh" 2>&1 >/dev/null`
+   Incremental; run `cass index --full` only if `cass health --json` reports `not_initialized`.
+   If cass is missing or the index fails, note "cass unavailable" and continue with steps 4–5.
 
-   If it exits non-zero or agentmemory is still unreachable, the hook's stderr already contains
-   the port status and last 20 log lines. Read that output, diagnose the likely cause, attempt
-   a fix (e.g. `kill -9 $(lsof -ti :3111)` for a stale process, then re-run the hook), and
-   only stop if agentmemory is still unreachable after the fix attempt.
-
-3. **Load sessions** (`dangerouslyDisableSandbox: true` — sandbox blocks localhost TCP):
+3. **Load sessions**:
 
    ```sh
-   curl -s --max-time 30 -H "Authorization: Bearer $(cat ~/.agentmemory/secret 2>/dev/null)" \
-     "http://localhost:3111/agentmemory/sessions" \
+   cass sessions --since "<start-date>" --limit 1000 --json \
      | jq '[.sessions[]
-         | select(.observationCount > 0)
-         | select(.startedAt >= "<start>" and .startedAt <= "<end>")
-         | {id, cwd, startedAt, narrative: .summary.narrative, keyDecisions: .summary.keyDecisions}]'
+         | select(.path | contains("/subagents/") | not)
+         | select(.human_turns > 1)
+         | select(.modified >= "<start>" and .modified <= "<end>")
+         | {path, workspace, agent, title, modified, message_count}]'
    ```
 
-   If the request fails or returns `[]`, note "No agentmemory sessions found for `<range>`"
-   and continue.
+   `title` is only the first prompt, so read content to get intent. Per session, delegate to a
+   haiku subagent: `cass export <path> --format text` and return the concrete tasks done, key
+   decisions, and the PR/MR/commit references, nothing else. Skip sessions with no changes
+   (exploration only). Group by `workspace` during synthesis. Launch subagents in batches of at
+   most 10; if more than 40 sessions match, process the 40 with the highest `message_count` and
+   note the rest as skipped.
+
+   If `sessions` is empty, note "No cass sessions found for `<range>`" and continue.
 
 4. **Load shell history** (`dangerouslyDisableSandbox: true` — sandbox blocks atuin's sqlite
    permission fix) — run:
@@ -100,13 +102,14 @@ For ranges ≤ 7 days, process in a single pass.
      | jq '[.[] | {iid, title, web_url, project_path: .references.full, state, role: "approved"}]'
    ```
 
-   Deduplicate by `(host, iid, project_path)`. Use `project_path` to match MRs to session `cwd`s
+   Deduplicate by `(host, iid, project_path)`. Use `project_path` to match MRs to session `workspace`s
    during synthesis; unmatched MRs go under `Other`.
 
-6. **Synthesize** — sessions are returned in chronological order. Group by `cwd` yourself during
+6. **Synthesize** — sessions are returned in chronological order. Group by `workspace` yourself during
    synthesis; preserve that chronological order within each group. Extract every distinct concrete
-   task or change per repo. Shell history fills gaps; narratives supply intent. MR data from step 5
-   adds concrete merge/review activity. One bullet per logical task, deduplicated across all sources.
+   task or change per repo. Shell history fills gaps; session summaries supply intent. MR data from
+   step 5 adds concrete merge/review activity. One bullet per logical task, deduplicated across all
+   sources.
 
 7. **Output** — fenced code block only. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.

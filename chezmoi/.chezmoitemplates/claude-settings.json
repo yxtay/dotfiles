@@ -29,9 +29,9 @@
     "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
     "additionalDirectories": [
-      "~/.agentmemory",
       "~/.agents",
       "~/.claude",
+      "~/.local/share/coding-agent-search",
       "~/wiki"
     ],
     "ask": [

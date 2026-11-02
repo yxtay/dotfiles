@@ -5,6 +5,7 @@
 tap "atlassian/acli", trusted: true
 tap "can1357/tap", trusted: true
 tap "databricks/tap", trusted: true
+tap "dicklesworthstone/tap", trusted: true
 tap "hashicorp/tap", trusted: true
 tap "oven-sh/bun", trusted: true
 
@@ -102,6 +103,8 @@ brew "kubernetes-cli"
 # ai
 brew "ctx7"
 brew "can1357/tap/omp"
+brew "dicklesworthstone/tap/cass"
+brew "dicklesworthstone/tap/cm"
 brew "opencode"
 
 {{- if eq .chezmoi.os "darwin" }}
