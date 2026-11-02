@@ -67,7 +67,8 @@ Current skills:
 - `okf` — OKF skill + wiki maintenance hook that distils cass-memory session diaries into the
   `~/wiki` OKF bundle
 - `update-summary` — standup digest from cass session index, cass-memory diaries, atuin and GitLab
-  MRs, grouped by repo; supports date ranges and project filters
+  MRs, grouped by repo; supports date ranges and project filters. Ships as a skill-dir plugin whose
+  `SessionEnd` hook runs `cm hook session-end` to save the diaries it reads
 
 ## License
 

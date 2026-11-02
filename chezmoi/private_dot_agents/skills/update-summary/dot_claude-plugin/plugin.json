@@ -1,0 +1,17 @@
+{
+  "name": "update-summary",
+  "description": "Standup digest skill + cass-memory SessionEnd hook that saves the session diary it reads",
+  "skills": "./",
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cm hook session-end"
+          }
+        ]
+      }
+    ]
+  }
+}

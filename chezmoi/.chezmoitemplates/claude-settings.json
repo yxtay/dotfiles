@@ -67,18 +67,6 @@
     "enabled": true,
     "enableWeakerNetworkIsolation": true
   },
-  "hooks": {
-    "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "cm hook session-end"
-          }
-        ]
-      }
-    ]
-  },
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
