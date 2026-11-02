@@ -1,5 +1,0 @@
-{
-  "name": "update-summary",
-  "description": "Standup digest skill from cass, atuin and GitLab",
-  "skills": "./"
-}
