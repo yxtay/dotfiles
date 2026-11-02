@@ -29,7 +29,6 @@
     "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
     "additionalDirectories": [
-      "~/.agentmemory",
       "~/.agents",
       "~/.claude",
       "~/wiki"
