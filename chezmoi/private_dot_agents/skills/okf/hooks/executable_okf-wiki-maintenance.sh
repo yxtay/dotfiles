@@ -45,9 +45,8 @@ fi
 # No raw transcript mirror, even if the launcher bypassed zshenv (the prompt may call cass export).
 export CASS_RAW_MIRROR=0
 
-# Diaries written since the last run. Cap at the 30 with the most content so one run fits a
-# single context. Per-file parse so one truncated diary does not drop the rest.
-# shortcut: diary timestamp is generation time, not session time.
+# Every diary written since the last run, oldest first. Per-file parse so one truncated diary
+# does not drop the rest. shortcut: diary timestamp is generation time, not session time.
 recent_sessions="$(
   for f in "${DIARY_DIR}"/diary-*.json; do jq -c . "${f}" 2>/dev/null || true; done |
     jq -s --arg since "${since}" '[.[]
@@ -55,7 +54,7 @@ recent_sessions="$(
         | select(.sessionPath | contains("/subagents/") | not)
         | select(((.accomplishments // []) + (.decisions // []) + (.challenges // []) + (.keyLearnings // [])) | length > 0)
         | {sessionPath, workspace, timestamp, accomplishments, decisions, challenges, keyLearnings}]
-      | sort_by(-(((.accomplishments // []) + (.keyLearnings // []) + (.challenges // [])) | length)) | .[:30] | select(length > 0)'
+      | sort_by(.timestamp) | select(length > 0)'
 )" || exit 0
 
 # Nothing to distill: record the run so later sessions today skip the check.
@@ -65,26 +64,34 @@ if [ -z "${recent_sessions}" ]; then
 fi
 
 # hook runs with async:true — Claude Code does not block on this script.
-prompt="$(
-  printf 'Wiki directory: %s\n' "${WIKI_DIR}"
-  printf 'Recent session diaries (JSON):\n%s\n' "${recent_sessions}"
-)"
-if printf '%s' "${prompt}" | claude -p \
-  --bare \
-  --strict-mcp-config \
-  --no-session-persistence \
-  --model sonnet \
-  --effort low \
-  --permission-mode acceptEdits \
-  --allowed-tools "Read,Write,Edit,Glob,Grep,Bash(cass export:*)" \
-  --plugin-dir "${OKF_PLUGIN}" \
-  --exclude-dynamic-system-prompt-sections \
-  --append-system-prompt-file "${PROMPT_FILE}" \
-  --add-dir "${WIKI_DIR}" \
-  >>"${LOG_FILE}" 2>&1; then
+# Batches of 30 diaries keep each run within one context; state advances only if all succeed.
+ok=1
+while IFS= read -r batch; do
+  prompt="$(
+    printf 'Wiki directory: %s\n' "${WIKI_DIR}"
+    printf 'Recent session diaries (JSON):\n%s\n' "${batch}"
+  )"
+  if ! printf '%s' "${prompt}" | claude -p \
+    --bare \
+    --strict-mcp-config \
+    --no-session-persistence \
+    --model sonnet \
+    --effort low \
+    --permission-mode acceptEdits \
+    --allowed-tools "Read,Write,Edit,Glob,Grep,Bash(cass export:*)" \
+    --plugin-dir "${OKF_PLUGIN}" \
+    --exclude-dynamic-system-prompt-sections \
+    --append-system-prompt-file "${PROMPT_FILE}" \
+    --add-dir "${WIKI_DIR}" \
+    >>"${LOG_FILE}" 2>&1; then
+    ok=0
+    printf '%s okf-wiki-maintenance batch failed\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"${LOG_FILE}"
+    break
+  fi
+done < <(printf '%s' "${recent_sessions}" | jq -c '. as $a | range(0; length; 30) | $a[.:.+30]')
+
+if [ "${ok}" = 1 ]; then
   printf '%s\n' "${run_start}" >"${STATE_FILE}"
-else
-  printf '%s okf-wiki-maintenance failed (exit %s)\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$?" >>"${LOG_FILE}"
 fi
 
 exit 0
