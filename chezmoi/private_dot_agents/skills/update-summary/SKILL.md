@@ -62,14 +62,17 @@ For ranges ≤ 7 days, process in a single pass.
 
    `title` is only the first prompt, so read the cass-memory diary to get intent. The
    `cm hook session-end` SessionEnd hook saves one per session to
-   `~/.local/share/cass-memory/diary/diary-*.json`. Per session, look it up by `sessionPath`
-   and use it only if it is not older than the session's `modified`:
+   `~/.local/share/cass-memory/diary/diary-*.json`. Load them all once, skipping unparseable
+   files:
 
    ```sh
-   jq -c --arg p "<path>" --arg m "<modified>" \
-     'select(.sessionPath == $p and .timestamp >= $m)
-      | {accomplishments, decisions}' ~/.local/share/cass-memory/diary/diary-*.json
+   for f in ~/.local/share/cass-memory/diary/diary-*.json; do
+     jq -c . "$f" 2>/dev/null || true
+   done | jq -s '[.[] | {sessionPath, timestamp, accomplishments, decisions}]'
    ```
+
+   Match each session by `sessionPath`; use the diary only if its `timestamp` is not older than
+   the session's `modified` (both ISO UTC).
 
    No match (session predates the hook, or was resumed since): run
    `cm diary "<path>" --save --json` (about 15-20 s, one LLM call) and read the same fields.
