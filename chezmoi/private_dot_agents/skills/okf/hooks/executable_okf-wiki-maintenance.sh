@@ -53,7 +53,7 @@ recent_sessions="$(
         | select(.timestamp >= $since)
         | select(.sessionPath | contains("/subagents/") | not)
         | select(((.accomplishments // []) + (.decisions // []) + (.challenges // []) + (.keyLearnings // [])) | length > 0)
-        | {sessionPath, workspace, timestamp, accomplishments, decisions, challenges, keyLearnings}]
+        | {sessionPath, workspace, timestamp, status, accomplishments, decisions, challenges, keyLearnings, preferences}]
       | sort_by(.timestamp) | select(length > 0)'
 )" || exit 0
 

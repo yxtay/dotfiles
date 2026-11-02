@@ -23,6 +23,10 @@ Step 4 — extract every distinct topic worth capturing from the diaries. For ea
 - Why something was done — rationale, tradeoffs, constraints
 - What was found — investigation results, things ruled out, gotchas
 - What worked or didn't — patterns, failure modes, workarounds
+- User preferences — record only ones that recur across diaries or are clearly durable (tooling
+  choices, commit/PR conventions); skip transient session settings (output style, active modes)
+
+Diary `status` is success, failure or mixed. Treat failure and mixed sessions as gotcha sources.
 
 Only skip a topic if it is already fully covered by an existing concept, or if it is truly
 ephemeral (e.g. a one-line typo fix with no transferable lesson). When in doubt, include it.
