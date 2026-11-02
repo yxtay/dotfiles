@@ -25,38 +25,42 @@ if ! mkdir "${LOCK_FILE}" 2>/dev/null; then
 fi
 trap 'rmdir "${LOCK_FILE}"' EXIT
 
-# Skip if already ran today (same calendar date).
+# Skip if already ran today (local date of the state file's mtime).
 today="$(date +%Y-%m-%d)"
-last_run_date="$(cat "${STATE_FILE}" 2>/dev/null || true)"
-if [ "${last_run_date}" = "${today}" ]; then
+if [ -f "${STATE_FILE}" ] && [ "$(date -r "${STATE_FILE}" +%Y-%m-%d)" = "${today}" ]; then
   exit 0
 fi
 
-# Sessions since last run (or last 3 days on first run).
-if [ -n "${last_run_date:-}" ] && [[ "${last_run_date}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-  since_date="${last_run_date}"
+# State holds the UTC start time of the last successful run, the same clock as diary
+# timestamps. Diaries landing after it (the ending session's diary is written in the
+# background) are picked up next run. A bare date from an older state file also compares fine.
+run_start="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+last_run="$(cat "${STATE_FILE}" 2>/dev/null || true)"
+if [[ "${last_run}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9:.]+Z)?$ ]]; then
+  since="${last_run}"
 else
-  since_date="$(date -v-3d +%Y-%m-%d 2>/dev/null || date -d '3 days ago' +%Y-%m-%d)"
+  since="$(date -u -v-3d +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -d '3 days ago' +%Y-%m-%dT%H:%M:%SZ)"
 fi
 
 # No raw transcript mirror, even if the launcher bypassed zshenv (the prompt may call cass export).
 export CASS_RAW_MIRROR=0
 
-# Diaries written since the last run. Cap at the 30 with most accomplishments so one run
-# fits a single context. shortcut: diary timestamp is generation time, not session time.
+# Diaries written since the last run. Cap at the 30 with the most content so one run fits a
+# single context. Per-file parse so one truncated diary does not drop the rest.
+# shortcut: diary timestamp is generation time, not session time.
 recent_sessions="$(
-  jq -s --arg since "${since_date}" '[.[]
-      | select(.timestamp >= $since)
-      | select(.sessionPath | contains("/subagents/") | not)
-      | select((.accomplishments | length) > 0)
-      | {sessionPath, workspace, timestamp, accomplishments, decisions, challenges, keyLearnings}]
-    | sort_by(-(.accomplishments | length)) | .[:30] | select(length > 0)' \
-    "${DIARY_DIR}"/diary-*.json 2>/dev/null || true
-)"
+  for f in "${DIARY_DIR}"/diary-*.json; do jq -c . "${f}" 2>/dev/null || true; done |
+    jq -s --arg since "${since}" '[.[]
+        | select(.timestamp >= $since)
+        | select(.sessionPath | contains("/subagents/") | not)
+        | select(((.accomplishments // []) + (.decisions // []) + (.challenges // []) + (.keyLearnings // [])) | length > 0)
+        | {sessionPath, workspace, timestamp, accomplishments, decisions, challenges, keyLearnings}]
+      | sort_by(-(((.accomplishments // []) + (.keyLearnings // []) + (.challenges // [])) | length)) | .[:30] | select(length > 0)'
+)" || exit 0
 
-# Nothing to distill: record the day so later sessions skip the check.
+# Nothing to distill: record the run so later sessions today skip the check.
 if [ -z "${recent_sessions}" ]; then
-  date +%Y-%m-%d >"${STATE_FILE}"
+  printf '%s\n' "${run_start}" >"${STATE_FILE}"
   exit 0
 fi
 
@@ -78,7 +82,7 @@ if printf '%s' "${prompt}" | claude -p \
   --append-system-prompt-file "${PROMPT_FILE}" \
   --add-dir "${WIKI_DIR}" \
   >>"${LOG_FILE}" 2>&1; then
-  date +%Y-%m-%d >"${STATE_FILE}"
+  printf '%s\n' "${run_start}" >"${STATE_FILE}"
 else
   printf '%s okf-wiki-maintenance failed (exit %s)\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$?" >>"${LOG_FILE}"
 fi

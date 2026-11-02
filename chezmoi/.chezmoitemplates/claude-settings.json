@@ -73,7 +73,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/opt/homebrew/bin/cm hook session-end"
+            "command": "cm hook session-end"
           }
         ]
       }
