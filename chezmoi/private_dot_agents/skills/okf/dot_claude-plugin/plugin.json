@@ -1,6 +1,6 @@
 {
   "name": "okf",
-  "description": "OKF skill + wiki maintenance from cass session transcripts",
+  "description": "OKF skill + wiki maintenance from cass-memory session diaries",
   "skills": "./",
   "hooks": {
     "SessionStart": [
