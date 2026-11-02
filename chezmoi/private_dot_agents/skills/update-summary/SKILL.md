@@ -60,12 +60,22 @@ For ranges ≤ 7 days, process in a single pass.
          | {path, workspace, agent, title, modified, message_count}]'
    ```
 
-   `title` is only the first prompt, so read content to get intent. Per session, delegate to a
-   haiku subagent: `cass export <path> --format text` and return the concrete tasks done, key
-   decisions, and the PR/MR/commit references, nothing else. Skip sessions with no changes
-   (exploration only). Group by `workspace` during synthesis. Launch subagents in batches of at
-   most 10; if more than 40 sessions match, process the 40 with the highest `message_count` and
-   note the rest as skipped.
+   `title` is only the first prompt, so read the cass-memory diary to get intent. The
+   `cm hook session-end` SessionEnd hook saves one per session to
+   `~/.local/share/cass-memory/diary/diary-*.json`. Per session, look it up by `sessionPath`
+   and use it only if it is not older than the session's `modified`:
+
+   ```sh
+   jq -c --arg p "<path>" --arg m "<modified>" \
+     'select(.sessionPath == $p and .timestamp >= $m)
+      | {accomplishments, decisions}' ~/.local/share/cass-memory/diary/diary-*.json
+   ```
+
+   No match (session predates the hook, or was resumed since): run
+   `cm diary "<path>" --save --json` (about 15-20 s, one LLM call) and read the same fields.
+   Run these in batches of at most 10 in parallel; if more than 40 sessions need a fresh
+   diary, generate 40 (highest `message_count` first) and note the rest as skipped. Skip
+   sessions with no changes (exploration only). Group by `workspace` during synthesis.
 
    If `sessions` is empty, note "No cass sessions found for `<range>`" and continue.
 
