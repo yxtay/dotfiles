@@ -37,16 +37,24 @@ else
   since_date="$(date -v-3d +%Y-%m-%d 2>/dev/null || date -d '3 days ago' +%Y-%m-%d)"
 fi
 
+# No raw transcript mirror, even if the launcher bypassed zshenv.
+export CASS_RAW_MIRROR=0
+
 # Incremental refresh; a failed index just means we work from the previous one.
 cass index --json --no-progress-events >/dev/null 2>&1 || true
 
+# Cap at the 30 largest sessions so one run fits a single context.
 recent_sessions="$(
   cass sessions --since "${since_date}" --limit 200 --json 2>/dev/null |
-    jq '[.sessions[] | select(.path | contains("/subagents/") | not) | select(.human_turns > 1) | {path, workspace, title, modified}] | select(length > 0)' \
+    jq '[.sessions[] | select(.path | contains("/subagents/") | not) | select(.human_turns > 1) | {path, workspace, title, modified, message_count}] | sort_by(-.message_count) | .[:30] | select(length > 0)' \
       2>/dev/null || true
 )"
 
-[ -n "${recent_sessions}" ] || exit 0
+# Nothing to distill: record the day so later sessions skip the index refresh.
+if [ -z "${recent_sessions}" ]; then
+  date +%Y-%m-%d >"${STATE_FILE}"
+  exit 0
+fi
 
 # hook runs with async:true — Claude Code does not block on this script.
 prompt="$(

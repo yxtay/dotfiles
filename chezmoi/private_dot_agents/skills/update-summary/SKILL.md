@@ -40,7 +40,7 @@ For ranges ≤ 7 days, process in a single pass.
    `end   = <end-date>T23:59:59<offset>` converted to UTC
    Use these UTC values in all subsequent queries.
 
-2. **Refresh cass index** (`dangerouslyDisableSandbox: true` — cass writes outside the sandbox):
+2. **Refresh cass index**:
 
    ```sh
    cass index --json --no-progress-events >/dev/null
@@ -49,13 +49,13 @@ For ranges ≤ 7 days, process in a single pass.
    Incremental; run `cass index --full` only if `cass health --json` reports `not_initialized`.
    If cass is missing or the index fails, note "cass unavailable" and continue with steps 4–5.
 
-3. **Load sessions** (`dangerouslyDisableSandbox: true`):
+3. **Load sessions**:
 
    ```sh
    cass sessions --since "<start-date>" --limit 1000 --json \
      | jq '[.sessions[]
          | select(.path | contains("/subagents/") | not)
-         | select(.human_turns > 0)
+         | select(.human_turns > 1)
          | select(.modified >= "<start>" and .modified <= "<end>")
          | {path, workspace, agent, title, modified, message_count}]'
    ```
@@ -63,7 +63,9 @@ For ranges ≤ 7 days, process in a single pass.
    `title` is only the first prompt, so read content to get intent. Per session, delegate to a
    haiku subagent: `cass export <path> --format text` and return the concrete tasks done, key
    decisions, and the PR/MR/commit references, nothing else. Skip sessions with no changes
-   (exploration only). Group by `workspace` during synthesis.
+   (exploration only). Group by `workspace` during synthesis. Launch subagents in batches of at
+   most 10; if more than 40 sessions match, process the 40 with the highest `message_count` and
+   note the rest as skipped.
 
    If `sessions` is empty, note "No cass sessions found for `<range>`" and continue.
 
@@ -105,8 +107,9 @@ For ranges ≤ 7 days, process in a single pass.
 
 6. **Synthesize** — sessions are returned in chronological order. Group by `workspace` yourself during
    synthesis; preserve that chronological order within each group. Extract every distinct concrete
-   task or change per repo. Shell history fills gaps; narratives supply intent. MR data from step 5
-   adds concrete merge/review activity. One bullet per logical task, deduplicated across all sources.
+   task or change per repo. Shell history fills gaps; session summaries supply intent. MR data from
+   step 5 adds concrete merge/review activity. One bullet per logical task, deduplicated across all
+   sources.
 
 7. **Output** — fenced code block only. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
