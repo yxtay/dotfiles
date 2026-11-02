@@ -18,6 +18,9 @@ export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_STATE_HOME=${HOME}/.local/state
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 
+# cass: skip raw transcript mirror; source JSONL is kept by Claude Code, DB holds parsed copy
+export CASS_RAW_MIRROR=0
+
 # custom SSL certificate
 export NODE_USE_SYSTEM_CA=1
 export UV_SYSTEM_CERTS=true
