@@ -184,7 +184,6 @@ cask "intune-company-portal"
 cask "libreoffice"
 
 # personal
-brew "platformio"
-cask "wch-ch34x-usb-serial-driver"  # inkplate
+cask "wch-ch34x-usb-serial-driver"  # esp32
 
 {{- end }}
