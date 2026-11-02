@@ -65,7 +65,7 @@ Current skills:
   and workspace objects
 - `glab` — GitLab merge requests, issues, CI/CD pipelines, pipeline jobs, and repositories
 - `okf` — OKF skill + wiki maintenance hook for the `~/wiki` OKF bundle
-- `update-summary` — standup digest from agentmemory memory logs, grouped by repo;
+- `update-summary` — standup digest from cass session index, atuin and GitLab MRs, grouped by repo;
   supports date ranges and project filters
 
 ## License
