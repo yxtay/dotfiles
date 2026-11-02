@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# SessionStart/SessionEnd hook: once per calendar day, distill recent cass session
-# transcripts into the ~/wiki OKF bundle. Runs on both events so it fires whether a
-# session starts fresh or ends normally.
+# SessionStart/SessionEnd hook: once per calendar day, distill recent cass-memory
+# session diaries (written by `cm hook session-end`) into the ~/wiki OKF bundle. Runs on
+# both events so it fires whether a session starts fresh or ends normally.
 set -euo pipefail
 
 OKF_PLUGIN="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
@@ -9,13 +9,15 @@ WIKI_DIR="${OKF_WIKI_DIR:-${HOME}/wiki}"
 STATE_FILE="${WIKI_DIR}/.okf-wiki-last-run"
 LOCK_FILE="${WIKI_DIR}/.okf-wiki-maintenance.lock"
 LOG_FILE="${WIKI_DIR}/.okf-wiki-maintenance.log"
+DIARY_DIR="${CASS_MEMORY_DIR:-${HOME}/.local/share/cass-memory}/diary"
 PROMPT_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/okf-wiki-review.txt"
 
 [ -f "${PROMPT_FILE}" ] || exit 0
 [ -d "${OKF_PLUGIN}" ] || exit 0
 mkdir -p "${WIKI_DIR}"
 command -v claude &>/dev/null || exit 0
-command -v cass &>/dev/null || exit 0
+command -v jq &>/dev/null || exit 0
+[ -d "${DIARY_DIR}" ] || exit 0
 
 # Acquire exclusive lock via atomic mkdir — POSIX portable, no flock/shlock needed.
 if ! mkdir "${LOCK_FILE}" 2>/dev/null; then
@@ -23,60 +25,73 @@ if ! mkdir "${LOCK_FILE}" 2>/dev/null; then
 fi
 trap 'rmdir "${LOCK_FILE}"' EXIT
 
-# Skip if already ran today (same calendar date).
+# Skip if already ran today (local date of the state file's mtime).
 today="$(date +%Y-%m-%d)"
-last_run_date="$(cat "${STATE_FILE}" 2>/dev/null || true)"
-if [ "${last_run_date}" = "${today}" ]; then
+if [ -f "${STATE_FILE}" ] && [ "$(date -r "${STATE_FILE}" +%Y-%m-%d)" = "${today}" ]; then
   exit 0
 fi
 
-# Sessions since last run (or last 3 days on first run).
-if [ -n "${last_run_date:-}" ] && [[ "${last_run_date}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-  since_date="${last_run_date}"
+# State holds the UTC start time of the last successful run, the same clock as diary
+# timestamps. Diaries landing after it (the ending session's diary is written in the
+# background) are picked up next run. A bare date from an older state file also compares fine.
+run_start="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+last_run="$(cat "${STATE_FILE}" 2>/dev/null || true)"
+if [[ "${last_run}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9:.]+Z)?$ ]]; then
+  since="${last_run}"
 else
-  since_date="$(date -v-3d +%Y-%m-%d 2>/dev/null || date -d '3 days ago' +%Y-%m-%d)"
+  since="$(date -u -v-3d +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -d '3 days ago' +%Y-%m-%dT%H:%M:%SZ)"
 fi
 
-# No raw transcript mirror, even if the launcher bypassed zshenv.
+# No raw transcript mirror, even if the launcher bypassed zshenv (the prompt may call cass export).
 export CASS_RAW_MIRROR=0
 
-# Incremental refresh; a failed index just means we work from the previous one.
-cass index --json --no-progress-events >/dev/null 2>&1 || true
-
-# Cap at the 30 largest sessions so one run fits a single context.
+# Every diary written since the last run, oldest first. Per-file parse so one truncated diary
+# does not drop the rest. shortcut: diary timestamp is generation time, not session time.
 recent_sessions="$(
-  cass sessions --since "${since_date}" --limit 200 --json 2>/dev/null |
-    jq '[.sessions[] | select(.path | contains("/subagents/") | not) | select(.human_turns > 1) | {path, workspace, title, modified, message_count}] | sort_by(-.message_count) | .[:30] | select(length > 0)' \
-      2>/dev/null || true
-)"
+  for f in "${DIARY_DIR}"/diary-*.json; do jq -c . "${f}" 2>/dev/null || true; done |
+    jq -s --arg since "${since}" '[.[]
+        | select(.timestamp >= $since)
+        | select(.sessionPath | contains("/subagents/") | not)
+        | select(((.accomplishments // []) + (.decisions // []) + (.challenges // []) + (.keyLearnings // [])) | length > 0)
+        | {sessionPath, workspace, timestamp, status, accomplishments, decisions, challenges, keyLearnings, preferences}]
+      | sort_by(.timestamp) | select(length > 0)'
+)" || exit 0
 
-# Nothing to distill: record the day so later sessions skip the index refresh.
+# Nothing to distill: record the run so later sessions today skip the check.
 if [ -z "${recent_sessions}" ]; then
-  date +%Y-%m-%d >"${STATE_FILE}"
+  printf '%s\n' "${run_start}" >"${STATE_FILE}"
   exit 0
 fi
 
 # hook runs with async:true — Claude Code does not block on this script.
-prompt="$(
-  printf 'Wiki directory: %s\n' "${WIKI_DIR}"
-  printf 'Recent sessions (JSON):\n%s\n' "${recent_sessions}"
-)"
-if printf '%s' "${prompt}" | claude -p \
-  --bare \
-  --strict-mcp-config \
-  --no-session-persistence \
-  --model sonnet \
-  --effort low \
-  --permission-mode acceptEdits \
-  --allowed-tools "Read,Write,Edit,Glob,Grep,Bash(cass export:*)" \
-  --plugin-dir "${OKF_PLUGIN}" \
-  --exclude-dynamic-system-prompt-sections \
-  --append-system-prompt-file "${PROMPT_FILE}" \
-  --add-dir "${WIKI_DIR}" \
-  >>"${LOG_FILE}" 2>&1; then
-  date +%Y-%m-%d >"${STATE_FILE}"
-else
-  printf '%s okf-wiki-maintenance failed (exit %s)\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$?" >>"${LOG_FILE}"
+# Batches of 30 diaries keep each run within one context; state advances only if all succeed.
+ok=1
+while IFS= read -r batch; do
+  prompt="$(
+    printf 'Wiki directory: %s\n' "${WIKI_DIR}"
+    printf 'Recent session diaries (JSON):\n%s\n' "${batch}"
+  )"
+  if ! printf '%s' "${prompt}" | claude -p \
+    --bare \
+    --strict-mcp-config \
+    --no-session-persistence \
+    --model sonnet \
+    --effort low \
+    --permission-mode acceptEdits \
+    --allowed-tools "Read,Write,Edit,Glob,Grep,Bash(cass export:*)" \
+    --plugin-dir "${OKF_PLUGIN}" \
+    --exclude-dynamic-system-prompt-sections \
+    --append-system-prompt-file "${PROMPT_FILE}" \
+    --add-dir "${WIKI_DIR}" \
+    >>"${LOG_FILE}" 2>&1; then
+    ok=0
+    printf '%s okf-wiki-maintenance batch failed\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"${LOG_FILE}"
+    break
+  fi
+done < <(printf '%s' "${recent_sessions}" | jq -c '. as $a | range(0; length; 30) | $a[.:.+30]')
+
+if [ "${ok}" = 1 ]; then
+  printf '%s\n' "${run_start}" >"${STATE_FILE}"
 fi
 
 exit 0
