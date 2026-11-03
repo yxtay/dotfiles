@@ -46,7 +46,7 @@ fi
 # Extract playbook rules from recent sessions into cass-memory. Best-effort: a failure must not
 # block the wiki run. Idempotent, since cm skips sessions it already processed.
 if command -v cm &>/dev/null; then
-  cm reflect --days 2 --max-sessions 20 --json >>"${LOG_FILE}" 2>&1 ||
+  cm reflect --days 14 --max-sessions 20 --json >>"${LOG_FILE}" 2>&1 ||
     printf '%s cm reflect failed\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"${LOG_FILE}"
 fi
 

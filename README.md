@@ -65,7 +65,7 @@ Current skills:
   and workspace objects
 - `glab` — GitLab merge requests, issues, CI/CD pipelines, pipeline jobs, and repositories
 - `okf` — OKF skill + wiki maintenance hook that distils cass-memory session diaries into the
-  `~/wiki` OKF bundle and runs `cm reflect` daily to update the cass-memory playbook
+  `~/wiki` OKF bundle and runs `cm reflect` daily (14-day window) to update the cass-memory playbook
 - `update-summary` — standup digest from cass session index, cass-memory diaries, atuin and GitLab
   MRs, grouped by repo; supports date ranges and project filters. Ships as a skill-dir plugin whose
   `SessionEnd` hook runs `cm hook session-end` to save the diaries it reads
