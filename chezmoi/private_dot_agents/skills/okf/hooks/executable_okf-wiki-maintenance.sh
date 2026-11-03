@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # SessionStart/SessionEnd hook: once per calendar day, distill recent cass-memory
-# session diaries (written by `cm hook session-end`) into the ~/wiki OKF bundle. Runs on
-# both events so it fires whether a session starts fresh or ends normally.
+# session diaries (written by `cm hook session-end`) into the ~/wiki OKF bundle, and run
+# `cm reflect` to update the cass-memory playbook. Runs on both events so it fires whether
+# a session starts fresh or ends normally.
 set -euo pipefail
 
 OKF_PLUGIN="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
@@ -42,8 +43,12 @@ else
   since="$(date -u -v-3d +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -d '3 days ago' +%Y-%m-%dT%H:%M:%SZ)"
 fi
 
-# No raw transcript mirror, even if the launcher bypassed zshenv (the prompt may call cass export).
-export CASS_RAW_MIRROR=0
+# Extract playbook rules from recent sessions into cass-memory. Best-effort: a failure must not
+# block the wiki run. Idempotent, since cm skips sessions it already processed.
+if command -v cm &>/dev/null; then
+  cm reflect --days 2 --max-sessions 20 --json >>"${LOG_FILE}" 2>&1 ||
+    printf '%s cm reflect failed\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"${LOG_FILE}"
+fi
 
 # Every diary written since the last run, oldest first. Per-file parse so one truncated diary
 # does not drop the rest. shortcut: diary timestamp is generation time, not session time.
