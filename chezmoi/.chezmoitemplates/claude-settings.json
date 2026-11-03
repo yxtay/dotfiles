@@ -16,6 +16,7 @@
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "bedrock.claude-opus-5-5",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "bedrock.claude-sonnet-5-5"
   },
+  "allowManagedMcpServersOnly": true,
   "autoCompactEnabled": true,
   "autoCompactWindow": 300000,
   "autoMemoryEnabled": true,
