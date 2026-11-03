@@ -1,6 +1,6 @@
 {
   "name": "update-summary",
-  "description": "Standup digest skill + cass-memory SessionEnd hook that saves the session diary it reads",
+  "description": "Standup digest skill + SessionEnd hooks that save the cass-memory diary it reads and refresh the cass index",
   "skills": "./",
   "hooks": {
     "SessionEnd": [
@@ -9,6 +9,10 @@
           {
             "type": "command",
             "command": "cm hook session-end"
+          },
+          {
+            "type": "command",
+            "command": "nohup cass index >/dev/null 2>&1 &"
           }
         ]
       }

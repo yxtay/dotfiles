@@ -68,7 +68,8 @@ Current skills:
   `~/wiki` OKF bundle and runs `cm reflect` daily (14-day window) to update the cass-memory playbook
 - `update-summary` — standup digest from cass session index, cass-memory diaries, atuin and GitLab
   MRs, grouped by repo; supports date ranges and project filters. Ships as a skill-dir plugin whose
-  `SessionEnd` hook runs `cm hook session-end` to save the diaries it reads
+  `SessionEnd` hooks run `cm hook session-end` to save the diaries it reads and `cass index` (in the
+  background) to keep the session index fresh
 
 ## License
 
