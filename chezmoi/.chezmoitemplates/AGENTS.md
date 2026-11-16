@@ -63,6 +63,5 @@ skill for the format and bundle-maintenance conventions.
 - Work in a feature branch, not the default branch.
 - Branch naming: `<type>/<short-description>` (e.g., `feat/add-auth`, `fix/login-redirect`).
 - Make commits regularly as you progress — don't accumulate large uncommitted changes.
-- Follow [Conventional Commits](https://www.conventionalcommits.org/); for message rules see the
-  caveman-commit skill.
+- Follow [Conventional Commits](https://www.conventionalcommits.org/).
 - Push the feature branch regularly so work isn't lost.
