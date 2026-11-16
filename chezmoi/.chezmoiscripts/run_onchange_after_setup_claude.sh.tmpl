@@ -10,7 +10,6 @@ fi
 marketplaces=(
   anthropics/claude-plugins-official
   DietrichGebert/ponytail
-  JuliusBrussee/caveman
 )
 for entry in "${marketplaces[@]}"; do
   claude plugin marketplace add "${entry}"
@@ -22,7 +21,6 @@ plugins=(
   gopls-lsp@claude-plugins-official
   pyright-lsp@claude-plugins-official
   typescript-lsp@claude-plugins-official
-  caveman@caveman
   ponytail@ponytail
 )
 for entry in "${plugins[@]}"; do

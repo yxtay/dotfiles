@@ -88,7 +88,6 @@ brew "ty"
 # cloud
 brew "atlassian/homebrew-acli/acli"
 brew "awscli"
-brew "azure-cli"
 brew "databricks/tap/databricks"
 brew "oci-cli"
 
