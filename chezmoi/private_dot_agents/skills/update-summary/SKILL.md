@@ -86,7 +86,7 @@ For ranges ≤ 7 days, process in a single pass.
    permission fix) — run:
 
    ```sh
-   atuin search --after "<start>" --before "<end>" \
+   ATUIN_SESSION=$(atuin uuid) atuin search --after "<start>" --before "<end>" \
      --format "{time} {directory} {command}" --limit 5000 2>/dev/null
    ```
 
