@@ -32,22 +32,17 @@
       "minimumReleaseAge": "90 days"
     },
     {
+      "groupName": "java",
+      "matchDepNames": ["java"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
       "automerge": false,
       "groupName": "python",
       "matchPackageNames": ["python"],
       "matchUpdateTypes": ["major", "minor"],
       "minimumReleaseAge": "90 days"
-    },
-    {
-      "groupName": "java",
-      "matchPackageNames": ["java"],
-      "enabled": false
-    },
-    {
-      "matchPackageNames": ["java"],
-      "matchUpdateTypes": ["minor"],
-      "enabled": true,
-      "minimumReleaseAge": "7 days"
     },
     {
       "matchDepNames": ["gitleaks/gitleaks"],
