@@ -24,13 +24,19 @@
   "pre-commit": {
     "enabled": true
   },
+  "minimumReleaseAge": "7 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
   "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "minimumReleaseAge": "90 days"
+    },
     {
       "automerge": false,
       "groupName": "python",
       "matchPackageNames": ["python"],
       "matchUpdateTypes": ["major", "minor"],
-      "minimumReleaseAge": "7 days"
+      "minimumReleaseAge": "90 days"
     },
     {
       "groupName": "java",
@@ -45,8 +51,7 @@
     },
     {
       "matchDepNames": ["gitleaks/gitleaks"],
-      "allowedVersions": ">8.30.1",
-      "minimumReleaseAge": "7 days"
+      "allowedVersions": ">8.30.1"
     }
   ]
 }
