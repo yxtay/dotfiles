@@ -6,6 +6,10 @@ if command -v docker >/dev/null; then docker buildx prune --all --force || true;
 if command -v mise >/dev/null; then mise cache prune; fi
 if command -v npm >/dev/null; then npm cache clean --force; fi
 if command -v podman >/dev/null; then podman system prune --all --force; fi
+# zimfw is a zsh function, so run it via its script; removes modules no longer in .zimrc
+if command -v zsh >/dev/null && [[ -e "${XDG_CONFIG_HOME:-$HOME}/zim/zimfw.zsh" ]]; then
+  zsh -c 'source "${XDG_CONFIG_HOME:-$HOME}/zim/zimfw.zsh" "$@"' _ uninstall -q
+fi
 
 if command -v uv >/dev/null; then
   uvx --from huggingface_hub hf cache ls --filter "accessed>30d" --quiet | xargs -I {} uvx --from huggingface_hub hf cache rm --yes "{}"
