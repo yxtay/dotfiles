@@ -7,7 +7,7 @@ Personal macOS and Linux shell setup managed with [chezmoi](https://chezmoi.io/)
 
 - `chezmoi/`: templated dotfiles for shell and tool config (zsh, git, helix, wezterm, bat, etc.)
 - `plugins/`: personal Claude Code plugins — a local marketplace installed via `chezmoi apply`
-- `bin/`: convenience maintenance scripts (`update-all.sh`, `cleanup-all.sh`)
+- `bin/`: convenience maintenance scripts (`update-all.zsh`, `cleanup-all.zsh`)
 
 ## Apply directly from repo
 
@@ -48,10 +48,10 @@ pre-commit install
 
 ```bash
 # Refresh dotfiles (requires `gh auth login`)
-./bin/update-all.sh
+./bin/update-all.zsh
 
 # Clean caches and old artifacts
-./bin/cleanup-all.sh
+./bin/cleanup-all.zsh
 ```
 
 ## Agent skills
