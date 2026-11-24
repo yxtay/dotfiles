@@ -126,6 +126,9 @@ For ranges ≤ 7 days, process in a single pass.
 
 7. **Output** — fenced code block only. One bullet per task ≤12 words.
    Nest sub-tasks one level deep only when genuinely distinct. Skip exploration-only sessions.
+   Terminals don't wrap lines inside a code fence, so long lines get clipped. Aim for lines of
+   about 90 characters or fewer, indent included (a guideline, not a hard limit). When asked for
+   more detail, add sub-bullets rather than lengthening a bullet.
    Aggregate all tasks across the entire date range — do not split or label by date.
    Apply `--project` filter: drop repos whose path doesn't contain the pattern;
    omit `Other` when filter is active.
