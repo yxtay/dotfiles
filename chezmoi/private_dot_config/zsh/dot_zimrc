@@ -97,6 +97,7 @@ comps=(
   kubectl "kubectl completion zsh"
   limactl "limactl completion zsh"
   mise "mise completion zsh"
+  opencode "opencode --completions zsh"
   pip "pip completion --zsh"
   pnpm "pnpm completion zsh"
   procs "procs --gen-completion-out zsh"
@@ -120,7 +121,6 @@ evals=(
   fzf "fzf --zsh"
   gt "gt autocomplete script zsh"
   mise "mise activate zsh"
-  opencode "opencode completion"
   pay-respects "pay-respects zsh --alias"
   zoxide "zoxide init zsh"
 )
