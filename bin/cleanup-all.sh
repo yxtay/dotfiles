@@ -7,8 +7,9 @@ if command -v mise >/dev/null; then mise cache prune; fi
 if command -v npm >/dev/null; then npm cache clean --force; fi
 if command -v podman >/dev/null; then podman system prune --all --force; fi
 # zimfw is a zsh function, so run it via its script; removes modules no longer in .zimrc
-if command -v zsh >/dev/null && [[ -e "${XDG_CONFIG_HOME:-$HOME}/zim/zimfw.zsh" ]]; then
-  zsh -c 'source "${XDG_CONFIG_HOME:-$HOME}/zim/zimfw.zsh" "$@"' _ uninstall -q
+zim_home="${XDG_CONFIG_HOME:-$HOME}/zim"
+if command -v zsh >/dev/null && [[ -e "${zim_home}/zimfw.zsh" ]]; then
+  ZIM_HOME="${zim_home}" zsh -c 'source "$ZIM_HOME/zimfw.zsh" "$@"' _ uninstall -q
 fi
 
 if command -v uv >/dev/null; then
