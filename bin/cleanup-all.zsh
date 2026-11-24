@@ -1,16 +1,16 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -euxo pipefail
+
+# zimfw is a function loaded by zim's init.zsh, which scripts don't source
+export ZIM_HOME="${XDG_CONFIG_HOME:-$HOME}/zim"
+zimfw() { source "${ZIM_HOME}/zimfw.zsh" "$@"; }
 
 if command -v colima >/dev/null; then colima prune --all --force || true; fi
 if command -v docker >/dev/null; then docker buildx prune --all --force || true; fi
 if command -v mise >/dev/null; then mise cache prune; fi
 if command -v npm >/dev/null; then npm cache clean --force; fi
 if command -v podman >/dev/null; then podman system prune --all --force; fi
-# zimfw is a zsh function, so run it via its script; removes modules no longer in .zimrc
-zim_home="${XDG_CONFIG_HOME:-$HOME}/zim"
-if command -v zsh >/dev/null && [[ -e "${zim_home}/zimfw.zsh" ]]; then
-  ZIM_HOME="${zim_home}" zsh -c 'source "$ZIM_HOME/zimfw.zsh" "$@"' _ uninstall -q
-fi
+if [[ -e "${ZIM_HOME}/zimfw.zsh" ]]; then zimfw uninstall -q; fi
 
 if command -v uv >/dev/null; then
   uvx --from huggingface_hub hf cache ls --filter "accessed>30d" --quiet | xargs -I {} uvx --from huggingface_hub hf cache rm --yes "{}"
