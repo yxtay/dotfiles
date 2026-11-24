@@ -10,7 +10,7 @@ if command -v docker >/dev/null; then docker buildx prune --all --force || true;
 if command -v mise >/dev/null; then mise cache prune; fi
 if command -v npm >/dev/null; then npm cache clean --force; fi
 if command -v podman >/dev/null; then podman system prune --all --force; fi
-if [[ -e "${ZIM_HOME}/zimfw.zsh" ]]; then zimfw uninstall -q; fi
+if [[ -e "${ZIM_HOME}/zimfw.zsh" ]]; then zimfw clean; fi
 
 if command -v uv >/dev/null; then
   uvx --from huggingface_hub hf cache ls --filter "accessed>30d" --quiet | xargs -I {} uvx --from huggingface_hub hf cache rm --yes "{}"
