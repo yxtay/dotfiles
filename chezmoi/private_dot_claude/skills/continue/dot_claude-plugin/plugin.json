@@ -9,7 +9,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/inject-previous-transcript.sh"
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/inject-previous-transcript.sh",
+            "timeout": 10
           }
         ]
       }
@@ -20,7 +21,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/record-cleared-transcript.sh"
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/record-cleared-transcript.sh",
+            "timeout": 10
           }
         ]
       }

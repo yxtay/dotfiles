@@ -8,20 +8,21 @@ set -euo pipefail
 command -v jq &>/dev/null || exit 0
 
 STATE_DIR="${XDG_STATE_HOME:-${HOME}/.local/state}/claude-clear-continue"
-MAX_AGE_SECONDS=60
 
 input="$(cat)"
 cwd="$(jq -r '.cwd // empty' <<<"${input}")"
 transcript="$(jq -r '.transcript_path // empty' <<<"${input}")"
 [ -n "${cwd}" ] && [ -n "${transcript}" ] || exit 0
-state_file="${STATE_DIR}/$(printf '%s' "${cwd}" | shasum | cut -d' ' -f1)"
+source="$(jq -r '.source // empty' <<<"${input}")"
+state_file="${STATE_DIR}/${cwd//[^[:alnum:]]/-}"
 
 previous=""
-if [ -f "${state_file}" ]; then
-  age=$(($(date +%s) - $(stat -f %m "${state_file}" 2>/dev/null || stat -c %Y "${state_file}")))
+# A record is only meant for /clear, so a startup leaves it for expiry.
+if [ "${source}" = clear ] && [ -f "${state_file}" ]; then
   candidate="$(cat "${state_file}")"
+  fresh="$(find "${state_file}" -mmin -1)" # less than a minute old
   rm -f "${state_file}"
-  if [ "${age}" -le "${MAX_AGE_SECONDS}" ] && [ -f "${candidate}" ]; then
+  if [ -n "${fresh}" ] && [ -f "${candidate}" ]; then
     previous="${candidate}"
     label="The session just cleared with /clear"
   fi

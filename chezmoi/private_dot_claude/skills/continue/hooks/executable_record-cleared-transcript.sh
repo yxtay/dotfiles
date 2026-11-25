@@ -12,4 +12,4 @@ transcript="$(jq -r '.transcript_path // empty' <<<"${input}")"
 [ -n "${cwd}" ] && [ -n "${transcript}" ] || exit 0
 
 mkdir -p "${STATE_DIR}"
-printf '%s\n' "${transcript}" >"${STATE_DIR}/$(printf '%s' "${cwd}" | shasum | cut -d' ' -f1)"
+printf '%s\n' "${transcript}" >"${STATE_DIR}/${cwd//[^[:alnum:]]/-}"
