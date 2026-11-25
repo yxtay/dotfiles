@@ -79,6 +79,11 @@ brew "hashicorp/tap/terraform"
 brew "terragrunt"
 brew "yarn"
 
+# language servers (claude lsp plugins)
+brew "gopls"
+brew "pyright"
+brew "typescript-language-server"
+
 # python
 brew "uv"
 brew "pre-commit"
