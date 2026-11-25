@@ -29,7 +29,10 @@ if [ "${source}" = clear ] && [ -f "${state_file}" ]; then
 fi
 if [ -z "${previous}" ]; then
   # Newest top-level transcript other than the current one (subagent transcripts live in subdirs).
-  previous="$(ls -t "$(dirname "${transcript}")"/*.jsonl 2>/dev/null | grep -vxF "${transcript}" | head -n 1 || true)"
+  for f in "$(dirname "${transcript}")"/*.jsonl; do
+    [ -f "${f}" ] && [ "${f}" != "${transcript}" ] || continue
+    if [ -z "${previous}" ] || [ "${f}" -nt "${previous}" ]; then previous="${f}"; fi
+  done
   label="The most recent previous session in this project"
 fi
 [ -n "${previous}" ] || exit 0
