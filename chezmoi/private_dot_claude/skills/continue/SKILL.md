@@ -21,9 +21,7 @@ message sets direction.
    leaves unclear: a file, command, error, or decision it refers to but does not show).
 4. **Fill** every gap narrowly, cheapest source first, until each is resolved or marked unknown:
    - Durable artifacts: `git log` / `git diff` / `git status`, plans, PRs, `~/wiki`.
-   - The rest of the previous transcript, beyond the tail: `rg` / `jq` the full file for the
-     specific file, command, error, or decision, or `scripts/tail-transcript.sh <path> <larger n>`
-     for more entries.
+   - The transcript itself: `jq` / `rg` for the specific file, command, error, or decision.
    - Older sessions: `cass search "<query>"`.
 5. **Report** the state with gaps filled, then ask the user to confirm the next step before acting
    when it is destructive or ambiguous.
