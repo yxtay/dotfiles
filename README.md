@@ -61,6 +61,9 @@ Personal agent skills deployed by `chezmoi apply` to `~/.agents/skills/` and sym
 Current skills:
 
 - `acli` — Jira issues, JQL searches, sprints, boards, and Confluence pages/spaces
+- `continue` — `/continue` loads the last few entries of the previous session's transcript and pulls
+  more context only where needed. Ships hooks that tell a fresh or cleared session the previous
+  transcript's path (the one just cleared with `/clear`, else the most recent in the project)
 - `databricks` — Databricks jobs, clusters, pipelines, bundles, SQL warehouses, DBFS/volumes,
   and workspace objects
 - `glab` — GitLab merge requests, issues, CI/CD pipelines, pipeline jobs, and repositories
@@ -69,9 +72,7 @@ Current skills:
 - `update-summary` — standup digest from cass session index, cass-memory diaries, atuin and GitLab
   MRs, grouped by repo; supports date ranges and project filters. Ships as a skill-dir plugin whose
   `SessionEnd` hooks run `cm hook session-end` to save the diaries it reads and `cass index` (in the
-  background) to keep the session index fresh. Also ships hooks (`SessionEnd` and
-  `SessionStart`, matcher `clear`/`startup|clear`) that tell a new session the path of the
-  transcript just cleared with `/clear`, else of the most recent previous one in the project
+  background) to keep the session index fresh
 
 ## License
 
