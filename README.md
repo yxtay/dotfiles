@@ -72,9 +72,8 @@ Current skills:
   background) to keep the session index fresh
 
 Claude Code–only skills live in `~/.claude/skills/` directly: `continue` — `/continue` loads the
-last few entries of the previous session's transcript and pulls more context only where needed.
-Its plugin hooks tell a fresh or cleared session the previous transcript's path (the one just
-cleared with `/clear`, else the most recent in the project).
+last few entries of the previous session's transcript (the project session last updated before the
+current one started) and pulls more context only where needed.
 
 ## License
 
