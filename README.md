@@ -69,9 +69,9 @@ Current skills:
 - `update-summary` — standup digest from cass session index, cass-memory diaries, atuin and GitLab
   MRs, grouped by repo; supports date ranges and project filters. Ships as a skill-dir plugin whose
   `SessionEnd` hooks run `cm hook session-end` to save the diaries it reads and `cass index` (in the
-  background) to keep the session index fresh. Also ships a `SessionStart` hook
-  (matcher `startup|clear`) that tells a fresh or cleared session the path of the most recent
-  previous transcript in the project
+  background) to keep the session index fresh. Also ships hooks (`SessionEnd` and
+  `SessionStart`, matcher `clear`/`startup|clear`) that tell a new session the path of the
+  transcript just cleared with `/clear`, else of the most recent previous one in the project
 
 ## License
 
