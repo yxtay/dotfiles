@@ -1,11 +1,11 @@
 {
   "name": "update-summary",
-  "description": "Standup digest skill + SessionEnd hooks that save the cass-memory diary it reads and refresh the cass index, and /clear hooks that point the fresh session at the cleared transcript",
+  "description": "Standup digest skill + SessionEnd hooks that save the cass-memory diary it reads and refresh the cass index, and SessionStart hooks that point a fresh or cleared session at the previous transcript",
   "skills": "./",
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "clear",
+        "matcher": "startup|clear",
         "hooks": [
           {
             "type": "command",
@@ -24,15 +24,6 @@
           {
             "type": "command",
             "command": "nohup cass index >/dev/null 2>&1 &"
-          }
-        ]
-      },
-      {
-        "matcher": "clear",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/clear-continue.sh"
           }
         ]
       }

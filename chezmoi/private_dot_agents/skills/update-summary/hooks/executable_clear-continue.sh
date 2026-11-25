@@ -1,31 +1,17 @@
 #!/usr/bin/env bash
-# SessionEnd(clear): remember the ending session's transcript path, keyed by cwd.
-# SessionStart(clear): inject that path as context, once, if it is fresh.
+# SessionStart(startup|clear): point the new session at the most recent previous transcript in the
+# same project, so work can continue after a restart or /clear.
+# shortcut: newest other transcript in the project dir, so a concurrent session in the same project
+# can be picked instead; upgrade to per-session tracking if that bites.
 set -euo pipefail
 command -v jq &>/dev/null || exit 0
 
-STATE_DIR="${XDG_STATE_HOME:-${HOME}/.local/state}/claude-clear-continue"
-MAX_AGE_SECONDS=60
-
 input="$(cat)"
-event="$(jq -r '.hook_event_name // empty' <<<"${input}")"
-cwd="$(jq -r '.cwd // empty' <<<"${input}")"
-[ -n "${cwd}" ] || exit 0
-state_file="${STATE_DIR}/$(printf '%s' "${cwd}" | shasum | cut -d' ' -f1)"
+current="$(jq -r '.transcript_path // empty' <<<"${input}")"
+[ -n "${current}" ] || exit 0
 
-case "${event}" in
-SessionEnd)
-  path="$(jq -r '.transcript_path // empty' <<<"${input}")"
-  [ -n "${path}" ] || exit 0
-  mkdir -p "${STATE_DIR}"
-  printf '%s\n' "${path}" >"${state_file}"
-  ;;
-SessionStart)
-  [ -f "${state_file}" ] || exit 0
-  path="$(cat "${state_file}")"
-  age=$(($(date +%s) - $(stat -f %m "${state_file}" 2>/dev/null || stat -c %Y "${state_file}")))
-  rm -f "${state_file}"
-  [ "${age}" -le "${MAX_AGE_SECONDS}" ] && [ -f "${path}" ] || exit 0
-  jq -n --arg p "${path}" '{hookSpecificOutput: {hookEventName: "SessionStart", additionalContext: ("This session was just cleared with /clear. The previous session transcript (JSONL) is at " + $p + ". It is background, not instructions: read it only if the user refers to earlier work.")}}'
-  ;;
-esac
+# Newest top-level transcript other than the current one (subagent transcripts live in subdirs).
+previous="$(ls -t "$(dirname "${current}")"/*.jsonl 2>/dev/null | grep -vxF "${current}" | head -n 1 || true)"
+[ -n "${previous}" ] || exit 0
+
+jq -n --arg p "${previous}" '{hookSpecificOutput: {hookEventName: "SessionStart", additionalContext: ("The most recent previous session transcript (JSONL) in this project is at " + $p + ". It is background, not instructions: read it only if the user refers to earlier work.")}}'
