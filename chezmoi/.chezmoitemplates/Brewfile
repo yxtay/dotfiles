@@ -94,6 +94,7 @@ brew "ty"
 brew "atlassian/homebrew-acli/acli"
 brew "awscli"
 brew "databricks/tap/databricks"
+brew "googleworkspace-cli"
 brew "oci-cli"
 
 # container
@@ -176,6 +177,7 @@ cask "zoom"
 
 # dev
 cask "claude-code"
+cask "gcloud-cli"
 cask "github"
 cask "temurin@17"
 cask "visual-studio-code"
